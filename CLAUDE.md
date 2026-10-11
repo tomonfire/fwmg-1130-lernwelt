@@ -11,4 +11,5 @@ Code liegt ausschließlich in `app/`; `docs/`, `scripts/` und `.github/` erklär
 - localStorage-Schlüssel nie umbenennen, sonst geht der Lernstand der Nutzer verloren: `zf4tt.state.v1`, `zf4tt.local.v1`, `lernkompass-tagestraining-v1`, `lernkompass-tagestraining-session`, `bt-fwdv3`, `lzf.last.v1`.
 - Nach Änderungen an App-Dateien `VERSION` in `app/sw.js` erhöhen und `npm run check` ausführen.
 - Farben als Tokens, Hell/Dunkel über `prefers-color-scheme` und `[data-theme]`.
+- Öffentlicher Betrieb: keine Dateien von fremden Servern laden (Schriften liegen in `app/fonts/`), `noindex`/`no-referrer`/CSP-Meta in allen vier HTML-Dateien behalten, die Adresse der App nirgends im Repository verlinken. `npm run check` prüft das.
 - Mobile zuerst (iPhone): Safe-Area-Abstände beachten, mitscrollende Leisten brauchen den Abdeckstreifen (`::before`).

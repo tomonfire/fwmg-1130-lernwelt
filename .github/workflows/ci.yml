@@ -8,21 +8,34 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
+    name: Dateien und Regeln
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Dateien und Manifest prüfen
+      - name: Dateien, Manifest, Impressum, noindex, keine fremden Server, JavaScript-Syntax
         run: npm run check
-      - name: Impressum in allen Dateien vorhanden
-        run: |
-          for f in app/index.html app/apps/*.html; do
-            grep -q 'keine offizielle App der Feuerwehr' "$f" || { echo "Impressum fehlt in $f"; exit 1; }
-            grep -q 'KI-Hinweis' "$f" || { echo "KI-Hinweis fehlt in $f"; exit 1; }
-          done
-      - name: JavaScript-Syntax der Dateien prüfen
-        run: node scripts/syntax.mjs
+
+  browser:
+    name: Browser-Test
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Chromium installieren
+        run: npx playwright install --with-deps chromium
+      - name: Startseite, Trainer, Offline-Betrieb
+        run: npm run test:browser

@@ -5,8 +5,9 @@ Reihenfolge ist ein Vorschlag, nach Nutzen und Aufwand.
 ## Als Nächstes
 - [ ] **Lernstand sichern:** Export und Import als Datei, damit er beim Gerätewechsel nicht verloren geht.
 - [ ] **Fragen auslagern:** Fragen aus den HTML-Dateien in JSON-Dateien (`app/data/`), Pflege ohne Code.
-- [ ] **Automatische Browser-Tests:** Dashboard, Direkteinstieg, Prüfungsablauf (Playwright) in der CI.
-- [ ] **Branch-Schutz** für `main` aktivieren (GitHub Pro oder öffentliches Repository).
+- [x] **Automatische Browser-Tests:** Startseite, Trainer, Offline-Betrieb (Playwright) in der CI.
+- [ ] Browser-Tests erweitern: Direkteinstieg in die Tabs, Prüfungsablauf, Lernstand bleibt nach Update erhalten.
+- [ ] **Branch-Schutz** für `main` aktivieren (öffentliches Repository, siehe [REPOSITORY.md](REPOSITORY.md)).
 
 ## Danach
 - [ ] Lizenz und Rechte an den Fragen klären (Lernkompass IdF NRW).

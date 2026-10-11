@@ -25,6 +25,7 @@ Erstellt von Tom Wolff, Freiwillige Feuerwehr Mönchengladbach, Einheit Stadtmit
 - [Projektbeschreibung](docs/PROJEKTBESCHREIBUNG.md): Ziel, Zielgruppe, Funktionen, Abgrenzung
 - [Architektur](docs/ARCHITEKTUR.md)
 - [Veröffentlichung](docs/VEROEFFENTLICHUNG.md)
+- [Repository-Einstellungen](docs/REPOSITORY.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Mitarbeiten](CONTRIBUTING.md), [Änderungsprotokoll](CHANGELOG.md), [Sicherheit](SECURITY.md)
 
@@ -38,8 +39,9 @@ app/                       alles, was veröffentlicht wird
   sw.js                    Service Worker (Offline-Cache)
   icons/                   App-Icons
   fonts/                   Schriften (lokal, SIL Open Font License)
+  robots.txt               sperrt Crawler (wirksam auf eigener Domain)
 docs/                      Projektbeschreibung, Architektur, Veröffentlichung, Roadmap
-scripts/                   Prüfskripte (Dateien, JavaScript-Syntax)
+scripts/                   Prüfungen (Dateien, Regeln, JavaScript-Syntax, Browser-Test)
 .github/                   CI, Veröffentlichung, Vorlagen
 CHANGELOG.md  CLAUDE.md  CONTRIBUTING.md  SECURITY.md
 ```
@@ -52,7 +54,9 @@ Die Shell öffnet jeden Trainer in einem iframe und springt über die Tabs (`Heu
 
 ```bash
 npm start        # http://localhost:8080
-npm run check    # Dateien prüfen
+npm run check          # Dateien und Regeln prüfen (ohne Installation)
+npm install            # einmalig, für den Browser-Test
+npm run test:browser   # Startseite, Trainer und Offline-Betrieb im Browser prüfen
 ```
 
 Alternativ: `python3 -m http.server 8080`. Ein Server ist nötig, weil der Service Worker nicht über `file://` läuft.
