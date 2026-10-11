@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben (iPhone als App)
+- Statusleiste als eigener Bereich (`apple-mobile-web-app-status-bar-style` „default“ statt „black-translucent“). Inhalte liegen nicht mehr unter Uhrzeit und Dynamic Island, der leere Abstand unter der Leiste und die Fläche, die erst beim Herunterscrollen erschien, entfallen. Die Höhenkorrektur `--app-h` aus v24 ist damit überflüssig und entfernt. Service-Worker `VERSION` auf v25.
+
 ### Behoben
 - Befehlscoach: Kopf jetzt wie im Gruppen- und Zugführer-Coach, mit taktischem Zeichen der gewählten Rolle (ohne Rolle die Flamme), Zeile „Führungsausbildung · FwDV 3 · Rolle“, Titel in gleicher Größe, Datum und Versionsfeld (V2.00). Service-Worker `VERSION` auf v23.
 - iPhone: Die blaue Leiste mit „←“ und den Coaches reicht jetzt bis unter Uhrzeit und Akku (vorher grauer Streifen). Als App auf dem Home-Bildschirm füllen Coaches und Startseite den ganzen Bildschirm; vorher blieb unten ein leerer Streifen, weil iOS die Höhe zu klein meldet. Service-Worker `VERSION` auf v24.

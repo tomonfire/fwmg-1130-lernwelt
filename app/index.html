@@ -2,13 +2,13 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-f9cwGCBT19JfPPKzkgHk6EsFzp8TgIu0JX1mQfNkv38=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-thxioqv4pSlS7L7ONPlt4Fwz6UYKRcC0rJ6AVl4EkMs=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FwMG Lernwelt">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -118,8 +118,6 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 /* Lernmodul */
 #mod{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--bg);
   padding-bottom:env(safe-area-inset-bottom,0px)}
-/* iPhone als App: iOS meldet für fixierte Ebenen teils eine zu kleine Höhe, unten bliebe ein leerer Streifen. --app-h setzt das Skript auf die volle Bildschirmhöhe. */
-#mod,#welcome{height:var(--app-h)}
 #mod[hidden]{display:none}
 .bar-top{flex:none;display:flex;align-items:center;gap:8px;padding:calc(6px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right)) 6px max(10px,env(safe-area-inset-left));background:var(--blue);color:var(--on-blue);border-bottom:4px solid var(--accent)}
 .home{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;background:transparent;border:2px solid var(--on-blue);border-radius:4px;color:var(--on-blue);font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
@@ -404,16 +402,6 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   function pillsRender(){
     $('pills').innerHTML=MODS.map(function(m){return '<button class="pill" type="button" data-switch="'+m.id+'"'+(current===m.id?' aria-current="true"':'')+'>'+esc(m.short)+'</button>'}).join('');
   }
-  /* Als App auf dem Home-Bildschirm füllt die Lernwelt den ganzen Bildschirm; iOS liefert für fixierte Ebenen aber teils eine zu kleine Höhe. */
-  function fitApp(){
-    var standalone=window.navigator.standalone===true||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches);
-    var h=0,s=window.screen||{};
-    if(standalone){h=window.innerWidth===s.width?s.height:(window.innerWidth===s.height?s.width:0)}
-    h=Math.max(h||0,window.innerHeight);
-    if(standalone&&h)document.documentElement.style.setProperty('--app-h',h+'px');
-    else document.documentElement.style.removeProperty('--app-h');
-  }
-  fitApp();window.addEventListener('resize',fitApp);window.addEventListener('orientationchange',function(){setTimeout(fitApp,300)});
   function show(view){
     if(!userName)view='welcome';
     $('welcome').hidden=view!=='welcome';
