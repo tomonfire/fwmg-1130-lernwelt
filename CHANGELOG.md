@@ -4,6 +4,13 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (Design-Review)
+- Leiste oben mit eigenen Tokens `--bar`/`--on-bar`: im Dunkelmodus dunkles Marineblau statt hellblau.
+- Startseite: Die drei Coaches sind antippbar und öffnen den Coach direkt (ohne Namen geht der Fokus aufs Namensfeld).
+- Übersicht: Nur der zuletzt genutzte Coach hat den roten Knopf. Befehlscoach-Karte mit Fortschritt (Übungen von 13). Link „Startseite“ oben rechts entfernt.
+- Gruppen- und Zugführer: „Was heißt gemeistert?“ zum Aufklappen. „Vergleich zum Vortag“ erst, wenn es etwas zu vergleichen gibt.
+- Befehlscoach-Auswertung: „Zurücksetzen“ nur bei vorhandenen Ergebnissen, zugeklappt und nur mit passenden Knöpfen. Service-Worker `VERSION` auf v33.
+
 ### Behoben (Code-Review)
 - Tastatur: Enter auf einer per Tab angesteuerten Antwort hakt sie an, statt die Frage sofort zu prüfen. Nach einem Klick auf eine Antwort prüft Enter weiter.
 - Einsprechen: Teile mit Leerzeichen verbunden, doppelte Teile (Android) entfernt, Tippen während der Aufnahme beendet sie (die Korrektur bleibt). Eine noch laufende Erkennung wird vor einem Neustart beendet.

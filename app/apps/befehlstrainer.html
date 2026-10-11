@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6Mmr0SBJ4uP7Hk3LqbPK2usMO+qDQ2dIGrHu1krIDPA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-InFvkoNNVxhZk0tl/I0WZltraIDHHFg1/lcaKoRnvvI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../coach.css">
@@ -152,6 +152,11 @@ textarea.speech::placeholder { color: var(--muted); }
   .kdl > div { grid-template-columns: 16rem minmax(0, 1fr); gap: 1rem; }
 }
 .sec { display: flex; flex-direction: column; gap: 12px; }
+details.reset summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px; }
+details.reset summary::-webkit-details-marker { display: none; }
+details.reset summary::after { content: '›'; font: 600 26px/1 var(--f-display); color: var(--muted); transition: transform .2s; }
+details.reset[open] summary::after { transform: rotate(90deg); }
+details.reset[open] { gap: 12px; }
 .quizq { font-weight: 600; font-size: 20px; line-height: 1.35; overflow-wrap: anywhere; }
 .coach { white-space: pre-wrap; }
 .rolebar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
@@ -1142,14 +1147,19 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       if (qh.length) h += '<div class="sec"><h2>Quiz</h2><p>' + qh.length + (qh.length === 1 ? ' Runde' : ' Runden') + ', Durchschnitt ' + avgQ + ' von 10, Bestwert ' + store.quiz + ' von 10.</p></div>';
     }
 
-    h += '<div class="sec"><h2>Zurücksetzen</h2><p class="lead">Löscht gespeicherte Ergebnisse in diesem Browser. Das lässt sich nicht rückgängig machen.</p>';
+    /* Zurücksetzen nur, wenn es etwas zu löschen gibt, und zugeklappt, damit es nicht mit den Ergebnissen konkurriert. */
+    var hasU = hist.length || Object.keys(store.sc || {}).length, hasQ = qh.length || store.quiz;
+    if (!hasU && !hasQ) return h + '</div>';
+    h += '<details class="sec reset"' + (S.confirm ? ' open' : '') + '><summary><h2>Zurücksetzen</h2></summary><p class="lead">Löscht gespeicherte Ergebnisse in diesem Browser. Das lässt sich nicht rückgängig machen.</p>';
     if (S.confirm) {
       var what = { ueben: 'alle Übungsergebnisse', quiz: 'alle Quiz-Ergebnisse', all: 'alle Ergebnisse aus Übungen und Quiz' }[S.confirm];
       h += '<div class="note conf" id="rs"><span class="label">Sicher?</span><p>Du löschst ' + what + '.</p><div class="actions"><button type="button" class="btn" data-act="doreset">Ja, zurücksetzen</button><button type="button" class="btn ghost" data-act="cancelreset">Abbrechen</button></div></div>';
     } else {
-      h += '<div class="actions"><button type="button" class="btn ghost" data-act="askreset" data-w="ueben">Übungen zurücksetzen</button><button type="button" class="btn ghost" data-act="askreset" data-w="quiz">Quiz zurücksetzen</button><button type="button" class="btn ghost" data-act="askreset" data-w="all">Alles zurücksetzen</button></div>';
+      h += '<div class="actions">' + (hasU ? '<button type="button" class="btn ghost" data-act="askreset" data-w="ueben">Übungen zurücksetzen</button>' : '') +
+        (hasQ ? '<button type="button" class="btn ghost" data-act="askreset" data-w="quiz">Quiz zurücksetzen</button>' : '') +
+        (hasU && hasQ ? '<button type="button" class="btn ghost" data-act="askreset" data-w="all">Alles zurücksetzen</button>' : '') + '</div>';
     }
-    return h + '</div>';
+    return h + '</details></div>';
   }
 
   /* ---------- Rendering ---------- */

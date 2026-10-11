@@ -27,5 +27,12 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 - **Ganzer Bildschirm.** Die Leiste oben überlappt nicht mehr mit Uhrzeit und Dynamic Island, unten bleibt kein leerer Streifen.
 - **Coaches in der Leiste.** Alle drei Coaches passen ohne Scrollen in die Leiste oben.
 
+### Feinschliff
+- **Dunkelmodus:** Die Leiste oben ist jetzt dunkel statt hellblau.
+- **Startseite:** Tippe direkt auf einen Coach, um ihn zu öffnen.
+- **Übersicht:** Der zuletzt genutzte Coach ist hervorgehoben, der Befehlscoach zeigt deinen Fortschritt.
+- **Weniger auf einmal:** Erklärungen zum Aufklappen, „Vergleich zum Vortag“ erst ab dem zweiten Tag, „Zurücksetzen“ zugeklappt.
+- **Tastatur und Spracheingabe:** Enter auf einer per Tab gewählten Antwort hakt sie an. Die Spracheingabe setzt Sätze sauber zusammen.
+
 ### Tipp
 Für eine natürlichere Stimme beim Vorlesen: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch, dort eine Premium- oder erweiterte Stimme laden. Der Befehlscoach nimmt sie automatisch.
