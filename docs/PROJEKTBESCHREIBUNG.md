@@ -30,7 +30,7 @@ Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge
 - Mit Unterstützung von KI erstellt; Inhalte gegen offizielle Quellen prüfen.
 
 ## Technik in Kürze
-Statische Web-App (HTML, CSS, JavaScript), kein Server, kein Build-Schritt. Lernstand nur lokal im Browser. Veröffentlichung über GitHub Pages. Details: [Architektur](ARCHITEKTUR.md).
+Statische Web-App (HTML, CSS, JavaScript), kein Server, kein Build-Schritt. Name und Lernstand nur lokal im Browser, Sicherung als Datei. Veröffentlichung über GitHub Pages. Details: [Architektur](ARCHITEKTUR.md).
 
 ## Beteiligte
 - Idee, Fachinhalt, Pflege: Tom Wolff (privat)
