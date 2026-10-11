@@ -8,16 +8,18 @@ Lern- und Trainingsapp für die Feuerwehr. Drei Trainer an einem Ort, mit Starts
 | Zugführer Tagestraining | `app/apps/zugfuehrer.html` | 369 Fragen in 4 Kapiteln, Tagesrunden, Prüfung (15 min) |
 | Befehlstrainer FwDV 3 | `app/apps/befehlstrainer.html` | Befehle nach Schema sprechen, Quiz, Schema, Auswertung |
 
-> **Hinweis:** Dies ist **keine offizielle App der Feuerwehr Mönchengladbach**. Inoffizielles Lernangebot ohne Gewähr, kein Ersatz für die offiziellen Unterlagen. Mit Unterstützung von KI (Claude) erstellt, Inhalte bitte gegen die offiziellen Quellen prüfen. Siehe „Impressum“ in der App.
+> **Hinweis:** Dies ist eine **private App** und **keine offizielle App einer Feuerwehr, Stadt oder Behörde**. Inoffizielles Lernangebot ohne Gewähr, kein Ersatz für die offiziellen Unterlagen. Mit Unterstützung von KI (Claude) erstellt, Inhalte bitte gegen die offiziellen Quellen prüfen. Siehe „Impressum“ in der App.
 
-Erstellt von Tom Wolff, Freiwillige Feuerwehr Mönchengladbach, Einheit Stadtmitte.
+Erstellt von Tom Wolff (privat).
 
 ## Eigenschaften
 
 - Installierbare Web-App (PWA): auf dem iPhone über „Teilen → Zum Home-Bildschirm“, auf Android und Desktop über „Installieren“.
 - Läuft **offline**, nachdem sie einmal geladen wurde (Service Worker).
 - Kein Server, keine Anmeldung, kein Build-Schritt: reine statische Dateien. Schriften liegen in `app/fonts/`, die App ruft keine fremden Server auf.
+- Beim ersten Start ist ein **Name Pflicht**; ohne ihn geht es nicht weiter. Er bleibt nur auf dem Gerät.
 - Der Lernstand wird **nur lokal im Browser** des Geräts gespeichert (`localStorage`). Jeder Trainer hat eigene Schlüssel.
+- **Lernstand sichern / wiederherstellen:** In der Übersicht als Datei sichern und auf einem neuen Gerät wieder einlesen. Kein Server, nur GitHub Pages.
 - Heller und dunkler Modus folgen dem Gerät.
 
 ## Dokumentation
@@ -72,13 +74,13 @@ Details in [Veröffentlichung](docs/VEROEFFENTLICHUNG.md).
 
 ## Änderungen ausliefern
 
-Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v4` …), damit installierte Geräte die neue Fassung laden.
+Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` um eins erhöhen (z. B. `fwmg-lernwelt-v5` → `fwmg-lernwelt-v6`), damit installierte Geräte die neue Fassung laden.
 
 ## Herkunft und Einschränkungen
 
 Die Apps wurden zuerst als Claude-Artefakte entwickelt. In dieser Fassung stehen deren Zusatzfunktionen nicht zur Verfügung und werden übersprungen:
 
-- **Geräteübergreifender Lernstand** (Cloud-Speicher): ohne Backend nicht vorhanden, der Lernstand liegt nur lokal.
+- **Geräteübergreifender Lernstand** (Cloud-Speicher): ohne eigenen Server nicht vorhanden. Stattdessen: Sicherungsdatei in der Übersicht. GitHub bietet keine Datenbank, in die anonyme Nutzer aus dem Browser sicher schreiben können.
 - **KI-Rückmeldung im Befehlstrainer**: ohne KI-Anbindung zeigt der Trainer die regelbasierte Auswertung. Eine eigene Anbindung (z. B. über ein Backend mit API-Schlüssel) müsste in `app/apps/befehlstrainer.html` ergänzt werden. API-Schlüssel gehören nie in den Browser-Code.
 
 Quellen der Fragen: Lernkompass des Instituts der Feuerwehr NRW, FwDV 100, FwDV 3 und weitere (jeweils in der App unter „Quellen“).

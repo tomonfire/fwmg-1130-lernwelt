@@ -5,6 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Geändert
+- Als private App gekennzeichnet: Hinweise auf Stadt, Feuerwehr und Einheit aus Impressum, Kopfzeilen, Bildbeschreibungen und Doku entfernt.
 - Projektstruktur: App-Dateien liegen gesammelt in `app/`, Dokumentation in `docs/`.
 
 - Öffentliche Veröffentlichung über GitHub Pages aus `tomonfire/fwmg-1130-lernwelt`.
@@ -12,9 +13,13 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Service Worker lädt eine neue Fassung am HTTP-Cache vorbei und speichert nur noch eigene Dateien.
 
 ### Hinzugefügt
+- Name als Pflichtfeld beim ersten Start; Gruß und Übersicht zeigen ihn. Ohne Namen geht es nicht weiter.
+- Lernstand sichern und wiederherstellen als Datei (Übersicht → „Dein Lernstand“), z. B. für den Gerätewechsel.
+- Datenschutz-Hinweis im Impressum.
 - Projektbeschreibung, Roadmap und Dokumentationsübersicht in `docs/`.
 - Hinweis „Neue Version verfügbar – Neu laden“, sobald eine neue Fassung bereitsteht.
 - Sicherheitsregeln (Content-Security-Policy) in allen HTML-Dateien, `id` im Manifest.
+- `npm run check` prüft zusätzlich: gleiches Impressum in allen Dateien, keine Stadt im Text, keine Verbindungen zu fremden Servern.
 - Browser-Test mit Playwright (`npm run test:browser`) in der CI; `npm run check` prüft zusätzlich noindex, CSP, Impressum und fremde Server.
 - Repository-Grundgerüst: `.gitignore`, CODEOWNERS, Dependabot für npm, Prüfung vor jeder Veröffentlichung, Anleitung für die GitHub-Einstellungen (`docs/REPOSITORY.md`).
 - Schutz vor Suchmaschinen: `noindex,nofollow,noarchive,nosnippet,noimageindex`, `no-referrer` und `robots.txt`; Adresse wird in der Doku nicht verlinkt.
@@ -25,7 +30,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Startseite und Dashboard mit Direkteinstieg in die Trainer.
 - Gruppenführer Tagestraining (408 Fragen), Zugführer Tagestraining (369 Fragen), Befehlstrainer FwDV 3.
 - Installierbare Web-App mit Offline-Betrieb (Service Worker, Manifest, Icons).
-- Impressum mit Hinweis „keine offizielle App der Feuerwehr Mönchengladbach“, Haftungsausschluss und KI-Hinweis.
+- Impressum mit Hinweis „keine offizielle App“, Haftungsausschluss und KI-Hinweis.
 - Einheitliche Farblogik: grün richtig, rot falsch, orange übersehen / fehlt / nicht beantwortet.
 - Veröffentlichung über GitHub Pages, CI-Prüfung.
 
