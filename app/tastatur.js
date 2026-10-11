@@ -1,4 +1,5 @@
-/* Tastatur für Coaches am Computer: Ziffern 1–9 wählen eine Antwort, Enter löst den Hauptknopf der Leiste unten aus (Prüfen, Weiter).
+/* Tastatur für Coaches am Computer: Ziffern 1–9 wählen eine Antwort, Enter löst den Hauptknopf der Leiste unten aus (Prüfen, Weiter),
+   solange kein Knopf den Fokus hat.
    Gilt nur, wenn alle Antworten in einer Gruppe stehen und kein Eingabefeld und kein Willkommensfenster offen ist.
    Der Hauptknopf steht im Skript-Tag: data-primary=".btn.primary". */
 (function () {
@@ -10,6 +11,11 @@
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return true;
     return !!document.querySelector('.wl:not([hidden]), #overlay:not(:empty)');
   }
+
+  /* Kam der Fokus zuletzt per Maus/Finger oder per Tab? */
+  var viaPointer = false;
+  document.addEventListener('pointerdown', function () { viaPointer = true; }, true);
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Tab') viaPointer = false; }, true);
 
   document.addEventListener('keydown', function (ev) {
     if (ev.defaultPrevented || ev.altKey || ev.ctrlKey || ev.metaKey || blocked(ev.target)) return;
@@ -28,8 +34,10 @@
     }
 
     if (ev.key === 'Enter' && !ev.repeat) {
-      /* Auf anderen Knöpfen und Links bleibt Enter beim Browser. */
-      if (t && t.closest && t.closest('button, a, summary') && !t.closest('.opt')) return;
+      /* Auf Knöpfen und Links bleibt Enter beim Browser. Eine per Tab angesteuerte Antwort wird damit an- oder abgehakt;
+         nach einem Klick auf eine Antwort löst Enter weiter Prüfen/Weiter aus. */
+      var el = t && t.closest ? t.closest('button, a, summary') : null;
+      if (el && (!el.closest('.opt') || !viaPointer)) return;
       var dock = document.querySelector('.actions.dock');
       var b = dock && dock.querySelector(PRIMARY + ':not([disabled])');
       if (!b) return;

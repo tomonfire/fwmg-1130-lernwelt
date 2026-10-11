@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/wIiDf+W+iQVMG5iHSFVvX4IrqqUhgge0CF37rjPp54=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-QvEdQrAU9tSes6l/X0uGcuczXhh/+uo2+LUknq6YxZc=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -551,7 +551,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     /* Erst die Trainer schließen: sie speichern beim Schließen und würden sonst den wiederhergestellten Stand überschreiben. */
     closeFrames();
     var failed=false;
-    KEYS.forEach(function(k){try{if(k in p.data)localStorage.setItem(k,p.data[k]);else if(k!==NAMEK&&k!==NEUK)localStorage.removeItem(k)}catch(e){failed=true}});
+    /* „Was ist neu“ (NEUK) gehört zum Gerät, nicht zum Lernstand: beim Wiederherstellen unverändert lassen. */
+    KEYS.forEach(function(k){if(k===NEUK)return;try{if(k in p.data)localStorage.setItem(k,p.data[k]);else if(k!==NAMEK)localStorage.removeItem(k)}catch(e){failed=true}});
     var n=cleanName(p.data[NAMEK]||p.name);if(n.length>=2)setName(n);
     renderDash();
     lsMsg(failed?'Wiederherstellen ging nur teilweise: Der Speicher im Browser ist blockiert oder voll.':'Lernstand von '+who+' wiederhergestellt.',failed);
