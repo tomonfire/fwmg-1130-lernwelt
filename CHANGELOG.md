@@ -5,7 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Hinzugefügt (Was ist neu)
-- Fenster „Was ist neu“ in der Übersicht: erscheint einmal nach einem Update, beim ersten Start nicht. Unter „Neuigkeiten“ jederzeit wieder zu öffnen. Gesehene Ausgabe unter `fwmg.neu.v1` (in Sichern/Wiederherstellen enthalten). Release Notes für Nutzer in `docs/RELEASE-NOTES.md`. Service-Worker `VERSION` auf v31.
+- Fenster „Was ist neu“: erscheint nach jedem Update mit neuer Ausgabe einmal beim Start der App (bzw. in der Übersicht), beim allerersten Start nicht. Unter „Neuigkeiten“ jederzeit wieder zu öffnen. Gesehene Ausgabe unter `fwmg.neu.v1` (in Sichern/Wiederherstellen enthalten). Release Notes für Nutzer in `docs/RELEASE-NOTES.md`. Service-Worker `VERSION` auf v31.
 
 ### Geändert (Befehlscoach V2.14)
 - Musterbefehl zeigt immer alle Elemente der Befehlsart. Nicht benötigte stehen als „entfällt“ da, z. B. Verteiler und Weg „entfällt beim Schnellangriff“.

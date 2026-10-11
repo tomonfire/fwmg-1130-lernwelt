@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-KzIpIZcG1gTnfws+BtdQTZoK00KgrbVHDCeYoM+25nw=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/wIiDf+W+iQVMG5iHSFVvX4IrqqUhgge0CF37rjPp54=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -436,7 +436,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   function pillsRender(){
     $('pills').innerHTML=MODS.map(function(m){return '<button class="pill" type="button" data-switch="'+m.id+'"'+(current===m.id?' aria-current="true"':'')+'>'+esc(m.short)+'</button>'}).join('');
   }
-  /* Was ist neu: die neueste Meldung erscheint einmal nach einem Update in der Übersicht.
+  /* Was ist neu: die neueste Meldung erscheint nach einem Update einmal, beim Start der App oder in der Übersicht.
      Neue Einträge oben anfügen und id ändern; die Release Notes stehen in docs/RELEASE-NOTES.md. */
   var NEUK='fwmg.neu.v1';
   var NEU={id:'2026-10-11',datum:'11. Oktober 2026',punkte:[
@@ -448,6 +448,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     ['iPhone','Die Lernwelt nutzt den Bildschirm besser und überlappt nicht mehr mit der Dynamic Island.']
   ]};
   var neuPrev=null;
+  /* Beim Start und in der Übersicht: jede neue Ausgabe einmal zeigen, solange ein Name gesetzt ist. */
+  function neuCheck(){if(userName&&lsGet(NEUK)!==NEU.id&&$('neu').hidden)neuOpen()}
   function neuRender(){
     $('neu-datum').textContent='Neu · '+NEU.datum;
     $('neu-list').innerHTML=NEU.punkte.map(function(p){return '<li><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></li>'}).join('');
@@ -469,8 +471,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     $('welcome').hidden=view!=='welcome';
     $('dash').hidden=view!=='dash';
     $('mod').hidden=view!=='mod';
-    if(view==='dash'){renderDash();window.scrollTo(0,0);if(userName&&lsGet(NEUK)!==NEU.id)neuOpen()}
-    else if(!$('neu').hidden)$('neu').hidden=true;
+    if(view==='dash'){renderDash();window.scrollTo(0,0);neuCheck()}
     if(view==='welcome'&&typeof updateWelcomeResume==='function')updateWelcomeResume();
   }
   function openMod(id){
@@ -517,6 +518,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   });
   $('w-name-in').addEventListener('input',function(){if(this.value.trim().length>=2){this.removeAttribute('aria-invalid');$('w-name-msg').className='w-hint';$('w-name-msg').textContent='Pflichtfeld. Dein Name bleibt nur auf diesem Gerät.'}});
   nameGate();
+  neuCheck();
 
   /* Lernstand sichern und wiederherstellen: alle Schlüssel der Trainer in einer Datei. */
   var KEYS=['zf4tt.state.v1','zf4tt.local.v1','lernkompass-tagestraining-v1','lernkompass-tagestraining-session','bt-fwdv3','lzf.last.v1',NAMEK,SETK,NEUK];
