@@ -1,25 +1,14 @@
 // Browser-Test (Playwright, Chromium, iPhone-Größe): Startseite, alle Trainer, Offline-Betrieb.
 // Startet einen eigenen kleinen Server für app/ und prüft, dass keine Fehler auftreten
 // und keine Anfrage an fremde Server geht.
-import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
-import { extname, join, normalize } from 'node:path';
 import { chromium } from 'playwright';
+import { serveApp } from './serve.mjs';
 
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.svg': 'image/svg+xml',
-  '.woff2': 'font/woff2', '.webmanifest': 'application/manifest+json', '.txt': 'text/plain; charset=utf-8' };
-const server = createServer(async (req, res) => {
-  let path = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname)).replace(/^(\.\.[/\\])+/, '');
-  if (path.endsWith('/')) path += 'index.html';
-  try {
-    const body = await readFile(join('app', path));
-    res.writeHead(200, { 'content-type': TYPES[extname(path)] || 'application/octet-stream' }).end(body);
-  } catch { res.writeHead(404).end('nicht gefunden'); }
-});
-await new Promise((r) => server.listen(0, '127.0.0.1', r));
+const server = await serveApp();
 const base = `http://127.0.0.1:${server.address().port}/`;
 
-const launch = process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {};
+// HEADED=1: sichtbares Fenster und langsamer, zum Debuggen (VS Code: „Browser-Test debuggen“).
+const launch = { ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}), ...(process.env.HEADED ? { headless: false, slowMo: 150 } : {}) };
 const browser = await chromium.launch(launch);
 const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
 const page = await ctx.newPage();

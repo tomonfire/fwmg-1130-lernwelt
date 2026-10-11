@@ -4,6 +4,10 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Entwicklung
+- Debuggen in VS Code: Konfigurationen in `.vscode/` (Chrome/Edge mit iPhone-Größe, Anhängen, Browser-Test sichtbar mit `HEADED=1`, Prüfskript) und Aufgaben für Start und Prüfungen.
+- `npm start` nutzt jetzt `scripts/serve.mjs` statt `serve@14`: Der alte Server leitete `.html`-Adressen um, dadurch luden lokal die Coaches nicht. Ohne Abhängigkeiten, auch vom Browser-Test genutzt.
+
 ### Geändert
 - In der App heißen die Trainer jetzt „Coach“: „Deine Coaches“, „Befehlscoach“, „Coach wechseln“ (#24). Nur Texte; Dateinamen und Speicherschlüssel bleiben. Service-Worker `VERSION` auf v19.
 

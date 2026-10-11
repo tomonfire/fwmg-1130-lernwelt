@@ -4,7 +4,7 @@
   "private": true,
   "description": "FwMG - Lernwelt: Lern- und Trainingsapp für die Feuerwehr",
   "scripts": {
-    "start": "npx --yes serve@14 -l 8080 app",
+    "start": "node scripts/serve.mjs",
     "check": "node scripts/check.mjs && node scripts/data.mjs && node scripts/syntax.mjs && node scripts/csp.mjs",
     "check:version": "node scripts/version.mjs origin/main",
     "test:browser": "node scripts/browser.mjs",
