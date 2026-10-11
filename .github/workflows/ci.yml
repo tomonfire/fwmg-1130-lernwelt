@@ -18,9 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
+      - name: Service-Worker-VERSION erhöht (nur Pull Requests)
+        if: github.event_name == 'pull_request'
+        run: node scripts/version.mjs origin/${{ github.base_ref }}
       - name: Dateien, Manifest, Impressum, noindex, keine fremden Server, JavaScript-Syntax
         run: npm run check
 
