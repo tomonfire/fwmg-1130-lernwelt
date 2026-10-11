@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-3QeQslqytWewHkmQ01lyyuyd4bnIjv5tRWEXqEiZLpM=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/wIiDf+W+iQVMG5iHSFVvX4IrqqUhgge0CF37rjPp54=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -162,6 +162,20 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   max-width:560px;margin-inline:auto;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;border-radius:6px;
   background:var(--blue);color:var(--on-blue);border:1px solid var(--line);box-shadow:0 6px 24px rgba(0,0,0,.25)}
 #upd[hidden]{display:none}
+/* Was ist neu: Fenster nach einem Update */
+#neu{position:fixed;inset:0;z-index:55;display:flex;align-items:center;justify-content:center;overflow:auto;overscroll-behavior:contain;
+  padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:rgba(10,14,18,.72)}
+#neu[hidden]{display:none}
+.neu-card{width:100%;max-width:480px;max-height:calc(100dvh - 32px);overflow:auto;margin:auto;background:var(--surface);color:var(--ink);border-radius:8px;border-top:8px solid var(--blue);box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.neu-card .st{height:8px;background:repeating-linear-gradient(-45deg,var(--accent) 0 12px,var(--surface) 12px 24px)}
+.neu-in{padding:20px 20px 22px;display:flex;flex-direction:column;gap:14px}
+.neu-in h2{font-size:30px}
+.neu-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.neu-list li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.neu-list b{font-weight:600}
+.neu-list span{font-size:15px;color:var(--muted)}
+.neu-in .btn{width:100%}
+@media (prefers-reduced-motion:no-preference){#neu:not([hidden]) .neu-card{animation:neuin .3s cubic-bezier(.2,.8,.2,1)}@keyframes neuin{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}}
 #upd p{flex:1;font-weight:600}
 #upd .btn{min-height:44px;padding:8px 16px;font-size:16px}
 #upd .x{min-width:44px;min-height:44px;border:0;background:transparent;color:inherit;font-size:22px;line-height:1}
@@ -271,10 +285,30 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       </div>
     </section>
 
+    <section class="sec" aria-labelledby="h-neu">
+      <h2 id="h-neu">Neuigkeiten</h2>
+      <div class="set">
+        <p id="neu-stand"></p>
+        <div><button class="btn" type="button" id="neu-open">Was ist neu?</button></div>
+      </div>
+    </section>
+
     <p class="note">Jeder Coach speichert seinen Lernstand getrennt. Über den Pfeil oben links kommst du jederzeit zur Übersicht zurück; in der Leiste daneben wechselst du den Coach.</p>
   <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung. <b>Weitergabe:</b> Die Weitergabe der App und ihrer Inhalte (Link, Kopie, Veröffentlichung an Dritte) erfolgt ausschließlich durch mich, Tom Wolff. Ohne meine ausdrückliche Zustimmung ist sie nicht gestattet. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, über GitHub: <a href="https://github.com/tomonfire/fwmg-1130-lernwelt/issues" target="_blank" rel="noopener noreferrer">Issue im Repository</a> oder <a href="https://github.com/tomonfire" target="_blank" rel="noopener noreferrer">GitHub-Profil tomonfire</a></p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Name und dein Lernstand werden nur in deinem Browser gespeichert und nicht an einen Server übertragen. Eine Sicherungsdatei entsteht nur, wenn du selbst „Lernstand sichern“ wählst. Kein Tracking, keine Werbung. Im Befehlscoach liest dein Gerät die Lage selbst vor. Für „Einsprechen“ nutzt der Befehlscoach die Spracherkennung deines Browsers; je nach Gerät überträgt der Anbieter (z. B. Apple oder Google) die Aufnahme dafür an seine Server. Wer das nicht möchte, tippt den Befehl ein.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlscoach werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer>
   </div>
 </main>
+
+<div id="neu" hidden role="dialog" aria-modal="true" aria-labelledby="neu-h">
+  <div class="neu-card">
+    <div class="st" aria-hidden="true"></div>
+    <div class="neu-in">
+      <span class="eyebrow" id="neu-datum"></span>
+      <h2 id="neu-h">Was ist neu</h2>
+      <ul class="neu-list" id="neu-list"></ul>
+      <button class="btn primary" type="button" id="neu-ok">Verstanden</button>
+    </div>
+  </div>
+</div>
 
 <div id="mod" hidden>
   <div class="bar-top">
@@ -402,12 +436,42 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   function pillsRender(){
     $('pills').innerHTML=MODS.map(function(m){return '<button class="pill" type="button" data-switch="'+m.id+'"'+(current===m.id?' aria-current="true"':'')+'>'+esc(m.short)+'</button>'}).join('');
   }
+  /* Was ist neu: die neueste Meldung erscheint nach einem Update einmal, beim Start der App oder in der Übersicht.
+     Neue Einträge oben anfügen und id ändern; die Release Notes stehen in docs/RELEASE-NOTES.md. */
+  var NEUK='fwmg.neu.v1';
+  var NEU={id:'2026-10-11',datum:'11. Oktober 2026',punkte:[
+    ['Lage vorlesen wie die Leitstelle','Im Befehlscoach liest „Vorlesen“ die Lage als Alarmierung mit Gong, Einsatzstichwort und Wiederholung vor.'],
+    ['Befehl einsprechen','In Safari sprichst du den Befehl per „Einsprechen“ ein. In der App vom Home-Bildschirm nutzt du das Mikrofon der Tastatur.'],
+    ['Vollständiger Musterbefehl','Alle Befehlselemente auf einen Blick, mit Vergleich „Befehl mit Bereitstellung“ und Beispielen im Schema.'],
+    ['Einheitliches Design','Alle drei Coaches sehen gleich aus, hell und dunkel.'],
+    ['iPad und Computer','Prüfen und Weiter bleiben unten sichtbar. Am Computer wählst du Antworten mit 1–9 und bestätigst mit Enter.'],
+    ['iPhone','Die Lernwelt nutzt den Bildschirm besser und überlappt nicht mehr mit der Dynamic Island.']
+  ]};
+  var neuPrev=null;
+  /* Beim Start und in der Übersicht: jede neue Ausgabe einmal zeigen, solange ein Name gesetzt ist. */
+  function neuCheck(){if(userName&&lsGet(NEUK)!==NEU.id&&$('neu').hidden)neuOpen()}
+  function neuRender(){
+    $('neu-datum').textContent='Neu · '+NEU.datum;
+    $('neu-list').innerHTML=NEU.punkte.map(function(p){return '<li><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></li>'}).join('');
+    $('neu-stand').textContent='Stand '+NEU.datum+'. Hier siehst du, was sich zuletzt geändert hat.';
+  }
+  function neuOpen(){neuRender();neuPrev=document.activeElement;$('neu').hidden=false;$('neu').querySelector('.neu-card').scrollTop=0;try{$('neu-ok').focus({preventScroll:true})}catch(e){$('neu-ok').focus()}}
+  function neuClose(){$('neu').hidden=true;lsSet(NEUK,NEU.id);if(neuPrev&&neuPrev.focus&&document.body.contains(neuPrev)){try{neuPrev.focus()}catch(e){}}neuPrev=null}
+  $('neu-ok').addEventListener('click',neuClose);
+  $('neu-open').addEventListener('click',neuOpen);
+  $('neu').addEventListener('click',function(ev){if(ev.target===$('neu'))neuClose()});
+  document.addEventListener('keydown',function(ev){
+    if($('neu').hidden)return;
+    if(ev.key==='Escape'||ev.key==='Esc'){ev.preventDefault();neuClose()}
+    else if(ev.key==='Tab'){ev.preventDefault();$('neu-ok').focus()}
+  });
+  neuRender();
   function show(view){
     if(!userName)view='welcome';
     $('welcome').hidden=view!=='welcome';
     $('dash').hidden=view!=='dash';
     $('mod').hidden=view!=='mod';
-    if(view==='dash'){renderDash();window.scrollTo(0,0)}
+    if(view==='dash'){renderDash();window.scrollTo(0,0);neuCheck()}
     if(view==='welcome'&&typeof updateWelcomeResume==='function')updateWelcomeResume();
   }
   function openMod(id){
@@ -450,13 +514,14 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       msg.textContent='Bitte gib deinen Namen ein (mindestens 2 Zeichen). Ohne Namen geht es nicht weiter.';
       inp.focus();return;
     }
-    inp.removeAttribute('aria-invalid');setName(v);nameGate();show('dash');
+    inp.removeAttribute('aria-invalid');setName(v);lsSet(NEUK,NEU.id);nameGate();show('dash');
   });
   $('w-name-in').addEventListener('input',function(){if(this.value.trim().length>=2){this.removeAttribute('aria-invalid');$('w-name-msg').className='w-hint';$('w-name-msg').textContent='Pflichtfeld. Dein Name bleibt nur auf diesem Gerät.'}});
   nameGate();
+  neuCheck();
 
   /* Lernstand sichern und wiederherstellen: alle Schlüssel der Trainer in einer Datei. */
-  var KEYS=['zf4tt.state.v1','zf4tt.local.v1','lernkompass-tagestraining-v1','lernkompass-tagestraining-session','bt-fwdv3','lzf.last.v1',NAMEK,SETK];
+  var KEYS=['zf4tt.state.v1','zf4tt.local.v1','lernkompass-tagestraining-v1','lernkompass-tagestraining-session','bt-fwdv3','lzf.last.v1',NAMEK,SETK,NEUK];
   function lsMsg(t,bad){var e=$('ls-msg');e.textContent=t;e.className='msg'+(bad?' bad':'')}
   function closeFrames(){Object.keys(frames).forEach(function(k){frames[k].remove();delete frames[k]});current=null}
   function pad(n){return (n<10?'0':'')+n}
@@ -486,7 +551,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     /* Erst die Trainer schließen: sie speichern beim Schließen und würden sonst den wiederhergestellten Stand überschreiben. */
     closeFrames();
     var failed=false;
-    KEYS.forEach(function(k){try{if(k in p.data)localStorage.setItem(k,p.data[k]);else if(k!==NAMEK)localStorage.removeItem(k)}catch(e){failed=true}});
+    KEYS.forEach(function(k){try{if(k in p.data)localStorage.setItem(k,p.data[k]);else if(k!==NAMEK&&k!==NEUK)localStorage.removeItem(k)}catch(e){failed=true}});
     var n=cleanName(p.data[NAMEK]||p.name);if(n.length>=2)setName(n);
     renderDash();
     lsMsg(failed?'Wiederherstellen ging nur teilweise: Der Speicher im Browser ist blockiert oder voll.':'Lernstand von '+who+' wiederhergestellt.',failed);
