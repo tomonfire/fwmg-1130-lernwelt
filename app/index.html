@@ -103,6 +103,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 .set{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--edge);border-left:8px solid var(--blue);border-radius:4px}
 .set .label{font-weight:600;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .set p{font-size:15px;max-width:60ch}
+.home-hint summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.home-hint ol{margin:4px 0 8px;padding-left:22px;display:flex;flex-direction:column;gap:6px;max-width:60ch}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
 .seg button{min-height:48px;min-width:64px;padding:8px 16px;border:2px solid var(--ink);border-radius:4px;background:var(--bg);font:600 18px var(--f-body);color:var(--ink)}
 .seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
@@ -206,6 +208,14 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
         <div class="seg" id="set-goal" role="group" aria-labelledby="l-goal"></div>
         <p class="small">Gilt für Gruppenführer und Zugführer. Eine laufende Runde oder Prüfung bleibt erhalten. Der Befehlstrainer hat keine Rundengröße.</p>
         <p class="msg" id="set-msg" role="status"></p>
+        <details class="home-hint"><summary>App auf den Home-Bildschirm (iPhone, iPad)</summary>
+          <ol class="small">
+            <li>Diese Seite in <b>Safari</b> öffnen.</li>
+            <li>Unten (iPad: oben rechts) auf <b>Teilen</b> tippen, das Quadrat mit dem Pfeil nach oben.</li>
+            <li>Nach unten scrollen und <b>Zum Home-Bildschirm</b> wählen, dann <b>Hinzufügen</b>.</li>
+          </ol>
+          <p class="small">Danach startet die Lernwelt wie eine App im Vollbild und läuft auch ohne Netz, sobald sie einmal geladen wurde. Dein Lernstand liegt getrennt vom Safari-Browser. Wenn du schon vorher in Safari geübt hast, sichere ihn dort unter „Dein Lernstand“ und stelle ihn in der App wieder her.</p>
+        </details>
       </div>
     </section>
 
