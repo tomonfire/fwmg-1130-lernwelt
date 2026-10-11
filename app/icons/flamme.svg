@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Flamme">
+  <!-- Eigene Grafik der Lernwelt: Flamme auf Marineblau. -->
+  <defs>
+    <linearGradient id="aussen" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#B00A12"/>
+      <stop offset="1" stop-color="#F0452B"/>
+    </linearGradient>
+    <linearGradient id="mitte" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#F26B1D"/>
+      <stop offset="1" stop-color="#FFA126"/>
+    </linearGradient>
+    <linearGradient id="innen" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#FFE08A"/>
+      <stop offset="1" stop-color="#FFC93C"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#15334A"/>
+  <path fill="url(#aussen)" d="M256 64C304 136 380 196 380 304C380 386 324 448 256 448C188 448 132 386 132 304C132 240 166 202 194 168C198 214 214 244 240 258C226 192 236 122 256 64Z"/>
+  <path fill="url(#mitte)" d="M262 186C298 236 336 270 336 334C336 388 302 424 256 424C210 424 176 390 176 340C176 302 196 278 214 262C218 294 232 312 252 320C244 272 248 226 262 186Z"/>
+  <path fill="url(#innen)" d="M258 296C280 324 300 344 300 374C300 402 280 422 256 422C232 422 212 404 212 378C212 354 228 338 242 328C246 346 252 352 262 354C256 334 254 316 258 296Z"/>
+</svg>

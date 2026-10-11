@@ -5,7 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Geändert
-- Logo der Feuerwehr Mönchengladbach durch das taktische Zeichen Zugführer nach DV 102 ersetzt (`app/icons/zugfuehrer.svg`), auch in den App-Icons und in beiden Trainern.
+- Logo der Feuerwehr Mönchengladbach ersetzt: Startseite, Übersicht, Gruppenführer und App-Icons zeigen eine eigene Flamme (`app/icons/flamme.svg`), der Zugführer-Trainer das taktische Zeichen Zugführer nach DV 102 (`app/icons/zugfuehrer.svg`).
 
 ### Behoben
 - Logo auf Startseite und Übersicht war auf dem iPhone hochkant gestaucht.

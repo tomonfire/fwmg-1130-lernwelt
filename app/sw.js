@@ -12,6 +12,7 @@ const PRECACHE = [
   'icons/icon-512.png',
   'icons/icon-maskable-512.png',
   'icons/apple-touch-icon.png',
+  'icons/flamme.svg',
   'icons/zugfuehrer.svg',
   'fonts/fonts.css',
   'fonts/barlow-latin-400-normal.woff2',
