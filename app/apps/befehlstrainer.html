@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-GAg5ihyXXAMdlNyVpy2/j+e751f1Lc65kP1jlvVoVAw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-HWAEazrKV8xeMbdVFCC9L8ZLp25iAHMI4wLrPM9T1pc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -113,6 +113,19 @@ textarea.speech::placeholder { color: var(--muted); }
 .actions > .btn:not(.ghost) { flex: 1; min-width: 180px; }
 .btn.ghost { background: var(--surface); color: var(--ink); border-color: var(--ink); }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
+/* Leiste unten: Hauptknopf bleibt bei langen Inhalten sichtbar (iPad quer, Laptop). */
+.actions.dock { position: sticky; bottom: 0; z-index: 4; background: var(--bg); padding-block: 10px max(10px, env(safe-area-inset-bottom)); }
+.actions.dock::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 16px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+.emb .actions.dock { padding-bottom: 10px; }
+@media (hover: hover) and (pointer: fine) {
+  .opt:not(.locked):not([disabled]):hover { border-color: var(--ink); }
+  .rowbtn:hover { background: var(--surface); }
+  .btn:not([disabled]):hover { box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .12); }
+  .btn.ghost:not([disabled]):hover { background: var(--bg); box-shadow: none; }
+  .tab:hover, .back:hover { color: var(--ink); }
+  .seg button:not([aria-pressed="true"]):hover { background: var(--bg); }
+  .actions.dock.kb::after { content: 'Tastatur: Ziffern wählen eine Antwort, Enter bestätigt'; flex-basis: 100%; font-size: 12px; color: var(--muted); }
+}
 .back { align-self: flex-start; background: none; border: 0; padding: 8px 0; min-height: 44px; text-decoration: underline; font-size: 14px; color: var(--muted); cursor: pointer; }
 .runhead { display: flex; flex-direction: column; gap: 8px; }
 .progress { display: flex; justify-content: space-between; gap: 1rem; font: 400 12px/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -786,7 +799,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (q.pick !== null) {
       var d = kind === 'beur' ? sc.beur : sc.kon, good = q.opts[q.pick].ok;
       h += '<div class="note ' + (good ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (good ? 'Richtig' : 'Falsch') + '</span>' + (good ? '' : '<span class="label">Richtig wäre: ' + esc(d.ok) + '</span>') + '<p>' + esc(d.why) + (kind === 'beur' ? ' ' + esc(BEUR_NOTE) : '') + '</p></div>';
-      h += '<div class="actions"><button type="button" class="btn" data-act="mqnext">' + (kind === 'beur' ? 'Befehl geben' : 'Auswertung') + '</button></div>';
+      h += '<div class="actions dock kb"><button type="button" class="btn" data-act="mqnext">' + (kind === 'beur' ? 'Befehl geben' : 'Auswertung') + '</button></div>';
     }
     return h;
   }
@@ -815,7 +828,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       '<textarea id="speech" class="speech" lang="de" rows="5" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Tippe ins Feld und nutze das Mikrofon deiner Tastatur zum Diktieren."' + (r.ev ? ' readonly' : '') + '>' + esc(r.text) + '</textarea>' +
       '<p class="lead">Die Mikrofontaste findest du auf der Bildschirmtastatur von Handy und Tablet, am Rechner mit der Diktierfunktion deines Systems.</p></div>';
     if (!r.ev) {
-      h += '<div class="actions"><button type="button" class="btn" id="evalbtn" data-act="eval"' + (r.text.trim() ? '' : ' disabled') + '>Befehl auswerten</button></div>';
+      h += '<div class="actions dock"><button type="button" class="btn" id="evalbtn" data-act="eval"' + (r.text.trim() ? '' : ' disabled') + '>Befehl auswerten</button></div>';
       return h;
     }
     var ev = r.ev, good = ev.level === 'good';
@@ -839,7 +852,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       h += '<div class="sec"><div class="actions"><button type="button" class="btn ghost" id="coachbtn" data-act="coach">Rückmeldung von Claude</button></div>' +
         '<div class="note" id="coachbox"' + (r.coach ? '' : ' hidden') + '><span class="label">Ausbilder-Rückmeldung</span><p class="coach" id="coachtxt">' + esc(r.coach || '') + '</p></div></div>';
     }
-    h += '<div class="actions"><button type="button" class="btn" data-act="next">' + (r.si + 1 < SCEN[r.i].befehle.length ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button><button type="button" class="btn ghost" data-act="retry">Nochmal sprechen</button></div>';
+    h += '<div class="actions dock"><button type="button" class="btn" data-act="next">' + (r.si + 1 < SCEN[r.i].befehle.length ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button><button type="button" class="btn ghost" data-act="retry">Nochmal sprechen</button></div>';
     return h;
   }
 
@@ -875,7 +888,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       if (r.artPick) {
         var g = r.artPick === st.art;
         h += '<div class="note ' + (g ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (g ? 'Richtig' : 'Falsch') + '</span>' + (g ? '' : '<span class="label">Richtig wäre: ' + ARTS[st.art].label + '</span>') + '<p>' + esc(ARTS[st.art].why) + '</p></div>';
-        h += '<div class="actions"><button type="button" class="btn" data-act="build">Befehl aufbauen</button></div>';
+        h += '<div class="actions dock kb"><button type="button" class="btn" data-act="build">Befehl aufbauen</button></div>';
       }
       return h;
     }
@@ -887,12 +900,12 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (!r.checked) {
       var done = keys.filter(function (k) { return r.picks[k]; }).length;
       h += '<div class="sec"><span class="label">Dein Befehl</span>' + vordruck(st, r.picks) + '</div>';
-      h += '<div class="actions"><button type="button" class="btn" data-act="check"' + (done < keys.length ? ' disabled' : '') + '>Befehl prüfen</button><span class="progress">' + done + ' von ' + keys.length + ' gewählt</span></div>';
+      h += '<div class="actions dock"><button type="button" class="btn" data-act="check"' + (done < keys.length ? ' disabled' : '') + '>Befehl prüfen</button><span class="progress">' + done + ' von ' + keys.length + ' gewählt</span></div>';
     } else {
       var right = keys.filter(function (k) { return r.picks[k] === st.f[k][0]; }).length, all = right === keys.length;
       h += '<div class="note ' + (all ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (all ? 'Richtig' : 'Nicht ganz') + '</span><span class="label">' + (all ? 'Alles richtig' : right + ' von ' + keys.length + ' richtig') + '</span><p>' + esc(st.tip) + '</p></div>';
       h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>';
-      h += '<div class="actions"><button type="button" class="btn" data-act="next">' + (r.si + 1 < nB ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button></div>';
+      h += '<div class="actions dock"><button type="button" class="btn" data-act="next">' + (r.si + 1 < nB ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button></div>';
     }
     return h;
   }
@@ -964,7 +977,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     }).join('') + '</div>';
     if (Q.picked !== null) {
       h += '<div class="note ' + (Q.opts[Q.picked].ok ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (Q.opts[Q.picked].ok ? 'Richtig' : 'Falsch') + '</span><span class="label">Quelle</span><p>' + esc(q[3]) + '</p></div>';
-      h += '<div class="actions"><button type="button" class="btn" data-act="qnext">' + (Q.i < S.quiz.qs.length - 1 ? 'Nächste Frage' : 'Auswertung') + '</button></div>';
+      h += '<div class="actions dock kb"><button type="button" class="btn" data-act="qnext">' + (Q.i < S.quiz.qs.length - 1 ? 'Nächste Frage' : 'Auswertung') + '</button></div>';
     }
     return h;
   }
@@ -1263,4 +1276,5 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 })();
 </script>
 
+<script src="../tastatur.js" data-primary=".btn:not(.ghost)"></script>
 <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung. <b>Weitergabe:</b> Die Weitergabe der App und ihrer Inhalte (Link, Kopie, Veröffentlichung an Dritte) erfolgt ausschließlich durch mich, Tom Wolff. Ohne meine ausdrückliche Zustimmung ist sie nicht gestattet. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, über GitHub: <a href="https://github.com/tomonfire/fwmg-1130-lernwelt/issues" target="_blank" rel="noopener noreferrer">Issue im Repository</a> oder <a href="https://github.com/tomonfire" target="_blank" rel="noopener noreferrer">GitHub-Profil tomonfire</a></p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Name und dein Lernstand werden nur in deinem Browser gespeichert und nicht an einen Server übertragen. Eine Sicherungsdatei entsteht nur, wenn du selbst „Lernstand sichern“ wählst. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlscoach werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>

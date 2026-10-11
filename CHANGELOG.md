@@ -11,6 +11,11 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Zugführer-Coach: „Lösung fehlerhaft melden“ linksbündig wie im Gruppenführer-Coach. Gruppenführer-Coach: doppelte Viewport-Angabe entfernt, `viewport-fit=cover` wie in den anderen Dateien.
 - Service-Worker `VERSION` auf v20.
 
+### Hinzugefügt (iPad und Computer)
+- Leiste unten in den Fragen- und Übungsansichten aller Coaches: „Prüfen“ und „Weiter“ bleiben auch bei langen Fragen sichtbar, z. B. auf dem iPad quer oder am Laptop. In der Lernwelt endet der Coach über dem Home-Balken des iPhones.
+- Tastatur (`app/tastatur.js`): Ziffern 1–9 wählen eine Antwort, Enter löst „Prüfen“/„Weiter“ aus. Hinweis darauf und Hover-Rückmeldung nur bei Geräten mit Maus. Beim Öffnen eines Coaches mit Maus geht der Fokus direkt in den Coach.
+- Service-Worker `VERSION` auf v21.
+
 ### Entwicklung
 - Debuggen in VS Code: Konfigurationen in `.vscode/` (Chrome/Edge mit iPhone-Größe, Anhängen, Browser-Test sichtbar mit `HEADED=1`, Prüfskript) und Aufgaben für Start und Prüfungen.
 - `npm start` nutzt jetzt `scripts/serve.mjs` statt `serve@14`: Der alte Server leitete `.html`-Adressen um, dadurch luden lokal die Coaches nicht. Ohne Abhängigkeiten, auch vom Browser-Test genutzt.

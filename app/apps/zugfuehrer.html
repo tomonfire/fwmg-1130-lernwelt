@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Lhu2zZYuTYPqmqqbDb9C3/LxaVX5s5KIsKjVVKU7/Cw=' 'sha256-f8sLy1+YkVQs32a/oFsvGzJFthfoh6V9tIIJYq/v5XY='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Lhu2zZYuTYPqmqqbDb9C3/LxaVX5s5KIsKjVVKU7/Cw=' 'sha256-Qsb21Z03vQ9KDFDJ6h0lBg2wS/YOCCPBoNtkTjy/G90='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Zugführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -121,6 +121,20 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .actions .btn.primary{flex:1;min-width:180px}
 .linkbtn{background:none;border:0;padding:8px 0;text-decoration:underline;font-size:14px;color:var(--muted);min-height:44px}
+/* Leiste unten: Prüfen und Weiter bleiben bei langen Fragen sichtbar (iPad quer, Laptop). */
+.actions.dock{position:sticky;bottom:0;z-index:4;background:var(--bg);margin-top:6px;padding-block:10px max(10px,env(safe-area-inset-bottom))}
+.actions.dock::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:16px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.emb .actions.dock{padding-bottom:10px}
+/* Maus und Tastatur: Hover-Rückmeldung und Hinweis auf die Tasten, nicht auf Touch-Geräten. */
+@media (hover:hover) and (pointer:fine){
+  .opt:not([disabled]):hover,.gq:hover{border-color:var(--ink)}
+  .btn:not([disabled]):hover{background:var(--bg)}
+  .btn.primary:not([disabled]):hover{background:var(--btn);box-shadow:inset 0 0 0 100px rgba(0,0,0,.12)}
+  .tab:hover,.linkbtn:hover{color:var(--ink)}
+  .topic:hover{background:var(--surface)}
+  .seg button:not([aria-pressed="true"]):hover{background:var(--bg)}
+  .actions.dock.kb::after{content:'Tastatur: Ziffern wählen eine Antwort, Enter bestätigt';flex-basis:100%;font-size:12px;color:var(--muted)}
+}
 /* Ergebnis / Fortschritt */
 .score{font-family:var(--f-display);font-weight:700;font-size:72px;line-height:1}
 .score small{font-size:32px;color:var(--muted)}
@@ -497,13 +511,13 @@ function viewRound(m){
   m.appendChild(progressBar(r.i,total,'Fortschritt der Runde'));
   m.appendChild(qmeta(q,it.rep?h('span',{class:'badge'},'Wiederholung'):null));
   qbody(m,q,r.perm,r.sel,r.checked,false,function(idx,btn){toggleIn(r.sel,idx,btn);saveLocal();var b=$('chk');if(b)b.disabled=r.sel.length===0});
-  if(!r.checked){m.appendChild(h('div',{class:'actions'},h('button',{class:'btn primary',type:'button',id:'chk',disabled:r.sel.length===0,onclick:checkRound},'Prüfen')))}
+  if(!r.checked){m.appendChild(h('div',{class:'actions dock kb'},h('button',{class:'btn primary',type:'button',id:'chk',disabled:r.sel.length===0,onclick:checkRound},'Prüfen')))}
   else{
     var found=q.a.filter(function(x){return r.sel.indexOf(x)>=0}).length,wrongSel=r.sel.length-found;
     m.appendChild(h('div',{class:'res '+(r.ok?'good':'nope'),role:'status'},[h('h3',null,r.ok?'Richtig':'Falsch'),
       h('p',null,r.ok?'Alle '+q.a.length+' richtigen Antworten gefunden, keine falsche gewählt.':'Gefunden: '+found+' von '+q.a.length+' richtigen Antworten'+(wrongSel?', '+wrongSel+' falsch gewählt':'')+'. '+(it.rep?'Die Frage kommt morgen wieder.':'Die Frage kommt in dieser Runde noch einmal als Wiederholung.')),
       flagBtn(q.id)]));
-    m.appendChild(h('div',{class:'actions'},h('button',{class:'btn primary',type:'button',id:'nxt',onclick:nextRound},r.i+1>=total?'Ergebnis ansehen':'Weiter')));
+    m.appendChild(h('div',{class:'actions dock kb'},h('button',{class:'btn primary',type:'button',id:'nxt',onclick:nextRound},r.i+1>=total?'Ergebnis ansehen':'Weiter')));
     setTimeout(function(){var b=$('nxt');if(b)try{b.focus({preventScroll:true})}catch(e){}},0)}}
 /* --- Prüfung --- */
 function viewExam(m){
@@ -531,7 +545,7 @@ function viewExam(m){
   m.appendChild(qmeta(q));
   qbody(m,q,e.perm[id],sel,false,false,function(idx,btn){toggleIn(sel,idx,btn);saveLocal();
     var g=$('main').querySelectorAll('.gq');if(g[e.i])g[e.i].className='gq'+(sel.length?' done':'')});
-  m.appendChild(h('div',{class:'actions'},[h('button',{class:'btn',type:'button',disabled:e.i===0,onclick:function(){e.i--;saveLocal();render();focusMain()}},'Zurück'),
+  m.appendChild(h('div',{class:'actions dock kb'},[h('button',{class:'btn',type:'button',disabled:e.i===0,onclick:function(){e.i--;saveLocal();render();focusMain()}},'Zurück'),
     e.i+1<n?h('button',{class:'btn primary',type:'button',onclick:function(){e.i++;saveLocal();render();focusMain()}},'Weiter'):h('button',{class:'btn primary',type:'button',onclick:function(){e.confirm=true;render()}},'Prüfung abgeben')]));
   var ov=h('section',{style:'margin-top:24px'},[h('span',{class:'label',id:'l-ov'},'Übersicht'),h('div',{class:'grid',role:'group','aria-labelledby':'l-ov'},e.ids.map(function(x,j){var d=e.ans[x]&&e.ans[x].length;
     return h('button',{class:'gq'+(d?' done':''),type:'button','aria-current':j===e.i?'true':null,'aria-label':'Frage '+(j+1)+', '+(d?'beantwortet':'offen'),onclick:function(){e.i=j;saveLocal();render();focusMain()}},String(j+1))}))]);
@@ -707,4 +721,5 @@ init();
 })();
 </script>
 
+<script src="../tastatur.js" data-primary=".btn.primary"></script>
 <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung. <b>Weitergabe:</b> Die Weitergabe der App und ihrer Inhalte (Link, Kopie, Veröffentlichung an Dritte) erfolgt ausschließlich durch mich, Tom Wolff. Ohne meine ausdrückliche Zustimmung ist sie nicht gestattet. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, über GitHub: <a href="https://github.com/tomonfire/fwmg-1130-lernwelt/issues" target="_blank" rel="noopener noreferrer">Issue im Repository</a> oder <a href="https://github.com/tomonfire" target="_blank" rel="noopener noreferrer">GitHub-Profil tomonfire</a></p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Name und dein Lernstand werden nur in deinem Browser gespeichert und nicht an einen Server übertragen. Eine Sicherungsdatei entsteht nur, wenn du selbst „Lernstand sichern“ wählst. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlscoach werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>
