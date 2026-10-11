@@ -11,7 +11,7 @@ Wer sich auf Führungslehrgänge (Gruppenführer, Zugführer) vorbereitet, muss 
 - alles auf dem Telefon verfügbar haben, ohne Anmeldung und ohne Datenweitergabe.
 
 ## Zielgruppe
-Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge, besonders in Nordrhein-Westfalen. Private App, die frei weitergegeben wird.
+Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge, besonders in Nordrhein-Westfalen. Private App. Die Weitergabe erfolgt ausschließlich durch den Autor (Tom Wolff), nicht durch Nutzer.
 
 ## Funktionsumfang
 

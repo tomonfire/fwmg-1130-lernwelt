@@ -21,7 +21,7 @@ Die App soll nicht in Suchmaschinen erscheinen und nicht gecrawlt werden. Dafür
 - **`<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">`** in allen vier HTML-Dateien: nicht aufnehmen, keinen Links folgen, keine Kopie, keine Vorschau, keine Bilder.
 - **`<meta name="referrer" content="no-referrer">`**: Wer in der App einen Quellen-Link anklickt (z. B. Lernkompass), verrät der Zielseite die Adresse der App nicht.
 - **`app/robots.txt`** sperrt alle Crawler. Wirksam wird sie nur, wenn die App auf einer eigenen Domain im Wurzelverzeichnis liegt; unter `github.io/<repository>/` lesen Crawler nur `github.io/robots.txt`.
-- **Adresse nicht verlinken:** nicht in README, Repository-Beschreibung („About“ → Website), Social Media oder öffentlichen Seiten. Nur direkt (Messenger, E-Mail, QR-Code im Unterricht) weitergeben.
+- **Adresse nicht verlinken:** nicht in README, Repository-Beschreibung („About“ → Website), Social Media oder öffentlichen Seiten. Die Weitergabe der App erfolgt ausschließlich durch den Autor, nur direkt (Messenger, E-Mail, QR-Code im Unterricht). Nutzer geben Link und Installationsadresse nicht weiter.
 
 Grenzen:
 - Die Regeln sind eine Bitte, an die sich Google, Bing und Co. halten, unseriöse Crawler nicht. Wirklich verborgen wäre die App nur mit Anmeldung, das kann GitHub Pages nicht.
