@@ -56,7 +56,8 @@ Die Shell öffnet jeden Trainer in einem iframe. Einstellungen für alle Trainer
 
 ```bash
 npm start        # http://localhost:8080
-npm run check          # Dateien und Regeln prüfen (ohne Installation)
+npm run check          # Dateien, Regeln, Fragen, Syntax und CSP-Prüfsummen prüfen (ohne Installation)
+npm run csp:update     # nach Änderungen an Inline-Skripten: CSP-Prüfsummen neu eintragen
 npm install            # einmalig, für den Browser-Test
 npm run test:browser   # Startseite, Trainer und Offline-Betrieb im Browser prüfen
 ```

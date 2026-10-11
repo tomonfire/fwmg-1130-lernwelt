@@ -5,9 +5,10 @@
   "description": "FwMG - Lernwelt: Lern- und Trainingsapp für die Feuerwehr",
   "scripts": {
     "start": "npx --yes serve@14 -l 8080 app",
-    "check": "node scripts/check.mjs && node scripts/data.mjs && node scripts/syntax.mjs",
+    "check": "node scripts/check.mjs && node scripts/data.mjs && node scripts/syntax.mjs && node scripts/csp.mjs",
     "check:version": "node scripts/version.mjs origin/main",
-    "test:browser": "node scripts/browser.mjs"
+    "test:browser": "node scripts/browser.mjs",
+    "csp:update": "node scripts/csp.mjs --write"
   },
   "engines": {
     "node": ">=20"

@@ -144,6 +144,31 @@ try {
     await p2.waitForFunction(() => /keine Sicherung/.test(document.getElementById('ls-msg').textContent));
     await neu.close();
   });
+  await step('Eingelesene Sicherung führt keinen fremden Code aus', async () => {
+    // Präparierte Sicherung: HTML mit Event-Handler in Feldern, die der Befehlstrainer in der Auswertung anzeigt.
+    const neu = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const p3 = await neu.newPage();
+    let fired = false;
+    await p3.exposeFunction('__fremderCode', () => { fired = true; });
+    p3.on('dialog', (d) => d.accept());
+    await p3.goto(base);
+    await p3.fill('#w-name-in', 'Test');
+    await p3.click('#w-name button[type=submit]');
+    const evil = '<img src=x onerror="window.top.__fremderCode()">';
+    const bt = { sc: { container: { n: evil, best: evil, last: evil } }, hist: [{ ts: 1, id: evil, role: 'gf', mode: 'speak', r: evil, t: 2 }], qh: [{ ts: 1, s: evil }], cat: { beur: [evil, 2] }, fld: { x: [evil, 1] }, quiz: evil };
+    const file = { app: 'fwmg-lernwelt', format: 1, name: 'Test', saved: new Date().toISOString(), data: { 'bt-fwdv3': JSON.stringify(bt) } };
+    await p3.setInputFiles('#ls-file', { name: 'b.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(file)) });
+    await p3.waitForFunction(() => /wiederhergestellt/.test(document.getElementById('ls-msg').textContent));
+    await p3.locator('#dash button:has-text("Öffnen")').nth(2).click();
+    await p3.waitForTimeout(1200);
+    const f = p3.frames().find((x) => x.url().includes('befehlstrainer'));
+    for (const tab of ['Auswertung', 'Üben', 'Quiz']) {
+      await f.locator('.tab, [role=tab]').filter({ hasText: tab }).first().click();
+      await p3.waitForTimeout(300);
+    }
+    await neu.close();
+    assert(!fired, 'eingeschleuster Code wurde ausgeführt');
+  });
   await step('Keine Anfragen an fremde Server', async () => assert(!foreign.length, foreign.join(', ')));
   await step('Keine Fehler im Browser', async () => assert(!errors.length, errors.join(' | ')));
 } finally {

@@ -13,7 +13,7 @@ Die App läuft über **GitHub Pages** aus dem Repository `tomonfire/fwmg-1130-le
 
 ## Was für den öffentlichen Betrieb gilt
 - **Keine fremden Server:** Schriften liegen in `app/fonts/` (SIL Open Font License). Es gehen keine IP-Adressen an Google oder andere Dienste.
-- **Sicherheitsregeln (CSP)** stehen als `<meta>` in jeder HTML-Datei: Skripte, Bilder, Schriften und Verbindungen nur von der eigenen Adresse.
+- **Sicherheitsregeln (CSP)** stehen als `<meta>` in jeder HTML-Datei: Skripte, Bilder, Schriften und Verbindungen nur von der eigenen Adresse. Inline-Skripte sind nur über ihre SHA-256-Prüfsumme erlaubt (`npm run csp:update`), eingeschleuster Code läuft dadurch nicht.
 - **Lernstand** bleibt lokal im Browser (`localStorage`) und ist an die Adresse gebunden. Wer die App vorher unter einer anderen Adresse genutzt hat, beginnt hier mit leerem Lernstand.
 
 ## Nicht auffindbar
