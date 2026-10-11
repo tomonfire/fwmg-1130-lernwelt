@@ -6,7 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { chromium } from 'playwright';
 
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png',
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.svg': 'image/svg+xml',
   '.woff2': 'font/woff2', '.webmanifest': 'application/manifest+json', '.txt': 'text/plain; charset=utf-8' };
 const server = createServer(async (req, res) => {
   let path = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname)).replace(/^(\.\.[/\\])+/, '');
@@ -57,8 +57,9 @@ try {
     assert((await page.textContent('#greet')).endsWith(', Alex Muster'), 'Gruß ohne Namen');
   });
   const n = await page.locator('#dash button:has-text("Öffnen")').count();
-  await step('Logos in Startseite und Übersicht sind rund, nicht gestaucht', async () => {
-    const bad = await page.$$eval('#welcome img, #dash img', (is) => is.filter((i) => i.offsetWidth && Math.abs(i.offsetWidth - i.offsetHeight) > 1).map((i) => i.className + ' ' + i.offsetWidth + 'x' + i.offsetHeight));
+  await step('Logos in Startseite und Übersicht laden und sind rund', async () => {
+    await page.waitForFunction(() => [...document.querySelectorAll('#welcome img, #dash img')].every((i) => i.complete));
+    const bad = await page.$$eval('#welcome img, #dash img', (is) => is.filter((i) => !i.naturalWidth || (i.offsetWidth && Math.abs(i.offsetWidth - i.offsetHeight) > 1)).map((i) => i.className + ' ' + i.offsetWidth + 'x' + i.offsetHeight + (i.naturalWidth ? '' : ' (lädt nicht)')));
     assert(!bad.length, bad.join(', '));
   });
   await step('Drei Trainer in der Übersicht', async () => assert(n === 3, `${n} statt 3`));

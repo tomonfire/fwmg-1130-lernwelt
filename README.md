@@ -39,7 +39,7 @@ app/                       alles, was veröffentlicht wird
   apps/                    die drei Trainer, je eine eigenständige HTML-Datei
   manifest.webmanifest     PWA-Metadaten
   sw.js                    Service Worker (Offline-Cache)
-  icons/                   App-Icons und Logo (flamme.svg, eigene Grafik)
+  icons/                   App-Icons und Logo (zugfuehrer.svg, eigene Grafik)
   fonts/                   Schriften (lokal, SIL Open Font License)
   robots.txt               sperrt Crawler (wirksam auf eigener Domain)
 docs/                      Projektbeschreibung, Architektur, Veröffentlichung, Roadmap
