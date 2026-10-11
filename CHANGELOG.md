@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben (Befehlscoach V2.11)
+- „Einsprechen“ in der iPhone-App vom Home-Bildschirm: iOS startet die Spracherkennung dort scheinbar, liefert aber keinen Text und lässt sich nicht stoppen. Dort erscheint jetzt statt des Knopfs der Hinweis auf das Mikrofon der Tastatur. Überall gilt: „Aufnahme beenden“ stoppt sofort, und eine Aufnahme ohne Ton bricht nach 6 Sekunden mit Hinweis ab. Service-Worker `VERSION` auf v27.
+
 ### Hinzugefügt (Befehlscoach V2.10)
 - „Vorlesen“ in der Lage: Das Gerät liest die Lage vor. Bei der Alarmierung wie eine Leitstellendurchsage mit Gong, Einsatzstichwort vorn und Wiederholung am Ende. Neue Lagen und Rückmeldungen werden ohne Gong vorgelesen.
 - „Einsprechen“ beim Befehl: Spracheingabe über die Spracherkennung des Browsers, der Text erscheint im Feld und lässt sich vor dem Auswerten korrigieren. Ohne Spracherkennung bleibt der Hinweis auf das Mikrofon der Bildschirmtastatur.

@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-beukk0/IQ/PNK49UNRMv3TJCsVXZKlMu8EPuH1E1yys='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-BAMCgynqfG4Qvrv1Doi8qWln2qvg4OrACRMTp+TZOb4='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -216,7 +216,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.10'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.11'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -855,7 +855,9 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       (SR && !r.ev
         ? '<div class="dictrow"><button type="button" class="btn ghost" id="dictbtn" data-act="dictate" aria-pressed="' + recOn + '">' + (recOn ? 'Aufnahme beenden' : 'Einsprechen') + '</button></div>' +
           '<p class="lead" id="dictmsg" role="status">Tippe auf „Einsprechen“ und sprich den Befehl. Den Text kannst du danach noch korrigieren.</p>'
-        : '<p class="lead">Die Mikrofontaste findest du auf der Bildschirmtastatur von Handy und Tablet, am Rechner mit der Diktierfunktion deines Systems.</p>') + '</div>';
+        : IOS_APP
+          ? '<p class="lead">Als App auf dem Home-Bildschirm erlaubt iOS hier keine eigene Spracheingabe. Tippe ins Feld und nutze das Mikrofon unten auf der Tastatur zum Diktieren. In Safari gibt es zusätzlich den Knopf „Einsprechen“.</p>'
+          : '<p class="lead">Die Mikrofontaste findest du auf der Bildschirmtastatur von Handy und Tablet, am Rechner mit der Diktierfunktion deines Systems.</p>') + '</div>';
     if (!r.ev) {
       h += '<div class="actions dock"><button type="button" class="btn" id="evalbtn" data-act="eval"' + (r.text.trim() ? '' : ' disabled') + '>Befehl auswerten</button></div>';
       return h;
@@ -1133,7 +1135,9 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   /* ---------- Vorlesen wie von der Leitstelle, Befehl einsprechen ----------
      Beides nutzt nur die Sprachfunktionen von Gerät und Browser, keine eigenen Server. */
   var TTS = 'speechSynthesis' in window && typeof window.SpeechSynthesisUtterance === 'function';
-  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  /* iOS-App vom Home-Bildschirm: Die Spracherkennung startet dort scheinbar, liefert aber keinen Text und lässt sich nicht stoppen. Dort nur das Tastatur-Mikrofon anbieten. */
+  var IOS_APP = (function () { try { return window.top.navigator.standalone === true; } catch (e) { return window.navigator.standalone === true; } })();
+  var SR = IOS_APP ? null : (window.SpeechRecognition || window.webkitSpeechRecognition || null);
   var reading = false, readId = 0, sprec = null, recOn = false;
 
   function deVoice() {
@@ -1195,13 +1199,22 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (p && msg) p.textContent = msg;
   }
   function stopDictation() { if (sprec) { try { sprec.abort(); } catch (e) {} } sprec = null; if (recOn) { recOn = false; dictUi(); } }
+  /* „Aufnahme beenden“ wirkt sofort, auch wenn der Browser das Ende nicht meldet; späte Ergebnisse kommen noch kurz an. */
+  function finishDictation() {
+    var me = sprec;
+    if (me) { try { me.stop(); } catch (e) {} }
+    recOn = false; dictUi('Fertig. Prüfe den Text und tippe auf „Befehl auswerten“.');
+    setTimeout(function () { if (sprec === me && me) { try { me.abort(); } catch (e) {} sprec = null; } }, 1500);
+  }
   function startDictation() {
     var r = S.run; if (!SR || !r || recOn) return;
     stopReading();
-    var base = (r.text || '').replace(/\s+$/, ''), me, failed = false;
+    var base = (r.text || '').replace(/\s+$/, ''), me, failed = false, alive = false;
     try { me = sprec = new SR(); } catch (e) { dictUi('Die Spracheingabe ist hier nicht verfügbar. Nutze das Mikrofon der Bildschirmtastatur.'); return; }
     sprec.lang = 'de-DE'; sprec.continuous = true; sprec.interimResults = true;
+    sprec.onaudiostart = sprec.onspeechstart = function () { alive = true; };
     sprec.onresult = function (e) {
+      alive = true;
       if (sprec !== me || !S.run) return;
       var said = '';
       for (var i = 0; i < e.results.length; i++) said += e.results[i][0].transcript;
@@ -1216,9 +1229,16 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
         : why === 'no-speech' ? 'Nichts gehört. Tippe noch einmal auf „Einsprechen“.'
         : why === 'aborted' ? '' : 'Die Spracheingabe hat nicht geklappt. Nutze das Mikrofon der Bildschirmtastatur.');
     };
-    sprec.onend = function () { if (sprec !== me) return; sprec = null; recOn = false; dictUi(failed ? '' : 'Fertig. Prüfe den Text und tippe auf „Befehl auswerten“.'); };
+    sprec.onend = function () { if (sprec !== me) return; sprec = null; if (recOn) { recOn = false; dictUi(failed ? '' : 'Fertig. Prüfe den Text und tippe auf „Befehl auswerten“.'); } };
     try { sprec.start(); } catch (e) { sprec = null; dictUi('Die Spracheingabe ist hier nicht verfügbar. Nutze das Mikrofon der Bildschirmtastatur.'); return; }
     recOn = true; dictUi('Ich höre zu … sprich jetzt den Befehl.');
+    /* Startet die Aufnahme gar nicht (kein Ton, kein Text), nach 6 Sekunden abbrechen statt endlos „Ich höre zu“. */
+    setTimeout(function () {
+      if (sprec !== me || alive) return;
+      try { me.abort(); } catch (e) {}
+      sprec = null; recOn = false;
+      dictUi('Die Spracheingabe startet hier nicht. Tippe ins Feld und nutze das Mikrofon der Bildschirmtastatur.');
+    }, 6000);
   }
   window.addEventListener('pagehide', function () { stopReading(); stopDictation(); });
   document.addEventListener('visibilitychange', function () { if (document.hidden) { stopReading(); stopDictation(); } });
@@ -1317,7 +1337,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     var b = e.target.closest('[data-act]'); if (!b) return;
     var act = b.getAttribute('data-act'), r = S.run;
     if (act === 'read') { if (reading) stopReading(); else readLage(); return; }
-    if (act === 'dictate') { if (recOn) { if (sprec) { try { sprec.stop(); } catch (x) {} } } else startDictation(); return; }
+    if (act === 'dictate') { if (recOn) finishDictation(); else startDictation(); return; }
     var st = r && (r.phase === 'art' || r.phase === 'fields' || r.phase === 'speak') ? curStage() : null;
 
     if (act === 'role') { S.role = b.getAttribute('data-r'); store.role = S.role; save(); S.quiz = null; S.scroll = 'top'; S.focus = '[data-act="switchrole"]'; render(); return; }
