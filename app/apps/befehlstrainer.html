@@ -1,0 +1,1263 @@
+<!doctype html><html><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FwMG - Befehlstrainer FwDV 3</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* Layout: Befehlsvordruck. Ruled form rows, Kommando als große Schlusszeile, Absperrband als einziger Farbakzent im Kopf. */
+:root {
+  --bg: #ECEEF1;
+  --surface: #FFFFFF;
+  --soft: #F2F4F6;
+  --ink: #14181E;
+  --muted: #566070;
+  --line: #CBD0D8;
+  --accent: #C21A1F;
+  --accent-ink: #FFFFFF;
+  --accent-text: #B3151A;
+  --stripe-w: #FFFFFF;
+  --ok: #16693B;
+  --ok-bg: #E0F1E7;
+  --bad: #A3221B; --miss: #B34700; --miss-bg: #FCE8D2;
+  --bad-bg: #F5DAD7;
+  --focus: #0B57D0;
+  --f-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --f-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1318; --surface: #181D24; --soft: #202731; --ink: #E9ECF0; --muted: #98A2B1; --line: #2F3742;
+    --accent: #D83A3F; --accent-ink: #FFFFFF; --accent-text: #FF6B68; --stripe-w: #E9ECF0;
+    --ok: #6FD19A; --ok-bg: #123221; --bad: #FF8B81; --bad-bg: #41251F; --miss: #FFAA5C; --miss-bg: #3D2812; --focus: #7AA7FF;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1318; --surface: #181D24; --soft: #202731; --ink: #E9ECF0; --muted: #98A2B1; --line: #2F3742;
+  --accent: #D83A3F; --accent-ink: #FFFFFF; --accent-text: #FF6B68; --stripe-w: #E9ECF0;
+  --ok: #6FD19A; --ok-bg: #123221; --bad: #FF8B81; --bad-bg: #41251F; --miss: #FFAA5C; --miss-bg: #3D2812; --focus: #7AA7FF;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 1rem/1.5 var(--f-body); }
+button, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.stripe { height: .5rem; background: repeating-linear-gradient(135deg, var(--accent) 0 .75rem, var(--stripe-w) 0 1.5rem); }
+.wrap { max-width: 44rem; margin-inline: auto; padding-inline: 1rem; }
+header.top { padding-block: 1.1rem .6rem; }
+.eyebrow { font: 600 .85rem/1.2 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font: 700 2.6rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .02em; margin: .25rem 0 0; text-wrap: balance; }
+nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; border-bottom: 2px solid var(--ink); }
+.tab { flex: 1; min-width: 0; background: transparent; border: 0; border-bottom: 4px solid transparent; margin-bottom: -2px; padding: .75rem .25rem .6rem; font: 600 1.1rem/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+main { padding-block: 1.25rem 3.5rem; display: flex; flex-direction: column; gap: 1.25rem; outline: none; }
+h2 { font: 600 1.6rem/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; margin: 0; text-wrap: balance; }
+h3 { font: 600 1.15rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; margin: 0; }
+p { margin: 0; max-width: 65ch; }
+.lead { color: var(--muted); }
+.label { font: 600 .8rem/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 2px solid var(--ink); }
+.seg button { background: var(--surface); border: 0; padding: .6rem .5rem; font: 600 1.05rem/1.1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.seg button + button { border-left: 2px solid var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+.rows { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.rows li { border-bottom: 1px solid var(--line); }
+.rowbtn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem 1rem; align-items: baseline; width: 100%; text-align: left; padding: .9rem .25rem; background: none; border: 0; cursor: pointer; }
+.rowbtn:hover { background: var(--soft); }
+.rowbtn .t { font: 600 1.4rem/1.15 var(--f-display); text-transform: uppercase; letter-spacing: .02em; }
+.rowbtn .s { grid-column: 1; color: var(--muted); font-size: .95rem; }
+.rowbtn .tags { grid-column: 1; display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .2rem; }
+.tag { font: 600 .78rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; border: 1.5px solid var(--line); padding: .2rem .4rem; color: var(--muted); }
+.rowbtn .last { grid-column: 2; grid-row: 1; font: 500 .95rem var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; }
+.steps li { border-top: 4px solid var(--line); padding-top: .3rem; font: 600 .8rem/1.15 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); overflow-wrap: anywhere; }
+.steps li.done { border-top-color: var(--muted); }
+.steps li.now { border-top-color: var(--accent); color: var(--ink); }
+
+.lage { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--ink); padding: .9rem 1rem 1rem; display: flex; flex-direction: column; gap: .45rem; }
+.lage p { font-size: 1.08rem; }
+
+.fld { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: .4rem; }
+.fld legend { padding: 0; margin-bottom: .4rem; font: 600 1.1rem/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; }
+.opt { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .7rem; align-items: start; width: 100%; text-align: left; padding: .65rem .8rem; background: var(--surface); border: 1.5px solid var(--line); border-radius: .25rem; cursor: pointer; line-height: 1.35; font-weight: 500; }
+.opt:hover { border-color: var(--muted); }
+.opt .dot { width: 1.05rem; height: 1.05rem; margin-top: .15rem; border-radius: 50%; border: 2px solid var(--muted); }
+.opt.sel { border-color: var(--ink); background: var(--soft); }
+.opt.sel .dot { background: var(--ink); border-color: var(--ink); box-shadow: inset 0 0 0 3px var(--soft); }
+.opt.ok { border-color: var(--ok); background: var(--ok-bg); }
+.opt.ok .dot { background: var(--ok); border-color: var(--ok); }
+.opt.bad { border-color: var(--bad); background: var(--bad-bg); }
+.opt.bad .dot { background: var(--bad); border-color: var(--bad); }
+.opt.locked { cursor: default; }
+.mk { font: 600 .85rem/1.6 var(--f-display); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.opt.ok .mk { color: var(--ok); }
+.opt.bad .mk { color: var(--bad); }
+
+.vordruck { background: var(--surface); border: 2px solid var(--ink); }
+.vordruck .vh { display: flex; justify-content: space-between; gap: .75rem; padding: .45rem .75rem; background: var(--ink); color: var(--bg); font: 600 .9rem/1.2 var(--f-display); letter-spacing: .12em; text-transform: uppercase; }
+.vrow { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: .75rem; padding: .5rem .75rem; border-bottom: 1px dashed var(--line); align-items: baseline; }
+.vrow .k { font: 600 .85rem/1.3 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); overflow-wrap: anywhere; }
+.vrow .v { font: 500 .95rem/1.4 var(--f-mono); overflow-wrap: anywhere; }
+.vrow .v.empty { color: var(--muted); }
+.vend { padding: .5rem .75rem .6rem; text-align: right; font: 700 2rem/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: var(--accent-text); }
+
+textarea.speech { width: 100%; min-height: 8.5rem; resize: vertical; padding: .75rem .85rem; background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: .25rem; font: 500 1rem/1.5 var(--f-mono); }
+textarea.speech::placeholder { color: var(--muted); }
+
+.note { background: var(--soft); border: 1px solid var(--line); padding: .8rem 1rem; display: flex; flex-direction: column; gap: .35rem; }
+.note.ok { background: var(--ok-bg); border-color: var(--ok); }
+.note.bad { background: var(--bad-bg); border-color: var(--bad); }
+.note .label { color: inherit; }
+.verdict { font: 700 2.2rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; }
+.check { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.check li { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: .6rem; padding: .5rem .1rem; border-bottom: 1px solid var(--line); align-items: baseline; font-size: .95rem; }
+.check .st { font: 600 .85rem/1.5 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.check .st.ok { color: var(--ok); }
+.check .st.bad { color: var(--bad); }
+.check .st.miss { color: var(--miss); }
+.check .nm { font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: .25rem; padding: .8rem 1.25rem; font: 600 1.15rem/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding: calc(.8rem - 2px) calc(1.25rem - 2px); }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+.back { background: none; border: 0; padding: 0; font: 600 1rem/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); cursor: pointer; align-self: flex-start; }
+.runhead { display: flex; flex-direction: column; gap: .5rem; }
+.progress { display: flex; justify-content: space-between; gap: 1rem; font: 500 .9rem var(--f-mono); color: var(--muted); }
+.bar { height: .35rem; background: var(--line); }
+.bar i { display: block; height: 100%; background: var(--ink); }
+.score { font: 700 4rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.score small { font-size: 1.6rem; color: var(--muted); }
+.misslist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
+.misslist li { border-bottom: 1px dashed var(--line); padding-bottom: .5rem; font-size: .95rem; }
+.misslist b { font-weight: 600; }
+
+.kdl { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 2px solid var(--ink); margin: 0; }
+.kdl > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: .1rem; padding: .6rem .1rem; border-bottom: 1px solid var(--line); }
+.kdl dt { font: 600 .95rem/1.35 var(--f-mono); overflow-wrap: anywhere; }
+.kdl dd { margin: 0; color: var(--muted); font-size: .95rem; }
+@media (min-width: 34rem) {
+  .kdl > div { grid-template-columns: 16rem minmax(0, 1fr); gap: 1rem; }
+}
+.sec { display: flex; flex-direction: column; gap: .75rem; }
+.quizq { font: 600 1.55rem/1.2 var(--f-display); text-wrap: balance; }
+.coach { white-space: pre-wrap; }
+.rolebar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: .6rem; }
+.rolebar span { font: 600 1.1rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: .5rem; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.fact { padding-block: .7rem; display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.fact b { font: 700 2.2rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.fact span { font: 600 .8rem/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.mrow { display: grid; grid-template-columns: minmax(0, 7rem) minmax(0, 1fr) 5.8rem; gap: .6rem; align-items: center; padding-block: .4rem; border-bottom: 1px dashed var(--line); }
+.mname { font: 600 .95rem/1.15 var(--f-display); letter-spacing: .05em; text-transform: uppercase; overflow-wrap: anywhere; }
+.mtrack { height: .7rem; background: var(--soft); border: 1px solid var(--line); }
+.mtrack i { display: block; height: 100%; }
+.mtrack i.hi { background: var(--ok); }
+.mtrack i.mid { background: var(--muted); }
+.mtrack i.lo { background: var(--bad); }
+.mval { font: 500 .85rem/1.2 var(--f-mono); text-align: right; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: no-preference) {
+  .bar i { transition: width .25s ease; }
+}
+@media (max-width: 26rem) {
+  h1 { font-size: 2.2rem; }
+  .tab { font-size: 1rem; letter-spacing: .03em; }
+  .mrow { grid-template-columns: minmax(0, 5.6rem) minmax(0, 1fr) 5.4rem; gap: .4rem; }
+  .vrow { grid-template-columns: 5.6rem minmax(0, 1fr); gap: .5rem; }
+  .check li { grid-template-columns: 4rem minmax(0, 1fr); }
+}
+nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:env(safe-area-inset-top,0px);background:var(--bg)}nav.tabs{-webkit-transform:translateZ(0);transform:translateZ(0)}.emb nav.tabs{top:0}.emb nav.tabs::before{display:none}.fwmg-imp{max-width:720px;margin:24px auto 0;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));font:13px/1.45 -apple-system,BlinkMacSystemFont,sans-serif;opacity:.8;color:inherit}.fwmg-imp summary{cursor:pointer;font-weight:600;padding:8px 0;min-height:24px}.fwmg-imp p{margin:4px 0 0}.emb .fwmg-imp{display:none}</style>
+
+<div class="stripe" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow" id="eyebrow">Führungskraft · FwDV 3 (2008) und FwDV 100 (1999)</p>
+    <h1>Befehlstrainer</h1>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Bereiche">
+    <button class="tab" role="tab" data-tab="ueben" id="t-ueben">Üben</button>
+    <button class="tab" role="tab" data-tab="quiz" id="t-quiz">Quiz</button>
+    <button class="tab" role="tab" data-tab="schema" id="t-schema">Schema</button>
+    <button class="tab" role="tab" data-tab="stats" id="t-stats">Auswertung</button>
+  </nav>
+  <main id="app" tabindex="-1"></main>
+</div>
+
+<script>
+(function () {
+  var app = document.getElementById('app');
+
+  /* ---------- Grunddaten ---------- */
+  var FIELDS = {
+    lage:      { label: 'Lageeinweisung', pre: 'Lage' },
+    wasser:    { label: 'Wasserentnahmestelle', pre: 'Wasserentnahmestelle' },
+    verteiler: { label: 'Lage des Verteilers',  pre: 'Verteiler' },
+    einheit:   { label: 'Einheit',  pre: 'Einheit' },
+    auftrag:   { label: 'Auftrag',  pre: 'Auftrag' },
+    mittel:    { label: 'Mittel',   pre: 'Mittel' },
+    ziel:      { label: 'Ziel',     pre: 'Ziel' },
+    weg:       { label: 'Weg',      pre: 'Weg' }
+  };
+
+  var ARTS = {
+    mit:   { label: 'Einsatz mit Bereitstellung', end: 'Zum Einsatz fertig!', endRx: 'zum einsatz fertig\\W*$',
+             why: 'Du kennst Wasserentnahmestelle und Verteiler, kannst aber Auftrag, Mittel, Ziel und Weg noch nicht bestimmen (FwDV 3, 5.4).',
+             rep: 'Der Angriffstruppführer wiederholt das Kommando »Zum Einsatz fertig!«.' },
+    ohne:  { label: 'Einsatz ohne Bereitstellung', end: 'Vor!', endRx: '(^|\\s)vor\\W*$',
+             why: 'Die Lage reicht aus, um Einsatzauftrag, Mittel, Ziel und Weg sofort zu bestimmen. Der Befehl endet mit »Vor!« (FwDV 3, 5.4).',
+             rep: 'Der beauftragte Truppführer wiederholt den Befehl ab »Einheit«.' },
+    folge: { label: 'Folgebefehl an einen Trupp', end: 'Vor!', endRx: '(^|\\s)vor\\W*$',
+             why: 'Wasserversorgung und Verteiler stehen, der Trupp meldet sich einsatzbereit. Jetzt erhält er seinen Auftrag (FwDV 3, 5.5.1).',
+             rep: 'Der angesprochene Truppführer wiederholt den Befehl ab »Einheit«.' },
+    hilfe: { label: 'Befehl im Hilfeleistungseinsatz', end: 'Vor!', endRx: '(^|\\s)vor\\W*$',
+             why: 'Im Hilfeleistungseinsatz gibt es keine Wasserentnahmestelle und keinen Verteiler. Der Befehl folgt dem Schema Einheit, Auftrag, Mittel, Ziel, Weg und endet mit »Vor!« (FwDV 100, 3.3.3.1 und Poster Befehlsgebung). FwDV 3, Abschnitt 7 nennt keine Geräte für die Mittel. Die Beispiele hier sind typische Ausstattung.',
+             rep: 'Der beauftragte Truppführer wiederholt den Befehl ab »Einheit«.' }
+  };
+
+  ARTS.zug = { label: 'Befehl des Zugführers', end: null, endRx: null,
+               why: 'Der Zugführer erteilt den Einheitsführern seines Zuges Aufträge. Der Befehl enthält mindestens Einheit und Auftrag. Bei nachrückenden Einheiten geht die Lageeinweisung voraus (FwDV 3, 6.2).',
+               rep: 'Der angesprochene Einheitsführer wiederholt den Befehl.' };
+
+  var STEPS = ['Lage', 'Beurteilung', 'Befehl', 'Kontrolle'];
+  var BEUR_Q = 'Welche Gefahr muss zuerst bekämpft werden?';
+  var BEUR_NOTE = 'Reihenfolge der Gefahren laut Beurteilung: Menschen, Tiere, Umwelt, Sachwerte (FwDV 100, Führungsvorgang).';
+  var RX_R1 = '(1\\.?|eins|ein|erst\\w*)\\s*(c\\s*)?rohr';
+
+  /* Befehlsfelder je Stufe: [richtig, falsch, falsch, falsch]; kw = Erkennung beim Sprechen */
+  var SCEN = [
+    { id: 'container', title: 'Containerbrand',
+      sub: 'Bauschuttcontainer auf einem Parkplatz.',
+      tags: ['Sachwerte', 'Schnellangriff'],
+      lage: 'Alarmstichwort »Containerbrand«, Samstag 21:40 Uhr, trocken, leichter Wind. Auf dem Parkplatz eines Baumarkts brennt ein Bauschuttcontainer in voller Ausdehnung. Daneben stehen drei weitere Container, das Gebäude ist 15 Meter entfernt, der Wind weht vom Gebäude weg. Es sind keine Personen in der Nähe. Dein Löschfahrzeug steht 10 Meter vom Container entfernt, der Hydrant liegt am Parkplatzeingang. Die Schnellangriffsleitung reicht aus. Du bist Gruppenführer.',
+      beur: { ok: 'Sachwerte: Übergreifen auf die Nachbarcontainer und das Gebäude verhindern', wrong: ['Menschen: Personen aus dem Gebäude retten', 'Tiere: Tiere im Gebäude schützen', 'Umwelt: Löschwasser auffangen'],
+              why: 'Menschen sind nicht gefährdet. Es geht darum, das Feuer zu bekämpfen, bevor es auf Nachbarcontainer und Gebäude übergreift.' },
+      befehle: [
+        { name: 'Schnellangriff', art: 'ohne',
+          note: 'Beim Schnellangriff bleiben »Lage des Verteilers« und »Weg« in der FwDV-Vorlage leer.',
+          tip: 'Der Schnellangriff wird in der Regel vorgenommen, wenn kein weiteres Rohr nötig ist und die Länge der Schnellangriffsleitung reicht (FwDV 3, 5.5.6).',
+          f: {
+            wasser:  ['Hydrant am Parkplatzeingang', 'Wasserentnahme offenes Gewässer', 'Hydrant am Gebäude', 'Hydrant an der Hauptstraße'],
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Brandbekämpfung', 'zur Menschenrettung', 'zur Wasserversorgung', 'zur Verkehrsabsicherung'],
+            mittel:  ['mit Schnellangriff Wasser', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['zum brennenden Bauschuttcontainer', 'zum Gebäude', 'zu den Nachbarcontainern', 'zum Parkplatzeingang']
+          },
+          kw: { wasser: 'hydrant', einheit: 'angriffstrupp', auftrag: 'brand\\s*bek|loesch|lösch', mittel: 'schnell\\s*angriff', ziel: 'container' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Flammen aus, der Container glimmt noch, die Nachbarcontainer sind unbeschädigt.',
+             ok: 'Auftrag erfüllt: Glutnester ablöschen lassen, Lage erneut prüfen, dann Einsatzende vorbereiten',
+             wrong: ['Schnellangriff sofort zurücknehmen und abrücken', 'Weitere Kräfte nachfordern', 'Angriffstrupp ohne weitere Prüfung abziehen'],
+             why: 'Die Kontrolle vergleicht Soll und Ist: erteilter Auftrag gegen erreichte Lageänderung. Erst wenn kein Glutnest mehr da ist, folgt der Abschluss (FwDV 100, 3.3.4).' } },
+
+    { id: 'containerhaus', title: 'Container an der Hauswand',
+      sub: 'Altpapiercontainer brennt, Rauch zieht ins Erdgeschoss.',
+      tags: ['Menschen', 'ohne Bereitstellung'],
+      lage: 'Alarmstichwort »Containerbrand«, Dienstag 03:15 Uhr, Regen. Hinter einem Mehrfamilienhaus brennt ein Altpapiercontainer direkt an der Hauswand. Die Flammen schlagen an der Fassade hoch, Rauch zieht in ein gekipptes Fenster im Erdgeschoss, dort schlafen Bewohner. Der Zugang zum Hinterhof führt nur durch die Einfahrt neben dem Haus. Hydrant an der Zufahrtsstraße, der Verteiler soll an der Hausecke stehen. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: Rauch zieht in die Erdgeschosswohnung', wrong: ['Sachwerte: Fassade und Container', 'Umwelt: Löschwasser im Hinterhof', 'Tiere: Haustiere der Bewohner'],
+              why: 'Menschen stehen an erster Stelle. Je schneller das Feuer aus ist, desto weniger Rauch gelangt in die Wohnung.' },
+      befehle: [
+        { name: 'Erster Angriff', art: 'ohne',
+          tip: 'Der Angriffstrupp nimmt in der Regel das erste Rohr vor und setzt den Verteiler (FwDV 3, 5.2.1).',
+          f: {
+            wasser:    ['Hydrant an der Zufahrtsstraße', 'Wasserentnahme offenes Gewässer', 'Hydrant am Hauseingang', 'Hydrant in der Nebenstraße'],
+            verteiler: ['an der Hausecke', 'am Container', 'im Erdgeschoss', 'am Hauseingang'],
+            einheit:   ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag:   ['zur Brandbekämpfung', 'zur Wasserversorgung', 'zur Brandwache', 'zur Verkehrsabsicherung'],
+            mittel:    ['mit 1. Rohr', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:      ['auf den Container an der Hauswand', 'in die Erdgeschosswohnung', 'auf das Dach', 'zum Hauseingang'],
+            weg:       ['durch die Einfahrt neben dem Haus', 'durch das Treppenhaus', 'über das Dach', 'durch die Erdgeschosswohnung']
+          },
+          kw: { wasser: 'hydrant', verteiler: 'hausecke|haus\\s*ecke', einheit: 'angriffstrupp', auftrag: 'brand\\s*bek|loesch|lösch', mittel: RX_R1, ziel: 'container', weg: 'einfahrt|durchfahrt' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Container gelöscht, Fassade noch heiß. Im Erdgeschoss ist Rauch in der Wohnung.',
+             ok: 'Wohnung auf Rauch kontrollieren, Bewohner betreuen und die Fassade auf Brandausbreitung prüfen',
+             wrong: ['Einsatz beenden, der Brand ist aus', 'Nur die Fassade kühlen lassen', 'Bewohner im Bett lassen und abrücken'],
+             why: 'Die Lageveränderung (Rauch in der Wohnung) verlangt eine neue Beurteilung. Menschen haben weiter Vorrang (FwDV 100, 3.3.4).' } },
+
+    { id: 'zimmerbrand', title: 'Zimmerbrand mit Person',
+      sub: 'Wohnung im 2. OG, Bewohnerin vermisst.',
+      tags: ['Menschen', 'ohne Bereitstellung'],
+      lage: 'Alarmstichwort »Zimmerbrand, Person vermisst«, Donnerstag 19:30 Uhr, trocken. Mehrfamilienhaus, Rauch kommt aus dem Fenster einer Wohnung im 2. Obergeschoss. Eine Nachbarin sagt, die Bewohnerin sei zu Hause. Der Treppenraum ist leicht verraucht. Hydrant vor dem Haus, der Verteiler soll vor dem Hauseingang stehen. Angriffs- und Wassertrupp sind mit Atemschutz ausgerüstet. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: Bewohnerin in der brennenden Wohnung', wrong: ['Sachwerte: Wohnungseinrichtung', 'Umwelt: Rauchgase im Hof', 'Sachwerte: Nachbarwohnungen'],
+              why: 'Eine vermisste Person im Brandraum hat Vorrang vor allen anderen Gefahren.' },
+      befehle: [
+        { name: 'Menschenrettung', art: 'ohne',
+          tip: 'Der Angriffstrupp rettet, besonders aus Bereichen, die nur mit Atemschutzgeräten betreten werden können. Der Wassertrupp wird Sicherheitstrupp (FwDV 3, 5.2.1).',
+          f: {
+            wasser:    ['Hydrant vor dem Haus', 'Wasserentnahme offenes Gewässer', 'Hydrant auf dem Nachbargrundstück', 'Hydrant an der Kreuzung'],
+            verteiler: ['vor dem Hauseingang', 'im 2. Obergeschoss', 'am Küchenfenster', 'an der Rückseite des Hauses'],
+            einheit:   ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag:   ['zur Menschenrettung', 'zur Wasserversorgung', 'zur Brandwache', 'zur Absicherung der Einsatzstelle'],
+            mittel:    ['mit 1. Rohr', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:      ['in die Wohnung im 2. Obergeschoss', 'in den Keller', 'auf das Dach', 'in die Wohnung im Erdgeschoss'],
+            weg:       ['über den Treppenraum', 'über das Dach', 'über den Hinterhof', 'durch den Keller']
+          },
+          kw: { wasser: 'hydrant', verteiler: 'hauseingang|haus\\s*eingang', einheit: 'angriffstrupp', auftrag: 'menschen\\s*rett|rettung|retten', mittel: RX_R1, ziel: 'wohnung|obergeschoss|2\\.\\s*og|zweiten', weg: 'treppenraum|treppenhaus|treppe' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Person gefunden, bewusstlos. Das Feuer im Wohnzimmer ist gelöscht.',
+             ok: 'Person ins Freie bringen, Erstversorgung bis zur Übergabe an den Rettungsdienst, Rettungsdienst einweisen',
+             wrong: ['Erst die Brandstelle vollständig nachlöschen', 'Wasser abstellen und abrücken', 'Person in der Wohnung belassen, bis der Brand kontrolliert ist'],
+             why: 'Die Erstversorgung (mindestens Erste Hilfe) hat oberste Priorität. Die Person soll bis zur Übergabe an den Rettungsdienst nicht ohne Betreuung sein (sinngemäß FwDV 3, 7.2 b und c).' } },
+
+    { id: 'keller', title: 'Kellerbrand',
+      sub: 'Rauch aus Kellerfenstern, Lage zunächst unklar.',
+      tags: ['mit Bereitstellung', 'Folgebefehl'],
+      lage: 'Alarmstichwort »Kellerbrand«, Sonntag 06:20 Uhr, Nieselregen. Einfamilienhaus: Dichter Rauch quillt aus den Kellerfenstern, die Haustür ist geschlossen, ob jemand im Haus ist, weißt du nicht. Hydrant am Gehweg gegenüber, der Verteiler soll vor der Haustür stehen. Du beginnst mit der Erkundung. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: mögliche Personen im verrauchten Haus', wrong: ['Sachwerte: Gebäudesubstanz', 'Umwelt: Rauchgase in der Nachbarschaft', 'Tiere: Haustiere im Haus'],
+              why: 'Ob Personen im Haus sind, ist unklar. Nach der Reihenfolge Menschen, Tiere, Umwelt, Sachwerte wird die mögliche Gefahr für Menschen zuerst betrachtet (FwDV 100, Poster Planung).' },
+      befehle: [
+        { name: 'Bereitstellung', art: 'mit',
+          tip: 'Der Befehl mit Bereitstellung nennt nur Wasserentnahmestelle und Verteiler und schließt mit »Zum Einsatz fertig!« (FwDV 3, 5.4).',
+          f: {
+            wasser:    ['Hydrant am Gehweg gegenüber', 'Wasserentnahme offenes Gewässer', 'Hydrant am Nachbarhaus', 'Hydrant in der Sackgasse'],
+            verteiler: ['vor der Haustür', 'im Keller', 'am Kellerfenster', 'hinter dem Haus']
+          },
+          kw: { wasser: 'hydrant', verteiler: 'haust(ü|u|ue)r|haus\\s*t(ü|u|ue)r' } },
+        { name: 'Angriff', art: 'folge',
+          lage: 'Neue Lage: Ein Nachbar sagt, die Familie sei im Urlaub, das Haus ist leer. Der Brand liegt im Keller, der Zugang führt durch den Hausflur hinter der Haustür. Der Angriffstrupp ist mit Atemschutz einsatzbereit, der Wassertrupp als Sicherheitstrupp.',
+          tip: 'Beim Atemschutzeinsatz muss die Einsatzbereitschaft des Sicherheitstrupps sichergestellt sein (FwDV 3, 5.5.1).',
+          f: {
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Brandbekämpfung', 'zur Menschenrettung', 'zur Wasserversorgung', 'zur Brandwache'],
+            mittel:  ['mit 1. Rohr', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['in den Keller', 'ins Dachgeschoss', 'in das Wohnzimmer', 'auf die Terrasse'],
+            weg:     ['über die Haustür und die Kellertreppe', 'über das Kellerfenster', 'über das Dach', 'durch die Garage']
+          },
+          kw: { einheit: 'angriffstrupp', auftrag: 'brand\\s*bek|loesch|lösch', mittel: RX_R1, ziel: 'keller(?!treppe)', weg: 'haust(ü|u|ue)r|kellertreppe|treppe|hausflur' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Brandherd gelöscht, der Keller ist stark verraucht.',
+             ok: 'Belüftung veranlassen und auf Glutnester kontrollieren, der Sicherheitstrupp bleibt bereit, bis der Angriffstrupp zurück ist',
+             wrong: ['Angriffs- und Sicherheitstrupp sofort abziehen und abrücken', 'Den Keller verschlossen lassen', 'Nur die Haustür öffnen und warten'],
+             why: 'Die Kontrolle prüft die erreichte Lageänderung. Der Schlauchtrupp kann zusätzliche Geräte wie das Be- und Entlüftungsgerät in Stellung bringen (FwDV 3, 5.2.1).' } },
+
+    { id: 'pkw', title: 'PKW-Brand am Carport',
+      sub: 'Motorraum brennt, Flammen erreichen die Carportverkleidung.',
+      tags: ['Sachwerte', 'Schnellangriff'],
+      lage: 'Alarmstichwort »PKW-Brand«, Freitag 17:45 Uhr, trocken, böiger Wind. Ein PKW steht unter einem Carport, der Motorraum brennt, die Flammen erreichen die Holzverkleidung des Carports. Das Fahrzeug ist leer, die Besitzerin steht unverletzt auf der Straße. Der Carport grenzt an das Wohnhaus. Hydrant direkt neben dem Löschfahrzeug, die Schnellangriffsleitung reicht aus. Du bist Gruppenführer.',
+      beur: { ok: 'Sachwerte: Übergreifen auf Carport und Wohnhaus verhindern', wrong: ['Menschen: Person im Fahrzeug retten', 'Tiere: Tiere im Wohnhaus', 'Umwelt: Löschwasser auf der Straße'],
+              why: 'Alle Personen sind in Sicherheit. Die Gefahr, die zuerst bekämpft werden muss, ist die Ausbreitung auf Carport und Wohnhaus.' },
+      befehle: [
+        { name: 'Schnellangriff', art: 'ohne',
+          note: 'Beim Schnellangriff bleiben »Lage des Verteilers« und »Weg« in der FwDV-Vorlage leer.',
+          tip: 'Der Angriffstrupp geht mit dem Schnellangriff vor, ein weiterer Trupp unterstützt ihn auf Befehl (FwDV 3, 5.5.6).',
+          f: {
+            wasser:  ['Hydrant neben dem Löschfahrzeug', 'Wasserentnahme offenes Gewässer', 'Hydrant an der nächsten Kreuzung', 'Hydrant am Wohnhaus'],
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Brandbekämpfung', 'zur Menschenrettung', 'zur Wasserversorgung', 'zur Verkehrsabsicherung'],
+            mittel:  ['mit Schnellangriff Wasser', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['zum Motorraum und zur Carportverkleidung', 'zum Wohnhaus', 'in den Fahrgastraum', 'zur Straße']
+          },
+          kw: { wasser: 'hydrant', einheit: 'angriffstrupp', auftrag: 'brand\\s*bek|loesch|lösch', mittel: 'schnell\\s*angriff', ziel: 'motorraum|carport|pkw|auto|fahrzeug' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: PKW gelöscht, die Carportverkleidung ist noch warm.',
+             ok: 'Verkleidung kontrollieren und nachlöschen lassen, Wohnhaus auf Brandausbreitung prüfen, danach Einsatzende',
+             wrong: ['Sofort abrücken, der PKW ist gelöscht', 'Nur den PKW weiter kühlen', 'Das Wohnhaus nicht weiter beachten'],
+             why: 'Soll-Ist-Vergleich: Der Auftrag lautete, die Ausbreitung zu verhindern. Das ist erst erreicht, wenn Carport und Wohnhaus geprüft sind (FwDV 100, 3.3.4).' } },
+
+    { id: 'vu', kind: 'hilfe', title: 'Verkehrsunfall, Person eingeklemmt',
+      sub: 'PKW gegen Baum, Fahrer ansprechbar.',
+      tags: ['Menschen', 'Erstversorgung', 'Absicherung'],
+      lage: 'Alarmstichwort »Verkehrsunfall, Person eingeklemmt«, Mittwoch 16:50 Uhr, trocken, Feierabendverkehr. Auf einer Landstraße ist ein PKW gegen einen Baum geprallt. Der Fahrer ist ansprechbar, sein Fuß ist im Fußraum eingeklemmt. Der Motor läuft nicht, aus dem Motorraum tropft Kühlflüssigkeit. Die Fahrerseite steht am Baum, die Beifahrertür lässt sich öffnen. Der Verkehr fließt dicht an der Unfallstelle vorbei. Der Rettungsdienst ist alarmiert. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: eingeklemmter Fahrer, dazu Gefahr durch den fließenden Verkehr', wrong: ['Umwelt: auslaufende Betriebsstoffe', 'Sachwerte: Unfallfahrzeug und Baum', 'Tiere: Wildtiere an der Straße'],
+              why: 'Menschen haben Vorrang. Die Erstversorgung hat oberste Priorität, und der Fahrer soll bis zur Übergabe an den Rettungsdienst nicht ohne Betreuung sein (FwDV 3, 7.2 b und c).' },
+      befehle: [
+        { name: 'Menschenrettung', art: 'hilfe',
+          tip: 'Der Angriffstrupp rettet, führt bis zur Übergabe an den Rettungsdienst die Erstversorgung durch und leistet technische Hilfe (FwDV 3, 7.1).',
+          f: {
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Menschenrettung und Erstversorgung', 'zur Absicherung der Einsatzstelle', 'zur Brandbekämpfung', 'zur Wasserversorgung'],
+            mittel:  ['mit Sanitätsgerät', 'mit 1. Rohr', 'mit B-Rohr', 'mit Schaumrohr'],
+            ziel:    ['zum Fahrer im PKW', 'zum Baum', 'zur Fahrbahnmitte', 'zum Löschfahrzeug'],
+            weg:     ['über die Beifahrerseite', 'über die Fahrbahn', 'über das Dach', 'durch den Straßengraben']
+          },
+          kw: { einheit: 'angriffstrupp', auftrag: 'rettung|retten|erstversorg|erste\\s*hilfe', mittel: 'sanit|erste\\s*hilfe|verbandkasten', ziel: 'fahrer|pkw|person|auto', weg: 'beifahrer' } },
+        { name: 'Absicherung', art: 'hilfe',
+          lage: 'Neue Lage: Der Angriffstrupp betreut den Fahrer. Der Verkehr fließt weiter dicht an der Unfallstelle vorbei, aus dem Motorraum tropft Kühlflüssigkeit. Der Wassertrupp ist einsatzbereit.',
+          tip: 'Der Wassertrupp sichert auf Befehl die Einsatzstelle gegen weitere Gefahren. Gesichert wird insbesondere gegen fließenden Verkehr (FwDV 3, 7.1 und 7.2 e).',
+          f: {
+            einheit: ['Wassertrupp', 'Angriffstrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Absicherung der Einsatzstelle gegen den fließenden Verkehr', 'zur Menschenrettung und Erstversorgung', 'zur Brandbekämpfung', 'zur Wasserversorgung'],
+            mittel:  ['mit Absperrmaterial', 'mit Sanitätsgerät', 'mit 1. Rohr', 'mit Steckleiter'],
+            ziel:    ['zur Fahrbahn vor der Unfallstelle', 'zum Fahrer im PKW', 'zum Baum', 'zum Löschfahrzeug'],
+            weg:     ['über den Seitenstreifen', 'über die Fahrbahn', 'durch den Straßengraben', 'über das Dach']
+          },
+          kw: { einheit: 'wassertrupp', auftrag: 'absicher|sicher|absperr', mittel: 'absperr|warn|leitkegel', ziel: 'fahrbahn|unfallstelle|straße|strasse', weg: 'seitenstreifen|rand' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Fahrer ansprechbar, Fuß eingeklemmt, starke Schmerzen. Der Rettungsdienst trifft gerade ein.',
+             ok: 'Rettungsdienst einweisen, den Fahrer weiter betreuen und die technische Rettung mit dem Rettungsdienst abstimmen',
+             wrong: ['Fahrer sofort ohne Abstimmung aus dem Fahrzeug ziehen', 'Angriffstrupp abziehen, der Rettungsdienst übernimmt allein', 'Erst die Unfallstelle aufräumen lassen'],
+             why: 'Die Rettung soll unter Beachtung der rettungsdienstlichen Erfordernisse erfolgen (FwDV 3, 7.2 d).' } },
+
+    { id: 'tuer', kind: 'hilfe', title: 'Tür öffnen, Person hilflos',
+      sub: 'Stöhnen hinter der Wohnungstür im 3. OG.',
+      tags: ['Menschen', 'Erstversorgung'],
+      lage: 'Alarmstichwort »Tür öffnen, Person hilflos«, Sonntag 11:10 Uhr, trocken. In einem Mehrfamilienhaus hört eine Nachbarin seit dem Morgen ein Stöhnen aus der Wohnung im 3. Obergeschoss. Die Tür ist verschlossen, niemand öffnet. Der Rettungsdienst ist alarmiert und noch auf der Anfahrt. Der Treppenraum ist frei. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: hilflose Person hinter der Wohnungstür', wrong: ['Sachwerte: die Wohnungstür', 'Sachwerte: die Wohnungseinrichtung', 'Umwelt: Lärm im Treppenraum'],
+              why: 'Eine hilflose Person hat Vorrang vor dem Schutz der Tür. Menschen stehen in der Beurteilung an erster Stelle.' },
+      befehle: [
+        { name: 'Türöffnung', art: 'hilfe',
+          tip: 'Der Angriffstrupp rettet, leistet technische Hilfe und führt bis zur Übergabe an den Rettungsdienst die Erstversorgung durch (FwDV 3, 7.1).',
+          f: {
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Türöffnung und Menschenrettung', 'zur Brandbekämpfung', 'zur Wasserversorgung', 'zur Absicherung der Einsatzstelle'],
+            mittel:  ['mit Brechwerkzeug', 'mit 1. Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['zur Wohnungstür im 3. Obergeschoss', 'zum Hauseingang', 'zum Dach', 'in den Keller'],
+            weg:     ['über den Treppenraum', 'über die Steckleiter', 'über das Dach', 'über den Hinterhof']
+          },
+          kw: { einheit: 'angriffstrupp', auftrag: 'tür|tuer|rettung|retten|öffnung|oeffnung', mittel: 'brech|werkzeug', ziel: 'wohnungstür|wohnungstuer|obergeschoss|3\\.\\s*og|dritten', weg: 'treppenraum|treppenhaus|treppe' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Tür geöffnet, eine ältere Person liegt bewusstlos im Flur, die Atmung ist vorhanden.',
+             ok: 'Erstversorgung, Betreuung bis zur Übergabe und den Rettungsdienst in die Wohnung einweisen',
+             wrong: ['Person allein lassen und die Wohnungstür sichern', 'Erst die Wohnung nach Brandgefahr absuchen und die Person liegen lassen', 'Angriffstrupp abziehen und auf den Rettungsdienst warten'],
+             why: 'Die Erstversorgung (mindestens Erste Hilfe) hat oberste Priorität (FwDV 3, 7.2 c).' } },
+
+    { id: 'baum', kind: 'hilfe', title: 'Baum auf Fahrbahn',
+      sub: 'Sturm, Dunkelheit, Verkehr kommt.',
+      tags: ['Absicherung', 'technische Hilfe'],
+      lage: 'Alarmstichwort »Baum auf Fahrbahn«, Montag 22:30 Uhr, Sturm und Regen, dunkel. Auf einer Kreisstraße liegt ein umgestürzter Baum quer über beiden Fahrspuren. Ein Fahrzeug steht davor, der Fahrer ist unverletzt. Weiterer Verkehr kommt. Dein Löschfahrzeug steht vor dem Baum und sichert mit Warnblinkanlage und blauem Blinklicht. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: heranfahrende Verkehrsteilnehmer in der Dunkelheit', wrong: ['Sachwerte: Straßenbelag', 'Umwelt: Baumbestand am Straßenrand', 'Tiere: Wildwechsel'],
+              why: 'Die größte Gefahr geht vom fließenden Verkehr im Dunkeln aus (FwDV 3, 7.2 e).' },
+      befehle: [
+        { name: 'Absicherung', art: 'hilfe',
+          tip: 'Der Wassertrupp sichert auf Befehl die Einsatzstelle gegen weitere Gefahren, hier gegen fließenden Verkehr und Dunkelheit (FwDV 3, 7.1 und 7.2 e).',
+          f: {
+            einheit: ['Wassertrupp', 'Angriffstrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Absicherung der Einsatzstelle', 'zur Brandbekämpfung', 'zur Menschenrettung', 'zur Wasserversorgung'],
+            mittel:  ['mit Absperrmaterial und Beleuchtungsgerät', 'mit 1. Rohr', 'mit Steckleiter', 'mit Schaumrohr'],
+            ziel:    ['zur Fahrbahn vor dem Baum', 'zum Löschfahrzeug', 'zum Baumstamm', 'zum Straßengraben'],
+            weg:     ['über den Seitenstreifen', 'über die Fahrbahn', 'durch den Straßengraben', 'über den Baum']
+          },
+          kw: { einheit: 'wassertrupp', auftrag: 'absicher|sicher|absperr', mittel: 'absperr|beleucht|leitkegel|warn', ziel: 'fahrbahn|straße|strasse', weg: 'seitenstreifen|rand' } },
+        { name: 'Baum räumen', art: 'hilfe',
+          lage: 'Neue Lage: Die Einsatzstelle ist abgesichert und ausgeleuchtet. Der Angriffstrupp ist einsatzbereit.',
+          tip: 'Der Angriffstrupp leistet technische Hilfe. Der Schlauchtrupp bereitet die Geräte vor und betreibt Aggregate (FwDV 3, 7.1).',
+          f: {
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Räumung der Fahrbahn', 'zur Absicherung der Einsatzstelle', 'zur Brandbekämpfung', 'zur Menschenrettung'],
+            mittel:  ['mit Motorsäge', 'mit 1. Rohr', 'mit Schaumrohr', 'mit Sanitätsgerät'],
+            ziel:    ['zum quer liegenden Baum', 'zum Löschfahrzeug', 'zum Straßengraben', 'zum Fahrzeug vor dem Baum'],
+            weg:     ['über den Seitenstreifen', 'über den Baumstamm', 'über die Fahrbahn hinter dem Baum', 'durch den Straßengraben']
+          },
+          kw: { einheit: 'angriffstrupp', auftrag: 'räum|raeum|beseiti|entfern|säg|saeg', mittel: 'säge|saege|kettensäge', ziel: 'baum', weg: 'seitenstreifen|rand' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Baum zersägt und von der Fahrbahn geräumt, einzelne Äste liegen noch am Rand.',
+             ok: 'Fahrbahn auf Reste prüfen, die Absicherung erst nach der Kontrolle abbauen und an die Leitstelle zurückmelden',
+             wrong: ['Absicherung sofort abbauen und abrücken', 'Äste liegen lassen, die Fahrbahn ist frei', 'Angriffstrupp ohne Kontrolle abziehen'],
+             why: 'Soll-Ist-Vergleich: Der Auftrag war eine freie und sichere Fahrbahn. Die Rückmeldung folgt dem Schema MELDEN (FwDV 100, Poster Befehlsgebung).' } },
+
+    { id: 'wasserkeller', kind: 'hilfe', title: 'Wasser im Keller',
+      sub: 'Starkregen, Keller steht 40 cm unter Wasser.',
+      tags: ['Sachwerte', 'Pumpen'],
+      lage: 'Alarmstichwort »Wasser im Keller«, Samstag 14:00 Uhr, nach starkem Regen. In einem Einfamilienhaus steht das Wasser im Keller etwa 40 Zentimeter hoch. Der Elektroverteiler im Keller hängt knapp über dem Wasser. Der Eigentümer hat den Strom am Sicherungskasten im Erdgeschoss abgeschaltet. Personen sind nicht gefährdet. Der Zugang zum Keller führt über die Kellertreppe im Hausflur. Du bist Gruppenführer.',
+      beur: { ok: 'Sachwerte: Schaden im Keller begrenzen', wrong: ['Menschen: Personen im Keller retten', 'Tiere: Tiere im Keller', 'Umwelt: Schadstoffe im Abwasser'],
+              why: 'Es sind keine Personen gefährdet. Gesichert werden muss auch vor der Energieversorgung (FwDV 3, 7.2 e). Hier hat der Eigentümer den Strom bereits abgeschaltet.' },
+      befehle: [
+        { name: 'Abpumpen', art: 'hilfe',
+          tip: 'Der Schlauchtrupp bereitet die befohlenen Geräte vor und betreibt zugehörige Aggregate (FwDV 3, 7.1). Der Angriffstrupp leistet technische Hilfe.',
+          f: {
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zum Abpumpen des Wassers', 'zur Brandbekämpfung', 'zur Menschenrettung', 'zur Absicherung der Einsatzstelle'],
+            mittel:  ['mit Tauchpumpe', 'mit 1. Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['in den Keller', 'ins Dachgeschoss', 'in den Garten', 'zum Sicherungskasten im Erdgeschoss'],
+            weg:     ['über die Kellertreppe', 'über das Kellerfenster', 'über das Dach', 'durch die Garage']
+          },
+          kw: { einheit: 'angriffstrupp', auftrag: 'pumpen|lenz|leer', mittel: 'tauch|pumpe(?!n)', ziel: 'keller(?!treppe)', weg: 'kellertreppe|treppe' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Der Wasserstand sinkt, aber durch einen Lichtschacht läuft weiter Wasser nach.',
+             ok: 'Den Zulauf am Lichtschacht eindämmen lassen, die Pumpe weiterlaufen lassen und Wasserstand sowie Zulauf laufend kontrollieren',
+             wrong: ['Pumpe abschalten und abrücken', 'Den Keller sofort wieder unter Strom setzen', 'Das Abpumpen beenden, weil der Wasserstand sinkt'],
+             why: 'Kontrolle heißt: erreichte Lageänderung gegen den Auftrag halten und neue Ursachen erkennen (FwDV 100, 3.3.4).' } },
+
+    { id: 'z-halle', role: 'zf', title: 'Gewerbehalle, Anbau brennt',
+      sub: 'Mitarbeiter vermisst, Halle droht zu brennen.',
+      tags: ['Zugführer', 'Menschen', 'Lageeinweisung'],
+      lage: 'Du bist Zugführer. Dein Zug besteht aus Zugtrupp, Gruppe 1 und Gruppe 2 und ist für diesen Einsatz um die Staffel 3 erweitert. Alarmstichwort »Gebäudebrand Gewerbe«, Dienstag 10:15 Uhr, trocken. Der Anbau einer Gewerbehalle brennt, im Anbau wird ein Mitarbeiter vermisst. Die Halle selbst ist noch nicht betroffen. Gruppe 1 trifft zuerst ein und meldet sich bei dir.',
+      beur: { ok: 'Menschen: vermisster Mitarbeiter im Anbau', wrong: ['Sachwerte: Halle und Lagerware', 'Umwelt: Löschwasser und Rauch', 'Tiere: keine Tiere betroffen'],
+              why: 'Menschen stehen an erster Stelle. Der Schutz der Halle folgt danach (FwDV 100, Poster Planung).' },
+      befehle: [
+        { name: 'Erste Einheit', art: 'zug',
+          tip: 'Der Befehl des Zugführers enthält mindestens Einheit und Auftrag (FwDV 3, 6.2). Wie die Gruppe den Auftrag erfüllt, entscheidet der Gruppenführer (Auftragstaktik).',
+          f: {
+            einheit: ['Gruppe 1', 'Gruppe 2', 'Staffel 3', 'Zugtrupp'],
+            auftrag: ['zur Menschenrettung im Anbau', 'zum Schutz der Halle', 'zur Wasserversorgung', 'zur Brandwache']
+          },
+          kw: { einheit: 'gruppe\\s*(1|eins)', auftrag: 'rettung|retten' } },
+        { name: 'Nachrückende Einheit', art: 'zug',
+          lage: 'Neue Lage: Gruppe 1 rettet im Anbau und löscht dort. Gruppe 2 trifft ein und meldet sich bei dir. Das Feuer droht auf die Halle überzugreifen. Staffel 3 steht noch an der Bereitstellung.',
+          tip: 'Bei nachrückenden Einheiten geht die Lageeinweisung dem Befehl voraus. Mittel, Ziel und Weg nennst du nur, wenn sie zur Klarheit beitragen (FwDV 3, 6.2).',
+          f: {
+            lage:    ['Gruppe 1 rettet im Anbau, das Feuer droht auf die Halle überzugreifen', 'Der Anbau ist gelöscht, die Halle ist unbeteiligt', 'Die Halle steht in Vollbrand, der Anbau ist frei', 'Alle Personen sind gerettet, das Feuer ist unter Kontrolle'],
+            einheit: ['Gruppe 2', 'Gruppe 1', 'Staffel 3', 'Zugtrupp'],
+            auftrag: ['zum Abriegeln des Übergangs zur Halle', 'zur Menschenrettung im Anbau', 'zur Wasserversorgung', 'zur Brandwache']
+          },
+          kw: { lage: 'droht|übergreif|uebergreif|überzugreif', einheit: 'gruppe\\s*(2|zwei)', auftrag: 'abriegel|riegel|übergang|uebergang|schutz der halle' } }
+      ],
+      kon: { meldung: 'Der Gruppenführer von Gruppe 1 meldet: Vermisster Mitarbeiter gerettet und an den Rettungsdienst übergeben. Das Feuer im Anbau ist unter Kontrolle. Gruppe 1 ist weiter im Einsatz, keine Nachforderung.',
+             ok: 'Soll-Ist-Vergleich: Menschenrettung erfüllt. Gruppe 1 einen neuen Auftrag erteilen, zum Beispiel Nachlöscharbeiten im Anbau, und die Lage neu bewerten',
+             wrong: ['Gruppe 1 ohne neuen Auftrag stehen lassen', 'Gruppe 1 sofort abziehen', 'Den Einsatz ohne weitere Kontrolle für beendet erklären'],
+             why: 'Du hältst die erreichte Lageänderung gegen den Auftrag. Ist er erfüllt, folgen erneute Planung und Befehlsgebung (FwDV 100, 3.3 und 3.3.4).' } },
+
+    { id: 'z-wohnhaus', role: 'zf', title: 'Wohnungsbrand, Kind vermisst',
+      sub: 'Mehrfamilienhaus, 2. OG, Atemschutz nötig.',
+      tags: ['Zugführer', 'Menschen', 'Sicherheitstrupp'],
+      lage: 'Du bist Zugführer. Dein Zug besteht aus Zugtrupp, Gruppe 1 und Gruppe 2 und ist für diesen Einsatz um die Staffel 3 erweitert. Alarmstichwort »Wohnungsbrand, Kind vermisst«, Freitag 02:40 Uhr, trocken. Dreigeschossiges Mehrfamilienhaus: Flammen schlagen aus einer Wohnung im 2. Obergeschoss, der Treppenraum ist verraucht, die Bewohner stehen vor dem Haus. Eine Mutter ruft, ihr Kind sei noch in der Wohnung. Gruppe 1 trifft zuerst ein, Gruppe 2 folgt kurz danach, Staffel 3 steht noch an der Bereitstellung. Der Hydrant liegt in der Nebenstraße.',
+      beur: { ok: 'Menschen: vermisstes Kind in der brennenden Wohnung', wrong: ['Sachwerte: Nachbarwohnungen', 'Umwelt: Löschwasser im Haus', 'Sachwerte: das Gebäude'],
+              why: 'Eine vermisste Person im Brandraum hat Vorrang vor allen anderen Gefahren.' },
+      befehle: [
+        { name: 'Erste Einheit', art: 'zug',
+          tip: 'Auftrag an die Einheit, nicht an einzelne Truppmänner: Gruppe 1 entscheidet, wie sie die Menschenrettung durchführt (FwDV 100, 2.3.2).',
+          f: {
+            einheit: ['Gruppe 1', 'Gruppe 2', 'Staffel 3', 'Zugtrupp'],
+            auftrag: ['zur Menschenrettung in der Wohnung im 2. Obergeschoss', 'zur Brandbekämpfung im Treppenraum', 'zur Wasserversorgung', 'zur Brandwache']
+          },
+          kw: { einheit: 'gruppe\\s*(1|eins)', auftrag: 'rettung|retten|kind|wohnung' } },
+        { name: 'Nachrückende Einheit', art: 'zug',
+          lage: 'Neue Lage: Gruppe 1 geht mit Atemschutz zur Menschenrettung in die Wohnung vor. Gruppe 2 trifft ein und meldet sich bei dir. Der Brand breitet sich im 2. Obergeschoss aus. Staffel 3 steht noch an der Bereitstellung.',
+          tip: 'Beim Atemschutzeinsatz muss die Einsatzbereitschaft des Sicherheitstrupps sichergestellt sein (FwDV 3, 5.5.1).',
+          f: {
+            lage:    ['Gruppe 1 geht mit Atemschutz zur Menschenrettung vor, der Brand breitet sich aus', 'Das Kind ist gerettet, der Brand ist gelöscht', 'Die Wohnung ist leer, das Feuer ist aus', 'Der Treppenraum ist frei und rauchfrei'],
+            einheit: ['Gruppe 2', 'Gruppe 1', 'Staffel 3', 'Zugtrupp'],
+            auftrag: ['zur Brandbekämpfung in der Wohnung', 'zur Menschenrettung in der Wohnung', 'zur Brandwache', 'zur Absicherung der Einsatzstelle']
+          },
+          kw: { lage: 'atemschutz|breitet|ausbreit', einheit: 'gruppe\\s*(2|zwei)', auftrag: 'brand\\s*bek|loesch|lösch' } }
+      ],
+      kon: { meldung: 'Der Gruppenführer von Gruppe 1 meldet: Kind gerettet und vom Rettungsdienst versorgt. Wohnung brennt weiter, zwei Trupps unter Atemschutz im Einsatz. Wir fordern einen Sicherheitstrupp nach.',
+             ok: 'Staffel 3 aus der Bereitstellung als Sicherheitstrupp einsetzen',
+             wrong: ['Die Nachforderung ablehnen und weiterarbeiten lassen', 'Gruppe 1 ohne Sicherheitstrupp weiter vorgehen lassen', 'Staffel 3 zur Brandwache einteilen'],
+             why: 'Beim Atemschutzeinsatz muss die Einsatzbereitschaft des Sicherheitstrupps sichergestellt sein. Nachforderungen von Kräften und Mitteln gehören zur Rückmeldung nach MELDEN (FwDV 100, Poster Befehlsgebung). Sicherheitstrupps für andere Einheiten kann der Zugführer im Befehl bereitstellen (FwDV 3, 6.2).' } },
+
+    { id: 'z-vu', role: 'zf', kind: 'hilfe', title: 'Verkehrsunfall, zwei Fahrzeuge',
+      sub: 'Zwei Personen eingeklemmt, Verkehr fließt vorbei.',
+      tags: ['Zugführer', 'Hilfeleistung', 'Absicherung'],
+      lage: 'Du bist Zugführer. Dein Zug besteht aus Zugtrupp, Gruppe 1 und Gruppe 2 und ist für diesen Einsatz um die Staffel 3 erweitert. Alarmstichwort »Verkehrsunfall, mehrere Personen«, Samstag 18:20 Uhr, Regen, Dämmerung. Auf einer Landstraße sind zwei PKW frontal zusammengestoßen. In jedem Fahrzeug ist eine Person eingeklemmt, eine weitere Person liegt leicht verletzt am Straßenrand. Der Rettungsdienst ist alarmiert, aber noch nicht da. Gruppe 1 trifft zuerst ein.',
+      beur: { ok: 'Menschen: zwei eingeklemmte Personen und eine Verletzte', wrong: ['Umwelt: auslaufende Betriebsstoffe', 'Sachwerte: beide Fahrzeuge', 'Tiere: Wildwechsel an der Straße'],
+              why: 'Menschen haben Vorrang. Die Erstversorgung hat oberste Priorität (FwDV 3, 7.2 c).' },
+      befehle: [
+        { name: 'Erste Einheit', art: 'zug',
+          tip: 'Der Angriffstrupp der Gruppe rettet und führt bis zur Übergabe an den Rettungsdienst die Erstversorgung durch (FwDV 3, 7.1).',
+          f: {
+            einheit: ['Gruppe 1', 'Gruppe 2', 'Staffel 3', 'Zugtrupp'],
+            auftrag: ['zur Menschenrettung und Erstversorgung am PKW 1', 'zur Absicherung der Einsatzstelle', 'zur Brandbekämpfung', 'zur Wasserversorgung']
+          },
+          kw: { einheit: 'gruppe\\s*(1|eins)', auftrag: 'rettung|retten|erstversorg' } },
+        { name: 'Nachrückende Einheit', art: 'zug',
+          lage: 'Neue Lage: Gruppe 1 arbeitet am PKW 1, Gruppe 2 am PKW 2. Der Verkehr fließt dicht an der Unfallstelle vorbei. Staffel 3 trifft ein und meldet sich bei dir.',
+          tip: 'Gesichert wird insbesondere gegen fließenden Verkehr (FwDV 3, 7.2 e). Das übernimmt hier die nachrückende Staffel.',
+          f: {
+            lage:    ['Gruppe 1 und Gruppe 2 arbeiten an den Fahrzeugen, der Verkehr fließt dicht vorbei', 'Alle Personen sind befreit, der Verkehr ist gesperrt', 'Die Einsatzstelle ist bereits vollständig abgesichert', 'Es fließt kein Verkehr mehr'],
+            einheit: ['Staffel 3', 'Gruppe 1', 'Gruppe 2', 'Zugtrupp'],
+            auftrag: ['zur Absicherung der Einsatzstelle gegen den fließenden Verkehr', 'zur Menschenrettung am PKW 2', 'zur Brandbekämpfung', 'zur Wasserversorgung']
+          },
+          kw: { lage: 'arbeiten|dicht', einheit: 'staffel\\s*(3|drei)', auftrag: 'absicher|sicher|absperr' } }
+      ],
+      kon: { meldung: 'Der Gruppenführer von Gruppe 1 meldet: Fahrer PKW 1 befreit und übergeben. Beifahrer PKW 2 noch eingeklemmt, der Rettungsdienst ist eingetroffen, die Abstimmung läuft.',
+             ok: 'Gruppe 1 mit der technischen Rettung am PKW 2 beauftragen, in Abstimmung mit dem Rettungsdienst',
+             wrong: ['Gruppe 1 abziehen, der Rettungsdienst übernimmt allein', 'Den Beifahrer ohne Abstimmung aus dem Fahrzeug ziehen lassen', 'Erst die Fahrzeuge bergen lassen'],
+             why: 'Die Rettung soll unter Beachtung der rettungsdienstlichen Erfordernisse erfolgen (FwDV 3, 7.2 d).' } },
+
+    { id: 'z-scheune', role: 'zf', title: 'Scheunenbrand, Tiere im Stall',
+      sub: 'Wohnhaus daneben, Wasser nur weit entfernt.',
+      tags: ['Zugführer', 'Tiere', 'Wasserversorgung'],
+      lage: 'Du bist Zugführer. Dein Zug besteht aus Zugtrupp, Gruppe 1 und Gruppe 2 und ist für diesen Einsatz um die Staffel 3 erweitert. Alarmstichwort »Scheunenbrand«, Sonntag 15:00 Uhr, warm und trocken, böiger Wind. Auf einem Aussiedlerhof steht eine Scheune mit Heu in Vollbrand. Das Wohnhaus liegt 12 Meter daneben, der Wind weht zum Wohnhaus. Die Bewohner sind in Sicherheit. Im Stall zwischen Scheune und Wohnhaus stehen 20 Rinder. Hydrant 500 Meter entfernt, Löschteich 300 Meter. Gruppe 1 trifft zuerst ein.',
+      beur: { ok: 'Tiere: Rinder im Stall neben der Scheune', wrong: ['Menschen: Bewohner im Wohnhaus', 'Sachwerte: Scheune und Heuvorrat', 'Umwelt: Löschwasser auf dem Hof'],
+              why: 'Die Bewohner sind in Sicherheit. Danach folgen Tiere, dann Umwelt und Sachwerte (FwDV 100, Poster Planung).' },
+      befehle: [
+        { name: 'Erste Einheit', art: 'zug',
+          tip: 'Das Schützen gefährdeter Objekte durch Abriegeln gehört zum Löscheinsatz (FwDV 3, Abschnitt 1).',
+          f: {
+            einheit: ['Gruppe 1', 'Gruppe 2', 'Staffel 3', 'Zugtrupp'],
+            auftrag: ['zum Abriegeln des Stalls gegen die Scheune', 'zur Brandbekämpfung an der Scheune', 'zur Wasserversorgung', 'zur Brandwache']
+          },
+          kw: { einheit: 'gruppe\\s*(1|eins)', auftrag: 'abriegel|riegel|stall' } },
+        { name: 'Nachrückende Einheit', art: 'zug',
+          lage: 'Neue Lage: Gruppe 1 riegelt den Stall ab. Der Wasserbedarf ist hoch, der Tankinhalt reicht nur kurz. Staffel 3 trifft ein und meldet sich bei dir.',
+          tip: 'Die Wasserversorgung muss möglichst schnell aufgebaut werden (FwDV 3, 5.3 h).',
+          f: {
+            lage:    ['Gruppe 1 riegelt den Stall ab, der Wasserbedarf ist hoch', 'Der Stall ist geräumt, das Feuer ist aus', 'Die Scheune ist bereits gelöscht', 'Das Wohnhaus brennt in voller Ausdehnung'],
+            einheit: ['Staffel 3', 'Gruppe 1', 'Gruppe 2', 'Zugtrupp'],
+            auftrag: ['zum Aufbau der Wasserversorgung vom Löschteich', 'zur Brandbekämpfung an der Scheune', 'zur Menschenrettung', 'zur Brandwache']
+          },
+          kw: { lage: 'wasserbedarf|riegelt|riegel', einheit: 'staffel\\s*(3|drei)', auftrag: 'wasserversorg|löschteich|loeschteich|aufbau' } }
+      ],
+      kon: { meldung: 'Der Gruppenführer von Gruppe 1 meldet: Stall gehalten, der Landwirt treibt die Rinder aus. Der Tankinhalt ist in drei Minuten leer. Wir fordern weitere Wasserversorgung nach.',
+             ok: 'Wasserversorgung vom Löschteich mit Staffel 3 vorrangig aufbauen lassen und die Nachforderung weiterer Kräfte und Mittel prüfen',
+             wrong: ['Gruppe 1 abziehen', 'Den Angriff am Stall abbrechen', 'Weitere Rohre ohne gesicherte Wasserversorgung vornehmen lassen'],
+             why: 'Die Wasserversorgung muss möglichst schnell aufgebaut werden. Nachforderungen von Kräften und Mitteln gehören zur Rückmeldung nach MELDEN (FwDV 100, Poster Befehlsgebung).' } }
+  ];
+
+  var QUIZ = [
+    ['Aus wie vielen Einsatzkräften besteht eine Gruppe?', '9 (1/8/9)', ['6 (1/5/6)', '3 (1/2/3)', '22'], 'Gruppenführer plus acht weitere Kräfte. Die Staffel hat 1/5/6, der Selbstständige Trupp 1/2/3 (FwDV 3, Abschnitt 2).'],
+    ['Wer kann einen Innenangriff mit Atemschutzgeräten durchführen?', 'Eine Gruppe oder eine Staffel', ['Auch ein Selbstständiger Trupp', 'Nur eine Gruppe', 'Nur ein Zug'], 'Die Mannschaft eines Selbstständigen Trupps reicht dafür nicht aus (FwDV 3, 5.1).'],
+    ['Auf wen wird bei fehlenden Einsatzkräften zuerst verzichtet?', 'Auf den Melder', ['Auf den Schlauchtrupp', 'Auf den Wassertrupp', 'Auf den Maschinisten'], 'Zuerst Melder, dann Schlauchtrupp, schließlich Wassertrupp (FwDV 3, 5.1).'],
+    ['Wann befiehlst du einen Einsatz mit Bereitstellung?', 'Wenn du Wasserentnahmestelle und Verteiler kennst, aber noch nicht Auftrag, Mittel, Ziel oder Weg', ['Wenn die Lage vollständig geklärt ist', 'Wenn kein Hydrant vorhanden ist', 'Nur bei Atemschutzeinsätzen'], 'Nur wenn ausreichende Informationen für den Einsatzauftrag vorliegen, folgt ein Einsatz ohne Bereitstellung (FwDV 3, 5.4).'],
+    ['Mit welchem Kommando endet der Befehl mit Bereitstellung?', 'Zum Einsatz fertig!', ['Vor!', 'Wasser marsch!', 'Absitzen!'], 'Der Angriffstruppführer wiederholt das Kommando (FwDV 3, 5.4).'],
+    ['Mit welchem Kommando endet der Befehl ohne Bereitstellung?', 'Vor!', ['Zum Einsatz fertig!', 'Los!', 'Wasser marsch!'], 'Danach wiederholt der beauftragte Truppführer den Befehl ab »Einheit« (FwDV 3, 5.4).'],
+    ['Wie ist die Reihenfolge beim Einsatz ohne Bereitstellung?', 'Wasserentnahmestelle, Verteiler, Einheit, Auftrag, Mittel, Ziel, Weg', ['Einheit, Auftrag, Ziel, Mittel, Weg, Wasserentnahmestelle, Verteiler', 'Auftrag, Einheit, Mittel, Weg, Ziel, Verteiler, Wasserentnahmestelle', 'Verteiler, Wasserentnahmestelle, Auftrag, Einheit, Weg, Mittel, Ziel'], 'Nach einer kurzen Lageschilderung folgen diese sieben Elemente, dann »Vor!« (FwDV 3, 5.4).'],
+    ['Wer setzt den Verteiler?', 'Der Angriffstrupp', ['Der Wassertrupp', 'Der Schlauchtrupp', 'Der Maschinist'], 'Der Angriffstrupp setzt den Verteiler und legt C-Druckschläuche bereit (FwDV 3, 5.2.1).'],
+    ['Wer stellt die Wasserversorgung zwischen Löschfahrzeug und Hydrant her?', 'Der Wassertrupp', ['Der Angriffstrupp', 'Der Schlauchtrupp', 'Der Melder'], 'Der Wassertrupp stellt die Versorgung zum Verteiler und zur Wasserentnahmestelle her (FwDV 3, 5.2.1).'],
+    ['Wer nimmt beim Atemschutzeinsatz das zweite Rohr vor?', 'Der Schlauchtrupp', ['Der Wassertrupp', 'Der Melder', 'Der Angriffstrupp'], 'Der Wassertrupp wird Sicherheitstrupp (FwDV 3, 5.5.1).'],
+    ['Wie lautet das Kommando bei besonderer Gefahr, zum Beispiel Einsturzgefahr?', 'Gefahr - Alle sofort zurück!', ['Alle Mann zurück!', 'Rückzug!', 'Achtung Gefahr, Abmarsch!'], 'Jede Einsatzkraft gibt es weiter, alle sammeln sich am Fahrzeug, der Einheitsführer prüft die Vollzähligkeit (FwDV 3, 5.3 j).'],
+    ['Wann darf der Innenangriff beginnen?', 'Wenn eine ständige Wasserabgabe sichergestellt ist', ['Sobald der Verteiler gesetzt ist', 'Sobald das zweite Rohr bereitliegt', 'Sobald der Melder meldet'], 'Zum Beispiel, wenn das mitgeführte Löschwasser bis zum Aufbau der Versorgung reicht (FwDV 3, 5.3 h).'],
+    ['Was muss ein Befehl mindestens enthalten?', 'Einheit und Auftrag', ['Einheit, Auftrag, Mittel, Ziel und Weg', 'Lage und Durchführung', 'Mittel, Ziel und Weg'], 'Mittel, Ziel und Weg nur, wenn sie zur Klarheit beitragen (FwDV 100, 3.3.3.1, und FwDV 3, 6.2).'],
+    ['Wie ist der Führungsvorgang nach FwDV 100 gegliedert?', 'Lagefeststellung, Planung (Beurteilung, Entschluss), Befehlsgebung, erneute Lagefeststellung als Kontrolle', ['Befehlsgebung, Lagefeststellung, Planung, Kontrolle', 'Planung, Befehlsgebung, Meldung, Lagefeststellung', 'Entschluss, Lagefeststellung, Befehl, Kontrolle'], 'Der Führungsvorgang wiederholt sich: Nach der Befehlsgebung folgt die erneute Lagefeststellung, die vor allem der Kontrolle der Auswirkung der Befehle dient (FwDV 100, 3.3 und 3.3.4).'],
+    ['Welche Gefahr muss laut Beurteilung zuerst bekämpft werden?', 'Menschen vor Tieren, Umwelt und Sachwerten', ['Sachwerte vor Menschen', 'Umwelt vor Tieren und Menschen', 'Tiere vor Menschen'], 'So lautet die Reihenfolge im Schema zur Beurteilung (FwDV 100, Poster Planung).'],
+    ['Was bedeutet Auftragstaktik?', 'Der Auftrag nennt das Ziel und lässt den Weg dorthin offen', ['Jede Einzelheit wird befohlen', 'Der Einsatzleiter greift jederzeit ein', 'Befehle werden nur schriftlich erteilt'], 'Entscheidend ist das Erreichen des Ziels (FwDV 100, 2.3.2).'],
+    ['Was ist die Kontrolle im Führungsvorgang?', 'Soll-Ist-Vergleich zwischen erteiltem Auftrag und erreichter Lageänderung', ['Eine Wiederholung des Befehls im Wortlaut', 'Die Dokumentation für die Leitstelle', 'Das Aufräumen der Einsatzstelle'], 'Sie ist eine ständige Aufgabe und löst bei Abweichung erneute Planung und Befehlsgebung aus (FwDV 100, 3.3.4).'],
+    ['Was gehört zur Rückmeldung nach dem Schema MELDEN?', 'Meldender, Einsatzstelle, Lage, Durchgeführte Maßnahmen, Eingesetzte Kräfte und Mittel, Nachforderungen', ['Material, Einsatzzeit, Lage, Dauer, Einheit, Nachbarn', 'Meldender, Einsatzleiter, Leitstelle, Dienstgrad, Einheit, Name', 'Maßnahmen, Entschluss, Lage, Durchführung, Einsatzziel, Nachweis'], 'So lautet die Rückmeldung auf dem Poster Befehlsgebung (FwDV 100). Meldungen müssen außerdem unverzüglich, klar und vollständig sein und Tatsachen von Vermutungen trennen (FwDV 100, 3.3.1.3).'],
+    ['Wann darfst du vom erhaltenen Befehl abweichen?', 'Wenn sich die Lage grundlegend geändert hat, schnelles Handeln nötig ist und keine rechtzeitige Entscheidung der befehlenden Führungskraft möglich ist', ['Immer, wenn du es besser weißt', 'Nie, auch nicht bei Gefahr', 'Nur mit schriftlicher Genehmigung'], 'Dann handelst du im Sinne der Absicht der übergeordneten Führung und machst umgehend eine Rückmeldung (FwDV 100, 3.3.3.2).'],
+    ['Wer führt im Hilfeleistungseinsatz bis zur Übergabe an den Rettungsdienst die Erstversorgung durch?', 'Der Angriffstrupp', ['Der Wassertrupp', 'Der Melder', 'Der Maschinist'], 'Der Angriffstrupp rettet, leistet Erstversorgung (mindestens Erste Hilfe) und technische Hilfe (FwDV 3, 7.1).'],
+    ['Was hat im Hilfeleistungseinsatz oberste Priorität?', 'Die Erstversorgung, mindestens Erste Hilfe', ['Das Beseitigen von Sachschäden', 'Das Absperren der Einsatzstelle', 'Das Aufstellen der Beleuchtung'], 'Die Rettung erfolgt unter Beachtung der rettungsdienstlichen Erfordernisse (FwDV 3, 7.2 c und d).'],
+    ['Wer sichert im Hilfeleistungseinsatz auf Befehl die Einsatzstelle gegen weitere Gefahren?', 'Der Wassertrupp', ['Der Angriffstrupp', 'Der Schlauchtrupp', 'Der Melder'], 'Danach steht der Wassertrupp für weitere Aufgaben zur Verfügung (FwDV 3, 7.1).'],
+    ['Wovor muss an Einsatzstellen der technischen Hilfeleistung insbesondere gesichert werden?', 'Fließendem Verkehr, Nachsacken von Lasten, Brandgefahr, herabfallenden Teilen, Dunkelheit, Betriebsstoffen und Energieversorgung', ['Nur vor fließendem Verkehr', 'Nur vor Brandgefahr und Dunkelheit', 'Vor Neugierigen und Presse'], 'Das ist die Aufzählung in FwDV 3, 7.2 e.'],
+    ['Welche Bereiche legst du zur Ordnung des Raumes fest?', 'Absperrbereich und Arbeitsbereich, dazu Ablageflächen für Einsatzmittel und für entfernte Gegenstände', ['Nur einen Arbeitsbereich', 'Gefahrenbereich und Ruhebereich', 'Einen Bereich für Presse und einen für Anwohner'], 'Der Absperrbereich ist Aufstellungs- und Bereitstellungsfläche, der Arbeitsbereich liegt unmittelbar an der Gefahrenstelle (FwDV 3, 7.2 g und Begriffe).'],
+    ['Was gilt bei der Erkundung, wenn eine Person gerettet werden muss?', 'Die Person soll bis zur Übergabe nicht ohne Betreuung sein, die Erkundung erfolgt nicht allein', ['Die Erkundung erfolgt immer allein', 'Die Person wird erst nach der Erkundung betreut', 'Betreuung übernimmt immer der Maschinist'], 'FwDV 3, 7.2 b.'],
+    ['Was macht der Schlauchtrupp, wenn der Angriffstrupp durch die Erstversorgung gebunden ist?', 'Er setzt die befohlenen Geräte ein', ['Er rückt ab', 'Er übernimmt die Einsatzleitung', 'Er wartet auf den Rettungsdienst'], 'FwDV 3, 7.1.'],
+    ['Aus welchen Teilen besteht ein Zug?', 'Zugführer, Zugtrupp als Führungseinheit und Gruppen, Staffeln und/oder Selbstständige Trupps', ['Zugführer und drei Gruppen ohne Zugtrupp', 'Zugtrupp und zwei Staffeln', 'Nur aus Gruppen'], 'Der Zug hat in der Regel eine Mannschaftsstärke von 22 (FwDV 3, 2.4).', 'zf'],
+    ['Wer gehört zum Zugtrupp?', 'Führungsassistent, Melder und Fahrer', ['Maschinist, Melder und Angriffstrupp', 'Zugführer, Gruppenführer und Melder', 'Führungsassistent, Wassertrupp und Fahrer'], 'Der Zugtrupp hat die Stärke 1/2/3. Der Führungsassistent ist Vertreter des Zugführers (FwDV 3, 2.4).', 'zf'],
+    ['Wie melden sich die Einheitsführer des Zuges an der Einsatzstelle?', 'Beim Zugführer, der ihnen den Befehl für ihre Einheit gibt', ['Bei der Leitstelle', 'Beim Maschinisten', 'Gar nicht, sie beginnen selbstständig'], 'Gegebenenfalls erkundet der Zugführer vorher gemeinsam mit den Einheitsführern die Einsatzstelle (FwDV 3, 6.1).', 'zf'],
+    ['Wann sind Angaben zu Lage und Durchführung im Zugführerbefehl besonders sinnvoll?', 'Wenn die Einheitsführer keinen Lageüberblick haben oder als nachrückende Einheit eingesetzt werden', ['Nur bei schriftlichen Befehlen', 'Nie, der Befehl besteht immer nur aus Einheit und Auftrag', 'Nur beim ersten Befehl des Einsatzes'], 'Diese Informationen sollen dem Befehl vorausgehen (FwDV 3, 6.2).', 'zf'],
+    ['Welche Führungsstufe gilt nach FwDV 100 für einen Zug an einer Einsatzstelle?', 'Stufe B: Führen mit örtlichen Führungseinheiten', ['Stufe A: Führen ohne Führungseinheit', 'Stufe C: Führen mit einer Führungsgruppe', 'Stufe D: Führen mit einem Führungsstab'], 'Stufe A gilt für taktische Einheiten bis zur Stärke von zwei Gruppen (FwDV 100, 3.2.5).', 'zf'],
+    ['Welche Führungsstufe gilt für eine Gruppe oder bis zu zwei Gruppen?', 'Stufe A: Führen ohne Führungseinheit', ['Stufe B: Führen mit örtlichen Führungseinheiten', 'Stufe C: Führen mit einer Führungsgruppe', 'Es gibt dafür keine Führungsstufe'], 'Bei alltäglichen Einsätzen führt der Gruppenführer in der Regel ohne weitere Führungskräfte (FwDV 100, 3.2.2.2 und 3.2.5).', 'gf']
+  ];
+
+  /* ---------- Hilfsfunktionen ---------- */
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function spoken(k, v) { if (k === 'wasser' && /^Wasserentnahme /.test(v)) return v; return FIELDS[k].pre + ' ' + v; }
+  function correctVals(st) { var o = {}; Object.keys(st.f).forEach(function (k) { o[k] = st.f[k][0]; }); return o; }
+  function musterText(st) { return Object.keys(st.f).map(function (k) { return spoken(k, st.f[k][0]); }).join(', ') + (ARTS[st.art].end ? ', ' + ARTS[st.art].end : ''); }
+
+  var store = { sc: {}, quiz: 0, role: null, hist: [], cat: {}, fld: {}, qh: [] };
+  try {
+    var raw = localStorage.getItem('bt-fwdv3');
+    if (raw) {
+      var p = JSON.parse(raw), isObj = function (x) { return x && typeof x === 'object' && !Array.isArray(x); };
+      if (isObj(p)) {
+        if (isObj(p.sc)) store.sc = p.sc;
+        if (isObj(p.cat)) store.cat = p.cat;
+        if (isObj(p.fld)) store.fld = p.fld;
+        if (Array.isArray(p.hist)) store.hist = p.hist.filter(isObj);
+        if (Array.isArray(p.qh)) store.qh = p.qh.filter(isObj);
+        if (typeof p.quiz === 'number') store.quiz = p.quiz;
+        if (p.role === 'gf' || p.role === 'zf') store.role = p.role;
+      }
+    }
+  } catch (e) {}
+  function save() { try { localStorage.setItem('bt-fwdv3', JSON.stringify(store)); } catch (e) {} }
+
+  var S = { tab: 'ueben', mode: 'speak', role: store.role, run: null, quiz: null, focus: null, scroll: null, sample: undefined, confirm: null, flash: '' };
+  function roleName(r) { return r === 'zf' ? 'Zugführer' : r === 'gf' ? 'Gruppenführer' : 'Führungskraft'; }
+
+  function getSample() {
+    if (S.sample !== undefined) return Promise.resolve(S.sample);
+    try {
+      if (window.claude && typeof window.claude.use === 'function') {
+        return window.claude.use('sample').then(function (s) { S.sample = s || null; return S.sample; }, function () { S.sample = null; return null; });
+      }
+    } catch (e) {}
+    S.sample = null; return Promise.resolve(null);
+  }
+  getSample().then(function () { if (S.run && S.run.phase === 'speak' && S.run.evald) render(); });
+
+  /* ---------- Auswertung des Gesprochenen ---------- */
+  function evalSpeech(st, text) {
+    var norm = text.toLowerCase().replace(/[–—-]/g, ' ').replace(/\s+/g, ' ').trim();
+    var keys = Object.keys(st.f), items = [], hits = 0;
+    keys.forEach(function (k) {
+      var m = new RegExp(st.kw[k], 'i').exec(norm);
+      var status = m ? 'ok' : 'miss', note = '';
+      if (!m && k === 'einheit') {
+        var om = /(angriffstrupp|wassertrupp|schlauchtrupp|sicherheitstrupp|zugtrupp|melder|(gruppe|staffel)\s*(\d|eins|zwei|drei))/.exec(norm);
+        if (om) { status = 'wrong'; note = 'Genannt: ' + om[0].charAt(0).toUpperCase() + om[0].slice(1) + '.'; }
+      }
+      if (!m && k === 'mittel') {
+        var wrongM = /b\s*rohr/.test(norm) ? 'B-Rohr' : /schaum/.test(norm) ? 'Schaumrohr' : '';
+        if (wrongM) { status = 'wrong'; note = 'Genannt: ' + wrongM + '.'; }
+      }
+      if (status === 'ok') hits++;
+      items.push({ k: k, status: status, pos: m ? m.index : -1, note: note });
+    });
+    var found = items.filter(function (r) { return r.pos >= 0; }), inv = [];
+    for (var i = 0; i < found.length; i++) for (var j = i + 1; j < found.length; j++) if (found[i].pos > found[j].pos) inv.push(FIELDS[found[j].k].label + ' vor ' + FIELDS[found[i].k].label);
+    var orderOk = found.length >= 2 && inv.length === 0;
+    var hasEnd = !!ARTS[st.art].end;
+    var endOk = hasEnd ? new RegExp(ARTS[st.art].endRx, 'i').test(norm) : true;
+    var words = norm ? norm.split(' ').length : 0;
+    var total = keys.length + 1 + (hasEnd ? 1 : 0), score = (hits + (orderOk ? 1 : 0) + (hasEnd && endOk ? 1 : 0)) / total;
+    var level = score === 1 ? 'good' : score >= 0.75 ? 'near' : 'bad';
+    return { items: items, inv: inv, orderOk: orderOk, endOk: endOk, words: words, score: score, level: level, hits: hits, total: keys.length, hasEnd: hasEnd };
+  }
+
+  /* ---------- Vordruck ---------- */
+  function vordruck(st, vals, title) {
+    var art = ARTS[st.art];
+    var rows = Object.keys(st.f).map(function (k) {
+      var v = vals[k];
+      return '<div class="vrow"><span class="k">' + FIELDS[k].label + '</span><span class="v' + (v ? '' : ' empty') + '">' + (v ? esc(spoken(k, v)) : '…') + '</span></div>';
+    }).join('');
+    var end = art.end ? '<div class="vend">' + esc(art.end) + '</div>' : '';
+    return '<div class="vordruck"><div class="vh"><span>' + esc(title || art.label) + '</span><span>Befehl</span></div>' + rows + end + '</div>';
+  }
+
+  /* ---------- Übungslauf ---------- */
+  function curStage() { return SCEN[S.run.i].befehle[S.run.si]; }
+  function initMq(kind) {
+    var sc = SCEN[S.run.i], d = kind === 'beur' ? sc.beur : sc.kon;
+    S.run.mq = { kind: kind, opts: shuffle([{ t: d.ok, ok: true }].concat(d.wrong.map(function (t) { return { t: t, ok: false }; }))), pick: null };
+  }
+  function initStage() {
+    var r = S.run, st = curStage();
+    r.order = {};
+    Object.keys(st.f).forEach(function (k) { r.order[k] = shuffle(st.f[k]); });
+    r.artOrder = shuffle(SCEN[r.i].role === 'zf' ? ['zug', 'mit', 'ohne', 'folge'] : ['mit', 'ohne', 'folge', 'hilfe']);
+    r.picks = {}; r.artPick = null; r.checked = false; r.text = ''; r.ev = null; r.coach = null;
+    r.phase = S.mode === 'select' ? 'art' : 'speak';
+  }
+  function startScenario(i) {
+    S.run = { i: i, si: 0, r: 0, t: 0, misses: [], phase: 'beur', mode: S.mode, cat: { beur: [0, 0], art: [0, 0], befehl: [0, 0], kon: [0, 0] }, fld: {} };
+    initMq('beur');
+  }
+  function rec(r, cat, ok) { var c = r.cat[cat]; c[1]++; if (ok) c[0]++; }
+  function recF(r, k, ok) { var c = r.fld[k] || (r.fld[k] = [0, 0]); c[1]++; if (ok) c[0]++; rec(r, 'befehl', ok); }
+  function merge(into, from) {
+    Object.keys(from).forEach(function (k) { var a = into[k] || [0, 0]; a[0] += from[k][0]; a[1] += from[k][1]; into[k] = a; });
+  }
+  function finishRun() {
+    var r = S.run, sc = SCEN[r.i], e = store.sc[sc.id] || { n: 0, best: 0 };
+    var p = r.t ? Math.round(r.r / r.t * 100) : 0;
+    e.last = r.r + '/' + r.t; e.n = (e.n || 0) + 1; e.best = Math.max(e.best || 0, p); store.sc[sc.id] = e;
+    store.hist = (store.hist || []).concat([{ ts: Date.now(), id: sc.id, role: sc.role || 'gf', mode: r.mode, r: r.r, t: r.t }]).slice(-50);
+    store.cat = store.cat || {}; store.fld = store.fld || {};
+    merge(store.cat, r.cat); merge(store.fld, r.fld);
+    save();
+    r.phase = 'done';
+  }
+  function stepIndex() {
+    var p = S.run.phase;
+    return p === 'beur' ? 1 : p === 'kontrolle' ? 3 : p === 'done' ? 4 : 2;
+  }
+  function stepper() {
+    var cur = stepIndex();
+    return '<ol class="steps" aria-label="Führungsvorgang">' + STEPS.map(function (s, i) {
+      var cls = i < cur ? 'done' : i === cur ? 'now' : '';
+      return '<li class="' + cls + '"' + (i === cur ? ' aria-current="step"' : '') + '>' + s + '</li>';
+    }).join('') + '</ol>';
+  }
+
+  /* ---------- Ansichten Üben ---------- */
+  function viewList() {
+    var h = '<div class="rolebar"><span>Rolle: ' + roleName(S.role) + '</span><button type="button" class="back" data-act="switchrole">Rolle wechseln</button></div>';
+    h += '<p class="lead">' + (S.role === 'zf'
+      ? 'Du übst als Zugführer den Führungsvorgang: Lage lesen, Gefahr beurteilen, Einheiten beauftragen, Rückmeldungen der Gruppenführer kontrollieren.'
+      : 'Du übst als Gruppenführer den Führungsvorgang: Lage lesen, Gefahr beurteilen, Befehl geben, Rückmeldung kontrollieren.') + '</p>';
+    h += '<div class="sec"><span class="label">Übungsart</span><div class="seg" role="group" aria-label="Übungsart">' +
+      '<button type="button" data-act="mode" data-m="speak" aria-pressed="' + (S.mode === 'speak') + '">Sprechen</button>' +
+      '<button type="button" data-act="mode" data-m="select" aria-pressed="' + (S.mode === 'select') + '">Auswählen</button></div>' +
+      '<p class="lead">' + (S.mode === 'speak'
+        ? 'Du sprichst den Befehl mit dem Mikrofon deiner Tastatur ins Textfeld oder tippst ihn. Die Auswertung sagt dir sofort, ob er gut war, was fehlt und ob die Reihenfolge stimmt.'
+        : 'Du wählst zu jedem Befehlselement die passende Angabe und siehst sofort, was stimmt.') + '</p></div>';
+    var rowHtml = function (s, i) {
+      var l = store.sc[s.id];
+      return '<li><button type="button" class="rowbtn" data-act="start" data-i="' + i + '"><span class="t">' + esc(s.title) + '</span>' +
+        (l ? '<span class="last" title="Letztes Ergebnis">' + esc(l.last) + '</span>' : '') +
+        '<span class="s">' + esc(s.sub) + '</span><span class="tags">' + s.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</span></button></li>';
+    };
+    ['brand', 'hilfe'].forEach(function (kind) {
+      h += '<div class="sec"><h2>' + (kind === 'hilfe' ? 'Technische Hilfeleistung' : 'Brandeinsatz') + '</h2><ul class="rows">' +
+        SCEN.map(function (s, i) { return (s.kind || 'brand') === kind && (s.role || 'gf') === S.role ? rowHtml(s, i) : ''; }).join('') + '</ul></div>';
+    });
+    return h;
+  }
+
+  function mcqView(sc, kind) {
+    var r = S.run, q = r.mq, h = '';
+    var legend = kind === 'beur' ? BEUR_Q : 'Wie reagierst du als Gruppenführer?';
+    h += '<fieldset class="fld"><legend>' + legend + '</legend>' + q.opts.map(function (o, idx) {
+      var cls = 'opt', mk = '';
+      if (q.pick !== null) {
+        cls += ' locked';
+        if (o.ok) { cls += ' ok'; mk = '<span class="mk">✓ Richtig</span>'; }
+        else if (idx === q.pick) { cls += ' bad'; mk = '<span class="mk">✗ Falsch</span>'; }
+      }
+      return '<button type="button" class="' + cls + '" data-act="mq" data-v="' + idx + '"><span class="dot"></span><span>' + esc(o.t) + '</span>' + (mk || '<span></span>') + '</button>';
+    }).join('') + '</fieldset>';
+    if (q.pick !== null) {
+      var d = kind === 'beur' ? sc.beur : sc.kon, good = q.opts[q.pick].ok;
+      h += '<div class="note ' + (good ? 'ok' : 'bad') + '" id="res"><span class="label">' + (good ? 'Richtig' : 'Richtig wäre: ' + esc(d.ok)) + '</span><p>' + esc(d.why) + (kind === 'beur' ? ' ' + esc(BEUR_NOTE) : '') + '</p></div>';
+      h += '<div class="actions"><button type="button" class="btn" data-act="mqnext">' + (kind === 'beur' ? 'Befehl geben' : 'Auswertung') + '</button></div>';
+    }
+    return h;
+  }
+
+  function fieldBlock(st, key) {
+    var r = S.run, opts = r.order[key], correct = st.f[key][0], pick = r.picks[key];
+    return '<fieldset class="fld"><legend>' + FIELDS[key].label + '</legend>' + opts.map(function (o, idx) {
+      var cls = 'opt', mk = '';
+      if (r.checked) {
+        cls += ' locked';
+        if (o === correct) { cls += ' ok'; mk = '<span class="mk">✓ Richtig</span>'; }
+        else if (o === pick) { cls += ' bad'; mk = '<span class="mk">✗ Falsch</span>'; }
+      } else if (o === pick) cls += ' sel';
+      return '<button type="button" class="' + cls + '" data-act="pick" data-f="' + key + '" data-v="' + idx + '" aria-pressed="' + (o === pick) + '"><span class="dot"></span><span>' + esc(o) + '</span>' + (mk || '<span></span>') + '</button>';
+    }).join('') + '</fieldset>';
+  }
+
+  function speakView(st) {
+    var r = S.run, h = '';
+    h += '<h3>' + esc(ARTS[st.art].label) + '</h3>';
+    h += st.art === 'zug'
+      ? '<p>Sprich den Befehl an den Einheitsführer: erst die Lageeinweisung, falls sie in der Aufgabe verlangt wird, dann Einheit und Auftrag. Mittel, Ziel und Weg sind nicht nötig. Der Wortlaut darf abweichen, Inhalt und Reihenfolge nicht.</p>'
+      : '<p>Gib den Befehl so, wie du ihn dem Trupp gibst. Nenne die Elemente in der Reihenfolge der FwDV 3. Der Wortlaut darf abweichen, Inhalt und Reihenfolge nicht.</p>';
+    if (st.note) h += '<p class="lead">' + esc(st.note) + '</p>';
+    h += '<div class="sec"><label class="label" for="speech">Dein Befehl</label>' +
+      '<textarea id="speech" class="speech" lang="de" rows="5" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Tippe ins Feld und nutze das Mikrofon deiner Tastatur zum Diktieren."' + (r.ev ? ' readonly' : '') + '>' + esc(r.text) + '</textarea>' +
+      '<p class="lead">Die Mikrofontaste findest du auf der Bildschirmtastatur von Handy und Tablet, am Rechner mit der Diktierfunktion deines Systems.</p></div>';
+    if (!r.ev) {
+      h += '<div class="actions"><button type="button" class="btn" id="evalbtn" data-act="eval"' + (r.text.trim() ? '' : ' disabled') + '>Befehl auswerten</button></div>';
+      return h;
+    }
+    var ev = r.ev, good = ev.level === 'good';
+    var head = good ? 'Gut' : ev.level === 'near' ? 'Fast gut' : 'Noch nicht gut';
+    h += '<div class="note ' + (good ? 'ok' : 'bad') + '" id="res"><span class="label">Auswertung</span><span class="verdict">' + head + '</span><p>' + ev.hits + ' von ' + ev.total + ' Befehlselementen erkannt' + (ev.orderOk ? ', Reihenfolge stimmt' : ', Reihenfolge nicht bestätigt') + (ev.hasEnd ? (ev.endOk ? ', Schlusskommando vorhanden.' : ', Schlusskommando fehlt.') : '.') + '</p></div>';
+    h += '<ul class="check">';
+    ev.items.forEach(function (it) {
+      var ok = it.status === 'ok';
+      h += '<li><span class="st ' + (ok ? 'ok' : 'bad') + '">' + (ok ? '✓ Ja' : it.status === 'wrong' ? '✗ Falsch' : '✗ Fehlt') + '</span><span><span class="nm">' + FIELDS[it.k].label + '.</span> ' +
+        (ok ? 'erkannt.' : 'Erwartet: ' + esc(st.f[it.k][0]) + '. ' + esc(it.note)) + '</span></li>';
+    });
+    h += '<li><span class="st ' + (ev.orderOk ? 'ok' : 'bad') + '">' + (ev.orderOk ? '✓ Ja' : '✗ Nein') + '</span><span><span class="nm">Reihenfolge.</span> ' +
+      (ev.orderOk ? 'Die Elemente kamen in der richtigen Abfolge.' : ev.inv.length ? 'Gesprochen wurde: ' + esc(ev.inv.join(', ')) + '.' : 'Zu wenige Elemente erkannt, um die Reihenfolge zu prüfen.') + '</span></li>';
+    if (ev.hasEnd) h += '<li><span class="st ' + (ev.endOk ? 'ok' : 'miss') + '">' + (ev.endOk ? '✓ Ja' : '✗ Fehlt') + '</span><span><span class="nm">Kommando.</span> ' +
+      (ev.endOk ? 'Der Befehl endet mit »' + esc(ARTS[st.art].end) + '«.' : 'Der Befehl muss mit »' + esc(ARTS[st.art].end) + '« enden.') + '</span></li>';
+    if (ev.words > 70) h += '<li><span class="st miss">Hinweis</span><span><span class="nm">Länge.</span> ' + ev.words + ' Wörter. Ein Befehl soll kurz und klar sein (FwDV 100, 3.3.3.1).</span></li>';
+    h += '</ul>';
+    h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>';
+    h += '<div class="note"><span class="label">Merke</span><p>' + esc(st.tip) + '</p></div>';
+    if (S.sample) {
+      h += '<div class="sec"><div class="actions"><button type="button" class="btn ghost" id="coachbtn" data-act="coach">Rückmeldung von Claude</button></div>' +
+        '<div class="note" id="coachbox"' + (r.coach ? '' : ' hidden') + '><span class="label">Ausbilder-Rückmeldung</span><p class="coach" id="coachtxt">' + esc(r.coach || '') + '</p></div></div>';
+    }
+    h += '<div class="actions"><button type="button" class="btn" data-act="next">' + (r.si + 1 < SCEN[r.i].befehle.length ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button><button type="button" class="btn ghost" data-act="retry">Nochmal sprechen</button></div>';
+    return h;
+  }
+
+  function viewRun() {
+    var r = S.run, sc = SCEN[r.i];
+    if (r.phase === 'done') return viewDone();
+    var st = r.phase === 'beur' || r.phase === 'kontrolle' ? null : curStage();
+    var nB = sc.befehle.length;
+    var h = '<button type="button" class="back" data-act="home">← Alle Übungen</button>';
+    h += '<div class="runhead"><h2>' + esc(sc.title) + '</h2>' + stepper() + '</div>';
+
+    var lageText, lageLabel = 'Lage';
+    if (r.phase === 'kontrolle') { lageText = sc.kon.meldung; lageLabel = 'Rückmeldung'; }
+    else if (st && r.si > 0) { lageText = st.lage; lageLabel = 'Neue Lage'; }
+    else lageText = sc.lage;
+    h += '<div class="lage"><span class="label">' + lageLabel + '</span><p>' + esc(lageText) + '</p></div>';
+
+    if (r.phase === 'beur') return h + mcqView(sc, 'beur');
+    if (r.phase === 'kontrolle') return h + mcqView(sc, 'kon');
+    if (nB > 1) h += '<div class="progress"><span>' + esc(st.name) + '</span><span>Befehl ' + (r.si + 1) + ' von ' + nB + '</span></div>';
+    if (r.phase === 'speak') return h + speakView(st);
+
+    if (r.phase === 'art') {
+      h += '<fieldset class="fld"><legend>Welche Befehlsart?</legend>' + r.artOrder.map(function (k) {
+        var cls = 'opt', mk = '';
+        if (r.artPick) {
+          cls += ' locked';
+          if (k === st.art) { cls += ' ok'; mk = '<span class="mk">✓ Richtig</span>'; }
+          else if (k === r.artPick) { cls += ' bad'; mk = '<span class="mk">✗ Falsch</span>'; }
+        }
+        return '<button type="button" class="' + cls + '" data-act="art" data-k="' + k + '" aria-pressed="' + (k === r.artPick) + '"><span class="dot"></span><span>' + esc(ARTS[k].label) + '</span>' + (mk || '<span></span>') + '</button>';
+      }).join('') + '</fieldset>';
+      if (r.artPick) {
+        var g = r.artPick === st.art;
+        h += '<div class="note ' + (g ? 'ok' : 'bad') + '" id="res"><span class="label">' + (g ? 'Richtig' : 'Richtig wäre: ' + ARTS[st.art].label) + '</span><p>' + esc(ARTS[st.art].why) + '</p></div>';
+        h += '<div class="actions"><button type="button" class="btn" data-act="build">Befehl aufbauen</button></div>';
+      }
+      return h;
+    }
+
+    var keys = Object.keys(st.f);
+    h += '<h3>' + esc(ARTS[st.art].label) + '</h3>';
+    if (st.note) h += '<p class="lead">' + esc(st.note) + '</p>';
+    h += keys.map(function (k) { return fieldBlock(st, k); }).join('');
+    if (!r.checked) {
+      var done = keys.filter(function (k) { return r.picks[k]; }).length;
+      h += '<div class="sec"><span class="label">Dein Befehl</span>' + vordruck(st, r.picks) + '</div>';
+      h += '<div class="actions"><button type="button" class="btn" data-act="check"' + (done < keys.length ? ' disabled' : '') + '>Befehl prüfen</button><span class="progress">' + done + ' von ' + keys.length + ' gewählt</span></div>';
+    } else {
+      var right = keys.filter(function (k) { return r.picks[k] === st.f[k][0]; }).length, all = right === keys.length;
+      h += '<div class="note ' + (all ? 'ok' : 'bad') + '" id="res"><span class="label">' + (all ? 'Alles richtig' : right + ' von ' + keys.length + ' richtig') + '</span><p>' + esc(st.tip) + '</p></div>';
+      h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>';
+      h += '<div class="actions"><button type="button" class="btn" data-act="next">' + (r.si + 1 < nB ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button></div>';
+    }
+    return h;
+  }
+
+  function viewDone() {
+    var r = S.run, sc = SCEN[r.i];
+    var h = '<button type="button" class="back" data-act="home">← Alle Übungen</button><h2>' + esc(sc.title) + '</h2>' + stepper();
+    h += '<div class="score">' + r.r + ' <small>/ ' + r.t + '</small></div>';
+    h += '<p>' + (r.mode === 'speak' ? 'Beurteilung, gesprochene Befehle und Kontrolle richtig.' : 'Beurteilung, Befehlsart, Befehlselemente und Kontrolle richtig.') + '</p>';
+    if (r.misses.length) {
+      h += '<div class="sec"><h3>Noch einmal ansehen</h3><ul class="misslist">' + r.misses.map(function (m) {
+        return '<li><b>' + esc(m.where) + '.</b>' + (m.given ? ' Gewählt: ' + esc(m.given) + '.' : '') + ' Richtig: ' + esc(m.correct) + '.</li>';
+      }).join('') + '</ul></div>';
+    } else {
+      h += '<p class="lead">Keine Fehler. Probier als Nächstes ein anderes Szenario.</p>';
+    }
+    h += '<div class="actions"><button type="button" class="btn" data-act="start" data-i="' + r.i + '">Noch einmal</button><button type="button" class="btn ghost" data-act="home">Andere Übung</button></div>';
+    return h;
+  }
+
+  function viewRoles() {
+    var opts = [
+      ['gf', 'Gruppenführer', 'Du führst eine Gruppe und befehlst Trupps: Wasserentnahmestelle, Verteiler, Einheit, Auftrag, Mittel, Ziel, Weg.', ['Befehle an Trupps', 'Brand und Hilfeleistung']],
+      ['zf', 'Zugführer', 'Du führst einen Zug mit Gruppen und Staffeln und erteilst Einheitsführern Aufträge: mindestens Einheit und Auftrag, bei nachrückenden Einheiten mit Lageeinweisung.', ['Aufträge an Einheitsführer', 'Lageeinweisung']]
+    ];
+    return '<h2>Als wer übst du?</h2><p class="lead">Die Rolle bestimmt, welche Befehle du gibst und welche Szenarien du bekommst. Du kannst sie jederzeit wechseln.</p>' +
+      '<ul class="rows">' + opts.map(function (o) {
+        return '<li><button type="button" class="rowbtn" data-act="role" data-r="' + o[0] + '"><span class="t">' + o[1] + '</span>' +
+          (store.role === o[0] ? '<span class="last">zuletzt</span>' : '') +
+          '<span class="s">' + esc(o[2]) + '</span><span class="tags">' + o[3].map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</span></button></li>';
+      }).join('') + '</ul>';
+  }
+
+  function viewUeben() { return S.run ? viewRun() : !S.role ? viewRoles() : viewList(); }
+
+  /* ---------- Quiz ---------- */
+  function startQuiz() {
+    var pool = QUIZ.filter(function (q) { return !q[4] || !S.role || q[4] === S.role; });
+    S.quiz = { qs: shuffle(pool).slice(0, 10), i: 0, score: 0, picked: null, opts: null, done: false };
+    prepQ();
+  }
+  function prepQ() {
+    var q = S.quiz.qs[S.quiz.i];
+    S.quiz.opts = shuffle([{ t: q[1], ok: true }].concat(q[2].map(function (t) { return { t: t, ok: false }; })));
+    S.quiz.picked = null;
+  }
+  function viewQuiz() {
+    var Q = S.quiz;
+    if (!Q) {
+      return '<p class="lead">Zehn Fragen zu Gliederung, Aufgaben der Trupps, Befehlsschema und Führungsvorgang. Jede Antwort nennt die Quelle.</p>' +
+        (store.quiz ? '<p class="label">Bestes Ergebnis: ' + store.quiz + ' von 10</p>' : '') +
+        '<div class="actions"><button type="button" class="btn" data-act="qstart">Quiz starten</button></div>';
+    }
+    if (Q.done) {
+      return '<h2>Auswertung</h2><div class="score">' + Q.score + ' <small>/ 10</small></div><p class="lead">Bestes Ergebnis: ' + store.quiz + ' von 10.</p>' +
+        '<div class="actions"><button type="button" class="btn" data-act="qstart">Neue Runde</button></div>';
+    }
+    var q = Q.qs[Q.i];
+    var h = '<div class="runhead"><div class="progress"><span>Frage ' + (Q.i + 1) + ' von 10</span><span>' + Q.score + ' richtig</span></div><div class="bar" aria-hidden="true"><i style="width:' + (Q.i * 10) + '%"></i></div></div>';
+    h += '<p class="quizq">' + esc(q[0]) + '</p><div class="fld">';
+    h += Q.opts.map(function (o, idx) {
+      var cls = 'opt', mk = '';
+      if (Q.picked !== null) {
+        cls += ' locked';
+        if (o.ok) { cls += ' ok'; mk = '<span class="mk">✓ Richtig</span>'; }
+        else if (idx === Q.picked) { cls += ' bad'; mk = '<span class="mk">✗ Falsch</span>'; }
+      }
+      return '<button type="button" class="' + cls + '" data-act="qpick" data-v="' + idx + '"><span class="dot"></span><span>' + esc(o.t) + '</span>' + (mk || '<span></span>') + '</button>';
+    }).join('') + '</div>';
+    if (Q.picked !== null) {
+      h += '<div class="note ' + (Q.opts[Q.picked].ok ? 'ok' : 'bad') + '" id="res"><span class="label">Quelle</span><p>' + esc(q[3]) + '</p></div>';
+      h += '<div class="actions"><button type="button" class="btn" data-act="qnext">' + (Q.i < S.quiz.qs.length - 1 ? 'Nächste Frage' : 'Auswertung') + '</button></div>';
+    }
+    return h;
+  }
+
+  /* ---------- Schema ---------- */
+  function refBlock(title, rows, end) {
+    return '<div class="vordruck"><div class="vh"><span>' + esc(title) + '</span><span>Befehl</span></div>' + rows.map(function (r) {
+      return '<div class="vrow"><span class="k">' + esc(r[0]) + '</span><span class="v">' + esc(r[1]) + '</span></div>';
+    }).join('') + (end ? '<div class="vend">' + esc(end) + '</div>' : '') + '</div>';
+  }
+  function viewSchema() {
+    var kd = [
+      ['Absitzen!', 'Einheitsführer, nach dem Eintreffen. Die Mannschaft tritt hinter dem Fahrzeug an.'],
+      ['Zum Einsatz fertig!', 'Einheitsführer, Schluss des Befehls mit Bereitstellung. Der Angriffstruppführer wiederholt.'],
+      ['Vor!', 'Einheitsführer, Schluss des Befehls ohne Bereitstellung und der Folgebefehle.'],
+      ['Wassertrupp zur Schlauchhaspel!', 'Maschinist, direkt nach der Befehlswiederholung des Angriffstruppführers.'],
+      ['Angriffstrupp einsatzbereit!', 'Angriffstruppführer meldet dem Einheitsführer.'],
+      ['Wassertrupp als Sicherheitstrupp einsatzbereit!', 'Wassertruppführer meldet dem Einheitsführer.'],
+      ['Wasser marsch!', 'Angriffs- oder Wassertrupp an den Maschinisten, nachdem der Verteiler angeschlossen ist.'],
+      ['1. Rohr Wasser Marsch!', 'Angriffstruppführer, wenn das Strahlrohr angekuppelt ist.'],
+      ['... Saugschläuche!', 'Wassertruppführer nennt die Anzahl der benötigten Saugschläuche.'],
+      ['Saugleitung hoch!', 'Wassertruppführer, wenn alle Saugschläuche gekuppelt sind.'],
+      ['Fertig!', 'Maschinist, wenn die Saugleitung an der Pumpe angekuppelt ist.'],
+      ['Saugleitung zu Wasser!', 'Wassertruppführer, danach bringen die Trupps die Leitung zu Wasser.'],
+      ['...trupp; ... Rohr zurück!', 'Einheitsführer befiehlt die Rücknahme. Stellungswechsel: »...-Strahlrohr Stellungswechsel nach...!«'],
+      ['... Rohr Wasser halt!', 'Führer des angesprochenen Trupps. Die Kraft am Verteiler schließt langsam den Abgang.'],
+      ['Gefahr - Alle sofort zurück!', 'Jede Einsatzkraft bei besonderer Gefahr. Alle geben es weiter und sammeln sich am Fahrzeug.'],
+      ['Zum Abmarsch fertig!', 'Einheitsführer zum Abschluss des Einsatzes.'],
+      ['Fahrzeug fahrbereit!', 'Maschinist meldet dem Einheitsführer nach der Kontrolle von Geräten und Geräteräumen.']
+    ];
+    return '<div class="sec"><h2>Führungsvorgang</h2><p class="lead">Als Gruppenführer durchläufst du den Kreis immer wieder (FwDV 100, 3.3). Nach dem Befehl folgt die erneute Lagefeststellung als Kontrolle.</p>' +
+      refBlock('Lagefeststellung', [['Alarmierung', 'Alarmstichwort, Alarmschreiben'], ['Anfahrt', 'Einsatzunterlagen, Leitstelle'], ['Eintreffen', 'Sicht aus 50 m, vorläufige Fahrzeugaufstellung, Eintreffmeldung'], ['Einsatzort', 'Eigene Wahrnehmung, Frontalansicht, Personen, Zugänge, Gesamtübersicht'], ['Lagebild', 'Ort, Zeit, Wetter, Schadenereignis, Schadenabwehr']]) + '</div>' +
+      '<div class="sec">' + refBlock('Beurteilung und Entschluss', [['1', 'Welche Gefahren habe ich erkannt? Ursache, Wirkung, bedrohtes Objekt'], ['2', 'Welche Gefahr zuerst? Menschen, Tiere, Umwelt, Sachwerte'], ['3', 'Welche Möglichkeiten zur Gefahrenabwehr? Welcher Eigenschutz?'], ['4', 'Weitere Gefahren? Unverplante Kräfte? Nachforderungen?'], ['Entschluss', 'Die richtigen Mittel zur richtigen Zeit am richtigen Ort']]) + '</div>' +
+      '<div class="sec">' + refBlock('Rückmeldung nach MELDEN (Poster Befehlsgebung)', [['M', 'Meldender'], ['E', 'Einsatzstelle'], ['L', 'Lage'], ['D', 'Durchgeführte / eingeleitete Maßnahmen'], ['E', 'Eingesetzte Kräfte und Mittel'], ['N', 'Nachforderungen (Kräfte / Mittel / Anfahrt / Bereitstellungsräume)']]) + '</div>' +
+      '<div class="sec"><h2>Mit Bereitstellung</h2><p class="lead">Nach kurzer Lageschilderung. Du kennst Wasserentnahmestelle und Verteiler, aber noch nicht den Einsatzauftrag.</p>' +
+      refBlock('Einsatz mit Bereitstellung', [['Wasserentnahmestelle', 'Wasserentnahmestelle …'], ['Lage des Verteilers', 'Verteiler …']], 'Zum Einsatz fertig!') + '</div>' +
+      '<div class="sec"><h2>Ohne Bereitstellung</h2><p class="lead">Nach kurzer Lageschilderung. Die Informationen reichen für den Einsatzauftrag.</p>' +
+      refBlock('Einsatz ohne Bereitstellung', [['Wasserentnahmestelle', 'Wasserentnahmestelle …'], ['Lage des Verteilers', 'Verteiler …'], ['Einheit', 'Einheit Angriffstrupp'], ['Auftrag', 'Auftrag zur …'], ['Mittel', 'Mittel mit 1. Rohr'], ['Ziel', 'Ziel ins / zum / auf …'], ['Weg', 'Weg über / durch …']], 'Vor!') + '</div>' +
+      '<div class="sec"><h2>Weiteres Rohr</h2><p class="lead">Wenn Trupps einsatzbereit zur Verfügung stehen. Beim Atemschutzeinsatz nimmt der Schlauchtrupp das zweite Rohr vor.</p>' +
+      refBlock('Folgebefehl', [['Einheit', 'Einheit …trupp'], ['Auftrag', 'Auftrag zur …'], ['Mittel', 'Mittel mit 2. Rohr oder 3. Rohr'], ['Ziel', 'Ziel ins / zum / auf …'], ['Weg', 'Weg über / durch …']], 'Vor!') + '</div>' +
+      '<div class="sec"><h2>Hilfeleistung</h2><p class="lead">Keine Wasserentnahmestelle, kein Verteiler. Der Befehl hat das Schema aus FwDV 100, 3.3.3.1, und endet wie auf dem Poster Befehlsgebung mit »Vor!«. Welche Geräte als Mittel genannt werden, legt FwDV 3 nicht fest.</p>' +
+      refBlock('Befehl im Hilfeleistungseinsatz', [['Einheit', 'Einheit Angriffstrupp'], ['Auftrag', 'Auftrag zur …'], ['Mittel', 'Mittel mit …'], ['Ziel', 'Ziel zum / auf …'], ['Weg', 'Weg über / durch …']], 'Vor!') +
+      '<dl class="kdl">' + [
+        ['Angriffstrupp', 'Rettet, führt bis zur Übergabe an den Rettungsdienst die Erstversorgung durch (mindestens Erste Hilfe) und leistet technische Hilfe.'],
+        ['Wassertrupp', 'Sichert auf Befehl die Einsatzstelle gegen weitere Gefahren, danach steht er für weitere Aufgaben bereit.'],
+        ['Schlauchtrupp', 'Bereitet die befohlenen Geräte vor, betreibt Aggregate und setzt Geräte ein, wenn der Angriffstrupp durch die Erstversorgung gebunden ist.'],
+        ['Maschinist', 'Sichert die Einsatzstelle mit Warnblinkanlage, Fahrlicht und blauem Blinklicht und bedient die Aggregate.'],
+        ['Einheitsführer', 'Bestimmt Fahrzeugaufstellung, Ordnung des Raumes und die Standorte von Aggregaten. Er ist für die Sicherheit der Mannschaft verantwortlich.'],
+        ['Eigensicherung', 'Immer beachten. Erkundung nicht allein, die Person nicht ohne Betreuung lassen.'],
+        ['Sichern vor', 'Fließendem Verkehr, Nachsacken oder Wegrollen von Lasten, Brandgefahr, herabfallenden Teilen, Dunkelheit, Betriebsstoffen und Energieversorgung.'],
+        ['Ordnung des Raumes', 'Absperrbereich, Arbeitsbereich, Ablagefläche für Einsatzmittel, Ablagefläche für entfernte Gegenstände.']
+      ].map(function (k) { return '<div><dt>' + esc(k[0]) + '</dt><dd>' + esc(k[1]) + '</dd></div>'; }).join('') + '</dl></div>' +
+      '<div class="sec"><h2>Zugführer</h2><p class="lead">Kurz und klar. Mindestens Einheit und Auftrag. Mittel, Ziel und Weg nur, wenn sie zur Klarheit beitragen.</p>' +
+      refBlock('Befehl des Zugführers', [['Mindestens', 'Einheit, Auftrag'], ['Bei Bedarf', 'Lage, Durchführung, Versorgung, Führung und Kommunikationswesen']]) + '</div>' +
+      '<div class="sec"><h2>Kommandos</h2><dl class="kdl">' + kd.map(function (k) { return '<div><dt>' + esc(k[0]) + '</dt><dd>' + esc(k[1]) + '</dd></div>'; }).join('') + '</dl></div>';
+  }
+
+  /* ---------- Auswertung ---------- */
+  var CAT_LABEL = { beur: 'Beurteilung', art: 'Befehlsart', befehl: 'Befehl', kon: 'Kontrolle' };
+  function fldLabel(k) { return k === 'reihenfolge' ? 'Reihenfolge' : k === 'kommando' ? 'Schlusskommando' : FIELDS[k] ? FIELDS[k].label : k; }
+  function pctOf(a) { return a && a[1] ? Math.round(a[0] / a[1] * 100) : null; }
+  function mbar(name, a) {
+    var p = pctOf(a); if (p === null) return '';
+    var cls = p >= 85 ? 'hi' : p >= 60 ? 'mid' : 'lo';
+    return '<div class="mrow"><span class="mname">' + esc(name) + '</span><span class="mtrack" role="img" aria-label="' + p + ' Prozent"><i class="' + cls + '" style="width:' + p + '%"></i></span><span class="mval">' + p + ' % · ' + a[0] + '/' + a[1] + '</span></div>';
+  }
+  function fmtDate(ts) { try { return new Date(ts).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+  function viewStats() {
+    var hist = store.hist || [], qh = store.qh || [], h = '';
+    h += '<p class="lead">Deine Ergebnisse aus abgeschlossenen Übungen und Quiz-Runden. Sie bleiben in diesem Browser gespeichert.</p>';
+    if (S.flash) { h += '<div class="note ok"><span class="label">Erledigt</span><p>' + esc(S.flash) + '</p></div>'; S.flash = ''; }
+    if (!hist.length && !qh.length) {
+      h += '<div class="note"><span class="label">Noch leer</span><p>Schließe eine Übung ab oder spiel eine Quiz-Runde, dann erscheint hier deine Auswertung.</p></div>';
+    } else {
+      var q = { select: [0, 0], speak: [0, 0] };
+      hist.forEach(function (x) { var m = x.mode === 'speak' ? 'speak' : 'select'; q[m][0] += x.r; q[m][1] += x.t; });
+      var qp = function (a) { return a[1] ? Math.round(a[0] / a[1] * 100) + ' %' : '–'; };
+      var avgQ = qh.length ? (qh.reduce(function (a, x) { return a + x.s; }, 0) / qh.length).toFixed(1).replace('.', ',') : '–';
+      h += '<div class="facts"><div class="fact"><b>' + hist.length + '</b><span>Übungen</span></div><div class="fact"><b>' + qp(q.select) + '</b><span>Quote Auswählen</span></div><div class="fact"><b>' + qp(q.speak) + '</b><span>Quote Sprechen</span></div><div class="fact"><b>' + (store.quiz ? store.quiz + '/10' : '–') + '</b><span>Quiz-Bestwert</span></div></div>';
+
+      var cats = ['beur', 'art', 'befehl', 'kon'].map(function (k) { return mbar(CAT_LABEL[k], store.cat && store.cat[k]); }).join('');
+      if (cats) h += '<div class="sec"><h2>Nach Schritt</h2><p class="lead">Wo im Führungsvorgang du sicher bist.</p><div>' + cats + '</div></div>';
+
+      var fl = Object.keys(store.fld || {}).filter(function (k) { return store.fld[k][1] > 0; }).sort(function (a, b) { return pctOf(store.fld[a]) - pctOf(store.fld[b]) || store.fld[b][1] - store.fld[a][1]; });
+      if (fl.length) {
+        var weak = fl.filter(function (k) { return store.fld[k][1] >= 3 && pctOf(store.fld[k]) < 85; })[0];
+        h += '<div class="sec"><h2>Nach Befehlselement</h2><p class="lead">' + (weak ? 'Übe als Nächstes: ' + esc(fldLabel(weak)) + ' (' + pctOf(store.fld[weak]) + ' %).' : 'Alle Elemente mit mindestens drei Versuchen liegen über 85 %.') + '</p><div>' +
+          fl.map(function (k) { return mbar(fldLabel(k), store.fld[k]); }).join('') + '</div></div>';
+      }
+
+      var scl = SCEN.filter(function (s) { return store.sc[s.id] && store.sc[s.id].n; });
+      if (scl.length) {
+        h += '<div class="sec"><h2>Nach Szenario</h2><ul class="misslist">' + scl.map(function (s) {
+          var e = store.sc[s.id];
+          return '<li><b>' + esc(s.title) + '</b> · ' + roleName(s.role || 'gf') + '. Bester Durchlauf ' + e.best + ' %, zuletzt ' + esc(e.last) + ', ' + e.n + (e.n === 1 ? ' Durchlauf' : ' Durchläufe') + '.</li>';
+        }).join('') + '</ul></div>';
+      }
+
+      if (hist.length) {
+        h += '<div class="sec"><h2>Verlauf</h2><ul class="misslist">' + hist.slice(-8).reverse().map(function (x) {
+          var s = SCEN.filter(function (q) { return q.id === x.id; })[0];
+          return '<li><b>' + esc(s ? s.title : x.id) + '</b> · ' + (x.mode === 'speak' ? 'Sprechen' : 'Auswählen') + ' · ' + x.r + '/' + x.t + ' (' + (x.t ? Math.round(x.r / x.t * 100) : 0) + ' %) · ' + esc(fmtDate(x.ts)) + '</li>';
+        }).join('') + '</ul></div>';
+      }
+
+      if (qh.length) h += '<div class="sec"><h2>Quiz</h2><p>' + qh.length + (qh.length === 1 ? ' Runde' : ' Runden') + ', Durchschnitt ' + avgQ + ' von 10, Bestwert ' + store.quiz + ' von 10.</p></div>';
+    }
+
+    h += '<div class="sec"><h2>Zurücksetzen</h2><p class="lead">Löscht gespeicherte Ergebnisse in diesem Browser. Das lässt sich nicht rückgängig machen.</p>';
+    if (S.confirm) {
+      var what = { ueben: 'alle Übungsergebnisse', quiz: 'alle Quiz-Ergebnisse', all: 'alle Ergebnisse aus Übungen und Quiz' }[S.confirm];
+      h += '<div class="note bad" id="rs"><span class="label">Sicher?</span><p>Du löschst ' + what + '.</p><div class="actions"><button type="button" class="btn" data-act="doreset">Ja, zurücksetzen</button><button type="button" class="btn ghost" data-act="cancelreset">Abbrechen</button></div></div>';
+    } else {
+      h += '<div class="actions"><button type="button" class="btn ghost" data-act="askreset" data-w="ueben">Übungen zurücksetzen</button><button type="button" class="btn ghost" data-act="askreset" data-w="quiz">Quiz zurücksetzen</button><button type="button" class="btn ghost" data-act="askreset" data-w="all">Alles zurücksetzen</button></div>';
+    }
+    return h + '</div>';
+  }
+
+  /* ---------- Rendering ---------- */
+  function render() {
+    ['ueben', 'quiz', 'schema', 'stats'].forEach(function (t) {
+      var b = document.getElementById('t-' + t);
+      b.setAttribute('aria-selected', String(S.tab === t));
+      b.tabIndex = S.tab === t ? 0 : -1;
+    });
+    app.setAttribute('aria-labelledby', 't-' + S.tab);
+    app.setAttribute('role', 'tabpanel');
+    var eb = document.getElementById('eyebrow');
+    if (eb) eb.textContent = roleName(S.role) + ' · FwDV 3 (2008) und FwDV 100 (1999)';
+    app.innerHTML = S.tab === 'ueben' ? viewUeben() : S.tab === 'quiz' ? viewQuiz() : S.tab === 'stats' ? viewStats() : viewSchema();
+    if (S.focus) {
+      var el = app.querySelector(S.focus);
+      if (el) el.focus({ preventScroll: true });
+      S.focus = null;
+    }
+    if (S.scroll) {
+      var target = S.scroll === 'top' ? null : document.getElementById(S.scroll);
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      else window.scrollTo({ top: 0, behavior: 'auto' });
+      S.scroll = null;
+    }
+  }
+
+  /* ---------- Claude-Rückmeldung (optional) ---------- */
+  var coachCtl = null;
+  function coachFeedback() {
+    var r = S.run, sc = SCEN[r.i], st = curStage(), ev = r.ev;
+    var btn = document.getElementById('coachbtn'), box = document.getElementById('coachbox'), out = document.getElementById('coachtxt');
+    if (!S.sample || !btn || !out) return;
+    var lage = r.si > 0 && st.lage ? st.lage : sc.lage;
+    var zug = st.art === 'zug', rolle = zug ? 'Zugführer' : 'Gruppenführer';
+    var massstab = zug
+      ? 'Maßstab sind FwDV 3 (6.2) und FwDV 100: Der Zugführerbefehl enthält mindestens Einheit und Auftrag. Bei nachrückenden Einheiten geht eine kurze Lageeinweisung voraus. Mittel, Ziel und Weg sind nicht erforderlich, die Art der Durchführung entscheidet der Einheitsführer (Auftragstaktik). Es gibt kein festes Schlusskommando. '
+      : 'Maßstab sind FwDV 3 und FwDV 100: Bei Einsatz ohne Bereitstellung nennt der Befehl nach kurzer Lageschilderung Wasserentnahmestelle, Lage des Verteilers, Einheit, Auftrag, Mittel, Ziel, Weg und endet mit »Vor!«. ' +
+        'Beim Einsatz mit Bereitstellung nennt er nur Wasserentnahmestelle und Verteiler und endet mit »Zum Einsatz fertig!«. ';
+    var prompt = 'Du bist Ausbilder bei der Feuerwehr in Deutschland und gibst einem ' + rolle + ' Rückmeldung zu seinem gesprochenen Einsatzbefehl. ' +
+      massstab + 'Ein Befehl soll kurz, klar und ruhig sein. Der Wortlaut darf abweichen.\n\n' +
+      'Lage: ' + lage + '\n\nMusterbefehl: ' + musterText(st) + '\n\nGesprochener Befehl (Diktat, kann Erkennungsfehler enthalten): ' + r.text + '\n\n' +
+      'Automatische Auswertung: ' + ev.hits + ' von ' + ev.total + ' Elementen erkannt, Reihenfolge ' + (ev.orderOk ? 'stimmt' : 'nicht bestätigt') + (ev.hasEnd ? ', Schlusskommando ' + (ev.endOk ? 'vorhanden' : 'fehlt') : '') + '.\n\n' +
+      'Antworte auf Deutsch in höchstens fünf kurzen Sätzen, ohne Liste und ohne Überschrift: Zuerst ein Gesamturteil (gut oder noch nicht gut), dann das Wichtigste, was fehlt oder falsch ist, zum Schluss ein konkreter Tipp. Sprich den ' + rolle + ' mit »du« an.';
+    if (coachCtl) coachCtl.abort();
+    coachCtl = new AbortController();
+    btn.disabled = true; box.hidden = false; out.textContent = 'Claude liest deinen Befehl …';
+    S.sample(prompt, { modelTier: 'quick', cache: false, signal: coachCtl.signal, onText: function (u) { out.textContent = u.text; r.coach = u.text; } })
+      .then(function (res) { r.coach = res.text; out.textContent = res.text; })
+      .catch(function (e) {
+        if (e && e.code === 'cancelled') return;
+        var msg = { not_granted: 'Die Rückmeldung von Claude ist nicht freigegeben. Die automatische Auswertung oben gilt weiter.', rate_limited: 'Zu viele Anfragen. Versuch es später noch einmal.', session_expired: 'Bitte melde dich neu an.' }[e && e.code] || 'Die Rückmeldung konnte nicht geladen werden. Versuch es noch einmal.';
+        out.textContent = (e && e.text ? e.text + '\n\n' : '') + msg;
+      })
+      .then(function () { var b = document.getElementById('coachbtn'); if (b) { b.disabled = false; b.textContent = 'Noch einmal fragen'; } });
+  }
+
+  /* ---------- Ereignisse ---------- */
+  var TABS = ['ueben', 'quiz', 'schema', 'stats'];
+  document.querySelector('nav.tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tab]'); if (!b) return;
+    S.tab = b.getAttribute('data-tab'); S.scroll = 'top'; render();
+  });
+  document.querySelector('nav.tabs').addEventListener('keydown', function (e) {
+    var i = TABS.indexOf(S.tab), n = -1;
+    if (e.key === 'ArrowRight') n = (i + 1) % TABS.length;
+    else if (e.key === 'ArrowLeft') n = (i + TABS.length - 1) % TABS.length;
+    else if (e.key === 'Home') n = 0;
+    else if (e.key === 'End') n = TABS.length - 1;
+    if (n < 0) return;
+    e.preventDefault();
+    S.tab = TABS[n]; S.scroll = 'top'; render();
+    var t = document.getElementById('t-' + S.tab); if (t) t.focus();
+  });
+
+  app.addEventListener('input', function (e) {
+    if (e.target.id !== 'speech' || !S.run) return;
+    S.run.text = e.target.value;
+    var b = document.getElementById('evalbtn');
+    if (b) b.disabled = !S.run.text.trim();
+  });
+
+  app.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act]'); if (!b) return;
+    var act = b.getAttribute('data-act'), r = S.run;
+    var st = r && (r.phase === 'art' || r.phase === 'fields' || r.phase === 'speak') ? curStage() : null;
+
+    if (act === 'role') { S.role = b.getAttribute('data-r'); store.role = S.role; save(); S.quiz = null; S.scroll = 'top'; S.focus = '[data-act="switchrole"]'; render(); return; }
+    if (act === 'switchrole') { if (coachCtl) coachCtl.abort(); S.role = null; S.run = null; S.quiz = null; S.scroll = 'top'; S.focus = '[data-act="role"]'; render(); return; }
+    if (act === 'askreset') { S.confirm = b.getAttribute('data-w'); S.flash = ''; S.focus = '[data-act="doreset"]'; S.scroll = 'rs'; render(); return; }
+    if (act === 'cancelreset') { S.confirm = null; render(); return; }
+    if (act === 'doreset') {
+      var w = S.confirm;
+      if (w === 'ueben' || w === 'all') { store.sc = {}; store.hist = []; store.cat = {}; store.fld = {}; }
+      if (w === 'quiz' || w === 'all') { store.quiz = 0; store.qh = []; S.quiz = null; }
+      save(); S.confirm = null;
+      S.flash = w === 'ueben' ? 'Die Übungsergebnisse sind zurückgesetzt.' : w === 'quiz' ? 'Die Quiz-Ergebnisse sind zurückgesetzt.' : 'Alle Ergebnisse sind zurückgesetzt.';
+      S.scroll = 'top'; render(); return;
+    }
+    if (act === 'mode') { S.mode = b.getAttribute('data-m'); S.focus = '[data-m="' + S.mode + '"]'; render(); return; }
+    if (act === 'start') { startScenario(+b.getAttribute('data-i')); S.scroll = 'top'; render(); return; }
+    if (act === 'home') { if (coachCtl) coachCtl.abort(); S.run = null; S.scroll = 'top'; render(); return; }
+
+    if (act === 'mq' && r && r.mq && r.mq.pick === null) {
+      var v = +b.getAttribute('data-v'), kind = r.mq.kind, sc = SCEN[r.i];
+      r.mq.pick = v; r.t++; rec(r, kind, r.mq.opts[v].ok);
+      if (r.mq.opts[v].ok) r.r++;
+      else r.misses.push({ where: kind === 'beur' ? 'Beurteilung' : 'Kontrolle', given: r.mq.opts[v].t, correct: (kind === 'beur' ? sc.beur : sc.kon).ok });
+      S.scroll = 'res'; render(); return;
+    }
+    if (act === 'mqnext') {
+      if (r.mq.kind === 'beur') { initStage(); } else { finishRun(); }
+      S.scroll = 'top'; render(); return;
+    }
+
+    if (act === 'art' && st && !r.artPick) {
+      var k = b.getAttribute('data-k'); r.artPick = k; r.t++; rec(r, 'art', k === st.art);
+      if (k === st.art) r.r++; else r.misses.push({ where: 'Befehlsart', given: ARTS[k].label, correct: ARTS[st.art].label });
+      S.scroll = 'res'; render(); return;
+    }
+    if (act === 'build') { r.phase = 'fields'; S.scroll = 'top'; render(); return; }
+    if (act === 'pick' && st && !r.checked) {
+      var key = b.getAttribute('data-f'), idx = +b.getAttribute('data-v');
+      r.picks[key] = r.order[key][idx];
+      S.focus = '[data-f="' + key + '"][data-v="' + idx + '"]'; render(); return;
+    }
+    if (act === 'check' && st && !r.checked) {
+      Object.keys(st.f).forEach(function (kk) {
+        r.t++;
+        recF(r, kk, r.picks[kk] === st.f[kk][0]);
+        if (r.picks[kk] === st.f[kk][0]) r.r++;
+        else r.misses.push({ where: FIELDS[kk].label + ' (' + st.name + ')', given: r.picks[kk], correct: st.f[kk][0] });
+      });
+      r.checked = true; S.scroll = 'res'; render(); return;
+    }
+
+    if (act === 'eval' && st && !r.ev && r.text.trim()) {
+      r.ev = evalSpeech(st, r.text); S.scroll = 'res'; render(); return;
+    }
+    if (act === 'retry' && st) { r.ev = null; r.coach = null; r.text = ''; if (coachCtl) coachCtl.abort(); S.focus = '#speech'; render(); return; }
+    if (act === 'coach') { coachFeedback(); return; }
+
+    if (act === 'next') {
+      if (r.phase === 'speak' && r.ev) {
+        r.t++;
+        r.ev.items.forEach(function (it) { recF(r, it.k, it.status === 'ok'); });
+        recF(r, 'reihenfolge', r.ev.orderOk);
+        if (r.ev.hasEnd) recF(r, 'kommando', r.ev.endOk);
+        if (r.ev.level === 'good') r.r++;
+        else r.misses.push({ where: 'Befehl (' + st.name + ')', given: '', correct: musterText(st) });
+      }
+      if (coachCtl) coachCtl.abort();
+      if (r.si + 1 < SCEN[r.i].befehle.length) { r.si++; initStage(); }
+      else { r.phase = 'kontrolle'; initMq('kon'); }
+      S.scroll = 'top'; render(); return;
+    }
+
+    if (act === 'qstart') { startQuiz(); S.scroll = 'top'; render(); return; }
+    if (act === 'qpick' && S.quiz && S.quiz.picked === null) {
+      var qi = +b.getAttribute('data-v'); S.quiz.picked = qi;
+      if (S.quiz.opts[qi].ok) S.quiz.score++;
+      S.scroll = 'res'; render(); return;
+    }
+    if (act === 'qnext') {
+      if (S.quiz.i < S.quiz.qs.length - 1) { S.quiz.i++; prepQ(); }
+      else {
+        S.quiz.done = true;
+        if (S.quiz.score > (store.quiz || 0)) store.quiz = S.quiz.score;
+        store.qh = (store.qh || []).concat([{ ts: Date.now(), s: S.quiz.score }]).slice(-30);
+        save();
+      }
+      S.scroll = 'top'; render(); return;
+    }
+  });
+
+  render();
+})();
+</script>
+
+<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist keine offizielle App der Feuerwehr Mönchengladbach.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff (Freiwillige Feuerwehr Mönchengladbach, Einheit Stadtmitte) zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot der Feuerwehr oder der Stadt Mönchengladbach.</p><p><b>Kontakt:</b> Tom Wolff, Einheit Stadtmitte, E-Mail: mailanwolff@gmail.com</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>
