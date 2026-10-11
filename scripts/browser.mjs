@@ -57,6 +57,10 @@ try {
     assert((await page.textContent('#greet')).endsWith(', Alex Muster'), 'Gruß ohne Namen');
   });
   const n = await page.locator('#dash button:has-text("Öffnen")').count();
+  await step('Logos in Startseite und Übersicht sind rund, nicht gestaucht', async () => {
+    const bad = await page.$$eval('#welcome img, #dash img', (is) => is.filter((i) => i.offsetWidth && Math.abs(i.offsetWidth - i.offsetHeight) > 1).map((i) => i.className + ' ' + i.offsetWidth + 'x' + i.offsetHeight));
+    assert(!bad.length, bad.join(', '));
+  });
   await step('Drei Trainer in der Übersicht', async () => assert(n === 3, `${n} statt 3`));
   for (let i = 0; i < n; i++) {
     await step(`Trainer ${i + 1} öffnet`, async () => {

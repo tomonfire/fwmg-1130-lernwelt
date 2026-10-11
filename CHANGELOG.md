@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben
+- Logo auf Startseite und Übersicht war auf dem iPhone hochkant gestaucht.
+
 ### Geändert
 - Als private App gekennzeichnet: Hinweise auf Stadt, Feuerwehr und Einheit aus Impressum, Kopfzeilen, Bildbeschreibungen und Doku entfernt.
 - Projektstruktur: App-Dateien liegen gesammelt in `app/`, Dokumentation in `docs/`.
