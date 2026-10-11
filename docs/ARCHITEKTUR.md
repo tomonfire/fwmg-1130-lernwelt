@@ -14,7 +14,7 @@ Browser
 app/sw.js: Offline-Cache für alle Dateien
 ```
 
-Jede App-Datei ist vollständig eigenständig (HTML, CSS, JavaScript, Fragen) und läuft auch allein. Die Shell bettet sie nur ein. Das hält die Trainer unabhängig: Änderungen an einem berühren die anderen nicht.
+Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen beim Start aus `app/data/*.json` (Gruppenführer und Zugführer). Die Fragen lassen sich so ohne Code pflegen; `npm run check` prüft IDs und Antwort-Indizes. Die Shell bettet sie nur ein. Das hält die Trainer unabhängig: Änderungen an einem berühren die anderen nicht.
 
 ## Die Shell
 
@@ -55,6 +55,5 @@ Die Dateien enthalten noch Code für Funktionen der Claude-Umgebung (`window.cla
 
 ## Mögliche nächste Schritte
 
-- Fragen aus den Dateien in eigene JSON-Dateien auslagern.
 - Eigene KI-Rückmeldung über ein Backend.
 - Automatisierte Browser-Tests (Playwright) für Dashboard und Direkteinstieg.
