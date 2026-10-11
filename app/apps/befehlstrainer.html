@@ -1,4 +1,4 @@
-<!doctype html><html><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Ix6MR94rSRGv/x5onHpsepeXHlNjHkXTVYiwr1Di/Gw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlstrainer FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -632,14 +632,24 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   try {
     var raw = localStorage.getItem('bt-fwdv3');
     if (raw) {
+      /* Gespeicherten Stand nur mit den erwarteten Typen übernehmen: Er kann auch aus einer
+         eingelesenen Sicherungsdatei stammen und wird später als HTML ausgegeben. */
       var p = JSON.parse(raw), isObj = function (x) { return x && typeof x === 'object' && !Array.isArray(x); };
+      var num = function (x) { return typeof x === 'number' && isFinite(x) ? x : 0; };
+      var pair = function (a) { return Array.isArray(a) ? [num(a[0]), num(a[1])] : null; };
+      var pairs = function (o) { var r = {}; if (isObj(o)) Object.keys(o).forEach(function (k) { var v = pair(o[k]); if (v) r[k] = v; }); return r; };
       if (isObj(p)) {
-        if (isObj(p.sc)) store.sc = p.sc;
-        if (isObj(p.cat)) store.cat = p.cat;
-        if (isObj(p.fld)) store.fld = p.fld;
-        if (Array.isArray(p.hist)) store.hist = p.hist.filter(isObj);
-        if (Array.isArray(p.qh)) store.qh = p.qh.filter(isObj);
-        if (typeof p.quiz === 'number') store.quiz = p.quiz;
+        if (isObj(p.sc)) Object.keys(p.sc).forEach(function (k) {
+          var e = p.sc[k]; if (!isObj(e)) return;
+          store.sc[k] = { n: num(e.n), best: num(e.best), last: typeof e.last === 'string' ? e.last.slice(0, 20) : '' };
+        });
+        store.cat = pairs(p.cat);
+        store.fld = pairs(p.fld);
+        if (Array.isArray(p.hist)) store.hist = p.hist.filter(isObj).map(function (x) {
+          return { ts: num(x.ts), id: String(x.id || ''), role: x.role === 'zf' ? 'zf' : 'gf', mode: x.mode === 'speak' ? 'speak' : 'select', r: num(x.r), t: num(x.t) };
+        });
+        if (Array.isArray(p.qh)) store.qh = p.qh.filter(isObj).map(function (x) { return { ts: num(x.ts), s: num(x.s) }; });
+        store.quiz = num(p.quiz);
         if (p.role === 'gf' || p.role === 'zf') store.role = p.role;
       }
     }
