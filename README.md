@@ -24,6 +24,7 @@ Erstellt von Tom Wolff (privat).
 
 ## Dokumentation
 
+- [Release Notes](docs/RELEASE-NOTES.md): was neu ist, für Nutzer
 - [Projektbeschreibung](docs/PROJEKTBESCHREIBUNG.md): Ziel, Zielgruppe, Funktionen, Abgrenzung
 - [Architektur](docs/ARCHITEKTUR.md)
 - [Veröffentlichung](docs/VEROEFFENTLICHUNG.md)
