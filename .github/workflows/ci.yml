@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Dateien und Manifest prüfen
+        run: npm run check
+      - name: Impressum in allen Dateien vorhanden
+        run: |
+          for f in app/index.html app/apps/*.html; do
+            grep -q 'keine offizielle App der Feuerwehr' "$f" || { echo "Impressum fehlt in $f"; exit 1; }
+            grep -q 'KI-Hinweis' "$f" || { echo "KI-Hinweis fehlt in $f"; exit 1; }
+          done
+      - name: JavaScript-Syntax der Dateien prüfen
+        run: node scripts/syntax.mjs
