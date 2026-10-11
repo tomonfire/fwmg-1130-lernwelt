@@ -5,7 +5,7 @@ Reihenfolge ist ein Vorschlag, nach Nutzen und Aufwand.
 ## Als Nächstes
 - [x] **Lernstand sichern:** Export und Import als Datei, damit er beim Gerätewechsel nicht verloren geht.
 - [x] **Name** beim ersten Start als Pflichtfeld.
-- [ ] **Fragen auslagern:** Fragen aus den HTML-Dateien in JSON-Dateien (`app/data/`), Pflege ohne Code.
+- [x] **Fragen auslagern:** Fragen aus den HTML-Dateien in JSON-Dateien (`app/data/`), Pflege ohne Code.
 - [x] **Automatische Browser-Tests:** Startseite, Trainer, Offline-Betrieb (Playwright) in der CI.
 - [ ] Browser-Tests erweitern: Direkteinstieg in die Tabs, Prüfungsablauf, Lernstand bleibt nach Update erhalten.
 - [ ] **Branch-Schutz** für `main` aktivieren (öffentliches Repository, siehe [REPOSITORY.md](REPOSITORY.md)).
