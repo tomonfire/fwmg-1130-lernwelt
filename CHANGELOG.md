@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (Befehlscoach V2.12)
+- Vorlesen klingt natürlicher und zügiger: beste deutsche Stimme des Geräts (Premium, erweitert, natürlich, keine Effektstimmen), Tempo 1,12, etwas tiefer, Satz für Satz mit kurzen Pausen. Uhrzeiten („19 Uhr 30“) und Abkürzungen („im zweiten Obergeschoss“, „Pkw“) werden ausgesprochen. Service-Worker `VERSION` auf v28.
+
 ### Behoben (Befehlscoach V2.11)
 - „Einsprechen“ in der iPhone-App vom Home-Bildschirm: iOS startet die Spracherkennung dort scheinbar, liefert aber keinen Text und lässt sich nicht stoppen. Dort erscheint jetzt statt des Knopfs der Hinweis auf das Mikrofon der Tastatur. Überall gilt: „Aufnahme beenden“ stoppt sofort, und eine Aufnahme ohne Ton bricht nach 6 Sekunden mit Hinweis ab. Service-Worker `VERSION` auf v27.
 
