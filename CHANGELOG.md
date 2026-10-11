@@ -5,6 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Geändert
+- Weitergabe nur durch den Autor: Hinweis im Impressum (alle vier HTML-Dateien), in README, Projektbeschreibung, Veröffentlichungs-Doku und CLAUDE.md. „zur freien Weitergabe“ entfernt. CI prüft den Hinweis. Service-Worker `VERSION` auf v12.
 - Gruppenführer-Trainer zeigt das Willkommensfenster jetzt auch in der Lernwelt (eingebettet), wie der Zugführer-Trainer. Gruß einheitlich: Hallo (bis 5 Uhr), Guten Morgen (bis 11), Guten Tag (bis 18), Guten Abend. Neuer Browser-Test dafür. Service-Worker `VERSION` auf v11.
 - Kontakt im Impressum und in `SECURITY.md` läuft über GitHub (Issues, Profil, vertrauliche Sicherheitsmeldung) statt über eine E-Mail-Adresse. Service-Worker `VERSION` auf v10.
 - Fragen des Gruppenführer- und Zugführer-Trainers liegen als JSON in `app/data/` statt im HTML. Neue Prüfung `scripts/data.mjs` (eindeutige IDs, gültige Antwort-Indizes). Service-Worker `VERSION` auf v9.

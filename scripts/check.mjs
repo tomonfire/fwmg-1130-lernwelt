@@ -38,7 +38,7 @@ for (const f of pages) {
   // Nur GitHub Pages: keine Verbindungen zu anderen Servern.
   else if (!csp.includes("connect-src 'self';")) fail('connect-src erlaubt fremde Server:', f);
   if (/<(?:link|script|img|iframe)\b[^>]*\b(?:href|src)="https?:/i.test(html)) fail('Lädt Dateien von fremden Servern:', f);
-  if (!html.includes('keine offizielle App einer Feuerwehr') || !html.includes('KI-Hinweis') || !html.includes('<b>Datenschutz:</b>')) fail('Impressum, Datenschutz oder KI-Hinweis fehlt:', f);
+  if (!html.includes('keine offizielle App einer Feuerwehr') || !html.includes('ausschließlich durch mich, Tom Wolff') || !html.includes('KI-Hinweis') || !html.includes('<b>Datenschutz:</b>')) fail('Impressum, Datenschutz oder KI-Hinweis fehlt:', f);
   for (const m of html.matchAll(/<footer class="fwmg-imp">[\s\S]*?<\/footer>/g)) footers.add(m[0]);
   // Private App: keine Hinweise auf eine bestimmte Stadt oder Einheit in Texten (Logos ausgenommen).
   const text = html.replace(/data:[^"')]+/g, '');

@@ -5,7 +5,7 @@ Code liegt ausschließlich in `app/`; `docs/`, `scripts/` und `.github/` erklär
 
 ## Regeln
 - Sprache der App und der Texte: Deutsch (Du-Form), deutsches Datums- und Zahlenformat.
-- Das Impressum (Footer `fwmg-imp` in `app/index.html` und in jeder Datei unter `app/apps/`) bleibt in allen vier Dateien inhaltlich identisch: private App, keine offizielle App einer Feuerwehr, Stadt oder Behörde, keine Gewähr, KI-Hinweis, Kontakt.
+- Das Impressum (Footer `fwmg-imp` in `app/index.html` und in jeder Datei unter `app/apps/`) bleibt in allen vier Dateien inhaltlich identisch: private App, keine offizielle App einer Feuerwehr, Stadt oder Behörde, keine Gewähr, Hinweis „Weitergabe ausschließlich durch den Autor“, KI-Hinweis, Kontakt. Die App ist nicht zur freien Weitergabe bestimmt.
 - Farblogik in allen Trainern gleich: grün = richtig, rot = falsch, orange = übersehen / fehlt / nicht beantwortet (`--ok`, `--bad`, `--miss`).
 - Reihenfolge der Trainer überall: Gruppenführer, Zugführer, Befehlstrainer (`ORDER` in `app/index.html`).
 - localStorage-Schlüssel nie umbenennen, sonst geht der Lernstand der Nutzer verloren: `zf4tt.state.v1`, `zf4tt.local.v1`, `lernkompass-tagestraining-v1`, `lernkompass-tagestraining-session`, `bt-fwdv3`, `lzf.last.v1`, `fwmg.name.v1`. Neue Schlüssel in `KEYS` (Sichern/Wiederherstellen in `app/index.html`) aufnehmen.
