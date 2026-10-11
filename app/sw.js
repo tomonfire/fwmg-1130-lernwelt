@@ -1,6 +1,6 @@
 /* Service Worker: macht die Lernwelt offline nutzbar.
    Bei jeder Änderung an den Dateien VERSION erhöhen, damit Geräte neu laden. */
-const VERSION = 'fwmg-lernwelt-v18';
+const VERSION = 'fwmg-lernwelt-v19';
 const PRECACHE = [
   './',
   'index.html',

@@ -1,7 +1,7 @@
 {
   "name": "FwMG - Lernwelt",
   "short_name": "FwMG Lernwelt",
-  "description": "Lern- und Trainingsapp für die Feuerwehr: Gruppenführer, Zugführer und Befehlstrainer.",
+  "description": "Lern- und Trainingsapp für die Feuerwehr: Gruppenführer, Zugführer und Befehlscoach.",
   "id": "./",
   "lang": "de",
   "start_url": "./",

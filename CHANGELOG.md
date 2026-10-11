@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert
+- In der App heißen die Trainer jetzt „Coach“: „Deine Coaches“, „Befehlscoach“, „Coach wechseln“ (#24). Nur Texte; Dateinamen und Speicherschlüssel bleiben. Service-Worker `VERSION` auf v19.
+
 ### Hinzugefügt
 - Claude per `@claude` in Issues, Kommentaren und Reviews (`.github/workflows/claude.yml`, Einrichtung in `docs/REPOSITORY.md`). Claude darf dabei `npm ci`, `npm run check` und `npm run csp:update` ausführen.
 
