@@ -36,6 +36,7 @@ Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen b
 | `bt-fwdv3` | Szenarien, Quiz, Verlauf | Befehlstrainer |
 | `lzf.last.v1` | zuletzt geöffneter Trainer | Shell |
 | `fwmg.name.v1` | Name (Pflicht beim ersten Start) | Shell |
+| `fwmg.settings.v1` | Einstellungen für alle Trainer (`{goal, t}`) | Shell |
 
 **Sichern/Wiederherstellen:** Die Shell schreibt alle Schlüssel aus `KEYS` als JSON-Datei (`{app:"fwmg-lernwelt", format:1, name, saved, data}`) und liest sie wieder ein. Vor dem Einlesen schließt sie die Trainer-Rahmen, weil diese beim Schließen speichern und sonst den wiederhergestellten Stand überschreiben würden.
 

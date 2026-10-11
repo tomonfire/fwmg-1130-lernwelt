@@ -139,6 +139,9 @@ try {
     const bt = await p2.evaluate(() => JSON.parse(localStorage.getItem('bt-fwdv3') || '{}'));
     assert(bt.quiz === 7, 'Befehlstrainer-Stand nicht übernommen');
     assert((await p2.textContent('#ls-name')) === 'Alex Muster', 'Name nicht übernommen');
+    const set = await p2.evaluate(() => JSON.parse(localStorage.getItem('fwmg.settings.v1') || 'null'));
+    assert(set && set.goal === 20, 'Einstellung „Fragen pro Runde“ nicht übernommen: ' + JSON.stringify(set));
+    assert((await p2.getAttribute('#set-goal button[data-goal="20"]', 'aria-pressed')) === 'true', 'Einstellung in der Übersicht nicht angezeigt');
     p2.once('dialog', (d) => d.accept());
     await p2.setInputFiles('#ls-file', { name: 'x.json', mimeType: 'application/json', buffer: Buffer.from('{"app":"anders"}') });
     await p2.waitForFunction(() => /keine Sicherung/.test(document.getElementById('ls-msg').textContent));
