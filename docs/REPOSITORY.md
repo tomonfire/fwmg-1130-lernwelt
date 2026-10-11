@@ -30,3 +30,15 @@ Diese Einstellungen lassen sich nicht über Dateien festlegen und werden einmali
 
 ## Environments → github-pages
 - **Deployment branches:** nur `main`.
+
+## Claude per @-Erwähnung (`.github/workflows/claude.yml`)
+Schreibt man `@claude` in ein Issue, einen Kommentar oder ein Review, bearbeitet Claude die Aufgabe und antwortet bzw. legt einen Branch oder Pull Request an. Auslösen können nur Personen mit Schreibrechten im Repository.
+
+Einmalig einrichten:
+1. **Claude-GitHub-App installieren:** <https://github.com/apps/claude> → *Install* → nur dieses Repository auswählen.
+2. **Zugang als Secret hinterlegen** (Settings → Secrets and variables → Actions → *New repository secret*), eines von beiden:
+   - `CLAUDE_CODE_OAUTH_TOKEN` mit einem Claude-Abo (Pro/Max): auf dem eigenen Rechner `claude setup-token` ausführen und den angezeigten Token eintragen.
+   - `ANTHROPIC_API_KEY` mit einem API-Schlüssel aus der Anthropic Console (Abrechnung nach Verbrauch).
+3. Test: In einem Issue `@claude` mit einer Bitte kommentieren. Unter *Actions → Claude Code* ist der Lauf zu sehen.
+
+Hinweis: Der Workflow ruft die Claude-API von GitHub Actions aus auf. Das betrifft nur die Entwicklung, nicht die App: Die App selbst spricht weiterhin mit keinem Server außer GitHub Pages.
