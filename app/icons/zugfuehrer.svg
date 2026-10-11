@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Taktisches Zeichen Zugführer (Feuerwehr)">
+  <!-- Taktisches Zeichen nach DV 102: Grundzeichen Person (Raute), Organisation Feuerwehr (rot),
+       Funktion Führungskraft (Balken oben), Größenordnung Zug (drei Punkte).
+       Geometrie erzeugt mit @taktische-zeichen/core 0.11.0 (MIT-Lizenz, github.com/phjardas/taktische-zeichen). -->
+  <rect width="512" height="512" fill="#F4F5F6"/>
+  <g transform="translate(91.75 82) scale(7.3)" stroke="#000" stroke-width="2" fill="none">
+    <defs><clipPath id="raute"><path d="M22.5,8.5 L43.5,29.5 L22.5,50.5 L1.5,29.5 Z"/></clipPath></defs>
+    <path d="M22.5,8.5 L43.5,29.5 L22.5,50.5 L1.5,29.5 Z" fill="#fa321e"/>
+    <g fill="#000" stroke="#000" transform="translate(12.5,0)"><circle cx="3" cy="3" r="2"/><circle cx="10" cy="3" r="2"/><circle cx="17" cy="3" r="2"/></g>
+    <g clip-path="url(#raute)"><path d="M0,0 h30 v8 h-30 Z" fill="#000" transform="translate(7.5,7)"/></g>
+  </g>
+</svg>
