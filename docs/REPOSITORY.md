@@ -32,7 +32,7 @@ Diese Einstellungen lassen sich nicht über Dateien festlegen und werden einmali
 - **Deployment branches:** nur `main`.
 
 ## Claude per @-Erwähnung (`.github/workflows/claude.yml`)
-Schreibt man `@claude` in ein Issue, einen Kommentar oder ein Review, bearbeitet Claude die Aufgabe und antwortet bzw. legt einen Branch oder Pull Request an. Auslösen können nur Personen mit Schreibrechten im Repository.
+Schreibt man `@claude` in ein Issue, einen Kommentar oder ein Review, bearbeitet Claude die Aufgabe und antwortet bzw. legt einen Branch oder Pull Request an. Auslösen können nur Personen mit Schreibrechten im Repository. Claude darf im Lauf nur `npm ci`, `npm run check` und `npm run csp:update` ausführen, um seine Änderungen zu prüfen; den Browser-Test übernimmt die CI im Pull Request.
 
 Einmalig einrichten:
 1. **Claude-GitHub-App installieren:** <https://github.com/apps/claude> → *Install* → nur dieses Repository auswählen.
