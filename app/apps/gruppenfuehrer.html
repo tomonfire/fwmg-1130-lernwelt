@@ -1,6 +1,5 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-uF1Ez2wyRtqVvIxJAL3A4dgC728J1hh9fEoAMrozJfw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-zP3ryhWq0rzzM5TPjuWUS8Dp6FA2SkZ0VnRbVaxnRzM='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Gruppenführer Tagestraining</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -122,6 +121,20 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .actions .btn.primary{flex:1;min-width:180px}
 .linkbtn{background:none;border:0;padding:8px 0;text-decoration:underline;font-size:14px;color:var(--muted);min-height:44px}
+/* Leiste unten: Prüfen und Weiter bleiben bei langen Fragen sichtbar (iPad quer, Laptop). */
+.actions.dock{position:sticky;bottom:0;z-index:4;background:var(--bg);margin-top:6px;padding-block:10px max(10px,env(safe-area-inset-bottom))}
+.actions.dock::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:16px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.emb .actions.dock{padding-bottom:10px}
+/* Maus und Tastatur: Hover-Rückmeldung und Hinweis auf die Tasten, nicht auf Touch-Geräten. */
+@media (hover:hover) and (pointer:fine){
+  .opt:not([disabled]):hover,.gq:hover{border-color:var(--ink)}
+  .btn:not([disabled]):hover{background:var(--bg)}
+  .btn.primary:not([disabled]):hover{background:var(--btn);box-shadow:inset 0 0 0 100px rgba(0,0,0,.12)}
+  .tab:hover,.linkbtn:hover{color:var(--ink)}
+  .topic:hover{background:var(--surface)}
+  .seg button:not([aria-pressed="true"]):hover{background:var(--bg)}
+  .actions.dock.kb::after{content:'Tastatur: Ziffern wählen eine Antwort, Enter bestätigt';flex-basis:100%;font-size:12px;color:var(--muted)}
+}
 /* Ergebnis / Fortschritt */
 .score{font-family:var(--f-display);font-weight:700;font-size:72px;line-height:1}
 .score small{font-size:32px;color:var(--muted)}
@@ -242,6 +255,8 @@ section>.gh:first-of-type{margin-top:10px;padding-top:0;border-top:0}
 .grid2 .opt{padding:10px 12px;min-height:48px;align-items:center}
 .grid2 .opt .tag{margin-left:auto}
 [tabindex="-1"]:focus{outline:none}
+/* Große Bildschirme: Listen nach Thema bzw. Kapitel zweispaltig. */
+@media (min-width:1000px){.crows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}}
 @media (prefers-reduced-motion:no-preference){.bar>i{transition:width .3s}}
 .qhead.sticky{top:env(safe-area-inset-top,0px);-webkit-transform:translateZ(0);transform:translateZ(0)}.qhead.sticky::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:env(safe-area-inset-top,0px);background:var(--bg)}.emb .qhead.sticky{top:0}.emb .qhead.sticky::before{display:none}.fwmg-imp{max-width:720px;margin:24px auto 0;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));font:13px/1.45 -apple-system,BlinkMacSystemFont,sans-serif;opacity:.8;color:inherit}.fwmg-imp summary{cursor:pointer;font-weight:600;padding:8px 0;min-height:24px}.fwmg-imp p{margin:4px 0 0}.emb .fwmg-imp{display:none}</style>
 <div class="wrap" id="app"><p id="boot" style="font:16px/1.5 system-ui,sans-serif;padding:24px 0">Gruppenführer Tagestraining lädt …<br><small id="bootstep">Schritt 0: Es läuft noch kein Skript.</small><br><small>Bleibt diese Meldung stehen, blockiert dein Browser oder deine App Skripte. Öffne die Seite dann direkt in Safari oder Chrome.</small></p><noscript><p style="font:16px/1.5 system-ui,sans-serif">Diese App braucht JavaScript. Bitte in den Browser-Einstellungen aktivieren.</p></noscript></div>
@@ -577,8 +592,8 @@ function mast(){
 }
 function tabs(){
   return '<nav class="tabs" aria-label="Bereiche"><button class="tab" data-act="go" data-v="home"'+(view==='home'?' aria-current="page"':'')+'>Heute</button>'+
-    '<button class="tab" data-act="go" data-v="topic"'+(view==='topic'?' aria-current="page"':'')+'>Führung</button>'+
     '<button class="tab" data-act="go" data-v="progress"'+(view==='progress'?' aria-current="page"':'')+'>Fortschritt</button>'+
+    '<button class="tab" data-act="go" data-v="topic"'+(view==='topic'?' aria-current="page"':'')+'>Führung</button>'+
     '<button class="tab" data-act="go" data-v="sources"'+(view==='sources'?' aria-current="page"':'')+'>Quellen</button></nav>';
 }
 function syncNote(){return '<p class="foot sync">'+syncText()+'</p>'}
@@ -659,9 +674,9 @@ function renderQuiz(){
     if(q.u)h+='<p><b>Hinweis:</b> Diese Lösung ist nicht bestätigt. Prüfe sie im Lösungsbogen.</p>';
     var fl=S.f.indexOf(q.id)>-1;
     h+='<button class="linkbtn" data-act="flag" style="align-self:flex-start">'+(fl?'Meldung zurücknehmen':'Lösung fehlerhaft melden')+'</button></div>';
-    h+='<div class="actions"><button class="btn primary" data-act="next">'+(Q.i+1>=total?'Ergebnis ansehen':'Weiter')+'</button></div>';
+    h+='<div class="actions dock kb"><button class="btn primary" data-act="next">'+(Q.i+1>=total?'Ergebnis ansehen':'Weiter')+'</button></div>';
   }else{
-    h+='<div class="actions"><button class="btn primary" data-act="check"'+(Q.sel.length?'':' disabled')+'>Prüfen</button></div>';
+    h+='<div class="actions dock kb"><button class="btn primary" data-act="check"'+(Q.sel.length?'':' disabled')+'>Prüfen</button></div>';
   }
   return h;
 }
@@ -815,8 +830,8 @@ function renderTopic(){
         PH.map(function(p,pi){return '<button data-act="zset" data-i="'+zi+'" data-p="'+pi+'" aria-pressed="'+(ans===pi)+'" aria-label="'+p.n+'"'+(T.zc?' disabled':'')+'>'+p.s+'</button>'}).join('')+'</div>'+
         (T.zc?'<span class="zres">'+(right?'Richtig':'Nicht richtig. Richtig ist: '+PH[it.p].n)+'</span>':'')+'</div>';
     }).join('')+'</div>'+
-    (T.zc?'<div class="res '+(zok===ZU.length?'good':'nope')+'" id="zres" role="status" tabindex="-1"><h3>'+zok+' von '+ZU.length+' richtig</h3></div><div class="actions"><button class="btn primary" data-act="zreset">Neu mischen</button></div>':
-      '<div class="actions"><button class="btn primary" data-act="zcheck"'+(Object.keys(T.z).length?'':' disabled')+'>Prüfen</button></div>')+'</section>';
+    (T.zc?'<div class="res '+(zok===ZU.length?'good':'nope')+'" id="zres" role="status" tabindex="-1"><h3>'+zok+' von '+ZU.length+' richtig</h3></div><div class="actions dock"><button class="btn primary" data-act="zreset">Neu mischen</button></div>':
+      '<div class="actions dock"><button class="btn primary" data-act="zcheck"'+(Object.keys(T.z).length?'':' disabled')+'>Prüfen</button></div>')+'</section>';
   /* Übung 2: Szenarien */
   var sc=SC[T.so[T.si]],gl=chk(T.sg,sc.r,sc.f,sc.o);
   var good=true;
@@ -827,8 +842,8 @@ function renderTopic(){
   function box(list,act){return '<div class="grid2" role="group" aria-labelledby="l-sg">'+list.map(function(o){return '<button class="'+o.cls+'" role="checkbox" aria-checked="'+o.on+'" data-act="'+act+'" data-i="'+o.i+'"'+(T.sk?' disabled':'')+'><span class="box">'+ICON_CHECK+'</span><span class="tx">'+esc(o.n)+'</span>'+(o.tag?'<span class="tag">'+o.tag+'</span>':'')+'</button>'}).join('')+'</div>'}
   h+='<section aria-labelledby="h-s"><h2 id="h-s">Üben: Was gehört dazu?</h2><span class="label">Aufgabe '+(T.si+1)+' von '+SC.length+'</span><div class="scn" tabindex="-1" id="l-sg">'+esc(sc.t)+'</div>'+
     '<span class="label">Wähle alle zutreffenden Antworten</span>'+box(gl,'gset')+
-    (T.sk?'<div class="res '+(good?'good':'nope')+'" id="sres" role="status" tabindex="-1"><h3>'+(good?'Richtig':'Nicht ganz')+'</h3><p>'+esc(sc.x)+'</p></div><div class="actions"><button class="btn primary" data-act="snext">Nächste Aufgabe</button></div>':
-      '<div class="actions"><button class="btn primary" data-act="scheck"'+(T.sg.length?'':' disabled')+'>Prüfen</button></div>')+'</section>';
+    (T.sk?'<div class="res '+(good?'good':'nope')+'" id="sres" role="status" tabindex="-1"><h3>'+(good?'Richtig':'Nicht ganz')+'</h3><p>'+esc(sc.x)+'</p></div><div class="actions dock kb"><button class="btn primary" data-act="snext">Nächste Aufgabe</button></div>':
+      '<div class="actions dock kb"><button class="btn primary" data-act="scheck"'+(T.sg.length?'':' disabled')+'>Prüfen</button></div>')+'</section>';
   /* Fragen und Test */
   var runningExam=!!loadExam();
   h+='<section aria-labelledby="h-t"><h2 id="h-t">Fragen und Test</h2><p style="margin:0">'+OWN.length+' Übungsfragen zum Führungsvorgang aus FwDV 100 (Abschnitt 3.3) und IdF-Poster, dazu die gekennzeichnete Ergänzung Gefahrenmatrix. Jede Erklärung nennt die Quelle. Sie gehören nicht zum Fragenkatalog. Im Lernstand erscheinen sie in der eigenen Gruppe Führung, für Tagesziel und Serie zählen sie mit.</p>'+
@@ -848,7 +863,7 @@ function renderExam(){
   E.ord[i].forEach(function(oi){
     h+='<button class="opt" role="checkbox" aria-checked="'+(sel.indexOf(oi)>-1)+'" data-act="eopt" data-i="'+oi+'"><span class="box">'+ICON_CHECK+'</span><span class="tx">'+esc(q.o[oi])+'</span></button>';
   });
-  h+='</div><div class="actions"><button class="btn" data-act="eprev"'+(i===0?' disabled':'')+'>Zurück</button>'+
+  h+='</div><div class="actions dock kb"><button class="btn" data-act="eprev"'+(i===0?' disabled':'')+'>Zurück</button>'+
     (i+1<n?'<button class="btn primary" data-act="enext">Weiter</button>':'<button class="btn primary" data-act="esubmit">Prüfung abgeben</button>')+'</div>';
   h+='<section style="margin-top:24px"><span class="label" id="l-ov">Übersicht</span><div class="grid" role="group" aria-labelledby="l-ov">'+
     E.ids.map(function(_,j){return '<button class="gq'+(E.ans[j].length?' done':'')+'" data-act="egoto" data-n="'+j+'"'+(j===i?' aria-current="true"':'')+' aria-label="Frage '+(j+1)+', '+(E.ans[j].length?'beantwortet':'offen')+'">'+(j+1)+'</button>'}).join('')+'</div>';
@@ -941,7 +956,7 @@ function renderProgress(){
   h+='<h3 class="gh">Führung</h3><div class="stats"><div class="stat"><b>'+ow.mast+'<span style="font-size:18px"> / '+ow.total+'</span></b><span>gemeistert</span></div>'+
     '<div class="stat"><b>'+ow.due+'</b><span>fällig</span></div><div class="stat"><b>'+(oa?Math.round(ok2/oa*100)+' %':'–')+'</b><span>Trefferquote</span></div></div>'+
     '<div class="bar"><i class="f-ok" style="width:'+(ow.total?ow.mast/ow.total*100:0)+'%"></i><i class="f-learn" style="width:'+(ow.total?ow.learn/ow.total*100:0)+'%"></i></div>'+stufenLine(ow)+
-    '<div style="margin-top:12px">'+GR.map(function(g){
+    '<div class="crows" style="margin-top:12px">'+GR.map(function(g){
       var c=counts(OWN.filter(function(q){return g[1](parseInt(q.id.split('.')[1],10))}));
       return '<div class="crow"><div class="l"><span>'+g[0]+'</span><span>'+c.mast+' / '+c.total+' · '+c.way+' %</span></div><div class="bar"><i class="f-ok" style="width:'+(c.total?c.mast/c.total*100:0)+'%"></i><i class="f-learn" style="width:'+(c.total?c.learn/c.total*100:0)+'%"></i></div></div>';
     }).join('')+'</div>'+
@@ -952,7 +967,7 @@ function renderProgress(){
   for(var i=13;i>=0;i--){var v=S.days[keyOf(n0-i)]||0;vals.push([n0-i,v]);if(v>mx)mx=v}
   vals.forEach(function(p){h+='<div class="'+(p[1]?'':'z')+'"><span>'+(p[1]||'')+'</span><i style="height:'+(p[1]?Math.round(p[1]/mx*62)+'px':'3px')+'"></i></div>'});
   h+='</div><p class="foot">'+streak()+(streak()===1?' Tag':' Tage')+' in Folge · '+dayKeys+' Lerntage insgesamt</p></section>';
-  h+='<section><h2>Nach Thema</h2><p class="foot" style="margin:0 0 6px">Zahl: gemeistert von allen Fragen. Prozent: Weg bis „gemeistert“ (Stufe 4).</p><div>'+CATS.map(function(name,i){if(i>=10)return '';
+  h+='<section><h2>Nach Thema</h2><p class="foot" style="margin:0 0 6px">Zahl: gemeistert von allen Fragen. Prozent: Weg bis „gemeistert“ (Stufe 4).</p><div class="crows">'+CATS.map(function(name,i){if(i>=10)return '';
     var c=counts(QS.filter(function(q){return q.c===i}));
     return '<div class="crow"><div class="l"><span>'+esc(name)+'</span><span>'+c.mast+' / '+c.total+' · '+c.way+' %</span></div><div class="bar"><i class="f-ok" style="width:'+(c.mast/c.total*100)+'%"></i><i class="f-learn" style="width:'+(c.learn/c.total*100)+'%"></i></div></div>';
   }).join('')+'</div></section>';
@@ -1170,4 +1185,5 @@ try{welcome()}catch(e){}
 })();
 </script>
 
+<script src="../tastatur.js" data-primary=".btn.primary"></script>
 <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung. <b>Weitergabe:</b> Die Weitergabe der App und ihrer Inhalte (Link, Kopie, Veröffentlichung an Dritte) erfolgt ausschließlich durch mich, Tom Wolff. Ohne meine ausdrückliche Zustimmung ist sie nicht gestattet. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, über GitHub: <a href="https://github.com/tomonfire/fwmg-1130-lernwelt/issues" target="_blank" rel="noopener noreferrer">Issue im Repository</a> oder <a href="https://github.com/tomonfire" target="_blank" rel="noopener noreferrer">GitHub-Profil tomonfire</a></p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Name und dein Lernstand werden nur in deinem Browser gespeichert und nicht an einen Server übertragen. Eine Sicherungsdatei entsteht nur, wenn du selbst „Lernstand sichern“ wählst. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlscoach werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>

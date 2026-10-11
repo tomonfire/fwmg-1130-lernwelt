@@ -4,6 +4,24 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (einheitliches Design)
+- Befehlscoach nutzt jetzt dieselben Farben (hell und dunkel), Schriften und Bausteine wie Gruppen- und Zugführer-Coach: dunkelblaue Überschriften, IBM Plex Sans, Kopf mit Datum und Streifen darunter, Reiter, Knöpfe, Antwort-Etiketten „Richtig“/„Falsch“, Ergebniskasten mit Balken links und Überschrift „Richtig“/„Falsch“/„Nicht ganz“, roter Fokusrahmen, Fortschrittsbalken.
+- Gleiche Reiterfolge in beiden Fragen-Coaches: Heute · Fortschritt · Führung · Quellen.
+- Leiste oben heißt „Befehlscoach“ statt „Befehle“. Auf dem iPhone zeigt der Zurück-Knopf nur den Pfeil, damit alle drei Coaches ohne Scrollen in die Leiste passen.
+- Zugführer-Coach: „Lösung fehlerhaft melden“ linksbündig wie im Gruppenführer-Coach. Gruppenführer-Coach: doppelte Viewport-Angabe entfernt, `viewport-fit=cover` wie in den anderen Dateien.
+- Service-Worker `VERSION` auf v20.
+
+### Hinzugefügt (iPad und Computer)
+- Leiste unten in den Fragen- und Übungsansichten aller Coaches: „Prüfen“ und „Weiter“ bleiben auch bei langen Fragen sichtbar, z. B. auf dem iPad quer oder am Laptop. In der Lernwelt endet der Coach über dem Home-Balken des iPhones.
+- Tastatur (`app/tastatur.js`): Ziffern 1–9 wählen eine Antwort, Enter löst „Prüfen“/„Weiter“ aus. Hinweis darauf und Hover-Rückmeldung nur bei Geräten mit Maus. Beim Öffnen eines Coaches mit Maus geht der Fokus direkt in den Coach.
+- Service-Worker `VERSION` auf v21.
+
+### Geändert (Layout für große Bildschirme)
+- Übersicht: ab 768 px drei Coach-Karten nebeneinander (iPad hoch), ab 1000 px „Einstellungen“ und „Dein Lernstand“ nebeneinander. Die Anleitung „App auf dem Home-Bildschirm“ ist mit Maus zugeklappt, auf Touch-Geräten offen.
+- Fortschritt im Gruppen- und Zugführer-Coach: Listen nach Thema bzw. Kapitel ab 1000 px zweispaltig.
+- Befehlscoach: gleiche Breiten und ab 768 px größere Schrift und Tippflächen wie die anderen Coaches.
+- Service-Worker `VERSION` auf v22.
+
 ### Entwicklung
 - Debuggen in VS Code: Konfigurationen in `.vscode/` (Chrome/Edge mit iPhone-Größe, Anhängen, Browser-Test sichtbar mit `HEADED=1`, Prüfskript) und Aufgaben für Start und Prüfungen.
 - `npm start` nutzt jetzt `scripts/serve.mjs` statt `serve@14`: Der alte Server leitete `.html`-Adressen um, dadurch luden lokal die Coaches nicht. Ohne Abhängigkeiten, auch vom Browser-Test genutzt.

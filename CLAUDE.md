@@ -18,3 +18,4 @@ Code liegt ausschließlich in `app/`; `docs/`, `scripts/` und `.github/` erklär
 - Nur GitHub: kein eigener Server, keine Datenbank, keine Dienste außer GitHub Pages (`connect-src 'self'`).
 - Name beim ersten Start ist Pflicht; ohne Namen öffnet die Shell weder Übersicht noch Trainer.
 - Mobile zuerst (iPhone): Safe-Area-Abstände beachten, mitscrollende Leisten brauchen den Abdeckstreifen (`::before`).
+- iPad und Computer: Hauptknöpfe in Frage- und Übungsansichten stehen in `.actions.dock` (Leiste unten); `kb` ergänzen, wenn Ziffern eine Antwort wählen (`app/tastatur.js`). Hover nur unter `@media (hover:hover) and (pointer:fine)`. Ab 768 px größere Schrift wie in den drei Coaches.
