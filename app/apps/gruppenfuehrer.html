@@ -350,6 +350,9 @@ function merge(a,b){
 }
 var S=fresh();
 try{var raw=localStorage.getItem(LS);if(raw)S=clean(JSON.parse(raw))}catch(e){}
+/* Zentrale Einstellung aus der Lernwelt (Fragen pro Runde): gilt, wenn sie neuer ist als die eigene. */
+try{var cs=JSON.parse(localStorage.getItem('fwmg.settings.v1')||'null');if(cs&&[10,15,20,30].indexOf(cs.goal)>-1&&cs.t>(S.gu||0)&&cs.goal!==S.goal){S.goal=cs.goal;S.gu=cs.t;localStorage.setItem(LS,JSON.stringify(S))}}catch(e){}
+var EMBED=false;try{EMBED=window.parent!==window}catch(e){}
 
 var lsOk=true;try{localStorage.setItem(LS+'-probe','1');localStorage.removeItem(LS+'-probe')}catch(e){lsOk=false}
 var docRef=null, flushing=false, again=false, tmr=null, syncMode='local';
@@ -616,7 +619,7 @@ function renderHome(){
     (ex?'<button class="btn primary block" data-act="exresume">'+(exExp?'Abgelaufene Prüfung auswerten':'Prüfung fortsetzen · noch '+fmt(ex.end-Date.now()))+'</button>':'')+
     (ex&&confirmNew?'<div class="conf" role="alert" tabindex="-1"><p><b>Laufende Prüfung verwerfen?</b> Die begonnene Prüfung geht verloren.</p><div class="actions" style="margin:0"><button class="btn primary" data-act="exstart">Ja, neu starten</button><button class="btn" data-act="exnew-no">Abbrechen</button></div></div>':
     '<button class="btn '+(ex?'':'primary ')+'block" data-act="exstart"'+(pool.length?'':' disabled')+'>'+(ex?'Neue Prüfung starten':'Prüfung starten')+' · '+Math.min(EXQ,pool.length)+' Fragen · '+EXMIN+' Min.</button>')+'</section>';
-  h+='<section><span class="label" id="l-goal">Fragen pro Runde</span><div class="seg" role="group" aria-labelledby="l-goal">'+
+  if(!EMBED)h+='<section><span class="label" id="l-goal">Fragen pro Runde</span><div class="seg" role="group" aria-labelledby="l-goal">'+
     [10,15,20,30].map(function(n){return '<button data-act="goal" data-n="'+n+'" aria-pressed="'+(S.goal===n)+'">'+n+'</button>'}).join('')+'</div></section>';
   h+='<section><span class="label" id="l-topics">Themen</span><div class="topics" role="group" aria-labelledby="l-topics">'+
     CATS.map(function(name,i){

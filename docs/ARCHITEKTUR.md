@@ -20,7 +20,7 @@ Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen b
 
 - `MODS` (in `app/index.html`) beschreibt jeden Trainer: Kennung, Datei, Namen, Kennzahlen, Einstiegspunkte.
 - `ORDER` legt die Reihenfolge fest (Gruppenführer, Zugführer, Befehlstrainer).
-- Direkteinstieg: `clickTab()` wartet, bis der Trainer geladen ist, und klickt den Tab mit passender Beschriftung. Das funktioniert, weil Shell und Trainer dieselbe Herkunft haben.
+- Einstellungen: Die Übersicht schreibt `fwmg.settings.v1` (`{goal, t}`). Gruppenführer und Zugführer übernehmen den Wert beim Start, wenn `t` neuer ist als ihr eigener Zeitstempel (`gu` bzw. `set.t`). Beim Ändern verwirft die Shell geladene Trainer-Rahmen, damit sie neu starten; Runden und Prüfungen liegen im Speicher und bleiben erhalten. Neue Einstellungen werden hier ergänzt und in den Trainern eingelesen.
 - Fortschrittsanzeige: `progress()` liest den gespeicherten Stand der Trainer (nur lesend).
 - „Weitermachen“: `hasOpen()` prüft, ob im zuletzt geöffneten Trainer eine Runde oder Prüfung offen ist.
 - Im Trainer erkennt eine Klasse `emb` am `<html>`, dass die Seite eingebettet läuft: das Impressum der Trainer ist dort ausgeblendet; das Willkommensfenster erscheint in Gruppenführer und Zugführer gleich, eingebettet wie direkt, die Leisten sitzen ganz oben.
@@ -56,4 +56,4 @@ Die Dateien enthalten noch Code für Funktionen der Claude-Umgebung (`window.cla
 ## Mögliche nächste Schritte
 
 - Eigene KI-Rückmeldung über ein Backend.
-- Automatisierte Browser-Tests (Playwright) für Dashboard und Direkteinstieg.
+- Automatisierte Browser-Tests (Playwright) für Dashboard und Einstellungen.

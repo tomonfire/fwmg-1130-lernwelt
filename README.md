@@ -50,7 +50,7 @@ CHANGELOG.md  CLAUDE.md  CONTRIBUTING.md  SECURITY.md
 
 Faustregel: **Code liegt in `app/`, alles andere erklärt oder prüft ihn.**
 
-Die Shell öffnet jeden Trainer in einem iframe und springt über die Tabs (`Heute`, `Führung`, `Fortschritt`, `Quellen`, `Üben`, `Quiz`, `Schema`, `Auswertung`) direkt in den gewählten Bereich. Werden Tab-Beschriftungen in einem Trainer umbenannt, muss `MODS` in `app/index.html` angepasst werden.
+Die Shell öffnet jeden Trainer in einem iframe. Einstellungen für alle Trainer stehen in der Übersicht unter „Einstellungen“ (derzeit: Fragen pro Runde für Gruppenführer und Zugführer). Sie liegen unter dem Schlüssel `fwmg.settings.v1` im Browser; die Trainer lesen sie beim Start, wenn sie neuer sind als ihr eigener Wert. Eingebettet zeigen die Trainer diese Einstellung nicht mehr selbst an.
 
 ## Lokal starten
 

@@ -17,7 +17,7 @@ Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge
 
 | Bereich | Funktionen |
 | --- | --- |
-| Startseite und Dashboard | Begrüßung, Übersicht der Trainer mit Lernstand, Direkteinstieg in Bereiche, „Weitermachen“ bei offener Runde |
+| Startseite und Dashboard | Begrüßung, Übersicht der Trainer mit Lernstand, zentrale Einstellungen für alle Trainer (Fragen pro Runde), „Weitermachen“ bei offener Runde |
 | Gruppenführer Tagestraining | 408 Fragen in 11 Themengebieten, Tagesrunde, Themen-Test, Prüfung, Fortschritt, Quellen |
 | Zugführer Tagestraining | 369 Fragen in 4 Kapiteln, Tagesrunde, Prüfung (15 min), Fortschritt, Quellen |
 | Befehlstrainer FwDV 3 | Befehle sprechen, Quiz, Befehlsschema, Auswertung der eigenen Befehle |
