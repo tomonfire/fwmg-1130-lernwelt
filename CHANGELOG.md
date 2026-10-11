@@ -4,6 +4,10 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben
+- Befehlscoach: Kopf jetzt wie im Gruppen- und Zugführer-Coach, mit taktischem Zeichen der gewählten Rolle (ohne Rolle die Flamme), Zeile „Führungsausbildung · FwDV 3 · Rolle“, Titel in gleicher Größe, Datum und Versionsfeld (V2.00). Service-Worker `VERSION` auf v23.
+- iPhone: Die blaue Leiste mit „←“ und den Coaches reicht jetzt bis unter Uhrzeit und Akku (vorher grauer Streifen). Als App auf dem Home-Bildschirm füllen Coaches und Startseite den ganzen Bildschirm; vorher blieb unten ein leerer Streifen, weil iOS die Höhe zu klein meldet. Service-Worker `VERSION` auf v24.
+
 ### Geändert (einheitliches Design)
 - Befehlscoach nutzt jetzt dieselben Farben (hell und dunkel), Schriften und Bausteine wie Gruppen- und Zugführer-Coach: dunkelblaue Überschriften, IBM Plex Sans, Kopf mit Datum und Streifen darunter, Reiter, Knöpfe, Antwort-Etiketten „Richtig“/„Falsch“, Ergebniskasten mit Balken links und Überschrift „Richtig“/„Falsch“/„Nicht ganz“, roter Fokusrahmen, Fortschrittsbalken.
 - Gleiche Reiterfolge in beiden Fragen-Coaches: Heute · Fortschritt · Führung · Quellen.
