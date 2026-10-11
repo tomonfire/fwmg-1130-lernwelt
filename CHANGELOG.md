@@ -4,6 +4,12 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (Befehlscoach V2.14)
+- Musterbefehl zeigt immer alle Elemente der Befehlsart. Nicht benötigte stehen als „entfällt“ da, z. B. Verteiler und Weg „entfällt beim Schnellangriff“.
+- Nach einem Befehl ohne Bereitstellung folgt zum Vergleich derselbe Einsatz als „Befehl mit Bereitstellung“ (beim Schnellangriff ein Hinweis, warum es den nicht gibt).
+- Reiter „Schema“: ausgefüllte Beispiele (Kellerbrand mit Bereitstellung, Zimmerbrand ohne Bereitstellung), Vorlagen ohne doppelte Stichworte.
+- Trennung der Beschriftungen nur noch an festen Stellen (iOS trennte „Wasserent-nahmestel-le“). Service-Worker `VERSION` auf v30.
+
 ### Behoben (Befehlscoach V2.13)
 - Musterbefehl und „Dein Befehl“: Rechts steht nur noch der Inhalt („Angriffstrupp“), nicht noch einmal das Stichwort („Einheit Angriffstrupp“), das links schon steht. „Wasser-entnahme-stelle“ und „Lage-einweisung“ trennen sauber. Service-Worker `VERSION` auf v29.
 

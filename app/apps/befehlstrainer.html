@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-IdPC+E8GYivT9i53dw0yVzV/h+NYuhSKD6uYXPfABcE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-oU6ydtQq1jr8xkGNAHz1BKQzETLFlrO3bahfOaQOtKE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -88,7 +88,8 @@ p { margin: 0; max-width: 65ch; }
 .vordruck { background: var(--surface); border: 2px solid var(--ink); border-radius: 4px; overflow: hidden; }
 .vordruck .vh { display: flex; justify-content: space-between; gap: .75rem; padding: 8px 12px; background: var(--blue); color: var(--on-blue); font: 600 16px/1.2 var(--f-display); letter-spacing: .06em; text-transform: uppercase; }
 .vrow { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: .75rem; padding: 8px 12px; border-bottom: 1px dashed var(--line); align-items: baseline; }
-.vrow .k { font-weight: 600; font-size: 13px; line-height: 1.3; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; }
+.vrow .k { font-weight: 600; font-size: 13px; line-height: 1.3; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); -webkit-hyphens: manual; hyphens: manual; overflow-wrap: break-word; }
+.vrow .v.na { color: var(--muted); font-style: italic; }
 .vrow .v { font: 500 15px/1.4 var(--f-mono); overflow-wrap: anywhere; }
 .vrow .v.empty { color: var(--muted); }
 .vend { padding: 8px 12px 10px; text-align: right; font: 700 32px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
@@ -216,7 +217,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.13'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.14'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -730,16 +731,34 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   }
 
   /* ---------- Vordruck ---------- */
+  /* Befehlselemente je Befehlsart nach FwDV 3 / FwDV 100. Der Vordruck zeigt immer alle, nicht benötigte als „entfällt“. */
+  var VORDRUCK_KEYS = ['lage', 'wasser', 'verteiler', 'einheit', 'auftrag', 'mittel', 'ziel', 'weg'];
+  var SCHEMA_KEYS = {
+    mit: ['wasser', 'verteiler'],
+    ohne: ['wasser', 'verteiler', 'einheit', 'auftrag', 'mittel', 'ziel', 'weg'],
+    folge: ['einheit', 'auftrag', 'mittel', 'ziel', 'weg'],
+    hilfe: ['einheit', 'auftrag', 'mittel', 'ziel', 'weg']
+  };
   function vordruck(st, vals, title) {
-    var art = ARTS[st.art];
-    var rows = Object.keys(st.f).map(function (k) {
-      var v = vals[k];
+    var art = ARTS[st.art], want = SCHEMA_KEYS[st.art] || [];
+    var schnell = /Schnellangriff/i.test(st.name || '');
+    var rows = VORDRUCK_KEYS.filter(function (k) { return st.f[k] || want.indexOf(k) > -1; }).map(function (k) {
+      var lbl = FIELDS[k].label.replace('Wasserentnahmestelle', 'Wasser­entnahme­stelle').replace('Lageeinweisung', 'Lage­einweisung');
       /* Links steht das Befehlselement, rechts nur der Inhalt, ohne das Stichwort zu wiederholen. */
-      var lbl = FIELDS[k].label.replace('Wasserentnahmestelle', 'Wasser\u00ADentnahme\u00ADstelle').replace('Lageeinweisung', 'Lage\u00ADeinweisung');
+      if (!st.f[k]) return '<div class="vrow"><span class="k">' + lbl + '</span><span class="v na">' + (schnell ? 'entfällt beim Schnellangriff' : 'entfällt') + '</span></div>';
+      var v = vals[k];
       return '<div class="vrow"><span class="k">' + lbl + '</span><span class="v' + (v ? '' : ' empty') + '">' + (v ? esc(v) : '…') + '</span></div>';
     }).join('');
     var end = art.end ? '<div class="vend">' + esc(art.end) + '</div>' : '';
     return '<div class="vordruck"><div class="vh"><span>' + esc(title || art.label) + '</span><span>Befehl</span></div>' + rows + end + '</div>';
+  }
+  /* Zum Vergleich nach einem Befehl ohne Bereitstellung: derselbe Einsatz mit Bereitstellung. */
+  function mitVergleich(st) {
+    if (st.art !== 'ohne' || !st.f.wasser) return '';
+    if (!st.f.verteiler) return '<div class="note"><span class="label">Und mit Bereitstellung?</span><p>Beim Schnellangriff gibt es keinen Befehl mit Bereitstellung: Es wird kein Verteiler gesetzt, der Angriffstrupp geht direkt mit der Schnellangriffsleitung vor.</p></div>';
+    var mit = { art: 'mit', name: 'Bereitstellung', f: { wasser: st.f.wasser, verteiler: st.f.verteiler } };
+    return '<div class="sec"><span class="label">Zum Vergleich: Befehl mit Bereitstellung</span>' + vordruck(mit, correctVals(mit)) +
+      '<p class="lead">Kannst du den Einsatzauftrag noch nicht bestimmen, nennst du nur Wasserentnahmestelle und Verteiler und schließt mit »Zum Einsatz fertig!«. Einheit, Auftrag, Mittel, Ziel und Weg folgen später als Folgebefehl (FwDV 3, 5.4).</p></div>';
   }
 
   /* ---------- Übungslauf ---------- */
@@ -879,7 +898,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       (ev.endOk ? 'Der Befehl endet mit »' + esc(ARTS[st.art].end) + '«.' : 'Der Befehl muss mit »' + esc(ARTS[st.art].end) + '« enden.') + '</span></li>';
     if (ev.words > 70) h += '<li><span class="st miss">Hinweis</span><span><span class="nm">Länge.</span> ' + ev.words + ' Wörter. Ein Befehl soll kurz und klar sein (FwDV 100, 3.3.3.1).</span></li>';
     h += '</ul>';
-    h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>';
+    h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>' + mitVergleich(st);
     h += '<div class="note"><span class="label">Merke</span><p>' + esc(st.tip) + '</p></div>';
     if (S.sample) {
       h += '<div class="sec"><div class="actions"><button type="button" class="btn ghost" id="coachbtn" data-act="coach">Rückmeldung von Claude</button></div>' +
@@ -941,7 +960,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     } else {
       var right = keys.filter(function (k) { return r.picks[k] === st.f[k][0]; }).length, all = right === keys.length;
       h += '<div class="note ' + (all ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (all ? 'Richtig' : 'Nicht ganz') + '</span><span class="label">' + (all ? 'Alles richtig' : right + ' von ' + keys.length + ' richtig') + '</span><p>' + esc(st.tip) + '</p></div>';
-      h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>';
+      h += '<div class="sec"><span class="label">Musterbefehl</span>' + vordruck(st, correctVals(st)) + '<p class="lead">' + esc(ARTS[st.art].rep) + '</p></div>' + mitVergleich(st);
       h += '<div class="actions dock"><button type="button" class="btn" data-act="next">' + (r.si + 1 < nB ? 'Nächster Befehl' : 'Weiter zur Kontrolle') + '</button></div>';
     }
     return h;
@@ -1022,8 +1041,14 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   /* ---------- Schema ---------- */
   function refBlock(title, rows, end) {
     return '<div class="vordruck"><div class="vh"><span>' + esc(title) + '</span><span>Befehl</span></div>' + rows.map(function (r) {
-      return '<div class="vrow"><span class="k">' + esc(r[0]) + '</span><span class="v">' + esc(r[1]) + '</span></div>';
+      var k = String(r[0]), v = String(r[1]).replace(/^(Wasserentnahmestelle|Verteiler|Einheit|Auftrag|Mittel|Ziel|Weg) /, '');
+      return '<div class="vrow"><span class="k">' + esc(k).replace('Wasserentnahmestelle', 'Wasser\u00ADentnahme\u00ADstelle') + '</span><span class="v">' + esc(v) + '</span></div>';
     }).join('') + (end ? '<div class="vend">' + esc(end) + '</div>' : '') + '</div>';
+  }
+  /* Ausgefüllter Musterbefehl aus einer Übung als Beispiel im Schema. */
+  function beispiel(id, si, title) {
+    var sc = SCEN.filter(function (x) { return x.id === id; })[0], st = sc && sc.befehle[si];
+    return st ? '<span class="label">' + esc(title) + '</span>' + vordruck(st, correctVals(st), ARTS[st.art].label) : '';
   }
   function viewSchema() {
     var kd = [
@@ -1050,9 +1075,9 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       '<div class="sec">' + refBlock('Beurteilung und Entschluss', [['1', 'Welche Gefahren habe ich erkannt? Ursache, Wirkung, bedrohtes Objekt'], ['2', 'Welche Gefahr zuerst? Menschen, Tiere, Umwelt, Sachwerte'], ['3', 'Welche Möglichkeiten zur Gefahrenabwehr? Welcher Eigenschutz?'], ['4', 'Weitere Gefahren? Unverplante Kräfte? Nachforderungen?'], ['Entschluss', 'Die richtigen Mittel zur richtigen Zeit am richtigen Ort']]) + '</div>' +
       '<div class="sec">' + refBlock('Rückmeldung nach MELDEN (Poster Befehlsgebung)', [['M', 'Meldender'], ['E', 'Einsatzstelle'], ['L', 'Lage'], ['D', 'Durchgeführte / eingeleitete Maßnahmen'], ['E', 'Eingesetzte Kräfte und Mittel'], ['N', 'Nachforderungen (Kräfte / Mittel / Anfahrt / Bereitstellungsräume)']]) + '</div>' +
       '<div class="sec"><h2>Mit Bereitstellung</h2><p class="lead">Nach kurzer Lageschilderung. Du kennst Wasserentnahmestelle und Verteiler, aber noch nicht den Einsatzauftrag.</p>' +
-      refBlock('Einsatz mit Bereitstellung', [['Wasserentnahmestelle', 'Wasserentnahmestelle …'], ['Lage des Verteilers', 'Verteiler …']], 'Zum Einsatz fertig!') + '</div>' +
+      refBlock('Einsatz mit Bereitstellung', [['Wasserentnahmestelle', 'Wasserentnahmestelle …'], ['Lage des Verteilers', 'Verteiler …']], 'Zum Einsatz fertig!') + beispiel('keller', 0, 'Beispiel Kellerbrand') + '</div>' +
       '<div class="sec"><h2>Ohne Bereitstellung</h2><p class="lead">Nach kurzer Lageschilderung. Die Informationen reichen für den Einsatzauftrag.</p>' +
-      refBlock('Einsatz ohne Bereitstellung', [['Wasserentnahmestelle', 'Wasserentnahmestelle …'], ['Lage des Verteilers', 'Verteiler …'], ['Einheit', 'Einheit Angriffstrupp'], ['Auftrag', 'Auftrag zur …'], ['Mittel', 'Mittel mit 1. Rohr'], ['Ziel', 'Ziel ins / zum / auf …'], ['Weg', 'Weg über / durch …']], 'Vor!') + '</div>' +
+      refBlock('Einsatz ohne Bereitstellung', [['Wasserentnahmestelle', 'Wasserentnahmestelle …'], ['Lage des Verteilers', 'Verteiler …'], ['Einheit', 'Einheit Angriffstrupp'], ['Auftrag', 'Auftrag zur …'], ['Mittel', 'Mittel mit 1. Rohr'], ['Ziel', 'Ziel ins / zum / auf …'], ['Weg', 'Weg über / durch …']], 'Vor!') + beispiel('zimmerbrand', 0, 'Beispiel Zimmerbrand') + '</div>' +
       '<div class="sec"><h2>Weiteres Rohr</h2><p class="lead">Wenn Trupps einsatzbereit zur Verfügung stehen. Beim Atemschutzeinsatz nimmt der Schlauchtrupp das zweite Rohr vor.</p>' +
       refBlock('Folgebefehl', [['Einheit', 'Einheit …trupp'], ['Auftrag', 'Auftrag zur …'], ['Mittel', 'Mittel mit 2. Rohr oder 3. Rohr'], ['Ziel', 'Ziel ins / zum / auf …'], ['Weg', 'Weg über / durch …']], 'Vor!') + '</div>' +
       '<div class="sec"><h2>Hilfeleistung</h2><p class="lead">Keine Wasserentnahmestelle, kein Verteiler. Der Befehl hat das Schema aus FwDV 100, 3.3.3.1, und endet wie auf dem Poster Befehlsgebung mit »Vor!«. Welche Geräte als Mittel genannt werden, legt FwDV 3 nicht fest.</p>' +
