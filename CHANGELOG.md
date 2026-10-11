@@ -16,6 +16,12 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Tastatur (`app/tastatur.js`): Ziffern 1–9 wählen eine Antwort, Enter löst „Prüfen“/„Weiter“ aus. Hinweis darauf und Hover-Rückmeldung nur bei Geräten mit Maus. Beim Öffnen eines Coaches mit Maus geht der Fokus direkt in den Coach.
 - Service-Worker `VERSION` auf v21.
 
+### Geändert (Layout für große Bildschirme)
+- Übersicht: ab 768 px drei Coach-Karten nebeneinander (iPad hoch), ab 1000 px „Einstellungen“ und „Dein Lernstand“ nebeneinander. Die Anleitung „App auf dem Home-Bildschirm“ ist mit Maus zugeklappt, auf Touch-Geräten offen.
+- Fortschritt im Gruppen- und Zugführer-Coach: Listen nach Thema bzw. Kapitel ab 1000 px zweispaltig.
+- Befehlscoach: gleiche Breiten und ab 768 px größere Schrift und Tippflächen wie die anderen Coaches.
+- Service-Worker `VERSION` auf v22.
+
 ### Entwicklung
 - Debuggen in VS Code: Konfigurationen in `.vscode/` (Chrome/Edge mit iPhone-Größe, Anhängen, Browser-Test sichtbar mit `HEADED=1`, Prüfskript) und Aufgaben für Start und Prüfungen.
 - `npm start` nutzt jetzt `scripts/serve.mjs` statt `serve@14`: Der alte Server leitete `.html`-Adressen um, dadurch luden lokal die Coaches nicht. Ohne Abhängigkeiten, auch vom Browser-Test genutzt.

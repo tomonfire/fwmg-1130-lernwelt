@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Lhu2zZYuTYPqmqqbDb9C3/LxaVX5s5KIsKjVVKU7/Cw=' 'sha256-Qsb21Z03vQ9KDFDJ6h0lBg2wS/YOCCPBoNtkTjy/G90='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Lhu2zZYuTYPqmqqbDb9C3/LxaVX5s5KIsKjVVKU7/Cw=' 'sha256-Rk523JZZ+o0g7nbiEa4lcSyjj7IfsAdub2qy5CH3RWo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Zugführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -255,6 +255,8 @@ section>.gh:first-of-type{margin-top:10px;padding-top:0;border-top:0}
 .grid2 .opt{padding:10px 12px;min-height:48px;align-items:center}
 .grid2 .opt .tag{margin-left:auto}
 [tabindex="-1"]:focus{outline:none}
+/* Große Bildschirme: Listen nach Thema bzw. Kapitel zweispaltig. */
+@media (min-width:1000px){.crows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}}
 @media (prefers-reduced-motion:no-preference){.bar>i{transition:width .3s}}
 
 /* Ergänzungen für diese App */
@@ -591,8 +593,8 @@ function viewFort(m){
     h('div',{class:'legend'},[h('span',null,[h('i',{class:'l-ok'}),'gemeistert (Stufe 4 oder höher)']),h('span',null,[h('i',{class:'l-learn'}),'in Arbeit']),h('span',null,[h('i',{class:'l-neu'}),'neu'])]),
     h('p',{class:'foot'},all.mast+' gemeistert · '+all.work+' in Arbeit · '+all.fresh+' noch neu.')];
   m.appendChild(h('section',null,s));
-  var ch=[h('h2',null,'Nach Kapitel')];
-  [1,2,3,4].forEach(function(k){var c=counts(S,k,t);ch.push(h('div',{class:'crow'},[h('div',{class:'l'},[h('span',null,chapName(k)),h('span',null,c.mast+' / '+c.total)]),stackBar(c),h('span',{class:'foot'},c.work+' in Arbeit · '+c.fresh+' neu')]))});
+  var ch=[h('h2',null,'Nach Kapitel')],cl=h('div',{class:'crows'});ch.push(cl);
+  [1,2,3,4].forEach(function(k){var c=counts(S,k,t);cl.appendChild(h('div',{class:'crow'},[h('div',{class:'l'},[h('span',null,chapName(k)),h('span',null,c.mast+' / '+c.total)]),stackBar(c),h('span',{class:'foot'},c.work+' in Arbeit · '+c.fresh+' neu')]))});
   m.appendChild(h('section',null,ch));
   var days=[],i;for(i=13;i>=0;i--)days.push(addDays(ds(t),-i));
   var mx=1;days.forEach(function(d){var v=S.days[d]?S.days[d].n:0;if(v>mx)mx=v});

@@ -164,6 +164,16 @@ textarea.speech::placeholder { color: var(--muted); }
 @media (prefers-reduced-motion: no-preference) {
   .bar i { transition: width .3s; }
 }
+@media (min-width: 768px) {
+  body { font-size: 18px; }
+  .wrap { max-width: 820px; }
+  .quizq, .fld legend { font-size: 24px; }
+  .opt { padding: 18px; min-height: 64px; }
+  .btn { min-height: 56px; }
+  .rowbtn { min-height: 60px; }
+  .tab { padding-inline: 14px; }
+}
+@media (min-width: 1100px) { .wrap { max-width: 900px; } }
 @media (max-width: 26rem) {
   .tab { padding-inline: 4px; font-size: 15px; }
   .mrow { grid-template-columns: minmax(0, 5.6rem) minmax(0, 1fr) 5.4rem; gap: .4rem; }

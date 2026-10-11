@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-w6zNw2E4yvaLkWCUcgXaNiHb4TgGg3x28ruDiy4Nlik=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-thxioqv4pSlS7L7ONPlt4Fwz6UYKRcC0rJ6AVl4EkMs=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -88,6 +88,12 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 .resume .rt b{font-family:var(--f-display);font-size:26px;text-transform:uppercase;line-height:1.05;color:var(--blue)}
 .resume .rt span{font-size:14px;color:var(--muted)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px}
+@media (min-width:768px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.card h3{font-size:clamp(24px,3vw,30px)}}
+/* Große Bildschirme: Einstellungen und Lernstand nebeneinander. */
+.dgrid{display:flex;flex-direction:column;gap:22px}
+@media (min-width:1000px){.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
+.install summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.install .ib{display:flex;flex-direction:column;gap:12px;padding-top:6px}
 .card{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--edge);border-top:6px solid var(--blue);border-radius:4px;min-width:0}
 .card .kick{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .card h3{font-size:30px;text-transform:uppercase;color:var(--blue)}
@@ -212,6 +218,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       <div class="cards" id="cards"></div>
     </section>
 
+    <div class="dgrid">
     <section class="sec" aria-labelledby="h-set">
       <h2 id="h-set">Einstellungen</h2>
       <div class="set">
@@ -243,9 +250,13 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       </div>
     </section>
 
+    </div>
+
     <section class="sec" aria-labelledby="h-install">
       <h2 id="h-install">App auf dem Home-Bildschirm</h2>
       <div class="set install">
+        <details id="inst"><summary>Anleitung für iPhone und iPad</summary>
+        <div class="ib">
         <p><b>iPhone und iPad:</b> So legst du die Lernwelt als App auf den Home-Bildschirm. Das geht nur in <b>Safari</b>.</p>
         <ol>
           <li>Diese Seite in Safari öffnen.</li>
@@ -255,6 +266,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
         </ol>
         <p class="small">Danach startet die Lernwelt im Vollbild wie eine App und läuft auch ohne Netz, sobald sie einmal geladen wurde.</p>
         <p class="small"><b>Wichtig:</b> Die App auf dem Home-Bildschirm hat einen eigenen Speicher, getrennt von Safari. Hast du vorher in Safari geübt, sichere deinen Lernstand dort unter „Dein Lernstand“ und stelle ihn in der App wieder her.</p>
+        </div>
+        </details>
       </div>
     </section>
 
@@ -415,6 +428,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   });
   $('m-home').addEventListener('click',function(){show('dash')});
   $('d-welcome').addEventListener('click',function(){show('welcome')});
+  /* Anleitung zum Home-Bildschirm: auf Touch-Geräten offen, mit Maus zugeklappt. */
+  if(!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches))$('inst').open=true;
   $('w-go').addEventListener('click',function(){show('dash')});
   var wrb=$('w-resume'),wTarget=null;
   function updateWelcomeResume(){
