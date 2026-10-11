@@ -75,6 +75,20 @@ try {
       await page.waitForSelector('#dash:not([hidden])');
     });
   }
+  await step('Willkommensfenster in Gruppenführer und Zugführer gleich (eingebettet und direkt)', async () => {
+    const p2 = await ctx.newPage();
+    for (const f of ['gruppenfuehrer', 'zugfuehrer']) {
+      await p2.goto(base + 'apps/' + f + '.html');
+      await p2.waitForSelector('.wl-card', { timeout: 5000 }).catch(() => {});
+      assert((await p2.locator('.wl-card').count()) === 1, f + ': kein Willkommensfenster direkt');
+      await p2.goto(base + 'index.html');
+      await p2.evaluate((src) => { const i = document.createElement('iframe'); i.id = 'wt'; i.src = src; i.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:99'; document.body.appendChild(i); }, base + 'apps/' + f + '.html');
+      const fr = await (await p2.waitForSelector('#wt')).contentFrame();
+      await fr.waitForSelector('.wl-card', { timeout: 5000 }).catch(() => {});
+      assert((await fr.locator('.wl-card').count()) === 1, f + ': kein Willkommensfenster eingebettet');
+    }
+    await p2.close();
+  });
   await step('Service Worker aktiv', async () => {
     const ok = await page.evaluate(async () => { const r = await navigator.serviceWorker.ready; return !!r.active; });
     assert(ok, 'kein aktiver Service Worker');

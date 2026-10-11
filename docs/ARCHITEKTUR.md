@@ -23,7 +23,7 @@ Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen b
 - Direkteinstieg: `clickTab()` wartet, bis der Trainer geladen ist, und klickt den Tab mit passender Beschriftung. Das funktioniert, weil Shell und Trainer dieselbe Herkunft haben.
 - Fortschrittsanzeige: `progress()` liest den gespeicherten Stand der Trainer (nur lesend).
 - „Weitermachen“: `hasOpen()` prüft, ob im zuletzt geöffneten Trainer eine Runde oder Prüfung offen ist.
-- Im Trainer erkennt eine Klasse `emb` am `<html>`, dass die Seite eingebettet läuft: Willkommensfenster und Impressum der Trainer sind dort ausgeblendet, die Leisten sitzen ganz oben.
+- Im Trainer erkennt eine Klasse `emb` am `<html>`, dass die Seite eingebettet läuft: das Impressum der Trainer ist dort ausgeblendet; das Willkommensfenster erscheint in Gruppenführer und Zugführer gleich, eingebettet wie direkt, die Leisten sitzen ganz oben.
 
 ## Gespeicherte Daten (localStorage)
 

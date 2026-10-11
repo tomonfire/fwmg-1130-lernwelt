@@ -995,7 +995,7 @@ var WQ=[
 ];
 var wlEl=null,wlFrom=null,hideT=0;
 function welcomeHtml(){
-  var hr=new Date().getHours(),greet=hr<5?'Nachtschicht?':hr<11?'Guten Morgen':hr<17?'Guten Tag':'Guten Abend';
+  var hr=new Date().getHours(),greet=hr<5?'Hallo':hr<11?'Guten Morgen':hr<18?'Guten Tag':'Guten Abend';
   var tc=todayCount(),st=streak(),pool=poolIds(),c=counts(pool),ys=dayStat(dayNum()-1),sess=loadSess();
   var total=0;for(var d in S.days)total+=S.days[d]||0;
   var head,sub,left=Math.max(0,S.goal-tc),ex=loadExam(),exExp=ex&&ex.end<=Date.now();
@@ -1048,7 +1048,6 @@ function welcomeRefresh(){
   if(had){var n=w&&wlEl.querySelector('[data-w="'+w+'"]');(n||wlEl.querySelector('[data-w="go"]')).focus({preventScroll:true})}
 }
 function welcome(){
-  try{if(window.parent&&window.parent!==window)return}catch(e){}
   if(view!=='home'||(wlEl&&!wlEl.hidden)||Date.now()-wlClosedAt<300)return;
   if(!wlEl){
     wlEl=document.createElement('div');wlEl.className='wl';wlEl.hidden=true;document.body.appendChild(wlEl);
