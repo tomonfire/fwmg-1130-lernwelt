@@ -44,6 +44,15 @@ for (const f of pages) {
   const text = html.replace(/data:[^"')]+/g, '');
   if (/M(?:ö|oe)nchengladbach|Stadtmitte/i.test(text)) fail('Hinweis auf Stadt oder Einheit im Text:', f);
 }
+// Sichern/Wiederherstellen: Jeder Speicherschlüssel der Shell (fwmg.*, lzf.*) muss in KEYS stehen.
+{
+  const vars = Object.fromEntries([...shell.matchAll(/(\w+)\s*=\s*'((?:fwmg|lzf)\.[\w-]+\.v\d+)'/g)].map((m) => [m[1], m[2]]));
+  const keysSrc = (shell.match(/var KEYS=\[([^\]]*)\]/) || [])[1] || '';
+  const inKeys = new Set(keysSrc.split(',').map((x) => x.trim()).map((x) => x.startsWith("'") ? x.slice(1, -1) : vars[x]).filter(Boolean));
+  for (const k of new Set([...shell.matchAll(/'((?:fwmg|lzf)\.[\w-]+\.v\d+)'/g)].map((m) => m[1]))) {
+    if (!inKeys.has(k)) fail('Speicherschlüssel fehlt in KEYS (Sichern/Wiederherstellen):', k);
+  }
+}
 if (footers.size !== 1) fail(`Impressum ist nicht in allen Dateien gleich (${footers.size} Fassungen)`);
 if (!/Disallow: \/\s*$/m.test(readFileSync('app/robots.txt', 'utf8'))) fail('robots.txt sperrt Crawler nicht');
 

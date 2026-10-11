@@ -7,6 +7,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ### Hinzugefügt
 - Claude per `@claude` in Issues, Kommentaren und Reviews (`.github/workflows/claude.yml`, Einrichtung in `docs/REPOSITORY.md`).
 
+### Behoben
+- „Lernstand sichern“ nimmt jetzt auch die Einstellungen mit (`fwmg.settings.v1`, Fragen pro Runde). `npm run check` prüft, dass jeder Speicherschlüssel der Shell gesichert wird (#20). Service-Worker `VERSION` auf v17.
+
 ### Sicherheit
 - Content-Security-Policy gehärtet: Inline-Skripte nur noch per SHA-256-Prüfsumme statt `'unsafe-inline'` (`scripts/csp.mjs`, `npm run csp:update`, in `npm run check` geprüft).
 - Befehlstrainer übernimmt gespeicherte und wiederhergestellte Daten nur mit den erwarteten Typen. Browser-Test prüft, dass eine präparierte Sicherungsdatei keinen Code ausführt. Service-Worker `VERSION` auf v16.
