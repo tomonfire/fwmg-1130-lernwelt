@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-jZTFmI74xCt63WGtCyB1auDf4t/6VefQtNXdy84SUqA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-IdPC+E8GYivT9i53dw0yVzV/h+NYuhSKD6uYXPfABcE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -88,7 +88,7 @@ p { margin: 0; max-width: 65ch; }
 .vordruck { background: var(--surface); border: 2px solid var(--ink); border-radius: 4px; overflow: hidden; }
 .vordruck .vh { display: flex; justify-content: space-between; gap: .75rem; padding: 8px 12px; background: var(--blue); color: var(--on-blue); font: 600 16px/1.2 var(--f-display); letter-spacing: .06em; text-transform: uppercase; }
 .vrow { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: .75rem; padding: 8px 12px; border-bottom: 1px dashed var(--line); align-items: baseline; }
-.vrow .k { font-weight: 600; font-size: 13px; line-height: 1.3; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); overflow-wrap: anywhere; }
+.vrow .k { font-weight: 600; font-size: 13px; line-height: 1.3; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; }
 .vrow .v { font: 500 15px/1.4 var(--f-mono); overflow-wrap: anywhere; }
 .vrow .v.empty { color: var(--muted); }
 .vend { padding: 8px 12px 10px; text-align: right; font: 700 32px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
@@ -216,7 +216,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.12'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.13'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -734,7 +734,9 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     var art = ARTS[st.art];
     var rows = Object.keys(st.f).map(function (k) {
       var v = vals[k];
-      return '<div class="vrow"><span class="k">' + FIELDS[k].label + '</span><span class="v' + (v ? '' : ' empty') + '">' + (v ? esc(spoken(k, v)) : '…') + '</span></div>';
+      /* Links steht das Befehlselement, rechts nur der Inhalt, ohne das Stichwort zu wiederholen. */
+      var lbl = FIELDS[k].label.replace('Wasserentnahmestelle', 'Wasser\u00ADentnahme\u00ADstelle').replace('Lageeinweisung', 'Lage\u00ADeinweisung');
+      return '<div class="vrow"><span class="k">' + lbl + '</span><span class="v' + (v ? '' : ' empty') + '">' + (v ? esc(v) : '…') + '</span></div>';
     }).join('');
     var end = art.end ? '<div class="vend">' + esc(art.end) + '</div>' : '';
     return '<div class="vordruck"><div class="vh"><span>' + esc(title || art.label) + '</span><span>Befehl</span></div>' + rows + end + '</div>';
