@@ -5,7 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Geändert
-- Hinweis am Ende der Einstellungen: App auf iPhone und iPad zum Home-Bildschirm hinzufügen (Safari, Teilen, Zum Home-Bildschirm), mit Tipp zum Lernstand-Umzug. Service-Worker `VERSION` auf v14.
+- Eigener Abschnitt „App auf dem Home-Bildschirm“ in der Übersicht (unter „Dein Lernstand“), nicht mehr bei den Einstellungen. Anleitung für iPhone und iPad angepasst: Teilen über „Mehr“ bei kompakter Leiste, „Aktionen bearbeiten“, „Als Web-App öffnen“, Hinweis zum getrennten Speicher. Service-Worker `VERSION` auf v15.
 - „Direkt einsteigen“ in der Übersicht entfernt. Stattdessen Abschnitt „Einstellungen“ für alle Trainer, zunächst „Fragen pro Runde“ (gilt für Gruppenführer und Zugführer, Schlüssel `fwmg.settings.v1`). Eingebettet zeigen die Trainer die Einstellung nicht mehr selbst. Browser-Test ergänzt. Service-Worker `VERSION` auf v13.
 - Weitergabe nur durch den Autor: Hinweis im Impressum (alle vier HTML-Dateien), in README, Projektbeschreibung, Veröffentlichungs-Doku und CLAUDE.md. „zur freien Weitergabe“ entfernt. CI prüft den Hinweis. Service-Worker `VERSION` auf v12.
 - Gruppenführer-Trainer zeigt das Willkommensfenster jetzt auch in der Lernwelt (eingebettet), wie der Zugführer-Trainer. Gruß einheitlich: Hallo (bis 5 Uhr), Guten Morgen (bis 11), Guten Tag (bis 18), Guten Abend. Neuer Browser-Test dafür. Service-Worker `VERSION` auf v11.
