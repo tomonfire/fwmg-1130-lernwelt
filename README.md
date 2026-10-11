@@ -16,7 +16,7 @@ Erstellt von Tom Wolff, Freiwillige Feuerwehr Mönchengladbach, Einheit Stadtmit
 
 - Installierbare Web-App (PWA): auf dem iPhone über „Teilen → Zum Home-Bildschirm“, auf Android und Desktop über „Installieren“.
 - Läuft **offline**, nachdem sie einmal geladen wurde (Service Worker).
-- Kein Server, keine Anmeldung, kein Build-Schritt: reine statische Dateien.
+- Kein Server, keine Anmeldung, kein Build-Schritt: reine statische Dateien. Schriften liegen in `app/fonts/`, die App ruft keine fremden Server auf.
 - Der Lernstand wird **nur lokal im Browser** des Geräts gespeichert (`localStorage`). Jeder Trainer hat eigene Schlüssel.
 - Heller und dunkler Modus folgen dem Gerät.
 
@@ -37,6 +37,7 @@ app/                       alles, was veröffentlicht wird
   manifest.webmanifest     PWA-Metadaten
   sw.js                    Service Worker (Offline-Cache)
   icons/                   App-Icons
+  fonts/                   Schriften (lokal, SIL Open Font License)
 docs/                      Projektbeschreibung, Architektur, Veröffentlichung, Roadmap
 scripts/                   Prüfskripte (Dateien, JavaScript-Syntax)
 .github/                   CI, Veröffentlichung, Vorlagen
@@ -58,14 +59,16 @@ Alternativ: `python3 -m http.server 8080`. Ein Server ist nötig, weil der Servi
 
 ## Veröffentlichen (GitHub Pages)
 
-1. Repository-Einstellungen → **Pages** → Quelle **GitHub Actions**.
+Öffentliche Adresse: **https://tomonfire.github.io/fwmg-1130-lernwelt/**
+
+1. Repository-Einstellungen → **Pages** → Quelle **GitHub Actions** (einmalig).
 2. Jeder Push auf `main` veröffentlicht die App automatisch (`.github/workflows/pages.yml`).
 
-GitHub Pages aus **privaten** Repositories gibt es nur mit bezahlten GitHub-Plänen. Alternativ das Repository öffentlich machen oder einen anderen statischen Host nutzen (z. B. Cloudflare Pages oder Netlify).
+Details in [Veröffentlichung](docs/VEROEFFENTLICHUNG.md).
 
 ## Änderungen ausliefern
 
-Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v2` …), damit installierte Geräte die neue Fassung laden.
+Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v3` …), damit installierte Geräte die neue Fassung laden.
 
 ## Herkunft und Einschränkungen
 

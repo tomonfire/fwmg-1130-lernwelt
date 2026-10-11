@@ -44,7 +44,7 @@ Diese Schlüssel nie umbenennen. Sonst verlieren Nutzer ihren Lernstand. Änderu
 
 ## Offline
 
-`app/sw.js` legt alle Dateien beim Installieren in den Cache (`VERSION`). Eigene Dateien: Cache zuerst, im Hintergrund aktualisieren. Schriften von Google Fonts werden beim ersten Laden mitgespeichert.
+`app/sw.js` legt alle Dateien beim Installieren in den Cache (`VERSION`). Eigene Dateien: Cache zuerst, im Hintergrund aktualisieren. Schriften liegen in `app/fonts/` und werden mit vorgeladen; die App ruft keine fremden Server auf. Übernimmt eine neue Fassung die Seite, zeigt die Shell den Hinweis „Neue Version verfügbar“.
 
 ## Herkunft der Artefakt-Funktionen
 

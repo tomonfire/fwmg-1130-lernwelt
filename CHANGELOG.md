@@ -7,8 +7,14 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ### Geändert
 - Projektstruktur: App-Dateien liegen gesammelt in `app/`, Dokumentation in `docs/`.
 
+- Öffentliche Veröffentlichung über GitHub Pages aus `tomonfire/fwmg-1130-lernwelt`.
+- Schriften werden lokal aus `app/fonts/` geladen statt von Google Fonts (Datenschutz, vollständig offline ab dem ersten Start).
+- Service Worker lädt eine neue Fassung am HTTP-Cache vorbei und speichert nur noch eigene Dateien.
+
 ### Hinzugefügt
 - Projektbeschreibung, Roadmap und Dokumentationsübersicht in `docs/`.
+- Hinweis „Neue Version verfügbar – Neu laden“, sobald eine neue Fassung bereitsteht.
+- Sicherheitsregeln (Content-Security-Policy) und `noindex` in allen HTML-Dateien, `id` im Manifest.
 
 ## [1.0.0] - 2026-10-11
 

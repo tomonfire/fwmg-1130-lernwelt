@@ -2,7 +2,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 
 const sw = readFileSync('app/sw.js', 'utf8');
-const list = [...sw.matchAll(/'([^']+\.(?:html|png|webmanifest))'/g)].map((m) => m[1]);
+const list = [...sw.matchAll(/'([^']+\.(?:html|png|webmanifest|css|woff2))'/g)].map((m) => m[1]);
 const shell = readFileSync('app/index.html', 'utf8');
 const apps = [...shell.matchAll(/file:'([^']+)'/g)].map((m) => m[1]);
 
