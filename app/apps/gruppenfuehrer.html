@@ -569,7 +569,7 @@ var app=document.getElementById('app');
 
 function mast(){
   var d=new Date();
-  return '<header class="mast"><img class="logo" src="../icons/flamme.svg" width="92" height="92" alt="Logo: Flamme"><div class="mt"><span class="eyebrow">Führungsausbildung<br>F3V · Gruppenführer</span><h1>Tagestraining</h1>'+
+  return '<header class="mast"><img class="logo" src="../icons/gruppenfuehrer.svg" width="92" height="92" alt="Logo: taktisches Zeichen Gruppenführer"><div class="mt"><span class="eyebrow">Führungsausbildung<br>F3V · Gruppenführer</span><h1>Tagestraining</h1>'+
     '<span class="date">'+DAYS_DE[d.getDay()]+', '+d.getDate()+'. '+MON_DE[d.getMonth()]+' <span class="ver" title="Version '+APPV+', Stand '+APPD+'">'+APPV+'</span></span></div></header><div class="stripe" aria-hidden="true"></div>';
 }
 function tabs(){
@@ -906,7 +906,7 @@ var SRCS=[
   {t:"FwDV 100 Führung und Leitung im Einsatz, Führungssystem",o:"Feuerwehr-Dienstvorschrift 100, Stand 10.03.1999, in NRW eingeführt mit Runderlass des Innenministeriums",u:"Kapitel 3.3 Führungsvorgang: Kreisschema, Lagefeststellung, Lagebild, Meldungen, Beurteilung, Entschluss, Befehlsgebung, Kontrolle. Grundlage der Führungsfragen 11.1xx (65 Fragen) und des Bereichs Führung.",n:"Die Vorschrift selbst lag mir als PDF vor. Die Fundstellen in den Erklärungen (Abschnitt 3.3.x) beziehen sich auf diese PDF-Fassung. Der Link führt zur amtlichen Inkraftsetzung in NRW (MBl. NRW. 1999 S. 1395), nicht zum Volltext.",l:[["Inkraftsetzung in NRW, recht.nrw.de","https://recht.nrw.de/mblnrw/1999-s1395"]]},
   {t:"Poster Führungsvorgang",o:"Institut der Feuerwehr NRW, „Abgeleitet von FwDV 100, Stand 1999 (Kap. 3.3 Führungsvorgang)“",u:"Vier Erkundungsstufen, vier Schritte der Beurteilung mit Ursache, Wirkung und bedrohtem Objekt, Bewertungskriterien, Entschluss, Befehlsreihenfolge, Rückmeldung MELDEN, Kontrolle mit Soll-Ist-Vergleich. Grundlage der Fragen 11.3xx (28 Fragen).",n:"Das Poster liegt mir nur als PDF-Datei vor, einen Link dazu habe ich nicht. Inhalte, die nur auf dem Poster stehen, sind in den Übungen mit „(Poster)“ gekennzeichnet."},
   {t:"Gefahrenmatrix 4A-1C-4E",o:"Keine Primärquelle, allgemeines Ausbildungswissen der Feuerwehr",u:"Die neun Gefahren der Einsatzstelle, die Schutzobjekte und die Übungsfragen 11.2xx (30 Fragen). Aus dem Poster stammt nur die Dreiteilung Ursache, Wirkung, bedrohtes Objekt. Die Merkregel für Sicherheitsabstände (1 m / 5 m und 5 m / 10 m, Strahlrohr-Austrittsöffnung bis Anlage) entspricht der üblichen Ausbildungspraxis (DIN VDE 0132), die Norm selbst lag mir nicht vor. Bei Szenarien zählen nur die genannten richtigen und die klar falschen Gefahren, weitere können je nach Lage zutreffen.",n:"Nicht in der FwDV 100 und nicht gegen ein NRW-Dokument geprüft. Bitte mit deinem Lehrmaterial abgleichen. In der App ist alles dazu als Ergänzung gekennzeichnet."},
-  {t:"Logo: Flamme",o:"Eigene Grafik der Lernwelt",u:"Logo in der Kopfzeile. Das Dunkelblau (#15334A) erscheint im Dunkel-Modus als hellere Tönung. Das Rot der App (#CA0C14) ist aus dem Logo abgeleitet, nicht aus einer offiziellen CI-Vorgabe.",n:"Nutzung nur für diese Lern-App."},
+  {t:"Logo: taktisches Zeichen Gruppenführer",o:"Nach DV 102, erzeugt mit @taktische-zeichen/core (MIT-Lizenz)",u:"Logo in der Kopfzeile: Person (Raute), Feuerwehr (rot), Führungskraft (Balken), Gruppe (zwei Punkte). Das Dunkelblau (#15334A) erscheint im Dunkel-Modus als hellere Tönung. Das Rot der App (#CA0C14) ist aus dem Logo abgeleitet, nicht aus einer offiziellen CI-Vorgabe.",n:"Nutzung nur für diese Lern-App."},
   {t:"Erklärungen, Übungen und Übungsfragen",o:"Von Claude aus den Quellen oben formuliert",u:"Erklärungstexte, die Übungen „Phasen zuordnen“ und „Was gehört dazu?“ sowie die 123 Übungsfragen zum Führungsvorgang.",n:"Keine amtliche Veröffentlichung. Jede Erklärung nennt die Fundstelle. Im Zweifel gilt die Originalquelle."}
 ];
 function renderSources(){
@@ -1008,7 +1008,7 @@ function welcomeHtml(){
   var q=WQ[(dayNum()+total)%WQ.length];
   var go=ex?(exExp?'Prüfung auswerten':'Prüfung fortsetzen'):sess?'Runde fortsetzen':tc>=S.goal?'Weitere Runde starten':'Los geht’s, Runde starten';
   return '<div class="wl-card" role="dialog" aria-modal="true" aria-labelledby="wl-h"><div class="st"></div><div class="wl-in">'+
-    '<div class="wl-top"><img src="../icons/flamme.svg" width="64" height="64" alt=""><div><span class="eyebrow">Führungsausbildung<br>F3V · Gruppenführer</span></div></div>'+
+    '<div class="wl-top"><img src="../icons/gruppenfuehrer.svg" width="64" height="64" alt=""><div><span class="eyebrow">Führungsausbildung<br>F3V · Gruppenführer</span></div></div>'+
     '<h2 id="wl-h">'+esc(head)+'</h2><p class="wl-sub">'+esc(sub)+'</p>'+
     '<div class="wl-stats"><div><b>'+st+'</b><span>Tage in Folge</span></div><div><b>'+Math.min(tc,S.goal)+'/'+S.goal+'</b><span>heute</span></div><div><b>'+c.due+'</b><span>fällig</span></div></div>'+
     '<p class="quote">'+esc(q)+'</p>'+
