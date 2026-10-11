@@ -11,7 +11,7 @@ Wer sich auf Führungslehrgänge (Gruppenführer, Zugführer) vorbereitet, muss 
 - alles auf dem Telefon verfügbar haben, ohne Anmeldung und ohne Datenweitergabe.
 
 ## Zielgruppe
-Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge, besonders in Nordrhein-Westfalen. Die Apps wurden zuerst für die Einheit Stadtmitte der Freiwilligen Feuerwehr Mönchengladbach gebaut und werden frei weitergegeben.
+Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge, besonders in Nordrhein-Westfalen. Private App, die frei weitergegeben wird.
 
 ## Funktionsumfang
 
@@ -24,16 +24,16 @@ Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge
 | Querschnitt | Hell/Dunkel, iPhone-optimiert, Offline, einheitliche Farblogik (grün richtig, rot falsch, orange übersehen) |
 
 ## Abgrenzung
-- **Keine offizielle App** der Feuerwehr Mönchengladbach oder der Stadt.
+- **Private App**, keine offizielle App einer Feuerwehr, Stadt oder Behörde.
 - **Kein Ersatz** für Lehrgangsunterlagen, FwDV und Prüfungsrichtlinien.
 - **Ohne Gewähr** für Richtigkeit, Vollständigkeit und Aktualität.
 - Mit Unterstützung von KI erstellt; Inhalte gegen offizielle Quellen prüfen.
 
 ## Technik in Kürze
-Statische Web-App (HTML, CSS, JavaScript), kein Server, kein Build-Schritt. Lernstand nur lokal im Browser. Veröffentlichung über GitHub Pages. Details: [Architektur](ARCHITEKTUR.md).
+Statische Web-App (HTML, CSS, JavaScript), kein Server, kein Build-Schritt. Name und Lernstand nur lokal im Browser, Sicherung als Datei. Veröffentlichung über GitHub Pages. Details: [Architektur](ARCHITEKTUR.md).
 
 ## Beteiligte
-- Idee, Fachinhalt, Pflege: Tom Wolff, Freiwillige Feuerwehr Mönchengladbach, Einheit Stadtmitte
+- Idee, Fachinhalt, Pflege: Tom Wolff (privat)
 - Umsetzung mit Unterstützung von Claude (Anthropic)
 
 ## Stand

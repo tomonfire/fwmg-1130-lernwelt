@@ -35,6 +35,9 @@ Jede App-Datei ist vollständig eigenständig (HTML, CSS, JavaScript, Fragen) un
 | `lernkompass-tagestraining-session` | laufende Tagesrunde | Gruppenführer |
 | `bt-fwdv3` | Szenarien, Quiz, Verlauf | Befehlstrainer |
 | `lzf.last.v1` | zuletzt geöffneter Trainer | Shell |
+| `fwmg.name.v1` | Name (Pflicht beim ersten Start) | Shell |
+
+**Sichern/Wiederherstellen:** Die Shell schreibt alle Schlüssel aus `KEYS` als JSON-Datei (`{app:"fwmg-lernwelt", format:1, name, saved, data}`) und liest sie wieder ein. Vor dem Einlesen schließt sie die Trainer-Rahmen, weil diese beim Schließen speichern und sonst den wiederhergestellten Stand überschreiben würden.
 
 Diese Schlüssel nie umbenennen. Sonst verlieren Nutzer ihren Lernstand. Änderungen am Datenformat nur abwärtskompatibel.
 
@@ -52,7 +55,6 @@ Die Dateien enthalten noch Code für Funktionen der Claude-Umgebung (`window.cla
 
 ## Mögliche nächste Schritte
 
-- Eigener Speicher für den Lernstand mit Export und Import als Datei (ohne Server machbar).
 - Fragen aus den Dateien in eigene JSON-Dateien auslagern.
 - Eigene KI-Rückmeldung über ein Backend.
 - Automatisierte Browser-Tests (Playwright) für Dashboard und Direkteinstieg.
