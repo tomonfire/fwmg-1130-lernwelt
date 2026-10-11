@@ -39,12 +39,22 @@ const assert = (cond, msg) => { if (!cond) throw new Error(msg); };
 try {
   await step('Startseite lädt', async () => {
     await page.goto(base);
-    await page.waitForSelector('#welcome button.primary');
+    await page.waitForSelector('#w-name-in');
     assert((await page.title()).includes('Lernwelt'), 'Titel fehlt');
   });
-  await step('Übersicht öffnet', async () => {
-    await page.click('#welcome button.primary');
+  await step('Ohne Namen geht es nicht weiter', async () => {
+    assert(await page.locator('#w-go').isHidden(), 'Start-Knopf ohne Namen sichtbar');
+    await page.fill('#w-name-in', ' x ');
+    await page.click('#w-name button[type=submit]');
+    assert((await page.getAttribute('#w-name-in', 'aria-invalid')) === 'true', 'Fehler nicht markiert');
+    assert(await page.locator('#dash').isHidden(), 'Übersicht trotz fehlendem Namen');
+  });
+  await step('Name eingeben öffnet die Übersicht', async () => {
+    await page.fill('#w-name-in', '  Alex   Muster ');
+    await page.click('#w-name button[type=submit]');
     await page.waitForSelector('#dash:not([hidden])');
+    assert((await page.textContent('#ls-name')) === 'Alex Muster', 'Name nicht übernommen');
+    assert((await page.textContent('#greet')).endsWith(', Alex Muster'), 'Gruß ohne Namen');
   });
   const n = await page.locator('#dash button:has-text("Öffnen")').count();
   await step('Drei Trainer in der Übersicht', async () => assert(n === 3, `${n} statt 3`));
@@ -69,8 +79,34 @@ try {
     await page.waitForFunction(() => !!navigator.serviceWorker.controller);
     await ctx.setOffline(true);
     await page.reload();
-    await page.waitForSelector('#welcome button.primary');
+    await page.waitForSelector('#w-go:not([hidden])');
     await ctx.setOffline(false);
+  });
+  await step('Name bleibt nach Neustart, Formular erscheint nicht erneut', async () => {
+    assert(await page.locator('#w-name').isHidden(), 'Namensformular erneut sichtbar');
+  });
+  await step('Lernstand sichern und auf neuem Gerät wiederherstellen', async () => {
+    await page.click('#w-go');
+    await page.evaluate(() => localStorage.setItem('bt-fwdv3', JSON.stringify({ sc: { probe: { n: 2, best: 80 } }, quiz: 7 })));
+    const [dl] = await Promise.all([page.waitForEvent('download'), page.click('[data-ls="export"]')]);
+    const file = await dl.path();
+    assert(/^FwMG-Lernstand-Alex-Muster-\d{4}-\d{2}-\d{2}\.json$/.test(dl.suggestedFilename()), 'Dateiname: ' + dl.suggestedFilename());
+    const neu = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const p2 = await neu.newPage();
+    p2.on('pageerror', (e) => errors.push('Skriptfehler (Gerät 2): ' + e.message));
+    await p2.goto(base);
+    await p2.fill('#w-name-in', 'Neu');
+    await p2.click('#w-name button[type=submit]');
+    p2.once('dialog', (d) => d.accept());
+    await p2.setInputFiles('#ls-file', file);
+    await p2.waitForFunction(() => /wiederhergestellt/.test(document.getElementById('ls-msg').textContent));
+    const bt = await p2.evaluate(() => JSON.parse(localStorage.getItem('bt-fwdv3') || '{}'));
+    assert(bt.quiz === 7, 'Befehlstrainer-Stand nicht übernommen');
+    assert((await p2.textContent('#ls-name')) === 'Alex Muster', 'Name nicht übernommen');
+    p2.once('dialog', (d) => d.accept());
+    await p2.setInputFiles('#ls-file', { name: 'x.json', mimeType: 'application/json', buffer: Buffer.from('{"app":"anders"}') });
+    await p2.waitForFunction(() => /keine Sicherung/.test(document.getElementById('ls-msg').textContent));
+    await neu.close();
   });
   await step('Keine Anfragen an fremde Server', async () => assert(!foreign.length, foreign.join(', ')));
   await step('Keine Fehler im Browser', async () => assert(!errors.length, errors.join(' | ')));
