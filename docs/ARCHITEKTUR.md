@@ -18,7 +18,7 @@ Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen b
 
 ## Die Shell
 
-- `MODS` (in `app/index.html`) beschreibt jeden Trainer: Kennung, Datei, Namen, Kennzahlen, Einstiegspunkte.
+- `MODS` (in `app/index.html`) beschreibt jeden Trainer: Kennung, Datei, Namen, Kennzahlen.
 - `ORDER` legt die Reihenfolge fest (Gruppenführer, Zugführer, Befehlstrainer).
 - Einstellungen: Die Übersicht schreibt `fwmg.settings.v1` (`{goal, t}`). Gruppenführer und Zugführer übernehmen den Wert beim Start, wenn `t` neuer ist als ihr eigener Zeitstempel (`gu` bzw. `set.t`). Beim Ändern verwirft die Shell geladene Trainer-Rahmen, damit sie neu starten; Runden und Prüfungen liegen im Speicher und bleiben erhalten. Neue Einstellungen werden hier ergänzt und in den Trainern eingelesen.
 - Fortschrittsanzeige: `progress()` liest den gespeicherten Stand der Trainer (nur lesend).
