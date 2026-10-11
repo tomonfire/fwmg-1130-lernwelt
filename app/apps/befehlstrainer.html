@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-v+WZB5/sr0gYXPli+UVqfmA9oTu3UPRV9J2xQtlv0IA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-beukk0/IQ/PNK49UNRMv3TJCsVXZKlMu8EPuH1E1yys='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
@@ -96,6 +96,14 @@ p { margin: 0; max-width: 65ch; }
 textarea.speech { width: 100%; min-height: 8.5rem; resize: vertical; padding: 12px 14px; background: var(--surface); color: var(--ink); border: 2px solid var(--edge); border-radius: 4px; font: 500 16px/1.5 var(--f-mono); }
 textarea.speech:focus { border-color: var(--ink); }
 textarea.speech::placeholder { color: var(--muted); }
+/* Vorlesen und Einsprechen */
+.lagehead { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.btn.sm { min-height: 44px; padding: 8px 14px; font-size: 15px; }
+.btn.ghost[aria-pressed="true"] { border-color: var(--bad); color: var(--bad); }
+.btn.ghost[aria-pressed="true"]::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: var(--bad); vertical-align: 1px; }
+@media (prefers-reduced-motion: no-preference) { .btn.ghost[aria-pressed="true"]::before { animation: puls 1s ease-in-out infinite; } }
+@keyframes puls { 50% { opacity: .25; } }
+.dictrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
 /* Hinweis- und Ergebniskästen wie im Gruppen- und Zugführer-Coach: Balken links, grün richtig, rot falsch. */
 .note { background: var(--surface); border: 1px solid var(--edge); border-left: 8px solid var(--blue); border-radius: 4px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
@@ -208,7 +216,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.00'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.10'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -844,7 +852,10 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (st.note) h += '<p class="lead">' + esc(st.note) + '</p>';
     h += '<div class="sec"><label class="label" for="speech">Dein Befehl</label>' +
       '<textarea id="speech" class="speech" lang="de" rows="5" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Tippe ins Feld und nutze das Mikrofon deiner Tastatur zum Diktieren."' + (r.ev ? ' readonly' : '') + '>' + esc(r.text) + '</textarea>' +
-      '<p class="lead">Die Mikrofontaste findest du auf der Bildschirmtastatur von Handy und Tablet, am Rechner mit der Diktierfunktion deines Systems.</p></div>';
+      (SR && !r.ev
+        ? '<div class="dictrow"><button type="button" class="btn ghost" id="dictbtn" data-act="dictate" aria-pressed="' + recOn + '">' + (recOn ? 'Aufnahme beenden' : 'Einsprechen') + '</button></div>' +
+          '<p class="lead" id="dictmsg" role="status">Tippe auf „Einsprechen“ und sprich den Befehl. Den Text kannst du danach noch korrigieren.</p>'
+        : '<p class="lead">Die Mikrofontaste findest du auf der Bildschirmtastatur von Handy und Tablet, am Rechner mit der Diktierfunktion deines Systems.</p>') + '</div>';
     if (!r.ev) {
       h += '<div class="actions dock"><button type="button" class="btn" id="evalbtn" data-act="eval"' + (r.text.trim() ? '' : ' disabled') + '>Befehl auswerten</button></div>';
       return h;
@@ -886,7 +897,11 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (r.phase === 'kontrolle') { lageText = sc.kon.meldung; lageLabel = 'Rückmeldung'; }
     else if (st && r.si > 0) { lageText = st.lage; lageLabel = 'Neue Lage'; }
     else lageText = sc.lage;
-    h += '<div class="lage"><span class="label">' + lageLabel + '</span><p>' + esc(lageText) + '</p></div>';
+    if (S.lageNow && S.lageNow.text !== lageText) stopReading();
+    S.lageNow = { text: lageText, alarm: lageLabel === 'Lage' };
+    h += '<div class="lage"><div class="lagehead"><span class="label">' + lageLabel + '</span>' +
+      (TTS ? '<button type="button" class="btn ghost sm" id="readbtn" data-act="read" aria-pressed="' + reading + '">' + (reading ? 'Stopp' : 'Vorlesen') + '</button>' : '') +
+      '</div><p>' + esc(lageText) + '</p></div>';
 
     if (r.phase === 'beur') return h + mcqView(sc, 'beur');
     if (r.phase === 'kontrolle') return h + mcqView(sc, 'kon');
@@ -1115,7 +1130,103 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   }
 
   /* ---------- Rendering ---------- */
+  /* ---------- Vorlesen wie von der Leitstelle, Befehl einsprechen ----------
+     Beides nutzt nur die Sprachfunktionen von Gerät und Browser, keine eigenen Server. */
+  var TTS = 'speechSynthesis' in window && typeof window.SpeechSynthesisUtterance === 'function';
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  var reading = false, readId = 0, sprec = null, recOn = false;
+
+  function deVoice() {
+    var de = speechSynthesis.getVoices().filter(function (v) { return /^de([-_]|$)/i.test(v.lang); });
+    return de.filter(function (v) { return v.localService; })[0] || de[0] || null;
+  }
+  /* Alarmierung: Stichwort nach vorn, Rollenhinweis für dich weglassen, Stichwort am Ende wiederholen. */
+  function leitstelle(text, alarm) {
+    var t = String(text).replace(/\s*Du bist (Gruppen|Zug)führer\.\s*/g, ' ');
+    var m = /Alarmstichwort »([^«]+)«,?\s*/.exec(t);
+    if (!alarm || !m) return t.replace(/[»«]/g, '').trim();
+    var rest = t.slice(m.index + m[0].length).replace(/[»«]/g, '').trim();
+    return 'Alarm für ' + (S.role === 'zf' ? 'den Löschzug' : 'die Löschgruppe') + '. Einsatzstichwort: ' + m[1] + '. ' + rest +
+      ' Ich wiederhole: ' + m[1] + '. Ende der Durchsage.';
+  }
+  /* Kurzer Zweiklang-Gong vor der Alarmierung, im Gerät erzeugt. Liefert die Wartezeit bis zur Durchsage. */
+  function gong() {
+    try {
+      var C = window.AudioContext || window.webkitAudioContext; if (!C) return 0;
+      var ac = new C(), t0 = ac.currentTime + 0.05;
+      [[659, 0], [523, 0.4]].forEach(function (p) {
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sine'; o.frequency.value = p[0];
+        g.gain.setValueAtTime(0.0001, t0 + p[1]);
+        g.gain.exponentialRampToValueAtTime(0.25, t0 + p[1] + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + p[1] + 0.7);
+        o.connect(g); g.connect(ac.destination); o.start(t0 + p[1]); o.stop(t0 + p[1] + 0.75);
+      });
+      setTimeout(function () { try { ac.close(); } catch (e) {} }, 2000);
+      return 1300;
+    } catch (e) { return 0; }
+  }
+  function readBtn() {
+    var b = document.getElementById('readbtn');
+    if (b) { b.setAttribute('aria-pressed', String(reading)); b.textContent = reading ? 'Stopp' : 'Vorlesen'; }
+  }
+  function stopReading() {
+    readId++;
+    if (TTS && (reading || speechSynthesis.speaking || speechSynthesis.pending)) speechSynthesis.cancel();
+    reading = false; readBtn();
+  }
+  function readLage() {
+    if (!TTS || !S.lageNow) return;
+    stopReading(); stopDictation();
+    var id = readId, u = new SpeechSynthesisUtterance(leitstelle(S.lageNow.text, S.lageNow.alarm)), v = deVoice();
+    u.lang = 'de-DE'; if (v) u.voice = v;
+    u.onend = u.onerror = function () { if (id === readId) { reading = false; readBtn(); } };
+    reading = true; readBtn();
+    /* iOS gibt die Sprachausgabe nur direkt nach einem Tippen frei: erst eine leere Ansage, dann Gong und Durchsage. */
+    speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+    var wait = S.lageNow.alarm ? gong() : 0;
+    setTimeout(function () { if (id === readId) speechSynthesis.speak(u); }, wait);
+  }
+
+  function dictUi(msg) {
+    var b = document.getElementById('dictbtn');
+    if (b) { b.setAttribute('aria-pressed', String(recOn)); b.textContent = recOn ? 'Aufnahme beenden' : 'Einsprechen'; }
+    var p = document.getElementById('dictmsg');
+    if (p && msg) p.textContent = msg;
+  }
+  function stopDictation() { if (sprec) { try { sprec.abort(); } catch (e) {} } sprec = null; if (recOn) { recOn = false; dictUi(); } }
+  function startDictation() {
+    var r = S.run; if (!SR || !r || recOn) return;
+    stopReading();
+    var base = (r.text || '').replace(/\s+$/, ''), me, failed = false;
+    try { me = sprec = new SR(); } catch (e) { dictUi('Die Spracheingabe ist hier nicht verfügbar. Nutze das Mikrofon der Bildschirmtastatur.'); return; }
+    sprec.lang = 'de-DE'; sprec.continuous = true; sprec.interimResults = true;
+    sprec.onresult = function (e) {
+      if (sprec !== me || !S.run) return;
+      var said = '';
+      for (var i = 0; i < e.results.length; i++) said += e.results[i][0].transcript;
+      S.run.text = (base ? base + ' ' : '') + said.replace(/\s+/g, ' ').trim();
+      var ta = document.getElementById('speech'); if (ta) ta.value = S.run.text;
+      var b = document.getElementById('evalbtn'); if (b) b.disabled = !S.run.text.trim();
+    };
+    sprec.onerror = function (e) {
+      if (sprec !== me) return;
+      var why = e && e.error; failed = why !== 'aborted';
+      dictUi(why === 'not-allowed' || why === 'service-not-allowed' ? 'Das Mikrofon ist nicht freigegeben. Erlaube es in den Einstellungen oder nutze das Mikrofon der Bildschirmtastatur.'
+        : why === 'no-speech' ? 'Nichts gehört. Tippe noch einmal auf „Einsprechen“.'
+        : why === 'aborted' ? '' : 'Die Spracheingabe hat nicht geklappt. Nutze das Mikrofon der Bildschirmtastatur.');
+    };
+    sprec.onend = function () { if (sprec !== me) return; sprec = null; recOn = false; dictUi(failed ? '' : 'Fertig. Prüfe den Text und tippe auf „Befehl auswerten“.'); };
+    try { sprec.start(); } catch (e) { sprec = null; dictUi('Die Spracheingabe ist hier nicht verfügbar. Nutze das Mikrofon der Bildschirmtastatur.'); return; }
+    recOn = true; dictUi('Ich höre zu … sprich jetzt den Befehl.');
+  }
+  window.addEventListener('pagehide', function () { stopReading(); stopDictation(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) { stopReading(); stopDictation(); } });
+
   function render() {
+    /* Außerhalb einer Übung nichts vorlesen oder aufnehmen. */
+    if (!(S.tab === 'ueben' && S.run)) { if (reading) stopReading(); S.lageNow = null; }
+    if (recOn && !(S.tab === 'ueben' && S.run && S.run.phase === 'speak' && !S.run.ev)) stopDictation();
     ['ueben', 'quiz', 'schema', 'stats'].forEach(function (t) {
       var b = document.getElementById('t-' + t);
       b.setAttribute('aria-selected', String(S.tab === t));
@@ -1205,6 +1316,8 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   app.addEventListener('click', function (e) {
     var b = e.target.closest('[data-act]'); if (!b) return;
     var act = b.getAttribute('data-act'), r = S.run;
+    if (act === 'read') { if (reading) stopReading(); else readLage(); return; }
+    if (act === 'dictate') { if (recOn) { if (sprec) { try { sprec.stop(); } catch (x) {} } } else startDictation(); return; }
     var st = r && (r.phase === 'art' || r.phase === 'fields' || r.phase === 'speak') ? curStage() : null;
 
     if (act === 'role') { S.role = b.getAttribute('data-r'); store.role = S.role; save(); S.quiz = null; S.scroll = 'top'; S.focus = '[data-act="switchrole"]'; render(); return; }
@@ -1257,6 +1370,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     }
 
     if (act === 'eval' && st && !r.ev && r.text.trim()) {
+      stopDictation();
       r.ev = evalSpeech(st, r.text); S.scroll = 'res'; render(); return;
     }
     if (act === 'retry' && st) { r.ev = null; r.coach = null; r.text = ''; if (coachCtl) coachCtl.abort(); S.focus = '#speech'; render(); return; }
@@ -1300,4 +1414,4 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 </script>
 
 <script src="../tastatur.js" data-primary=".btn:not(.ghost)"></script>
-<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung. <b>Weitergabe:</b> Die Weitergabe der App und ihrer Inhalte (Link, Kopie, Veröffentlichung an Dritte) erfolgt ausschließlich durch mich, Tom Wolff. Ohne meine ausdrückliche Zustimmung ist sie nicht gestattet. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, über GitHub: <a href="https://github.com/tomonfire/fwmg-1130-lernwelt/issues" target="_blank" rel="noopener noreferrer">Issue im Repository</a> oder <a href="https://github.com/tomonfire" target="_blank" rel="noopener noreferrer">GitHub-Profil tomonfire</a></p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Name und dein Lernstand werden nur in deinem Browser gespeichert und nicht an einen Server übertragen. Eine Sicherungsdatei entsteht nur, wenn du selbst „Lernstand sichern“ wählst. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlscoach werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>
+<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung. <b>Weitergabe:</b> Die Weitergabe der App und ihrer Inhalte (Link, Kopie, Veröffentlichung an Dritte) erfolgt ausschließlich durch mich, Tom Wolff. Ohne meine ausdrückliche Zustimmung ist sie nicht gestattet. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, über GitHub: <a href="https://github.com/tomonfire/fwmg-1130-lernwelt/issues" target="_blank" rel="noopener noreferrer">Issue im Repository</a> oder <a href="https://github.com/tomonfire" target="_blank" rel="noopener noreferrer">GitHub-Profil tomonfire</a></p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Name und dein Lernstand werden nur in deinem Browser gespeichert und nicht an einen Server übertragen. Eine Sicherungsdatei entsteht nur, wenn du selbst „Lernstand sichern“ wählst. Kein Tracking, keine Werbung. Im Befehlscoach liest dein Gerät die Lage selbst vor. Für „Einsprechen“ nutzt der Befehlscoach die Spracherkennung deines Browsers; je nach Gerät überträgt der Anbieter (z. B. Apple oder Google) die Aufnahme dafür an seine Server. Wer das nicht möchte, tippt den Befehl ein.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlscoach werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>

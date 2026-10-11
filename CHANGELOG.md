@@ -4,6 +4,11 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt (Befehlscoach V2.10)
+- „Vorlesen“ in der Lage: Das Gerät liest die Lage vor. Bei der Alarmierung wie eine Leitstellendurchsage mit Gong, Einsatzstichwort vorn und Wiederholung am Ende. Neue Lagen und Rückmeldungen werden ohne Gong vorgelesen.
+- „Einsprechen“ beim Befehl: Spracheingabe über die Spracherkennung des Browsers, der Text erscheint im Feld und lässt sich vor dem Auswerten korrigieren. Ohne Spracherkennung bleibt der Hinweis auf das Mikrofon der Bildschirmtastatur.
+- Impressum (alle vier Dateien): Datenschutzhinweis zu Vorlesen und Spracheingabe. Die Shell erlaubt den Coaches das Mikrofon (`allow="microphone"`). Service-Worker `VERSION` auf v26.
+
 ### Behoben (iPhone als App)
 - Statusleiste als eigener Bereich (`apple-mobile-web-app-status-bar-style` „default“ statt „black-translucent“). Inhalte liegen nicht mehr unter Uhrzeit und Dynamic Island, der leere Abstand unter der Leiste und die Fläche, die erst beim Herunterscrollen erschien, entfallen. Die Höhenkorrektur `--app-h` aus v24 ist damit überflüssig und entfernt. Service-Worker `VERSION` auf v25.
 
