@@ -628,23 +628,48 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   function correctVals(st) { var o = {}; Object.keys(st.f).forEach(function (k) { o[k] = st.f[k][0]; }); return o; }
   function musterText(st) { return Object.keys(st.f).map(function (k) { return spoken(k, st.f[k][0]); }).join(', ') + (ARTS[st.art].end ? ', ' + ARTS[st.art].end : ''); }
 
-  var store = { sc: {}, quiz: 0, role: null, hist: [], cat: {}, fld: {}, qh: [] };
-  try {
-    var raw = localStorage.getItem('bt-fwdv3');
-    if (raw) {
-      var p = JSON.parse(raw), isObj = function (x) { return x && typeof x === 'object' && !Array.isArray(x); };
-      if (isObj(p)) {
-        if (isObj(p.sc)) store.sc = p.sc;
-        if (isObj(p.cat)) store.cat = p.cat;
-        if (isObj(p.fld)) store.fld = p.fld;
-        if (Array.isArray(p.hist)) store.hist = p.hist.filter(isObj);
-        if (Array.isArray(p.qh)) store.qh = p.qh.filter(isObj);
-        if (typeof p.quiz === 'number') store.quiz = p.quiz;
-        if (p.role === 'gf' || p.role === 'zf') store.role = p.role;
-      }
-    }
-  } catch (e) {}
-  function save() { try { localStorage.setItem('bt-fwdv3', JSON.stringify(store)); } catch (e) {} }
+  var store = { sc: {}, quiz: 0, role: null, hist: [], cat: {}, fld: {}, qh: [], upd: 0 };
+  function isObj(x) { return x && typeof x === 'object' && !Array.isArray(x); }
+  /* Gespeicherten Stand prüfen und übernehmen (aus dem Browser oder vom Lerncode-Server). */
+  function adopt(p) {
+    if (!isObj(p)) return;
+    store = { sc: {}, quiz: 0, role: null, hist: [], cat: {}, fld: {}, qh: [], upd: 0 };
+    if (isObj(p.sc)) store.sc = p.sc;
+    if (isObj(p.cat)) store.cat = p.cat;
+    if (isObj(p.fld)) store.fld = p.fld;
+    if (Array.isArray(p.hist)) store.hist = p.hist.filter(isObj);
+    if (Array.isArray(p.qh)) store.qh = p.qh.filter(isObj);
+    if (typeof p.quiz === 'number') store.quiz = p.quiz;
+    if (p.role === 'gf' || p.role === 'zf') store.role = p.role;
+    if (typeof p.upd === 'number') store.upd = p.upd;
+  }
+  try { var raw = localStorage.getItem('bt-fwdv3'); if (raw) adopt(JSON.parse(raw)); } catch (e) {}
+  function persist() { try { localStorage.setItem('bt-fwdv3', JSON.stringify(store)); } catch (e) {} }
+  function save() { store.upd = Date.now(); persist(); if (remote) { clearTimeout(pushT); pushT = setTimeout(push, 1000); } }
+
+  /* Abgleich über den Lerncode der Lernwelt, falls eingerichtet. Die Zähler lassen sich nicht
+     sinnvoll addieren, deshalb gewinnt der zuletzt gespeicherte Stand als Ganzes. */
+  var remote = null, pushT = null;
+  function push() { if (remote) remote.set(JSON.parse(JSON.stringify(store))).catch(function () {}); }
+  function pull() {
+    if (!remote) return;
+    remote.get().then(function (snap) {
+      var d = snap.exists ? snap.data() : null;
+      if (d && (d.upd || 0) > (store.upd || 0)) {
+        adopt(JSON.parse(JSON.stringify(d))); persist();
+        if (!S.run && !S.quiz) { S.role = store.role; render(); }
+      } else if (d ? (d.upd || 0) < (store.upd || 0) : (store.upd || store.quiz || store.qh.length || Object.keys(store.sc).length)) push();
+    }).catch(function () {});
+  }
+  function initRemote() {
+    var c = window.claude;
+    if (!c || typeof c.use !== 'function') return;
+    Promise.all([c.use('db'), c.use('user')]).then(function (r) {
+      if (!r[0] || !r[1]) return;
+      return r[1].id().then(function (id) { if (!id) return; remote = r[0].doc('data/users/' + id + '/progress-bt'); pull(); });
+    }).catch(function () {});
+  }
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') pull(); else if (remote) { clearTimeout(pushT); push(); } });
 
   var S = { tab: 'ueben', mode: 'speak', role: store.role, run: null, quiz: null, focus: null, scroll: null, sample: undefined, confirm: null, flash: '' };
   function roleName(r) { return r === 'zf' ? 'Zugführer' : r === 'gf' ? 'Gruppenführer' : 'Führungskraft'; }
@@ -1257,7 +1282,8 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   });
 
   render();
+  initRemote();
 })();
 </script>
 
-<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>
+<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Lernstand wird in deinem Browser gespeichert. Nur wenn du einen Lerncode erstellst oder eingibst, wird er zusätzlich unter diesem Code bei Supabase (Serverstandort Frankfurt, EU) gesichert, ohne Name und ohne E-Mail; dabei verarbeitet Supabase technisch deine IP-Adresse. Den gesicherten Stand kannst du in der Übersicht unter „Dein Lerncode“ jederzeit löschen. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>

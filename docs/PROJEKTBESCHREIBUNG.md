@@ -8,7 +8,7 @@ Wer sich auf Führungslehrgänge (Gruppenführer, Zugführer) vorbereitet, muss 
 - täglich in kurzer Zeit üben statt einmalig pauken (Tagesrunden mit Wiederholungsabständen),
 - Prüfungssituationen vorab simulieren,
 - Befehle nach Schema trainieren und auswerten,
-- alles auf dem Telefon verfügbar haben, ohne Anmeldung und ohne Datenweitergabe.
+- alles auf dem Telefon verfügbar haben, ohne Anmeldung; den Lernstand auf Wunsch per Lerncode auf allen Geräten nutzen.
 
 ## Zielgruppe
 Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge, besonders in Nordrhein-Westfalen. Private App, die frei weitergegeben wird.
@@ -30,7 +30,7 @@ Feuerwehrangehörige in der Ausbildung oder Vorbereitung auf Führungslehrgänge
 - Mit Unterstützung von KI erstellt; Inhalte gegen offizielle Quellen prüfen.
 
 ## Technik in Kürze
-Statische Web-App (HTML, CSS, JavaScript), kein Server, kein Build-Schritt. Lernstand nur lokal im Browser. Veröffentlichung über GitHub Pages. Details: [Architektur](ARCHITEKTUR.md).
+Statische Web-App (HTML, CSS, JavaScript), kein Server, kein Build-Schritt. Lernstand im Browser, auf Wunsch per Lerncode in einer Datenbank (Supabase, EU). Veröffentlichung über GitHub Pages. Details: [Architektur](ARCHITEKTUR.md).
 
 ## Beteiligte
 - Idee, Fachinhalt, Pflege: Tom Wolff (privat)

@@ -359,8 +359,8 @@ function save(){
   if(docRef){clearTimeout(tmr);tmr=setTimeout(flush,700)}
 }
 function syncText(){
-  return syncMode==='cloud'?'Dein Fortschritt wird in deinem Konto gespeichert und ist auf allen Geräten da.':
-    syncMode==='error'?'Speichern im Konto ist fehlgeschlagen. Dein Stand liegt weiter in diesem Browser und wird beim nächsten Speichern nachgetragen.':
+  return syncMode==='cloud'?'Dein Fortschritt wird unter deinem Lerncode gesichert und ist auf allen Geräten da.':
+    syncMode==='error'?'Sichern unter deinem Lerncode ist fehlgeschlagen. Dein Stand liegt weiter in diesem Browser und wird beim nächsten Speichern nachgetragen.':
     !lsOk?'Speichern ist in diesem Browser blockiert. Dein Fortschritt geht beim Schließen der Seite verloren.':
     'Dein Fortschritt wird nur in diesem Browser gespeichert.';
 }
@@ -1168,4 +1168,4 @@ try{welcome()}catch(e){}
 })();
 </script>
 
-<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>
+<footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Lernstand wird in deinem Browser gespeichert. Nur wenn du einen Lerncode erstellst oder eingibst, wird er zusätzlich unter diesem Code bei Supabase (Serverstandort Frankfurt, EU) gesichert, ohne Name und ohne E-Mail; dabei verarbeitet Supabase technisch deine IP-Adresse. Den gesicherten Stand kannst du in der Übersicht unter „Dein Lerncode“ jederzeit löschen. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer></body></html>

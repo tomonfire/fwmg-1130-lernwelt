@@ -16,8 +16,9 @@ Erstellt von Tom Wolff (privat).
 
 - Installierbare Web-App (PWA): auf dem iPhone über „Teilen → Zum Home-Bildschirm“, auf Android und Desktop über „Installieren“.
 - Läuft **offline**, nachdem sie einmal geladen wurde (Service Worker).
-- Kein Server, keine Anmeldung, kein Build-Schritt: reine statische Dateien. Schriften liegen in `app/fonts/`, die App ruft keine fremden Server auf.
-- Der Lernstand wird **nur lokal im Browser** des Geräts gespeichert (`localStorage`). Jeder Trainer hat eigene Schlüssel.
+- Keine Anmeldung, kein Build-Schritt: reine statische Dateien. Schriften liegen in `app/fonts/`.
+- Der Lernstand wird im Browser des Geräts gespeichert (`localStorage`). Jeder Trainer hat eigene Schlüssel.
+- **Lerncode:** Wer möchte, sichert seinen Lernstand unter einem zufälligen Code in einer Datenbank (Supabase, EU) und lernt auf jedem Gerät weiter. Ohne Name, ohne E-Mail. Siehe [Lerncode](docs/LERNCODE.md).
 - Heller und dunkler Modus folgen dem Gerät.
 
 ## Dokumentation
@@ -25,6 +26,7 @@ Erstellt von Tom Wolff (privat).
 - [Projektbeschreibung](docs/PROJEKTBESCHREIBUNG.md): Ziel, Zielgruppe, Funktionen, Abgrenzung
 - [Architektur](docs/ARCHITEKTUR.md)
 - [Veröffentlichung](docs/VEROEFFENTLICHUNG.md)
+- [Lerncode](docs/LERNCODE.md): Lernstand geräteübergreifend sichern, Einrichtung von Supabase
 - [Repository-Einstellungen](docs/REPOSITORY.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Mitarbeiten](CONTRIBUTING.md), [Änderungsprotokoll](CHANGELOG.md), [Sicherheit](SECURITY.md)
@@ -35,6 +37,7 @@ Erstellt von Tom Wolff (privat).
 app/                       alles, was veröffentlicht wird
   index.html               Shell: Startseite, Dashboard, lädt die Trainer als iframes
   apps/                    die drei Trainer, je eine eigenständige HTML-Datei
+  lerncode.js              Lerncode: Lernstand unter einem Code in der Datenbank sichern
   manifest.webmanifest     PWA-Metadaten
   sw.js                    Service Worker (Offline-Cache)
   icons/                   App-Icons
@@ -72,13 +75,13 @@ Details in [Veröffentlichung](docs/VEROEFFENTLICHUNG.md).
 
 ## Änderungen ausliefern
 
-Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v5` …), damit installierte Geräte die neue Fassung laden.
+Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` um eins erhöhen (z. B. `fwmg-lernwelt-v5` → `fwmg-lernwelt-v6`), damit installierte Geräte die neue Fassung laden.
 
 ## Herkunft und Einschränkungen
 
 Die Apps wurden zuerst als Claude-Artefakte entwickelt. In dieser Fassung stehen deren Zusatzfunktionen nicht zur Verfügung und werden übersprungen:
 
-- **Geräteübergreifender Lernstand** (Cloud-Speicher): ohne Backend nicht vorhanden, der Lernstand liegt nur lokal.
+- **Geräteübergreifender Lernstand:** über den [Lerncode](docs/LERNCODE.md) mit Supabase statt mit dem Claude-Speicher.
 - **KI-Rückmeldung im Befehlstrainer**: ohne KI-Anbindung zeigt der Trainer die regelbasierte Auswertung. Eine eigene Anbindung (z. B. über ein Backend mit API-Schlüssel) müsste in `app/apps/befehlstrainer.html` ergänzt werden. API-Schlüssel gehören nie in den Browser-Code.
 
 Quellen der Fragen: Lernkompass des Instituts der Feuerwehr NRW, FwDV 100, FwDV 3 und weitere (jeweils in der App unter „Quellen“).

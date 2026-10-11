@@ -13,9 +13,12 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Service Worker lädt eine neue Fassung am HTTP-Cache vorbei und speichert nur noch eigene Dateien.
 
 ### Hinzugefügt
+- **Lerncode:** Lernstand freiwillig unter einem zufälligen Code in einer Datenbank (Supabase, EU) sichern und auf jedem Gerät weiterlernen; Abmelden und Löschen in der Übersicht. Alle drei Trainer gleichen ab.
+- Datenschutz-Hinweis im Impressum.
 - Projektbeschreibung, Roadmap und Dokumentationsübersicht in `docs/`.
 - Hinweis „Neue Version verfügbar – Neu laden“, sobald eine neue Fassung bereitsteht.
 - Sicherheitsregeln (Content-Security-Policy) in allen HTML-Dateien, `id` im Manifest.
+- `npm run check` prüft zusätzlich: gleiches Impressum in allen Dateien, keine Stadt im Text, Verbindungen nach außen nur von der Startseite.
 - Browser-Test mit Playwright (`npm run test:browser`) in der CI; `npm run check` prüft zusätzlich noindex, CSP, Impressum und fremde Server.
 - Repository-Grundgerüst: `.gitignore`, CODEOWNERS, Dependabot für npm, Prüfung vor jeder Veröffentlichung, Anleitung für die GitHub-Einstellungen (`docs/REPOSITORY.md`).
 - Schutz vor Suchmaschinen: `noindex,nofollow,noarchive,nosnippet,noimageindex`, `no-referrer` und `robots.txt`; Adresse wird in der Doku nicht verlinkt.

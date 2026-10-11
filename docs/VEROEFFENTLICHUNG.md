@@ -12,7 +12,7 @@ Die App läuft über **GitHub Pages** aus dem Repository `tomonfire/fwmg-1130-le
 3. Geöffnete Apps zeigen nach dem Update unten „Neue Version verfügbar – Neu laden“. Installierte Apps prüfen beim Zurückholen in den Vordergrund, ob es eine neue Fassung gibt.
 
 ## Was für den öffentlichen Betrieb gilt
-- **Keine fremden Server:** Schriften liegen in `app/fonts/` (SIL Open Font License). Es gehen keine IP-Adressen an Google oder andere Dienste.
+- **Keine fremden Server beim Laden:** Schriften liegen in `app/fonts/` (SIL Open Font License). Einzige Verbindung nach außen ist der freiwillige [Lerncode](LERNCODE.md) (Supabase, EU), im Impressum unter „Datenschutz“ beschrieben.
 - **Sicherheitsregeln (CSP)** stehen als `<meta>` in jeder HTML-Datei: Skripte, Bilder, Schriften und Verbindungen nur von der eigenen Adresse.
 - **Lernstand** bleibt lokal im Browser (`localStorage`) und ist an die Adresse gebunden. Wer die App vorher unter einer anderen Adresse genutzt hat, beginnt hier mit leerem Lernstand.
 

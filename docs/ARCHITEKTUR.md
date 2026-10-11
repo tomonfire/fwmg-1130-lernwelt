@@ -35,6 +35,7 @@ Jede App-Datei ist vollständig eigenständig (HTML, CSS, JavaScript, Fragen) un
 | `lernkompass-tagestraining-session` | laufende Tagesrunde | Gruppenführer |
 | `bt-fwdv3` | Szenarien, Quiz, Verlauf | Befehlstrainer |
 | `lzf.last.v1` | zuletzt geöffneter Trainer | Shell |
+| `fwmg.lerncode.v1` | Lerncode (falls genutzt) | Shell (`lerncode.js`) |
 
 Diese Schlüssel nie umbenennen. Sonst verlieren Nutzer ihren Lernstand. Änderungen am Datenformat nur abwärtskompatibel.
 
@@ -44,15 +45,13 @@ Diese Schlüssel nie umbenennen. Sonst verlieren Nutzer ihren Lernstand. Änderu
 
 ## Offline
 
-`app/sw.js` legt alle Dateien beim Installieren in den Cache (`VERSION`). Eigene Dateien: Cache zuerst, im Hintergrund aktualisieren. Schriften liegen in `app/fonts/` und werden mit vorgeladen; die App ruft keine fremden Server auf. Übernimmt eine neue Fassung die Seite, zeigt die Shell den Hinweis „Neue Version verfügbar“.
+`app/sw.js` legt alle Dateien beim Installieren in den Cache (`VERSION`). Eigene Dateien: Cache zuerst, im Hintergrund aktualisieren. Schriften liegen in `app/fonts/` und werden mit vorgeladen; fremde Adressen (Lerncode-Server) laufen am Cache vorbei. Übernimmt eine neue Fassung die Seite, zeigt die Shell den Hinweis „Neue Version verfügbar“.
 
 ## Herkunft der Artefakt-Funktionen
 
-Die Dateien enthalten noch Code für Funktionen der Claude-Umgebung (`window.claude`: Cloud-Speicher `db`, Nutzer `user`, KI `sample`). Außerhalb davon ist `window.claude` nicht vorhanden. Der Code fragt das ab und läuft ohne diese Funktionen weiter.
+Die Trainer enthalten Code für Funktionen der Claude-Umgebung (`window.claude`: Speicher `db`, Nutzer `user`, KI `sample`). `app/lerncode.js` stellt `db` und `user` mit Supabase dahinter bereit (siehe [LERNCODE.md](LERNCODE.md)); `sample` gibt es nicht, der Befehlstrainer zeigt dann die regelbasierte Auswertung.
 
 ## Mögliche nächste Schritte
 
-- Eigener Speicher für den Lernstand mit Export und Import als Datei (ohne Server machbar).
 - Fragen aus den Dateien in eigene JSON-Dateien auslagern.
 - Eigene KI-Rückmeldung über ein Backend.
-- Automatisierte Browser-Tests (Playwright) für Dashboard und Direkteinstieg.

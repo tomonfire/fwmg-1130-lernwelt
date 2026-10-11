@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.supabase.co; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,6 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="FwMG Lernwelt">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
+<script src="lerncode.js"></script>
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -125,7 +126,17 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 #frames iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
 #frames iframe[hidden]{display:none}
 @media (prefers-reduced-motion:no-preference){#welcome:not([hidden]){animation:wf .35s ease-out}@keyframes wf{from{opacity:0}to{opacity:1}}}
-.fwmg-imp{max-width:720px;margin:24px auto 0;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));font:13px/1.45 -apple-system,BlinkMacSystemFont,sans-serif;opacity:.8;color:inherit}.fwmg-imp summary{cursor:pointer;font-weight:600;padding:8px 0;min-height:24px}.fwmg-imp p{margin:4px 0 0}#upd{position:fixed;z-index:60;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));
+.fwmg-imp{max-width:720px;margin:24px auto 0;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));font:13px/1.45 -apple-system,BlinkMacSystemFont,sans-serif;opacity:.8;color:inherit}.fwmg-imp summary{cursor:pointer;font-weight:600;padding:8px 0;min-height:24px}.fwmg-imp p{margin:4px 0 0}.lc{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--edge);border-left:8px solid var(--blue);border-radius:4px}
+.lc p{font-size:15px;max-width:60ch}
+.lc .code{font-family:var(--f-mono);font-size:clamp(20px,6vw,28px);letter-spacing:.06em;color:var(--blue);word-break:break-all;user-select:all}
+.lc .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.lc .btn{min-height:48px;font-size:16px}
+.lc input{font:500 18px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;min-height:48px;padding:8px 12px;border:2px solid var(--edge);border-radius:4px;background:var(--bg);color:var(--ink);width:100%;max-width:340px}
+.lc details summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.lc .msg{font-size:14px;color:var(--muted)}
+.lc .msg.bad{color:var(--accent);font-weight:600}
+.lc .small{font-size:13px;color:var(--muted)}
+#upd{position:fixed;z-index:60;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));
   max-width:560px;margin-inline:auto;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;border-radius:6px;
   background:var(--blue);color:var(--on-blue);border:1px solid var(--line);box-shadow:0 6px 24px rgba(0,0,0,.25)}
 #upd[hidden]{display:none}
@@ -155,7 +166,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       <button class="btn primary" id="w-go" type="button">Los geht's</button>
       <button class="btn ghost" id="w-resume" type="button" hidden></button>
     </div>
-    <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer>
+    <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Lernstand wird in deinem Browser gespeichert. Nur wenn du einen Lerncode erstellst oder eingibst, wird er zusätzlich unter diesem Code bei Supabase (Serverstandort Frankfurt, EU) gesichert, ohne Name und ohne E-Mail; dabei verarbeitet Supabase technisch deine IP-Adresse. Den gesicherten Stand kannst du in der Übersicht unter „Dein Lerncode“ jederzeit löschen. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer>
   </div>
 </section>
 
@@ -184,8 +195,13 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       <div class="picks" id="picks"></div>
     </section>
 
+    <section class="sec" id="lc" aria-labelledby="h-lc" hidden>
+      <h2 id="h-lc">Dein Lerncode</h2>
+      <div class="lc" id="lc-body"></div>
+    </section>
+
     <p class="note">Jeder Trainer speichert seinen Lernstand getrennt. Du kannst jederzeit über „Übersicht“ oben links zurückkehren und den Trainer wechseln.</p>
-  <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer>
+  <footer class="fwmg-imp"><details><summary>Impressum</summary><p><b>Dies ist eine private App und keine offizielle App einer Feuerwehr, Stadt oder Behörde.</b> Inoffizielles Lernangebot, erstellt von Tom Wolff zur Unterstützung der eigenen Ausbildung und zur freien Weitergabe. <b>Keine Gewähr</b> für Richtigkeit, Vollständigkeit und Aktualität der Inhalte. Kein Ersatz für die offiziellen Unterlagen (z. B. FwDV, Lehrgangsunterlagen) und kein Angebot einer Feuerwehr oder Kommune.</p><p><b>Kontakt:</b> Tom Wolff, E-Mail: mailanwolff@gmail.com</p><p><b>Datenschutz:</b> Die App wird über GitHub Pages (GitHub) ausgeliefert; dabei verarbeitet GitHub technisch deine IP-Adresse. Dein Lernstand wird in deinem Browser gespeichert. Nur wenn du einen Lerncode erstellst oder eingibst, wird er zusätzlich unter diesem Code bei Supabase (Serverstandort Frankfurt, EU) gesichert, ohne Name und ohne E-Mail; dabei verarbeitet Supabase technisch deine IP-Adresse. Den gesicherten Stand kannst du in der Übersicht unter „Dein Lerncode“ jederzeit löschen. Kein Tracking, keine Werbung.</p><p><b>KI-Hinweis:</b> Diese App wurde mit Unterstützung von KI (Claude von Anthropic) erstellt. Inhalte, Fragen, Antworten und Erklärungen können Fehler enthalten und sollten anhand der offiziellen Quellen geprüft werden. Rückmeldungen und Bewertungen im Befehlstrainer werden teilweise von KI erzeugt und sind keine verbindliche Beurteilung.</p></details></footer>
   </div>
 </main>
 
@@ -341,6 +357,63 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   wrb.addEventListener('click',function(){if(wTarget)openMod(wTarget.id)});
   updateWelcomeResume();
   window.addEventListener('storage',function(){if(!$('dash').hidden)renderDash()});
+
+  /* Lerncode: anzeigen, erstellen, übernehmen, löschen. Nach einem Wechsel laden die Trainer neu und gleichen ab. */
+  var LC=window.FwLerncode,lcMsg='',lcBad=false,lcBusy=false;
+  function lcSay(t,bad){lcMsg=t;lcBad=!!bad;renderLc()}
+  function renderLc(){
+    if(!LC||!LC.enabled()){$('lc').hidden=true;return}
+    $('lc').hidden=false;
+    var c=LC.code(),h='';
+    if(c){
+      h='<p>Dein Lernstand wird unter diesem Code gesichert. Gib ihn auf einem anderen Gerät ein, um dort weiterzulernen.</p>'+
+        '<div class="code" id="lc-code">'+esc(LC.format(c))+'</div>'+
+        '<div class="row"><button class="btn" type="button" data-lc="copy">Code kopieren</button></div>'+
+        '<p class="small">Schreib dir den Code auf oder speichere ihn im Passwort-Manager. Ohne ihn kommst du auf einem neuen Gerät nicht an deinen Stand. Gib ihn nicht weiter: Wer ihn kennt, sieht und ändert deinen Lernstand.</p>'+
+        '<details><summary>Anderen Code verwenden oder löschen</summary><div class="row">'+
+        '<button class="btn" type="button" data-lc="forget">Auf diesem Gerät abmelden</button>'+
+        '<button class="btn" type="button" data-lc="delete">Gesicherten Lernstand löschen</button></div>'+
+        '<p class="small">Abmelden: Der Code wird auf diesem Gerät vergessen, der gesicherte Stand bleibt. Löschen: Der Stand in der Datenbank wird endgültig entfernt. Der Stand in diesem Browser bleibt in beiden Fällen.</p></details>';
+    }else{
+      h='<p>Mit einem Lerncode wird dein Lernstand gesichert und du kannst auf jedem Gerät weiterlernen. Ohne Anmeldung, ohne Name, ohne E-Mail.</p>'+
+        '<div class="row"><button class="btn primary" type="button" data-lc="create">Lerncode erstellen</button></div>'+
+        '<details><summary>Ich habe schon einen Lerncode</summary><form class="row" id="lc-form"><label class="small" for="lc-in">Lerncode</label>'+
+        '<input id="lc-in" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="XXXX-XXXX-XXXX-XXXX">'+
+        '<button class="btn primary" type="submit">Übernehmen</button></form></details>';
+    }
+    if(lcMsg)h+='<p class="msg'+(lcBad?' bad':'')+'" role="status">'+esc(lcMsg)+'</p>';
+    $('lc-body').innerHTML=h;
+  }
+  function lcRun(p,ok){
+    if(lcBusy)return;lcBusy=true;lcSay('Einen Moment …');
+    p.then(function(r){lcBusy=false;ok(r)},function(){lcBusy=false;lcSay('Der Lerncode-Server ist gerade nicht erreichbar. Prüfe die Verbindung und versuch es noch einmal.',true)});
+  }
+  $('lc').addEventListener('click',function(ev){
+    var b=ev.target.closest('[data-lc]');if(!b||!LC)return;
+    var a=b.getAttribute('data-lc');
+    if(a==='create')lcRun(LC.create(),function(){lcSay('Lerncode erstellt. Dein Lernstand wird ab jetzt gesichert.')});
+    if(a==='copy'){
+      var t=LC.format(LC.code()||'');
+      if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){lcSay('Code kopiert.')},function(){lcSay('Kopieren ging nicht. Markiere den Code und kopiere ihn von Hand.',true)});
+      else lcSay('Markiere den Code und kopiere ihn von Hand.');
+    }
+    if(a==='forget'&&confirm('Lerncode auf diesem Gerät vergessen? Der gesicherte Lernstand bleibt erhalten.')){LC.forget();lcSay('Abgemeldet. Dein Lernstand liegt weiter in diesem Browser.')}
+    if(a==='delete'&&confirm('Gesicherten Lernstand endgültig löschen? Das lässt sich nicht rückgängig machen.'))lcRun(LC.remove(),function(){lcSay('Gesicherter Lernstand gelöscht.')});
+  });
+  $('lc').addEventListener('submit',function(ev){
+    ev.preventDefault();if(!LC)return;
+    lcRun(LC.use($('lc-in').value),function(r){
+      if(r==='ok')lcSay('Lerncode übernommen. Sobald du einen Trainer öffnest, wird dein Lernstand abgeglichen.');
+      else if(r==='invalid')lcSay('Das ist kein gültiger Lerncode. Er hat 16 Zeichen, zum Beispiel K7QF-2MXP-9TRA-4WZD.',true);
+      else lcSay('Zu diesem Lerncode ist nichts gespeichert. Bitte prüf die Eingabe.',true);
+    });
+  });
+  /* Neuer Code: geöffnete Trainer schließen, beim nächsten Öffnen gleichen sie mit dem neuen Code ab. */
+  window.addEventListener('fw-lerncode',function(){
+    Object.keys(frames).forEach(function(k){frames[k].remove();delete frames[k]});
+    current=null;
+  });
+  renderLc();
   renderDash();
 })();
 </script>

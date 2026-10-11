@@ -72,8 +72,96 @@ try {
     await page.waitForSelector('#welcome button.primary');
     await ctx.setOffline(false);
   });
+  await step('Lerncode ohne Einrichtung ausgeblendet', async () => {
+    await page.click('#welcome button.primary');
+    assert(await page.locator('#lc').isHidden(), 'Lerncode-Bereich sichtbar');
+  });
   await step('Keine Anfragen an fremde Server', async () => assert(!foreign.length, foreign.join(', ')));
   await step('Keine Fehler im Browser', async () => assert(!errors.length, errors.join(' | ')));
+
+  // Lerncode mit nachgebildetem Supabase-Server: zwei Geräte, ein Code.
+  const db = new Map();
+  const calls = [];
+  const CODE = /^[A-HJKMNP-TV-Z2-9]{16}$/;
+  async function device() {
+    const c = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    await c.addInitScript(() => { window.FW_SYNC = { url: 'https://test.supabase.co', key: 'test' }; });
+    await c.route('https://test.supabase.co/**', async (route) => {
+      const fn = new URL(route.request().url()).pathname.split('/').pop();
+      const b = route.request().postDataJSON() || {};
+      calls.push(fn + ':' + (b.p_key || ''));
+      if (!CODE.test(b.p_code || '')) return route.fulfill({ status: 400, body: '{}' });
+      const k = b.p_code + '/' + b.p_key;
+      const json = (v) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(v) });
+      if (fn === 'lernstand_get') return json(db.has(k) ? db.get(k) : null);
+      if (fn === 'lernstand_set') { db.set(k, b.p_data); return route.fulfill({ status: 204, body: '' }); }
+      if (fn === 'lernstand_exists') return json([...db.keys()].some((x) => x.startsWith(b.p_code + '/')));
+      if (fn === 'lernstand_delete') { for (const x of [...db.keys()]) if (x.startsWith(b.p_code + '/')) db.delete(x); return route.fulfill({ status: 204, body: '' }); }
+      return route.fulfill({ status: 404, body: '' });
+    });
+    const p = await c.newPage();
+    p.on('pageerror', (e) => errors.push('Skriptfehler (Lerncode): ' + e.message));
+    await p.goto(base);
+    await p.click('#welcome button.primary');
+    await p.waitForSelector('#lc:not([hidden])');
+    return { c, p };
+  }
+  async function openTrainer(p, i) {
+    await p.locator('#dash button:has-text("Öffnen")').nth(i).click();
+    await p.waitForSelector('#mod:not([hidden])');
+    await p.waitForTimeout(1500);
+    await p.click('#m-home');
+  }
+
+  let code = '';
+  const A = await device();
+  await step('Lerncode erstellen', async () => {
+    await A.p.click('[data-lc="create"]');
+    await A.p.waitForSelector('#lc-code');
+    code = (await A.p.textContent('#lc-code')).replace(/-/g, '');
+    assert(CODE.test(code), 'Code hat falsches Format: ' + code);
+    assert(db.has(code + '/meta'), 'Code nicht auf dem Server angelegt');
+  });
+  await step('Trainer sichern unter dem Lerncode', async () => {
+    await A.p.evaluate(() => localStorage.setItem('bt-fwdv3', JSON.stringify({ sc: { probe: { n: 2, best: 80 } }, quiz: 7, hist: [], qh: [], cat: {}, fld: {}, upd: Date.now() })));
+    for (let i = 0; i < 3; i++) await openTrainer(A.p, i);
+    await A.p.waitForTimeout(500);
+    assert(calls.includes('lernstand_get:progress-lk'), 'Gruppenführer liest nicht');
+    assert(db.has(code + '/progress-zf'), 'Zugführer sichert nicht');
+    assert(db.get(code + '/progress-bt')?.quiz === 7, 'Befehlstrainer sichert nicht');
+  });
+
+  const B = await device();
+  await step('Falscher und unbekannter Code werden abgewiesen', async () => {
+    await B.p.click('#lc summary');
+    await B.p.fill('#lc-in', 'abc');
+    await B.p.click('#lc-form button[type=submit]');
+    await B.p.waitForSelector('#lc .msg.bad');
+    await B.p.click('#lc summary').catch(() => {});
+    await B.p.locator('#lc summary').click().catch(() => {});
+    await B.p.evaluate(() => { const d = document.querySelector('#lc details'); if (d) d.open = true; });
+    await B.p.fill('#lc-in', 'ZZZZ-ZZZZ-ZZZZ-ZZZZ');
+    await B.p.click('#lc-form button[type=submit]');
+    await B.p.waitForFunction(() => /nichts gespeichert/.test(document.querySelector('#lc .msg')?.textContent || ''));
+  });
+  await step('Zweites Gerät übernimmt den Lernstand', async () => {
+    await B.p.evaluate(() => { const d = document.querySelector('#lc details'); if (d) d.open = true; });
+    await B.p.fill('#lc-in', code.toLowerCase().replace(/(.{4})/g, '$1 '));
+    await B.p.click('#lc-form button[type=submit]');
+    await B.p.waitForSelector('#lc-code');
+    await openTrainer(B.p, 2);
+    const bt = await B.p.evaluate(() => JSON.parse(localStorage.getItem('bt-fwdv3') || '{}'));
+    assert(bt.quiz === 7 && bt.sc && bt.sc.probe, 'Befehlstrainer-Stand nicht übernommen');
+  });
+  await step('Gesicherten Lernstand löschen', async () => {
+    B.p.once('dialog', (d) => d.accept());
+    await B.p.evaluate(() => { const d = document.querySelector('#lc details'); if (d) d.open = true; });
+    await B.p.click('[data-lc="delete"]');
+    await B.p.waitForSelector('[data-lc="create"]');
+    const left = [...db.keys()].filter((k) => k.startsWith(code + '/')); assert(!left.length, 'Daten nicht gelöscht: ' + left.join(', ') + ' / ' + calls.slice(-8).join(' '));
+    assert((await B.p.evaluate(() => localStorage.getItem('bt-fwdv3'))) !== null, 'Lokaler Stand fälschlich gelöscht');
+  });
+  await step('Keine Fehler beim Lerncode', async () => assert(!errors.length, errors.join(' | ')));
 } finally {
   await browser.close();
   server.close();

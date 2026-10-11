@@ -3,7 +3,8 @@
 Reihenfolge ist ein Vorschlag, nach Nutzen und Aufwand.
 
 ## Als Nächstes
-- [ ] **Lernstand sichern:** Export und Import als Datei, damit er beim Gerätewechsel nicht verloren geht.
+- [x] **Lernstand sichern:** Lerncode mit Datenbank (Supabase, EU), siehe [LERNCODE.md](LERNCODE.md).
+- [ ] Lerncode als QR-Code anzeigen und scannen.
 - [ ] **Fragen auslagern:** Fragen aus den HTML-Dateien in JSON-Dateien (`app/data/`), Pflege ohne Code.
 - [x] **Automatische Browser-Tests:** Startseite, Trainer, Offline-Betrieb (Playwright) in der CI.
 - [ ] Browser-Tests erweitern: Direkteinstieg in die Tabs, Prüfungsablauf, Lernstand bleibt nach Update erhalten.

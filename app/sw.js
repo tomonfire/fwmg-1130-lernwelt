@@ -1,10 +1,11 @@
 /* Service Worker: macht die Lernwelt offline nutzbar.
    Bei jeder Änderung an den Dateien VERSION erhöhen, damit Geräte neu laden. */
-const VERSION = 'fwmg-lernwelt-v4';
+const VERSION = 'fwmg-lernwelt-v5';
 const PRECACHE = [
   './',
   'index.html',
   'manifest.webmanifest',
+  'lerncode.js',
   'apps/gruppenfuehrer.html',
   'apps/zugfuehrer.html',
   'apps/befehlstrainer.html',
@@ -44,7 +45,7 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-/* Eigene Dateien: Cache zuerst, im Hintergrund aktualisieren. Fremde Adressen laufen am Cache vorbei. */
+/* Eigene Dateien: Cache zuerst, im Hintergrund aktualisieren. Fremde Adressen (Lerncode-Server) laufen am Cache vorbei. */
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
