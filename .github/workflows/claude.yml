@@ -34,11 +34,17 @@ jobs:
         with:
           fetch-depth: 1
 
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
       - name: Claude Code ausführen
         uses: anthropics/claude-code-action@v1
         with:
           # Eines der beiden Secrets genügt: Abo-Token (claude setup-token) oder API-Schlüssel.
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Claude darf die eigenen Änderungen prüfen, aber keine anderen Befehle ausführen.
           claude_args: |
             --max-turns 30
+            --allowedTools "Bash(npm ci),Bash(npm run check),Bash(npm run csp:update)"
