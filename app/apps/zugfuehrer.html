@@ -378,6 +378,9 @@ function lsGet(k){try{return window.localStorage.getItem(k)}catch(e){return null
 function lsSet(k,v){try{window.localStorage.setItem(k,v);return true}catch(e){return false}}
 function parse(s){try{return s?JSON.parse(s):null}catch(e){return null}}
 var S;try{S=mergeState(parse(lsGet(K_S)),null)}catch(e){S=emptyState()}
+/* Zentrale Einstellung aus der Lernwelt (Fragen pro Runde): gilt, wenn sie neuer ist als die eigene. */
+try{var cs=parse(lsGet('fwmg.settings.v1'));if(cs&&[10,15,20,30].indexOf(cs.goal)>-1&&cs.t>((S.set&&S.set.t)||0)&&cs.goal!==(S.set&&S.set.size)){S.set={size:cs.goal,t:cs.t};lsSet(K_S,JSON.stringify(S))}}catch(e){}
+var EMBED=false;try{EMBED=window.parent!==window}catch(e){}
 var L=parse(lsGet(K_L));if(!L||typeof L!=='object')L={};
 var storageOk=lsSet('zf4tt.probe','1');
 function sanitizeLocal(){
@@ -558,7 +561,7 @@ function viewHeute(m){
     ex.push(h('button',{class:'btn primary block',type:'button',id:'examresume',onclick:function(){mode='exam';render()}},'Prüfung fortsetzen · noch '+fmtT(L.exam.left)))}
   else ex.push(h('button',{class:'btn primary block',type:'button',id:'examgo',onclick:startExam},'Prüfung starten · '+CFG.examN+' Fragen · '+CFG.examMin+' Min.'));
   m.appendChild(sec('h-exam',ex));
-  m.appendChild(h('section',null,[h('span',{class:'label',id:'l-goal'},'Fragen pro Runde'),h('div',{class:'seg',role:'group','aria-labelledby':'l-goal'},[10,15,20,30].map(function(n){return h('button',{type:'button','data-n':n,'aria-pressed':String(goal===n),onclick:function(){S.set={size:n,t:NOW()};save();render()}},String(n))}))]));
+  if(!EMBED)m.appendChild(h('section',null,[h('span',{class:'label',id:'l-goal'},'Fragen pro Runde'),h('div',{class:'seg',role:'group','aria-labelledby':'l-goal'},[10,15,20,30].map(function(n){return h('button',{type:'button','data-n':n,'aria-pressed':String(goal===n),onclick:function(){S.set={size:n,t:NOW()};save();render()}},String(n))}))]));
   var tl=[{k:'all',n:'Alle Kapitel'}].concat([1,2,3,4].map(function(k){return {k:String(k),n:chapName(k)}}));
   m.appendChild(h('section',null,[h('span',{class:'label',id:'l-topics'},'Thema'),h('div',{class:'topics',role:'radiogroup','aria-labelledby':'l-topics'},tl.map(function(x){var cc=counts(S,x.k,t);
     return h('button',{class:'topic',type:'button',role:'radio','aria-checked':String(String(topic)===x.k),tabindex:String(topic)===x.k?'0':'-1','data-k':x.k,onclick:function(){topic=x.k;render()},onkeydown:function(ev){var d=ev.key==='ArrowDown'||ev.key==='ArrowRight'?1:ev.key==='ArrowUp'||ev.key==='ArrowLeft'?-1:0;if(!d)return;ev.preventDefault();var i=0;tl.forEach(function(y,j){if(y.k===x.k)i=j});var nk=tl[(i+d+tl.length)%tl.length].k;topic=nk;render();var nb=document.querySelector('.topic[data-k="'+nk+'"]');if(nb)nb.focus()}},[boxNode(),h('span',{class:'t'},x.n),h('span',{class:'n'},cc.mast+'/'+cc.total)])})),

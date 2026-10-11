@@ -17,7 +17,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
-/* Layout: Einsatzzentrale. Willkommensbildschirm auf Marineblau, danach Übersicht mit drei Trainern und Direkteinstieg; jeder Trainer läuft in einem eigenen Rahmen unter einer schmalen Leiste. */
+/* Layout: Einsatzzentrale. Willkommensbildschirm auf Marineblau, danach Übersicht mit drei Trainern und Einstellungen; jeder Trainer läuft in einem eigenen Rahmen unter einer schmalen Leiste. */
 :root{
   --bg:#E8EAEC; --surface:#FFFFFF; --ink:#1E2226; --muted:#4F5761; --line:#D2D6DA; --edge:#727A84; --track:#DADDE0;
   --blue:#15334A; --on-blue:#FFFFFF; --accent:#CA0C14; --on-accent:#FFFFFF; --ok:#1B6E46; --warn-bg:#F6EBC4; --warn:#6E5300;
@@ -100,15 +100,12 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 .bar{height:10px;background:var(--track);border-radius:2px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--edge)}
 .bar i{display:block;height:100%;background:var(--ok)}
 .card .btn{width:100%}
-.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px}
-.pick{display:flex;flex-direction:column;gap:8px;min-width:0}
-.pick .label{font-weight:600;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.opts{display:flex;flex-direction:column;border-top:2px solid var(--ink)}
-.opt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;width:100%;min-height:56px;padding:10px 4px;background:none;border:0;border-bottom:1px solid var(--line)}
-.opt:hover{background:var(--surface)}
-.opt .ot{font-family:var(--f-display);font-size:22px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
-.opt .os{display:block;font-family:var(--f-body);font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);margin-top:2px}
-.opt .go{font-family:var(--f-display);font-size:22px;color:var(--accent)}
+.set{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--edge);border-left:8px solid var(--blue);border-radius:4px}
+.set .label{font-weight:600;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.set p{font-size:15px;max-width:60ch}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{min-height:48px;min-width:64px;padding:8px 16px;border:2px solid var(--ink);border-radius:4px;background:var(--bg);font:600 18px var(--f-body);color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .note{background:var(--warn-bg);color:var(--warn);padding:12px 14px;border-radius:4px;font-size:14px}
 
 /* Lernmodul */
@@ -202,9 +199,14 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       <div class="cards" id="cards"></div>
     </section>
 
-    <section class="sec" aria-labelledby="h-direct">
-      <h2 id="h-direct">Direkt einsteigen</h2>
-      <div class="picks" id="picks"></div>
+    <section class="sec" aria-labelledby="h-set">
+      <h2 id="h-set">Einstellungen</h2>
+      <div class="set">
+        <span class="label" id="l-goal">Fragen pro Runde</span>
+        <div class="seg" id="set-goal" role="group" aria-labelledby="l-goal"></div>
+        <p class="small">Gilt für Gruppenführer und Zugführer. Eine laufende Runde oder Prüfung bleibt erhalten. Der Befehlstrainer hat keine Rundengröße.</p>
+        <p class="msg" id="set-msg" role="status"></p>
+      </div>
     </section>
 
     <section class="sec" aria-labelledby="h-ls">
@@ -246,16 +248,13 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   var MODS=[
     {id:'zugfuehrer',file:'apps/zugfuehrer.html',short:'Zugführer',name:'Zugführer Tagestraining',kick:'Fragen-Training',
      desc:'Tägliche Lernrunden mit Wiederholung, Themenwahl und Prüfungssimulation mit 20 Fragen in 15 Minuten.',
-     chips:['369 Fragen','4 Kapitel','Prüfung 15 min'],total:369,
-     entries:[{t:'Heute',s:'Tagesrunde starten',m:'Heute'},{t:'Themen wählen',s:'Kapitel gezielt üben',m:'Führung'},{t:'Fortschritt',s:'Stand und Verlauf ansehen',m:'Fortschritt'}]},
+     chips:['369 Fragen','4 Kapitel','Prüfung 15 min'],total:369},
     {id:'lernkompass',file:'apps/gruppenfuehrer.html',short:'Gruppenführer',name:'Gruppenführer Tagestraining',kick:'Fragen-Training',
      desc:'Fragenkatalog von FwDV 1 bis FwDV 500, Einsatz- und Fahrzeugkunde, Recht und Führungsvorgang mit Gefahrenmatrix.',
-     chips:['408 Fragen','11 Themengebiete','Quellen'],total:408,
-     entries:[{t:'Heute',s:'Tagesrunde starten',m:'Heute'},{t:'Themen wählen',s:'Gebiet gezielt üben',m:'Führung'},{t:'Fortschritt',s:'Stand und Verlauf ansehen',m:'Fortschritt'},{t:'Quellen',s:'Woher die Fragen stammen',m:'Quellen'}]},
+     chips:['408 Fragen','11 Themengebiete','Quellen'],total:408},
     {id:'befehle',file:'apps/befehlstrainer.html',short:'Befehle',name:'Befehlstrainer FwDV 3',kick:'Befehle sprechen',
      desc:'Lage lesen, Befehl nach Schema sprechen und prüfen lassen. Mit Quiz, Schema-Übersicht und Auswertung.',
-     chips:['FwDV 3','FwDV 100','Üben und Quiz'],total:0,
-     entries:[{t:'Üben',s:'Befehl frei sprechen und prüfen',m:'Üben'},{t:'Quiz',s:'Kurze Wissensfragen',m:'Quiz'},{t:'Schema',s:'Befehlsschema nachschlagen',m:'Schema'},{t:'Auswertung',s:'Treffer je Befehlsart',m:'Auswertung'}]}
+     chips:['FwDV 3','FwDV 100','Üben und Quiz'],total:0}
   ];
   var $=function(id){return document.getElementById(id)};
   var ORDER=['lernkompass','zugfuehrer','befehle'];
@@ -310,7 +309,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       rb.hidden=false;
       rb.innerHTML='<div class="resume"><div class="rt"><span class="eyebrow">Zuletzt geöffnet</span><b>'+esc(last.name)+'</b></div><button class="btn primary" type="button" data-open="'+last.id+'">Weitermachen</button></div>';
     }else{rb.hidden=true;rb.innerHTML=''}
-    var cards='',picks='';
+    var cards='';
     MODS.forEach(function(m){
       var p=progress(m),prog='';
       if(p){
@@ -320,10 +319,34 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
         prog='<div class="prog"><div class="pl"><span>Noch nicht begonnen</span></div>'+(m.total?'<div class="bar" aria-hidden="true"><i style="width:0"></i></div>':'')+'</div>';
       }
       cards+='<article class="card"><span class="kick">'+esc(m.kick)+'</span><h3>'+esc(m.name)+'</h3><p>'+esc(m.desc)+'</p><div class="facts">'+m.chips.map(function(c){return '<span class="chip">'+esc(c)+'</span>'}).join('')+'</div>'+prog+'<button class="btn primary" type="button" data-open="'+m.id+'">Öffnen</button></article>';
-      picks+='<div class="pick"><span class="label">'+esc(m.short)+'</span><div class="opts">'+m.entries.map(function(e,i){return '<button class="opt" type="button" data-open="'+m.id+'" data-entry="'+i+'"><span class="ot">'+esc(e.t)+'<span class="os">'+esc(e.s)+'</span></span><span class="go" aria-hidden="true">&#8594;</span></button>'}).join('')+'</div></div>';
     });
-    $('cards').innerHTML=cards;$('picks').innerHTML=picks;
+    $('cards').innerHTML=cards;renderSettings();
   }
+
+  /* Einstellungen für alle Trainer: gemeinsamer Speicher, die Trainer lesen ihn beim Start. */
+  var SETK='fwmg.settings.v1',GOALS=[10,15,20,30];
+  function readSet(){try{var o=JSON.parse(lsGet(SETK)||'null');if(o&&GOALS.indexOf(o.goal)>-1&&o.t>0)return o}catch(e){}return null}
+  function ownGoals(){
+    var g=[];
+    try{var a=JSON.parse(lsGet('lernkompass-tagestraining-v1')||'null');g.push(a&&GOALS.indexOf(a.goal)>-1?a.goal:15)}catch(e){g.push(15)}
+    try{var b=JSON.parse(lsGet('zf4tt.state.v1')||'null');g.push(b&&b.set&&GOALS.indexOf(b.set.size)>-1?b.set.size:15)}catch(e){g.push(15)}
+    return g;
+  }
+  function currentGoal(){var o=readSet();if(o)return o.goal;var g=ownGoals();return g[0]===g[1]?g[0]:null}
+  function renderSettings(){
+    var cur=currentGoal();
+    $('set-goal').innerHTML=GOALS.map(function(n){return '<button type="button" data-goal="'+n+'" aria-pressed="'+(cur===n)+'">'+n+'</button>'}).join('');
+  }
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('[data-goal]');if(!b)return;
+    var n=+b.getAttribute('data-goal');if(GOALS.indexOf(n)<0)return;
+    lsSet(SETK,JSON.stringify({goal:n,t:Date.now()}));
+    /* Geladene Trainer verwerfen, damit sie beim nächsten Öffnen die Einstellung lesen. Runden und Prüfungen liegen im Speicher und bleiben erhalten. */
+    Object.keys(frames).forEach(function(k){if(frames[k].parentNode)frames[k].parentNode.removeChild(frames[k]);delete frames[k]});
+    current=null;
+    renderSettings();
+    $('set-msg').textContent='Gespeichert: '+n+' Fragen pro Runde in beiden Trainern.';
+  });
 
   /* Rahmen je Trainer, bleiben nach dem ersten Öffnen im Hintergrund erhalten */
   var frames={},current=null;
@@ -334,20 +357,6 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     f.src=m.file;
     $('frames').appendChild(f);
     frames[m.id]=f;return f;
-  }
-  function clickTab(f,label,tries){
-    if(!label)return;
-    var n=tries||0;
-    try{
-      var d=f.contentDocument;
-      if(d){
-        var bs=d.querySelectorAll('.tab,[role="tab"]');
-        for(var i=0;i<bs.length;i++){
-          if((bs[i].textContent||'').replace(/\s+/g,' ').trim().toLowerCase()===label.toLowerCase()){bs[i].click();return}
-        }
-      }
-    }catch(e){return}
-    if(n<30)setTimeout(function(){clickTab(f,label,n+1)},150);
   }
   function pillsRender(){
     $('pills').innerHTML=MODS.map(function(m){return '<button class="pill" type="button" data-switch="'+m.id+'"'+(current===m.id?' aria-current="true"':'')+'>'+esc(m.short)+'</button>'}).join('');
@@ -360,24 +369,18 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     if(view==='dash'){renderDash();window.scrollTo(0,0)}
     if(view==='welcome'&&typeof updateWelcomeResume==='function')updateWelcomeResume();
   }
-  function openMod(id,entryIdx){
+  function openMod(id){
     var m=modById(id);if(!m||!userName)return;
-    var fresh=!frames[id];
     var f=ensureFrame(m);
     current=id;lsSet(LASTK,id);
     Object.keys(frames).forEach(function(k){frames[k].hidden=(k!==id)});
     pillsRender();show('mod');
-    var e=(entryIdx!=null&&entryIdx!=='')?m.entries[+entryIdx]:null;
-    if(e){
-      if(fresh)f.addEventListener('load',function once(){f.removeEventListener('load',once);clickTab(f,e.m,0)});
-      else clickTab(f,e.m,0);
-    }
   }
   document.addEventListener('click',function(ev){
     var t=ev.target.closest('[data-open],[data-switch]');
     if(t){
       if(t.hasAttribute('data-switch')){openMod(t.getAttribute('data-switch'));return}
-      openMod(t.getAttribute('data-open'),t.getAttribute('data-entry'));return;
+      openMod(t.getAttribute('data-open'));return;
     }
   });
   $('m-home').addEventListener('click',function(){show('dash')});

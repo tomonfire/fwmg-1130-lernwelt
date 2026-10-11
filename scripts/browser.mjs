@@ -89,6 +89,23 @@ try {
     }
     await p2.close();
   });
+  await step('Einstellungen in der Übersicht gelten für beide Fragen-Trainer', async () => {
+    assert((await page.locator('#picks').count()) === 0, 'Direkteinstieg noch vorhanden');
+    await page.click('#set-goal button[data-goal="20"]');
+    assert((await page.getAttribute('#set-goal button[data-goal="20"]', 'aria-pressed')) === 'true', 'Auswahl nicht markiert');
+    for (const i of [0, 1]) {
+      await page.locator('#dash button:has-text("Öffnen")').nth(i).click();
+      await page.waitForSelector('#mod:not([hidden])');
+      await page.waitForTimeout(1200);
+      const fr = page.frames().filter((f) => f.url().includes('/apps/')).pop();
+      await fr.waitForSelector('.wl-card, #main, #app', { timeout: 5000 });
+      assert((await fr.locator('#l-goal').count()) === 0, 'Trainer zeigt eigene Einstellung eingebettet');
+      await page.click('#m-home');
+      await page.waitForSelector('#dash:not([hidden])');
+    }
+    const st = await page.evaluate(() => ({ g: JSON.parse(localStorage.getItem('lernkompass-tagestraining-v1')).goal, z: JSON.parse(localStorage.getItem('zf4tt.state.v1')).set.size }));
+    assert(st.g === 20 && st.z === 20, 'Rundengröße nicht übernommen: ' + JSON.stringify(st));
+  });
   await step('Service Worker aktiv', async () => {
     const ok = await page.evaluate(async () => { const r = await navigator.serviceWorker.ready; return !!r.active; });
     assert(ok, 'kein aktiver Service Worker');
