@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-/wIiDf+W+iQVMG5iHSFVvX4IrqqUhgge0CF37rjPp54=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ieGbs6qWhnVDNDibNi/6wIudH208K9pv6wJpXeI1gzQ=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,6 +20,7 @@
 /* Layout: Einsatzzentrale. Willkommensbildschirm auf Marineblau, danach Übersicht mit drei Trainern und Einstellungen; jeder Trainer läuft in einem eigenen Rahmen unter einer schmalen Leiste. */
 :root{
   --bg:#E8EAEC; --surface:#FFFFFF; --ink:#1E2226; --muted:#4F5761; --line:#D2D6DA; --edge:#727A84; --track:#DADDE0;
+  --bar:#15334A; --on-bar:#FFFFFF;
   --blue:#15334A; --on-blue:#FFFFFF; --accent:#CA0C14; --on-accent:#FFFFFF; --ok:#1B6E46; --warn-bg:#F6EBC4; --warn:#6E5300;
   --hero:#15334A; --hero-ink:#FFFFFF; --hero-muted:#B7C6D4; --hero-line:#33546F; --hero-btn:#CA0C14; --hero-btn-ink:#FFFFFF;
   --f-display:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
@@ -28,11 +29,13 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#1B1E21; --surface:#252A2E; --ink:#E7E9EB; --muted:#A3AAB2; --line:#363C42; --edge:#848C95; --track:#363C42;
+  --bar:#0E1A24; --on-bar:#E7E9EB;
   --blue:#8FBBE0; --on-blue:#10212F; --accent:#F0555B; --on-accent:#1B1E21; --ok:#62CB9A; --warn-bg:#393114; --warn:#E8C74F;
   --hero:#0E1A24; --hero-ink:#F1F4F7; --hero-muted:#9FB2C3; --hero-line:#2A4358; --hero-btn:#F0555B; --hero-btn-ink:#1B1E21;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#1B1E21; --surface:#252A2E; --ink:#E7E9EB; --muted:#A3AAB2; --line:#363C42; --edge:#848C95; --track:#363C42;
+  --bar:#0E1A24; --on-bar:#E7E9EB;
   --blue:#8FBBE0; --on-blue:#10212F; --accent:#F0555B; --on-accent:#1B1E21; --ok:#62CB9A; --warn-bg:#393114; --warn:#E8C74F;
   --hero:#0E1A24; --hero-ink:#F1F4F7; --hero-muted:#9FB2C3; --hero-line:#2A4358; --hero-btn:#F0555B; --hero-btn-ink:#1B1E21;
   color-scheme:dark}
@@ -63,7 +66,10 @@ h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.05;text-wrap
 .w-greet{font-family:var(--f-display);font-weight:600;font-size:24px;color:var(--hero-muted);letter-spacing:.02em}
 .w-sub{font-size:18px;max-width:46ch;color:var(--hero-ink)}
 .w-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hero-line)}
-.w-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--hero-line)}
+.w-list li{border-bottom:1px solid var(--hero-line)}
+.w-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:baseline;width:100%;min-height:52px;padding:12px 0;background:none;border:0;color:inherit;text-align:left;cursor:pointer}
+.w-item::after{content:'›';font:600 24px/1 var(--f-display);color:var(--hero-muted)}
+@media (hover:hover) and (pointer:fine){.w-item:hover b{text-decoration:underline;text-underline-offset:4px}}
 .w-list b{font-family:var(--f-display);font-size:24px;text-transform:uppercase;letter-spacing:.02em;font-weight:600}
 .w-list span{font-family:var(--f-mono);font-size:13px;color:var(--hero-muted);text-align:right}
 .w-act{display:flex;flex-direction:column;gap:10px}
@@ -119,12 +125,12 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 #mod{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--bg);
   padding-bottom:env(safe-area-inset-bottom,0px)}
 #mod[hidden]{display:none}
-.bar-top{flex:none;display:flex;align-items:center;gap:8px;padding:calc(6px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right)) 6px max(10px,env(safe-area-inset-left));background:var(--blue);color:var(--on-blue);border-bottom:4px solid var(--accent)}
-.home{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;background:transparent;border:2px solid var(--on-blue);border-radius:4px;color:var(--on-blue);font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
+.bar-top{flex:none;display:flex;align-items:center;gap:8px;padding:calc(6px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right)) 6px max(10px,env(safe-area-inset-left));background:var(--bar);color:var(--on-bar);border-bottom:4px solid var(--accent)}
+.home{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;background:transparent;border:2px solid var(--on-bar);border-radius:4px;color:var(--on-bar);font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
 .pills{display:flex;gap:6px;overflow-x:auto;min-width:0;flex:1;scrollbar-width:none}
 .pills::-webkit-scrollbar{display:none}
-.pill{flex:none;min-height:44px;padding:0 14px;background:transparent;border:0;border-bottom:4px solid transparent;color:var(--on-blue);opacity:.75;font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-.pill[aria-current="true"]{opacity:1;border-bottom-color:var(--on-blue)}
+.pill{flex:none;min-height:44px;padding:0 14px;background:transparent;border:0;border-bottom:4px solid transparent;color:var(--on-bar);opacity:.75;font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.pill[aria-current="true"]{opacity:1;border-bottom-color:var(--on-bar)}
 /* iPhone: Übersicht nur als Pfeil, damit alle drei Coaches in die Leiste passen. */
 @media (max-width:560px){.home{min-width:44px;justify-content:center;padding:0 8px;font-size:22px}.home .ht{display:none}.pills{gap:2px}.pill{flex:1 1 auto;padding:0 5px;font-size:15px;letter-spacing:.02em}}
 #frames{flex:1;min-height:0;position:relative}
@@ -194,9 +200,9 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     </div>
     <p class="w-sub">Drei Coaches an einem Ort. Fragen üben, Befehle nach Schema sprechen und Prüfungen simulieren.</p>
     <ul class="w-list" aria-label="Die drei Coaches">
-      <li><b>Gruppenführer Tagestraining</b><span>408 Fragen</span></li>
-      <li><b>Zugführer Tagestraining</b><span>369 Fragen</span></li>
-      <li><b>Befehlscoach FwDV 3</b><span>Befehle sprechen</span></li>
+      <li><button type="button" class="w-item" data-open="lernkompass"><b>Gruppenführer Tagestraining</b><span>408 Fragen</span></button></li>
+      <li><button type="button" class="w-item" data-open="zugfuehrer"><b>Zugführer Tagestraining</b><span>369 Fragen</span></button></li>
+      <li><button type="button" class="w-item" data-open="befehle"><b>Befehlscoach FwDV 3</b><span>Befehle sprechen</span></button></li>
     </ul>
     <form class="w-name" id="w-name" novalidate hidden>
       <label for="w-name-in">Wie heißt du?</label>
@@ -221,7 +227,6 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
         <h1>FwMG - Lernwelt</h1>
         <span class="date" id="today"></span>
       </div>
-      <button class="linkbtn" id="d-welcome" type="button">Startseite</button>
     </header>
     <div class="stripe" aria-hidden="true"></div>
 
@@ -329,7 +334,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
      chips:['408 Fragen','11 Themengebiete','Quellen'],total:408},
     {id:'befehle',file:'apps/befehlstrainer.html',short:'Befehlscoach',name:'Befehlscoach FwDV 3',kick:'Befehle sprechen',
      desc:'Lage lesen, Befehl nach Schema sprechen und prüfen lassen. Mit Quiz, Schema-Übersicht und Auswertung.',
-     chips:['FwDV 3','FwDV 100','Üben und Quiz'],total:0}
+     chips:['FwDV 3','FwDV 100','Üben und Quiz'],total:13 /* Anzahl der Übungen (SCEN) im Befehlscoach */}
   ];
   var $=function(id){return document.getElementById(id)};
   var ORDER=['lernkompass','zugfuehrer','befehle'];
@@ -345,7 +350,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     try{
       if(m.id==='zugfuehrer'){var s=JSON.parse(lsGet('zf4tt.state.v1')||'null');if(s&&s.q)return {n:Object.keys(s.q).length,unit:'Fragen bearbeitet',total:m.total}}
       if(m.id==='lernkompass'){var s2=JSON.parse(lsGet('lernkompass-tagestraining-v1')||'null');if(s2&&s2.q)return {n:Object.keys(s2.q).length,unit:'Fragen bearbeitet',total:m.total}}
-      if(m.id==='befehle'){var s3=JSON.parse(lsGet('bt-fwdv3')||'null');if(s3&&s3.sc)return {n:Object.keys(s3.sc).length,unit:'Szenarien geübt',total:0}}
+      if(m.id==='befehle'){var s3=JSON.parse(lsGet('bt-fwdv3')||'null');if(s3&&s3.sc)return {n:Object.keys(s3.sc).length,unit:'Übungen abgeschlossen',total:m.total}}
     }catch(e){}
     return null;
   }
@@ -384,7 +389,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       rb.hidden=false;
       rb.innerHTML='<div class="resume"><div class="rt"><span class="eyebrow">Zuletzt geöffnet</span><b>'+esc(last.name)+'</b></div><button class="btn primary" type="button" data-open="'+last.id+'">Weitermachen</button></div>';
     }else{rb.hidden=true;rb.innerHTML=''}
-    var cards='';
+    var cards='',lastId=(modById(lsGet(LASTK))||MODS[0]).id;
     MODS.forEach(function(m){
       var p=progress(m),prog='';
       if(p){
@@ -393,7 +398,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       }else{
         prog='<div class="prog"><div class="pl"><span>Noch nicht begonnen</span></div>'+(m.total?'<div class="bar" aria-hidden="true"><i style="width:0"></i></div>':'')+'</div>';
       }
-      cards+='<article class="card"><span class="kick">'+esc(m.kick)+'</span><h3>'+esc(m.name)+'</h3><p>'+esc(m.desc)+'</p><div class="facts">'+m.chips.map(function(c){return '<span class="chip">'+esc(c)+'</span>'}).join('')+'</div>'+prog+'<button class="btn primary" type="button" data-open="'+m.id+'">Öffnen</button></article>';
+      cards+='<article class="card"><span class="kick">'+esc(m.kick)+'</span><h3>'+esc(m.name)+'</h3><p>'+esc(m.desc)+'</p><div class="facts">'+m.chips.map(function(c){return '<span class="chip">'+esc(c)+'</span>'}).join('')+'</div>'+prog+'<button class="btn'+(m.id===lastId?' primary':'')+'" type="button" data-open="'+m.id+'">Öffnen</button></article>';
     });
     $('cards').innerHTML=cards;renderSettings();
   }
@@ -475,7 +480,9 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     if(view==='welcome'&&typeof updateWelcomeResume==='function')updateWelcomeResume();
   }
   function openMod(id){
-    var m=modById(id);if(!m||!userName)return;
+    var m=modById(id);if(!m)return;
+    /* Ohne Namen kein Coach: aufs Namensfeld lenken. */
+    if(!userName){var ni=$('w-name-in');if(ni){ni.focus();ni.setAttribute('aria-invalid','true')}return}
     var f=ensureFrame(m);
     current=id;lsSet(LASTK,id);
     Object.keys(frames).forEach(function(k){frames[k].hidden=(k!==id)});
@@ -491,7 +498,6 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     }
   });
   $('m-home').addEventListener('click',function(){show('dash')});
-  $('d-welcome').addEventListener('click',function(){show('welcome')});
   /* Anleitung zum Home-Bildschirm: auf Touch-Geräten offen, mit Maus zugeklappt. */
   if(!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches))$('inst').open=true;
   $('w-go').addEventListener('click',function(){show('dash')});
@@ -551,7 +557,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     /* Erst die Trainer schließen: sie speichern beim Schließen und würden sonst den wiederhergestellten Stand überschreiben. */
     closeFrames();
     var failed=false;
-    KEYS.forEach(function(k){try{if(k in p.data)localStorage.setItem(k,p.data[k]);else if(k!==NAMEK&&k!==NEUK)localStorage.removeItem(k)}catch(e){failed=true}});
+    /* „Was ist neu“ (NEUK) gehört zum Gerät, nicht zum Lernstand: beim Wiederherstellen unverändert lassen. */
+    KEYS.forEach(function(k){if(k===NEUK)return;try{if(k in p.data)localStorage.setItem(k,p.data[k]);else if(k!==NAMEK)localStorage.removeItem(k)}catch(e){failed=true}});
     var n=cleanName(p.data[NAMEK]||p.name);if(n.length>=2)setName(n);
     renderDash();
     lsMsg(failed?'Wiederherstellen ging nur teilweise: Der Speicher im Browser ist blockiert oder voll.':'Lernstand von '+who+' wiederhergestellt.',failed);

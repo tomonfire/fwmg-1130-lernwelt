@@ -1,6 +1,7 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-oU6ydtQq1jr8xkGNAHz1BKQzETLFlrO3bahfOaQOtKE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-InFvkoNNVxhZk0tl/I0WZltraIDHHFg1/lcaKoRnvvI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../coach.css">
 <style>
 /* Gleiche Farb-Tokens, Schriften und Bausteine wie Gruppen- und Zugführer-Coach. Eigen bleiben Befehlsvordruck, Schritte und Auswertung. */
 :root {
@@ -126,18 +127,11 @@ textarea.speech::placeholder { color: var(--muted); }
 .actions > .btn:not(.ghost) { flex: 1; min-width: 180px; }
 .btn.ghost { background: var(--surface); color: var(--ink); border-color: var(--ink); }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
-/* Leiste unten: Hauptknopf bleibt bei langen Inhalten sichtbar (iPad quer, Laptop). */
-.actions.dock { position: sticky; bottom: 0; z-index: 4; background: var(--bg); padding-block: 10px max(10px, env(safe-area-inset-bottom)); }
-.actions.dock::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 16px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
-.emb .actions.dock { padding-bottom: 10px; }
+/* Leiste unten, gemeinsamer Hover und Tastaturhinweis: ../coach.css. Hier nur der Knopf-Hover. */
 @media (hover: hover) and (pointer: fine) {
-  .opt:not(.locked):not([disabled]):hover { border-color: var(--ink); }
-  .rowbtn:hover { background: var(--surface); }
   .btn:not([disabled]):hover { box-shadow: inset 0 0 0 100px rgba(0, 0, 0, .12); }
   .btn.ghost:not([disabled]):hover { background: var(--bg); box-shadow: none; }
-  .tab:hover, .back:hover { color: var(--ink); }
-  .seg button:not([aria-pressed="true"]):hover { background: var(--bg); }
-  .actions.dock.kb::after { content: 'Tastatur: Ziffern wählen eine Antwort, Enter bestätigt'; flex-basis: 100%; font-size: 12px; color: var(--muted); }
+}
 }
 .back { align-self: flex-start; background: none; border: 0; padding: 8px 0; min-height: 44px; text-decoration: underline; font-size: 14px; color: var(--muted); cursor: pointer; }
 .runhead { display: flex; flex-direction: column; gap: 8px; }
@@ -158,6 +152,11 @@ textarea.speech::placeholder { color: var(--muted); }
   .kdl > div { grid-template-columns: 16rem minmax(0, 1fr); gap: 1rem; }
 }
 .sec { display: flex; flex-direction: column; gap: 12px; }
+details.reset summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; min-height: 44px; }
+details.reset summary::-webkit-details-marker { display: none; }
+details.reset summary::after { content: '›'; font: 600 26px/1 var(--f-display); color: var(--muted); transition: transform .2s; }
+details.reset[open] summary::after { transform: rotate(90deg); }
+details.reset[open] { gap: 12px; }
 .quizq { font-weight: 600; font-size: 20px; line-height: 1.35; overflow-wrap: anywhere; }
 .coach { white-space: pre-wrap; }
 .rolebar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
@@ -217,7 +216,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.14'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.15'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -846,7 +845,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (q.pick !== null) {
       var d = kind === 'beur' ? sc.beur : sc.kon, good = q.opts[q.pick].ok;
       h += '<div class="note ' + (good ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (good ? 'Richtig' : 'Falsch') + '</span>' + (good ? '' : '<span class="label">Richtig wäre: ' + esc(d.ok) + '</span>') + '<p>' + esc(d.why) + (kind === 'beur' ? ' ' + esc(BEUR_NOTE) : '') + '</p></div>';
-      h += '<div class="actions dock kb"><button type="button" class="btn" data-act="mqnext">' + (kind === 'beur' ? 'Befehl geben' : 'Auswertung') + '</button></div>';
+      h += '<div class="actions dock"><button type="button" class="btn" data-act="mqnext">' + (kind === 'beur' ? 'Befehl geben' : 'Auswertung') + '</button></div>';
     }
     return h;
   }
@@ -944,7 +943,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       if (r.artPick) {
         var g = r.artPick === st.art;
         h += '<div class="note ' + (g ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (g ? 'Richtig' : 'Falsch') + '</span>' + (g ? '' : '<span class="label">Richtig wäre: ' + ARTS[st.art].label + '</span>') + '<p>' + esc(ARTS[st.art].why) + '</p></div>';
-        h += '<div class="actions dock kb"><button type="button" class="btn" data-act="build">Befehl aufbauen</button></div>';
+        h += '<div class="actions dock"><button type="button" class="btn" data-act="build">Befehl aufbauen</button></div>';
       }
       return h;
     }
@@ -1033,7 +1032,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     }).join('') + '</div>';
     if (Q.picked !== null) {
       h += '<div class="note ' + (Q.opts[Q.picked].ok ? 'ok' : 'bad') + '" id="res"><span class="verdict">' + (Q.opts[Q.picked].ok ? 'Richtig' : 'Falsch') + '</span><span class="label">Quelle</span><p>' + esc(q[3]) + '</p></div>';
-      h += '<div class="actions dock kb"><button type="button" class="btn" data-act="qnext">' + (Q.i < S.quiz.qs.length - 1 ? 'Nächste Frage' : 'Auswertung') + '</button></div>';
+      h += '<div class="actions dock"><button type="button" class="btn" data-act="qnext">' + (Q.i < S.quiz.qs.length - 1 ? 'Nächste Frage' : 'Auswertung') + '</button></div>';
     }
     return h;
   }
@@ -1148,14 +1147,19 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       if (qh.length) h += '<div class="sec"><h2>Quiz</h2><p>' + qh.length + (qh.length === 1 ? ' Runde' : ' Runden') + ', Durchschnitt ' + avgQ + ' von 10, Bestwert ' + store.quiz + ' von 10.</p></div>';
     }
 
-    h += '<div class="sec"><h2>Zurücksetzen</h2><p class="lead">Löscht gespeicherte Ergebnisse in diesem Browser. Das lässt sich nicht rückgängig machen.</p>';
+    /* Zurücksetzen nur, wenn es etwas zu löschen gibt, und zugeklappt, damit es nicht mit den Ergebnissen konkurriert. */
+    var hasU = hist.length || Object.keys(store.sc || {}).length, hasQ = qh.length || store.quiz;
+    if (!hasU && !hasQ) return h + '</div>';
+    h += '<details class="sec reset"' + (S.confirm ? ' open' : '') + '><summary><h2>Zurücksetzen</h2></summary><p class="lead">Löscht gespeicherte Ergebnisse in diesem Browser. Das lässt sich nicht rückgängig machen.</p>';
     if (S.confirm) {
       var what = { ueben: 'alle Übungsergebnisse', quiz: 'alle Quiz-Ergebnisse', all: 'alle Ergebnisse aus Übungen und Quiz' }[S.confirm];
       h += '<div class="note conf" id="rs"><span class="label">Sicher?</span><p>Du löschst ' + what + '.</p><div class="actions"><button type="button" class="btn" data-act="doreset">Ja, zurücksetzen</button><button type="button" class="btn ghost" data-act="cancelreset">Abbrechen</button></div></div>';
     } else {
-      h += '<div class="actions"><button type="button" class="btn ghost" data-act="askreset" data-w="ueben">Übungen zurücksetzen</button><button type="button" class="btn ghost" data-act="askreset" data-w="quiz">Quiz zurücksetzen</button><button type="button" class="btn ghost" data-act="askreset" data-w="all">Alles zurücksetzen</button></div>';
+      h += '<div class="actions">' + (hasU ? '<button type="button" class="btn ghost" data-act="askreset" data-w="ueben">Übungen zurücksetzen</button>' : '') +
+        (hasQ ? '<button type="button" class="btn ghost" data-act="askreset" data-w="quiz">Quiz zurücksetzen</button>' : '') +
+        (hasU && hasQ ? '<button type="button" class="btn ghost" data-act="askreset" data-w="all">Alles zurücksetzen</button>' : '') + '</div>';
     }
-    return h + '</div>';
+    return h + '</details></div>';
   }
 
   /* ---------- Rendering ---------- */
@@ -1195,8 +1199,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   /* Für die Sprachausgabe: Uhrzeiten und Abkürzungen so schreiben, wie man sie spricht. */
   function sprechbar(t) {
     return String(t)
-      .replace(/(\d{1,2}):00 Uhr/g, '$1 Uhr')
-      .replace(/(\d{1,2}):(\d{2}) Uhr/g, '$1 Uhr $2')
+      .replace(/\b(\d{1,2}):(\d{2}) Uhr/g, function (m, h, mi) { return (+h) + ' Uhr' + (mi === '00' ? '' : ' ' + (+mi)); })
       .replace(/(\bim )?\b([1-9])\. OG\b/g, function (m, im, n) { var o = ['erst', 'zweit', 'dritt', 'viert', 'fünft', 'sechst', 'siebt', 'acht', 'neunt'][n - 1]; return im ? 'im ' + o + 'en Obergeschoss' : o + 'es Obergeschoss'; })
       .replace(/\bOG\b/g, 'Obergeschoss').replace(/\bEG\b/g, 'Erdgeschoss').replace(/\bDG\b/g, 'Dachgeschoss')
       .replace(/\bPKW\b/g, 'Pkw').replace(/\bLKW\b/g, 'Lkw')
@@ -1275,6 +1278,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   function startDictation() {
     var r = S.run; if (!SR || !r || recOn) return;
     stopReading();
+    if (sprec) { try { sprec.abort(); } catch (e) {} sprec = null; }
     var base = (r.text || '').replace(/\s+$/, ''), me, failed = false, alive = false;
     try { me = sprec = new SR(); } catch (e) { dictUi('Die Spracheingabe ist hier nicht verfügbar. Nutze das Mikrofon der Bildschirmtastatur.'); return; }
     sprec.lang = 'de-DE'; sprec.continuous = true; sprec.interimResults = true;
@@ -1282,9 +1286,15 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     sprec.onresult = function (e) {
       alive = true;
       if (sprec !== me || !S.run) return;
-      var said = '';
-      for (var i = 0; i < e.results.length; i++) said += e.results[i][0].transcript;
-      S.run.text = (base ? base + ' ' : '') + said.replace(/\s+/g, ' ').trim();
+      /* Teile mit Leerzeichen verbinden; Android liefert manchmal den bisherigen Text im nächsten Teil noch einmal mit. */
+      var parts = [];
+      for (var i = 0; i < e.results.length; i++) {
+        var t = String(e.results[i][0].transcript || '').replace(/\s+/g, ' ').trim(), last = parts[parts.length - 1];
+        if (!t) continue;
+        if (last && t.toLowerCase().indexOf(last.toLowerCase()) === 0) parts[parts.length - 1] = t;
+        else if (!last || last.toLowerCase().indexOf(t.toLowerCase()) !== 0) parts.push(t);
+      }
+      S.run.text = (base ? base + ' ' : '') + parts.join(' ');
       var ta = document.getElementById('speech'); if (ta) ta.value = S.run.text;
       var b = document.getElementById('evalbtn'); if (b) b.disabled = !S.run.text.trim();
     };
@@ -1311,7 +1321,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 
   function render() {
     /* Außerhalb einer Übung nichts vorlesen oder aufnehmen. */
-    if (!(S.tab === 'ueben' && S.run)) { if (reading) stopReading(); S.lageNow = null; }
+    if (!(S.tab === 'ueben' && S.run && S.run.phase !== 'done')) { if (reading) stopReading(); S.lageNow = null; }
     if (recOn && !(S.tab === 'ueben' && S.run && S.run.phase === 'speak' && !S.run.ev)) stopDictation();
     ['ueben', 'quiz', 'schema', 'stats'].forEach(function (t) {
       var b = document.getElementById('t-' + t);
@@ -1320,6 +1330,12 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     });
     app.setAttribute('aria-labelledby', 't-' + S.tab);
     app.setAttribute('role', 'tabpanel');
+    var d = new Date(), headKey = (S.role || '') + '|' + d.toDateString();
+    if (headKey !== render.head) { render.head = headKey; renderHead(d); }
+    app.innerHTML = S.tab === 'ueben' ? viewUeben() : S.tab === 'quiz' ? viewQuiz() : S.tab === 'stats' ? viewStats() : viewSchema();
+    afterRender();
+  }
+  function renderHead(d) {
     var eb = document.getElementById('eyebrow');
     /* Kopf: taktisches Zeichen und Zeile passend zur gewählten Rolle, ohne Rolle die Flamme der Lernwelt. */
     if (eb) { eb.textContent = 'Führungsausbildung'; eb.appendChild(document.createElement('br')); eb.appendChild(document.createTextNode('FwDV 3 · ' + (S.role ? roleName(S.role) : 'Befehle'))); }
@@ -1327,9 +1343,10 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     if (lg && lg.getAttribute('src') !== '../icons/' + lsrc + '.svg') { lg.src = '../icons/' + lsrc + '.svg'; lg.alt = S.role ? 'Logo: taktisches Zeichen ' + roleName(S.role) : 'Logo: Flamme'; }
     var vr = document.getElementById('ver');
     if (vr && !vr.textContent) { vr.textContent = APPV; vr.title = 'Version ' + APPV; }
-    var td = document.getElementById('today'), d = new Date();
+    var td = document.getElementById('today');
     if (td) td.textContent = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][d.getDay()] + ', ' + d.getDate() + '. ' + ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'][d.getMonth()];
-    app.innerHTML = S.tab === 'ueben' ? viewUeben() : S.tab === 'quiz' ? viewQuiz() : S.tab === 'stats' ? viewStats() : viewSchema();
+  }
+  function afterRender() {
     if (S.focus) {
       var el = app.querySelector(S.focus);
       if (el) el.focus({ preventScroll: true });
@@ -1394,6 +1411,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 
   app.addEventListener('input', function (e) {
     if (e.target.id !== 'speech' || !S.run) return;
+    if (recOn) finishDictation();
     S.run.text = e.target.value;
     var b = document.getElementById('evalbtn');
     if (b) b.disabled = !S.run.text.trim();

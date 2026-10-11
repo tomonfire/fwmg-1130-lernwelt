@@ -1,7 +1,8 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Lhu2zZYuTYPqmqqbDb9C3/LxaVX5s5KIsKjVVKU7/Cw=' 'sha256-Rk523JZZ+o0g7nbiEa4lcSyjj7IfsAdub2qy5CH3RWo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Lhu2zZYuTYPqmqqbDb9C3/LxaVX5s5KIsKjVVKU7/Cw=' 'sha256-MiIPmbP1rh4FhR4VnXk9ApmztPxOC9qwouyUoH+n5f8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Zugführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../coach.css">
 <style>
 /* Layout: eine Spalte wie ein Prüfungsbogen, Kopfzeile mit Warnschraffur, Fragen als große Tippflächen */
 :root{
@@ -121,19 +122,11 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .actions .btn.primary{flex:1;min-width:180px}
 .linkbtn{background:none;border:0;padding:8px 0;text-decoration:underline;font-size:14px;color:var(--muted);min-height:44px}
-/* Leiste unten: Prüfen und Weiter bleiben bei langen Fragen sichtbar (iPad quer, Laptop). */
-.actions.dock{position:sticky;bottom:0;z-index:4;background:var(--bg);margin-top:6px;padding-block:10px max(10px,env(safe-area-inset-bottom))}
-.actions.dock::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:16px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
-.emb .actions.dock{padding-bottom:10px}
-/* Maus und Tastatur: Hover-Rückmeldung und Hinweis auf die Tasten, nicht auf Touch-Geräten. */
+/* Leiste unten, gemeinsamer Hover und Tastaturhinweis: ../coach.css. Hier nur der Knopf-Hover. */
 @media (hover:hover) and (pointer:fine){
-  .opt:not([disabled]):hover,.gq:hover{border-color:var(--ink)}
   .btn:not([disabled]):hover{background:var(--bg)}
   .btn.primary:not([disabled]):hover{background:var(--btn);box-shadow:inset 0 0 0 100px rgba(0,0,0,.12)}
-  .tab:hover,.linkbtn:hover{color:var(--ink)}
-  .topic:hover{background:var(--surface)}
-  .seg button:not([aria-pressed="true"]):hover{background:var(--bg)}
-  .actions.dock.kb::after{content:'Tastatur: Ziffern wählen eine Antwort, Enter bestätigt';flex-basis:100%;font-size:12px;color:var(--muted)}
+}
 }
 /* Ergebnis / Fortschritt */
 .score{font-family:var(--f-display);font-weight:700;font-size:72px;line-height:1}
@@ -568,10 +561,11 @@ function viewHeute(m){
   if(hasRound)today_.push(h('button',{class:'btn primary block',type:'button',id:'go',disabled:!!hasExam,onclick:function(){mode='round';render()}},'Runde fortsetzen · Frage '+(Math.min(L.round.i,L.round.q.length-1)+1)+' von '+L.round.q.length));
   today_.push(h('button',{class:'btn block'+(hasRound?'':' primary'),type:'button',id:hasRound?'newgo':'go',disabled:!!hasExam||c.total===0,onclick:function(){if(hasRound)L.round=null;startRound()}},(hasRound?'Neue Runde starten':dd.n>=goal?'Weitere Runde starten':'Tagesrunde starten')+' · '+goal+' Fragen'));
   today_.push(h('div',{class:'stats four'},[statBox(c.due,'fällig'),statBox(c.fresh,'neu'),statBox(c.work,'in Arbeit'),statBox(c.mast,'gemeistert')]));
-  today_.push(h('p',{class:'foot'},'Gemeistert heißt: Stufe 4 oder höher erreicht, also mehrmals hintereinander richtig beantwortet. Die Abstände wachsen mit jeder Stufe (2, 4, 8, 16, 32 Tage). Ein Fehler setzt die Frage auf Stufe 1 zurück. Eine Runde mischt fällige Fragen mit etwa '+Math.round(CFG.newShare*100)+' % neuen Fragen.'));
+  today_.push(h('details',{class:'foot more'},[h('summary',null,'Was heißt „gemeistert“?'),h('p',null,'Gemeistert heißt: Stufe 4 oder höher erreicht, also mehrmals hintereinander richtig beantwortet. Die Abstände wachsen mit jeder Stufe (2, 4, 8, 16, 32 Tage). Ein Fehler setzt die Frage auf Stufe 1 zurück. Eine Runde mischt fällige Fragen mit etwa '+Math.round(CFG.newShare*100)+' % neuen Fragen.')]));
   m.appendChild(sec('h-today',today_));
   var cp=compareDays(S,t);
-  m.appendChild(sec('h-cmp',[h('h2',{id:'h-cmp'},'Vergleich zum Vortag'),h('p',{class:'cmp-head'+(cp.k==='better'||cp.k==='new'?' up':'')},h('b',null,cp.head)),h('p',{style:'margin:0',id:'cmp','data-k':cp.k},cp.t),
+  /* Am ersten Tag gibt es nichts zu vergleichen. */
+  if(cp.yn||cp.tn)m.appendChild(sec('h-cmp',[h('h2',{id:'h-cmp'},'Vergleich zum Vortag'),h('p',{class:'cmp-head'+(cp.k==='better'||cp.k==='new'?' up':'')},h('b',null,cp.head)),h('p',{style:'margin:0',id:'cmp','data-k':cp.k},cp.t),
     h('div',{class:'stats'},[statBox(cp.yn,'gestern'),statBox(cp.tn,'heute'),statBox(cp.sign,'Unterschied',cp.d>0?'up':null)])]));
   var ex=[h('h2',{id:'h-exam'},'Prüfung'),h('p',{style:'margin:0'},CFG.examN+' Fragen in '+CFG.examMin+' Minuten wie im Prüfungsbogen: Die Auswertung kommt erst nach der Abgabe, jede Frage zählt '+de(CFG.pts)+' Punkte, nur vollständig richtige Antworten. Die Fragen kommen gemischt aus allen Kapiteln. Die 15 Minuten und die 10 Punkte nennt die Prüfungsrichtlinie ZF-Basis für den Vortest (Stand Dez. 2020, am 11.10.2026 geprüft). Die 20 Fragen sind daraus abgeleitet (10 Punkte geteilt durch 0,5 Punkte), die Anzahl ist nicht offiziell bestätigt.')];
   if(hasExam){ex.push(h('div',{class:'note'},[svg(ICON_WARN),h('div',null,[h('b',null,'Eine Prüfung ist noch offen. '),'Sobald du sie fortsetzt, läuft die Zeit auch weiter, wenn du in einen anderen Bereich wechselst. Tagesrunden sind bis zur Abgabe gesperrt.'])]));

@@ -4,6 +4,22 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (Design-Review)
+- Leiste oben mit eigenen Tokens `--bar`/`--on-bar`: im Dunkelmodus dunkles Marineblau statt hellblau.
+- Startseite: Die drei Coaches sind antippbar und öffnen den Coach direkt (ohne Namen geht der Fokus aufs Namensfeld).
+- Übersicht: Nur der zuletzt genutzte Coach hat den roten Knopf. Befehlscoach-Karte mit Fortschritt (Übungen von 13). Link „Startseite“ oben rechts entfernt.
+- Gruppen- und Zugführer: „Was heißt gemeistert?“ zum Aufklappen. „Vergleich zum Vortag“ erst, wenn es etwas zu vergleichen gibt.
+- Befehlscoach-Auswertung: „Zurücksetzen“ nur bei vorhandenen Ergebnissen, zugeklappt und nur mit passenden Knöpfen. Service-Worker `VERSION` auf v33.
+
+### Behoben (Code-Review)
+- Tastatur: Enter auf einer per Tab angesteuerten Antwort hakt sie an, statt die Frage sofort zu prüfen. Nach einem Klick auf eine Antwort prüft Enter weiter.
+- Einsprechen: Teile mit Leerzeichen verbunden, doppelte Teile (Android) entfernt, Tippen während der Aufnahme beendet sie (die Korrektur bleibt). Eine noch laufende Erkennung wird vor einem Neustart beendet.
+- Vorlesen stoppt auch beim Wechsel zur Abschlussauswertung. Uhrzeiten ohne führende Null („3 Uhr 15“).
+- Befehlscoach: kein Ziffern-Hinweis mehr, wo es nichts mehr zu wählen gibt. Kopfzeile wird nur bei Rollen- oder Datumswechsel neu aufgebaut.
+- Gemeinsames `app/coach.css` für Leiste unten, Hover und Tastaturhinweis statt dreier Kopien.
+- „Was ist neu“ bleibt beim Wiederherstellen einer Sicherung unverändert.
+- `CLAUDE.md`: Sprachfunktionen im Befehlscoach als bewusste Ausnahme von „nur GitHub“ festgehalten. Befehlscoach V2.15, Service-Worker `VERSION` auf v32.
+
 ### Hinzugefügt (Was ist neu)
 - Fenster „Was ist neu“: erscheint nach jedem Update mit neuer Ausgabe einmal beim Start der App (bzw. in der Übersicht), beim allerersten Start nicht. Unter „Neuigkeiten“ jederzeit wieder zu öffnen. Gesehene Ausgabe unter `fwmg.neu.v1` (in Sichern/Wiederherstellen enthalten). Release Notes für Nutzer in `docs/RELEASE-NOTES.md`. Service-Worker `VERSION` auf v31.
 
