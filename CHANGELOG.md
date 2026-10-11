@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert
+- Logo der Feuerwehr Mönchengladbach durch eine eigene Flamme ersetzt (`app/icons/flamme.svg`), auch in den App-Icons und in beiden Trainern.
+
 ### Behoben
 - Logo auf Startseite und Übersicht war auf dem iPhone hochkant gestaucht.
 

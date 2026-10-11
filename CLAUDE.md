@@ -12,7 +12,7 @@ Code liegt ausschließlich in `app/`; `docs/`, `scripts/` und `.github/` erklär
 - Nach Änderungen an App-Dateien `VERSION` in `app/sw.js` erhöhen und `npm run check` ausführen.
 - Farben als Tokens, Hell/Dunkel über `prefers-color-scheme` und `[data-theme]`.
 - Öffentlicher Betrieb: keine Dateien von fremden Servern laden (Schriften liegen in `app/fonts/`), `noindex`/`no-referrer`/CSP-Meta in allen vier HTML-Dateien behalten, die Adresse der App nirgends im Repository verlinken. `npm run check` prüft das.
-- Keine Hinweise auf eine bestimmte Stadt, Feuerwehr oder Einheit in Texten (Name „FwMG“ und Logo bleiben).
+- Keine Hinweise auf eine bestimmte Stadt, Feuerwehr oder Einheit in Texten (Name „FwMG“ bleibt). Logo ist die eigene Flamme `app/icons/flamme.svg`; App-Icons werden daraus erzeugt.
 - Nur GitHub: kein eigener Server, keine Datenbank, keine Dienste außer GitHub Pages (`connect-src 'self'`).
 - Name beim ersten Start ist Pflicht; ohne Namen öffnet die Shell weder Übersicht noch Trainer.
 - Mobile zuerst (iPhone): Safe-Area-Abstände beachten, mitscrollende Leisten brauchen den Abdeckstreifen (`::before`).
