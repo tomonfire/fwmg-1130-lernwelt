@@ -8,9 +8,9 @@ Lern- und Trainingsapp für die Feuerwehr. Drei Trainer an einem Ort, mit Starts
 | Zugführer Tagestraining | `app/apps/zugfuehrer.html` | 369 Fragen in 4 Kapiteln, Tagesrunden, Prüfung (15 min) |
 | Befehlstrainer FwDV 3 | `app/apps/befehlstrainer.html` | Befehle nach Schema sprechen, Quiz, Schema, Auswertung |
 
-> **Hinweis:** Dies ist **keine offizielle App der Feuerwehr Mönchengladbach**. Inoffizielles Lernangebot ohne Gewähr, kein Ersatz für die offiziellen Unterlagen. Mit Unterstützung von KI (Claude) erstellt, Inhalte bitte gegen die offiziellen Quellen prüfen. Siehe „Impressum“ in der App.
+> **Hinweis:** Dies ist eine **private App** und **keine offizielle App einer Feuerwehr, Stadt oder Behörde**. Inoffizielles Lernangebot ohne Gewähr, kein Ersatz für die offiziellen Unterlagen. Mit Unterstützung von KI (Claude) erstellt, Inhalte bitte gegen die offiziellen Quellen prüfen. Siehe „Impressum“ in der App.
 
-Erstellt von Tom Wolff, Freiwillige Feuerwehr Mönchengladbach, Einheit Stadtmitte.
+Erstellt von Tom Wolff (privat).
 
 ## Eigenschaften
 
@@ -72,7 +72,7 @@ Details in [Veröffentlichung](docs/VEROEFFENTLICHUNG.md).
 
 ## Änderungen ausliefern
 
-Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v4` …), damit installierte Geräte die neue Fassung laden.
+Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v5` …), damit installierte Geräte die neue Fassung laden.
 
 ## Herkunft und Einschränkungen
 

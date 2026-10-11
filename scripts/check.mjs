@@ -28,7 +28,7 @@ for (const f of pages) {
   if (!html.includes('<meta name="referrer" content="no-referrer">')) fail('no-referrer fehlt:', f);
   if (!html.includes('http-equiv="Content-Security-Policy"')) fail('Content-Security-Policy fehlt:', f);
   if (/<(?:link|script|img|iframe)\b[^>]*\b(?:href|src)="https?:/i.test(html)) fail('Lädt Dateien von fremden Servern:', f);
-  if (!html.includes('keine offizielle App der Feuerwehr') || !html.includes('KI-Hinweis')) fail('Impressum oder KI-Hinweis fehlt:', f);
+  if (!html.includes('keine offizielle App einer Feuerwehr') || !html.includes('KI-Hinweis')) fail('Impressum oder KI-Hinweis fehlt:', f);
 }
 if (!/Disallow: \/\s*$/m.test(readFileSync('app/robots.txt', 'utf8'))) fail('robots.txt sperrt Crawler nicht');
 

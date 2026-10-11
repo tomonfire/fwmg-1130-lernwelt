@@ -5,6 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Geändert
+- Als private App gekennzeichnet: Hinweise auf Stadt, Feuerwehr und Einheit aus Impressum, Kopfzeilen, Bildbeschreibungen und Doku entfernt.
 - Projektstruktur: App-Dateien liegen gesammelt in `app/`, Dokumentation in `docs/`.
 
 - Öffentliche Veröffentlichung über GitHub Pages aus `tomonfire/fwmg-1130-lernwelt`.
@@ -25,7 +26,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Startseite und Dashboard mit Direkteinstieg in die Trainer.
 - Gruppenführer Tagestraining (408 Fragen), Zugführer Tagestraining (369 Fragen), Befehlstrainer FwDV 3.
 - Installierbare Web-App mit Offline-Betrieb (Service Worker, Manifest, Icons).
-- Impressum mit Hinweis „keine offizielle App der Feuerwehr Mönchengladbach“, Haftungsausschluss und KI-Hinweis.
+- Impressum mit Hinweis „keine offizielle App“, Haftungsausschluss und KI-Hinweis.
 - Einheitliche Farblogik: grün richtig, rot falsch, orange übersehen / fehlt / nicht beantwortet.
 - Veröffentlichung über GitHub Pages, CI-Prüfung.
 
