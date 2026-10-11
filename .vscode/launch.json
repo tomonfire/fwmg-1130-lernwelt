@@ -1,0 +1,51 @@
+{
+  // Debuggen in VS Code: „Ausführen und Debuggen“ (Strg/Cmd+Umschalt+D) → Konfiguration wählen → F5.
+  // Breakpoints in app/index.html und app/apps/*.html funktionieren direkt (Inline-Skripte).
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Lernwelt in Chrome debuggen (iPhone-Größe)",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "Lernwelt starten (localhost:8080)",
+      "url": "http://localhost:8080/",
+      "webRoot": "${workspaceFolder}/app",
+      "runtimeArgs": ["--window-size=430,932"],
+      "userDataDir": true
+    },
+    {
+      "name": "Lernwelt in Edge debuggen",
+      "type": "msedge",
+      "request": "launch",
+      "preLaunchTask": "Lernwelt starten (localhost:8080)",
+      "url": "http://localhost:8080/",
+      "webRoot": "${workspaceFolder}/app",
+      "userDataDir": true
+    },
+    {
+      "name": "An laufendes Chrome anhängen (Port 9222)",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222,
+      "urlFilter": "http://localhost:8080/*",
+      "webRoot": "${workspaceFolder}/app"
+    },
+    {
+      "name": "Browser-Test debuggen (sichtbares Fenster)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/browser.mjs",
+      "env": { "HEADED": "1" },
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+    },
+    {
+      "name": "Prüfskript debuggen (check.mjs)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/check.mjs",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

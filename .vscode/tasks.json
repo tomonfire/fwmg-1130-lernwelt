@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Lernwelt starten (localhost:8080)",
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "serve",
+        "pattern": { "regexp": "^__never_matches__$" },
+        "background": {
+          "activesBegin": ".",
+          "beginsPattern": ".",
+          "endsPattern": "Lernwelt läuft"
+        }
+      }
+    },
+    {
+      "label": "Prüfen (npm run check)",
+      "type": "npm",
+      "script": "check",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Browser-Test (npm run test:browser)",
+      "type": "npm",
+      "script": "test:browser",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "CSP-Prüfsummen aktualisieren",
+      "type": "npm",
+      "script": "csp:update",
+      "problemMatcher": []
+    }
+  ]
+}
