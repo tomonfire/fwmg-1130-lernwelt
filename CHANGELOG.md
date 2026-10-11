@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben (Befehlscoach V2.13)
+- Musterbefehl und „Dein Befehl“: Rechts steht nur noch der Inhalt („Angriffstrupp“), nicht noch einmal das Stichwort („Einheit Angriffstrupp“), das links schon steht. „Wasser-entnahme-stelle“ und „Lage-einweisung“ trennen sauber. Service-Worker `VERSION` auf v29.
+
 ### Geändert (Befehlscoach V2.12)
 - Vorlesen klingt natürlicher und zügiger: beste deutsche Stimme des Geräts (Premium, erweitert, natürlich, keine Effektstimmen), Tempo 1,12, etwas tiefer, Satz für Satz mit kurzen Pausen. Uhrzeiten („19 Uhr 30“) und Abkürzungen („im zweiten Obergeschoss“, „Pkw“) werden ausgesprochen. Service-Worker `VERSION` auf v28.
 
