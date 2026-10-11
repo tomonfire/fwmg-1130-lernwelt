@@ -14,7 +14,7 @@ Code liegt ausschließlich in `app/`; `docs/`, `scripts/` und `.github/` erklär
 - Gespeicherte oder eingelesene Daten (localStorage, Sicherungsdatei) vor der Ausgabe als HTML auf erwartete Typen prüfen oder mit `esc()` maskieren.
 - Farben als Tokens, Hell/Dunkel über `prefers-color-scheme` und `[data-theme]`.
 - Öffentlicher Betrieb: keine Dateien von fremden Servern laden (Schriften liegen in `app/fonts/`), `noindex`/`no-referrer`/CSP-Meta in allen vier HTML-Dateien behalten, die Adresse der App nirgends im Repository verlinken. `npm run check` prüft das.
-- Keine Hinweise auf eine bestimmte Stadt, Feuerwehr oder Einheit in Texten (Name „FwMG“ bleibt). Logo der Lernwelt (Startseite, Übersicht, App-Icons) ist die eigene Flamme `app/icons/flamme.svg`; die Trainer zeigen ihr taktisches Zeichen nach DV 102: `app/icons/gruppenfuehrer.svg` bzw. `app/icons/zugfuehrer.svg`.
+- Keine Hinweise auf eine bestimmte Stadt, Feuerwehr oder Einheit in Texten (Name „FwMG“ bleibt). Logo der Lernwelt (Startseite, Übersicht, App-Icons) ist die eigene Flamme `app/icons/flamme.svg`; die Trainer zeigen ihr taktisches Zeichen nach DV 102: `app/icons/gruppenfuehrer.svg` bzw. `app/icons/zugfuehrer.svg`; der Befehlscoach das Zeichen der gewählten Rolle, ohne Rolle die Flamme. Kopf in allen drei Coaches gleich aufgebaut (`.mast`: Zeichen, Zeile „Führungsausbildung“, Titel, Datum, Version).
 - Nur GitHub: kein eigener Server, keine Datenbank, keine Dienste außer GitHub Pages (`connect-src 'self'`).
 - Name beim ersten Start ist Pflicht; ohne Namen öffnet die Shell weder Übersicht noch Trainer.
 - Mobile zuerst (iPhone): Safe-Area-Abstände beachten, mitscrollende Leisten brauchen den Abdeckstreifen (`::before`).
