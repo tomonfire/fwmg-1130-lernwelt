@@ -14,7 +14,8 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ### Hinzugefügt
 - Projektbeschreibung, Roadmap und Dokumentationsübersicht in `docs/`.
 - Hinweis „Neue Version verfügbar – Neu laden“, sobald eine neue Fassung bereitsteht.
-- Sicherheitsregeln (Content-Security-Policy) und `noindex` in allen HTML-Dateien, `id` im Manifest.
+- Sicherheitsregeln (Content-Security-Policy) in allen HTML-Dateien, `id` im Manifest.
+- Schutz vor Suchmaschinen: `noindex,nofollow,noarchive,nosnippet,noimageindex`, `no-referrer` und `robots.txt`; Adresse wird in der Doku nicht verlinkt.
 
 ## [1.0.0] - 2026-10-11
 

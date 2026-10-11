@@ -59,7 +59,7 @@ Alternativ: `python3 -m http.server 8080`. Ein Server ist nötig, weil der Servi
 
 ## Veröffentlichen (GitHub Pages)
 
-Öffentliche Adresse: **https://tomonfire.github.io/fwmg-1130-lernwelt/**
+Adresse: `https://<benutzer>.github.io/<repository>/` (bewusst nicht verlinkt, siehe [Veröffentlichung](docs/VEROEFFENTLICHUNG.md#nicht-auffindbar)).
 
 1. Repository-Einstellungen → **Pages** → Quelle **GitHub Actions** (einmalig).
 2. Jeder Push auf `main` veröffentlicht die App automatisch (`.github/workflows/pages.yml`).
@@ -68,7 +68,7 @@ Details in [Veröffentlichung](docs/VEROEFFENTLICHUNG.md).
 
 ## Änderungen ausliefern
 
-Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v3` …), damit installierte Geräte die neue Fassung laden.
+Nach Änderungen an App-Dateien in `app/sw.js` die Konstante `VERSION` erhöhen (`fwmg-lernwelt-v4` …), damit installierte Geräte die neue Fassung laden.
 
 ## Herkunft und Einschränkungen
 
