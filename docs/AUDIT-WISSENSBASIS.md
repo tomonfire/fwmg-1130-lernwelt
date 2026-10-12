@@ -10,7 +10,7 @@ Ziel: prüfen, welche Quellen die App schon nutzt, wo sie veraltet oder lückenh
 
 ## Methode und Grenzen
 
-- Ausgewertet wurden Katalog und Wissensgraph, **nicht die Originale**. Aussagen zum Inhalt einzelner Vorschriften stammen aus dem Katalog und aus den Begriffen des Graphen (mit Fundstelle „Seite N“).
+- Ausgewertet wurden Katalog, Wissensgraph und **Volltext** der Quellen (Markdown mit Seitenmarken, privat verwaltet). Seitenangaben „S.“ beziehen sich auf die Seitenmarken des Volltexts. Abbildungen und Tabellen fehlen im Volltext; was nur dort steht, ist als „nicht prüfbar, Original ansehen“ markiert. Interne Unterlagen wurden für die Ergebnisse unten nicht benötigt; aus ihnen steht nichts in diesem Dokument.
 - Die Abdeckung ist maschinell gezählt: Für jeden Fachbegriff des Graphen wird geprüft, ob sein Name (ohne Klammerzusatz, Abkürzungen einzeln, Endungen gekürzt) in Fragen, Antworten oder Texten eines Coaches vorkommt. Stichproben zeigen falsch-negative Treffer (z. B. „Mayday“ in Anführungszeichen, „Rückmeldung nach MELDEN-Schema“). Die Prozentwerte sind **Richtwerte**; die Listen „fehlt“ sind Kandidaten, keine geprüften Lücken.
 - Der `manifest.json` des Graphen enthält dieselben 60 Dateien wie der Katalog; Graph und Katalog sind also deckungsgleich.
 - Quellen aus der Wissensbasis, die intern, urheberrechtlich geschützt oder örtlich sind, sind gekennzeichnet (siehe [Nicht übernehmen](#nicht-übernehmen)). Dieses Dokument nennt bewusst keine Orte, Einheiten oder Personen aus diesen Quellen.
@@ -128,6 +128,40 @@ Alle fünf Begriffsgruppen zum Führungsvorgang und beide zur Gliederung der Gru
 
 **Datenschutz im Graphen:** Der Graph enthält Personennamen (Ausbilder, Autoren) und Orts- und Einheitsnamen aus internen und örtlichen Quellen. Graph, Volltext und Katalog der Wissensbasis gehören darum **nicht** ins Repository; `graphify-out/` im Repository bleibt der Graph des Codes. Siehe A-22 und A-26.
 
+## Inhaltliche Prüfung gegen den Volltext
+
+Stand 12.10.2026. Geprüft wurden der Wortlaut aller Katalogfragen, das Prüfungsformat und gezielt die Fragen, deren Vorschrift seit dem Katalog neu erschienen ist oder deren Lösung von einer Rechtsnorm abhängt. Die Lösungen selbst stehen im Volltext der Vortests nicht (Haken und Kreuze sind Grafiken); sie wurden darum gegen die Vorschriften geprüft.
+
+### Bestätigt
+
+| Prüfung | Umfang | Ergebnis |
+| --- | --- | --- |
+| Wortlaut GF-Katalog gegen GF-Vortest (2.2) | 285 Fragen | alle Fragen gefunden; 8 Antworten weichen nur durch berichtigte Tippfehler ab (in der App als „Originalwortlaut“ ausgewiesen) |
+| Wortlaut ZF-Katalog gegen ZF-Vortest (3.1) | 369 Fragen | alle Fragen gefunden; 2 Antworten (2.37) nur Schreibweise „m³“ |
+| Prüfungsformat GF (A-05) | 20 Fragen, 15 min, 0,5 P | passt zur Prüfungsrichtlinie GF-Basis (2.6, S. 3–4): MC-Fragearbeit zum Vorwissen bis Truppführer, 15 Minuten, 10 Punkte, nur vollständig richtige Antworten. Die Fragenzahl 20 ist abgeleitet (10 P ÷ 0,5 P), nicht genannt. |
+| FwDV 1 (2026) gegen GF Kat. A (A-02) | 23 Fragen | 20 Fragen gelten weiter, u. a. Mindestausstattung (S. 11), Schlauchreserve und C-Länge je Geschoss (S. 22), Kuppeln B-Schläuche (S. 27), leerer C-Schlauch über Leitern nur bis 1. OG (S. 29), Strahlrohre und Stützkrümmer (S. 32), Kombinationsschaumrohr nur auf Befehl (S. 35), Zumischer (S. 36), Leitungslänge 100 m (S. 74), Hebekissen mind. 75 % unter der Last (S. 89), Sicherheitsabstand 1,5-fache Seillänge (S. 96), Gleise erst auf Befehl (S. 152) |
+| Rechtsfragen gegen BHKG (5.1) und B1-201 (2.4) | GF Kat. J (5) und ZF Kap. 3 (25) | keine Abweichung: Löschwasser Gemeinde, BSW § 27 (S. 16), Leitstelle, Fortbildung jährlich § 32 (S. 19–20), Platzverweis und Beauftragte § 34 (S. 20–21), Hilfeleistungspflicht ab 18 § 43 (S. 23), Grundrechte § 48, Sonderrechte § 35 StVO (B1-201 S. 19) |
+| FwDV 7 (2004) gegen ZF-Fragen zu Einsatzgrundsätzen | 5 Fragen | keine Abweichung (S. 8–9: Sicherheitstrupp, Ausnahmen, Funkabbruch, Rückweg) |
+| FwDV 500 (2022) gegen ZF-Fragen | 12 Fragen | Fahrzeugaufstellung mind. 50 m (S. 22), Anschlag wie Gefahrengruppe III (S. 10), Dekon als Grobreinigung (S. 26), Schutzkleidung Form 1 (S. 14–15) bestätigt; Abweichungen siehe unten |
+| FwDV 10 (2019) gegen Einsatzgrundsätze | GF Kat. D, ZF 1.9 | Anstellwinkel 65°–75°, unbesetzte Leiter nicht entfernen, schadhafte Leitern sofort entziehen (S. 8–10) bestätigt |
+
+### Abweichungen und Prüfbedarf
+
+| Frage(n) | Befund | Quelle | Vorschlag |
+| --- | --- | --- | --- |
+| GF 1.9, ZF 1.114 | Lösung zählt „Selbstretten“ mit Halbmastwurf / Feuerwehrleine am Haltegurt als richtig. Die FwDV 1 (2026) erlaubt den Haltegurt mit Halbmastwurfsicherung nur noch für Halten und Rückhalten; Selbstrettungsübungen nach der Methode Auffangen; ein „Selbstretten“ ist nicht mehr beschrieben. | FwDV 1 (2026) S. 137–139 | Hinweis an der Frage: Lösung nach FwDV 1 (2006); bei Einführung der Neufassung in NRW Lösung ändern und IDs in `chg` |
+| ZF 1.168 | Lösung: „zur Menschenrettung auch ohne Körperschutz Form 1, mindestens Isoliergeräte“. Die FwDV 500 (2022) lässt bei Transportunfällen nur Personendosimeter und Dosiswarngerät entfallen; mindestens Isoliergeräte mit Flammschutzhaube und Schutzkleidung nach EN 469. | FwDV 500 (2022) S. 45 | Hinweis „Katalog 2018, Wortlaut der FwDV 500 (2022) abweichend“ |
+| ZF 1.149 | Frage nennt Abstände „nach der FwDV 10“ (1 m / 3 m). Die FwDV 10 (2019) nennt keine Werte mehr, sondern verweist auf DIN VDE 0105-100. | FwDV 10 (2019) S. 9–10 | Hinweis an der Frage; Werte nicht als FwDV-10-Wissen erklären |
+| ZF 1.90, 1.167, 2.9 | Begriff „Not-Dekontamination“; die FwDV 500 (2022) spricht von „Sofort-Dekontamination (Dekon-Stufe I)“. Inhalt stimmt. | FwDV 500 (2022) S. 26 | Erklärung mit neuem Begriff |
+| GF 1.13, ZF 1.118 | Feste 200 m Vorwarnung außerorts. Die FwDV 1 (2026) nennt als Faustregel die doppelte gefahrene Geschwindigkeit (80 km/h → 160 m); auf Autobahnen Vorwarnungen bei 200, 400, 600 und 800 m (GF 1.1 passt). | FwDV 1 (2026) S. 151 | Hinweis an der Frage |
+| GF 1.18 | Antworten stimmen; die FwDV 1 (2026) verlangt beim Schaumeinsatz zusätzlich mindestens Gesichtsschutz. | FwDV 1 (2026) S. 34 | Erklärung ergänzen |
+| GF 1.7 | Reihenfolge der Abgänge am Verteiler steht in der FwDV 1 (2026) nur in einer Abbildung. | FwDV 1 (2026) S. 31 | nicht prüfbar, Original ansehen |
+| GF 4.3, 4.5; ZF 1.137, 1.144, 1.148 | Rettungshöhen der Leitern stehen in der FwDV 10 (2019) nur in Abbildung 1. | FwDV 10 (2019) S. 7 | nicht prüfbar, Original ansehen |
+
+### Noch nicht geprüft
+
+GF Kat. B (FwDV 3), E (FwDV 500), F (Funk), G, H, K und L (Übungsfragen zum Führungsvorgang gegen FwDV 100), die übrigen Fragen in ZF Kap. 1, 2 und 4 sowie die Texte des Befehlscoachs. Für diese Fragen ist der Katalog jünger als die Vorschrift oder die Vorschrift unverändert; das Risiko ist geringer.
+
 ## Befunde
 
 **B1 – FwDV 1 neu gefasst.** Die Wissensbasis führt die Neufassung 04/2026 (156 S.); in NRW gilt formal noch 09/2006. Die 23 GF-Fragen der Kategorie A und weitere Fragen mit FwDV-1-Bezug (Schläuche, Verkehrsabsicherung, Mindestschutzausrüstung) beruhen auf der alten Ausgabe. Nutzer sehen nicht, welche Fassung gemeint ist.
@@ -140,7 +174,7 @@ Alle fünf Begriffsgruppen zum Führungsvorgang und beide zur Gliederung der Gru
 
 **B5 – Befehlscoach ohne neuere Taktik.** Die Lagen „Zimmerbrand, Person vermisst“ und „Wohnungsbrand, Kind vermisst“ passen zur Fachempfehlung Realbrand (6.1–6.3), die Auswertung bezieht sich aber nur auf FwDV 3. Es fehlen Lagen mit ABC-Bezug (FwDV 500, GAMS) und Lagen für die Staffel.
 
-**B6 – Prüfung und Zulassung GF fehlen.** Der Zugführer-Coach erklärt Prüfung und Zulassung nach Richtlinie und Erlass, der Gruppenführer-Coach nicht. Die GF-Prüfung (20 Fragen in 15 Minuten) ist nicht gegen die Prüfungsrichtlinie GF-Basis (2.6) und die Ausführungsvorschrift (5.5) belegt. Beide Coaches sollen gleich aufgebaut sein.
+**B6 – Prüfung und Zulassung GF fehlen.** Der Zugführer-Coach erklärt Prüfung und Zulassung nach Richtlinie und Erlass, der Gruppenführer-Coach nicht. Beide Coaches sollen gleich aufgebaut sein. Das Format der GF-Prüfung in der App ist inzwischen gegen die Prüfungsrichtlinie belegt (siehe [Inhaltliche Prüfung](#inhaltliche-prüfung-gegen-den-volltext)).
 
 **B7 – Lernen ohne Bezug zum Lehrgangsablauf.** Der Musterstundenplan (2.5) zeigt, in welcher Reihenfolge der Stoff im Lehrgang kommt. Die App kennt keine Lehrgangstermine (Roadmap-Idee „Prüfungstermine“).
 
@@ -165,10 +199,10 @@ Priorität: **M** = muss (Richtigkeit, Pflege), **S** = soll (Lernwert), **K** =
 | ID | Prio | Anforderung | KB | Abnahme |
 | --- | --- | --- | --- | --- |
 | A-01 | M | **Fassung der FwDV 1 kennzeichnen.** GF Kat. A und alle Fragen mit FwDV-1-Bezug zeigen „FwDV 1 (Ausgabe 2006, in NRW eingeführt)“; Quellen-Reiter erklärt, dass eine Neufassung 04/2026 existiert und in NRW noch nicht eingeführt ist. | 1.3 | Hinweis in GF und ZF sichtbar; Quellen-Reiter nennt beide Fassungen mit Stand. |
-| A-02 | M | **Delta-Prüfung FwDV 1.** Jede FwDV-1-Frage gegen die Neufassung prüfen und eine Liste „gilt weiter / ändert sich / entfällt“ führen. Bei Einführung in NRW Lösungen anpassen und die IDs in `chg` eintragen, damit der Lernstand dieser Fragen zurückgesetzt wird. | 1.3 | Liste in `docs/` vorhanden; geänderte Fragen stehen in `chg`. |
+| A-02 | M | **Delta-Prüfung FwDV 1.** *(GF Kat. A erledigt, siehe Inhaltliche Prüfung; offen: Fragen mit FwDV-1-Bezug außerhalb Kat. A und im ZF-Katalog)* Jede FwDV-1-Frage gegen die Neufassung prüfen und eine Liste „gilt weiter / ändert sich / entfällt“ führen. Bei Einführung in NRW Lösungen anpassen und die IDs in `chg` eintragen, damit der Lernstand dieser Fragen zurückgesetzt wird. | 1.3 | Liste in `docs/` vorhanden; geänderte Fragen stehen in `chg`. |
 | A-03 | M | **BHKG-Novelle beobachten.** Fragen mit BHKG-Bezug (GF und ZF) markieren (`docs/`-Liste der IDs). Nach Verkündung prüfen, anpassen, IDs in `chg`. | 5.1 | ID-Liste vorhanden; Wiedervorlage in der Roadmap. |
-| A-04 | M | **Katalogfragen gegen aktuelle Vorschriften prüfen.** ZF-Katalog (2018) und GF-Katalog Frage für Frage gegen die in der KB als aktuell geprüften Fassungen (FwDV 3, 7, 10, 500, 810, DGUV, Typenliste) abgleichen. Abweichungen nicht stillschweigend ändern, sondern wie beim GF-Katalog mit Hinweis „Originalwortlaut / aktuelle Vorschrift“ zeigen. | 1.2–1.16, 6.10 | Prüfprotokoll je Kategorie; abweichende Fragen tragen einen sichtbaren Hinweis. |
-| A-05 | M | **Prüfungsformat GF belegen.** Dauer, Fragenzahl und Punkte der GF-Prüfung gegen Prüfungsrichtlinie GF-Basis und Ausführungsvorschrift prüfen und im Quellen-Reiter nennen; nicht belegte Werte als „aus der Richtlinie abgeleitet“ kennzeichnen (wie im ZF-Coach). | 2.6, 5.5 | GF-Quellen nennen Richtlinie mit Stand; Prüfung entspricht ihr oder ist gekennzeichnet. |
+| A-04 | M | **Katalogfragen gegen aktuelle Vorschriften prüfen.** *(teilweise erledigt, siehe Inhaltliche Prüfung)* ZF-Katalog (2018) und GF-Katalog Frage für Frage gegen die in der KB als aktuell geprüften Fassungen (FwDV 3, 7, 10, 500, 810, DGUV, Typenliste) abgleichen. Abweichungen nicht stillschweigend ändern, sondern wie beim GF-Katalog mit Hinweis „Originalwortlaut / aktuelle Vorschrift“ zeigen. | 1.2–1.16, 6.10 | Prüfprotokoll je Kategorie; abweichende Fragen tragen einen sichtbaren Hinweis. |
+| A-05 | M | **Prüfungsformat GF belegen.** *(belegt; offen: Angabe im Quellen-Reiter)* Dauer, Fragenzahl und Punkte der GF-Prüfung gegen Prüfungsrichtlinie GF-Basis und Ausführungsvorschrift prüfen und im Quellen-Reiter nennen; nicht belegte Werte als „aus der Richtlinie abgeleitet“ kennzeichnen (wie im ZF-Coach). | 2.6, 5.5 | GF-Quellen nennen Richtlinie mit Stand; Prüfung entspricht ihr oder ist gekennzeichnet. |
 | A-06 | S | **Fundstellen je Frage.** Optionales Feld `f` in `app/data/*.json` (z. B. `"FwDV 3, 5.2.1"`), in der Auflösung nach der Antwort angezeigt. `npm run check` prüft, dass `f` ein String ist; Ausgabe mit `esc()`. Zuerst für Kategorien mit Vorschrift im Namen (GF A–F). | 1.x Volltext | Feld dokumentiert in `docs/ARCHITEKTUR.md`; Check und Anzeige in GF und ZF. |
 
 ### Inhalt und Lernwert
