@@ -36,10 +36,10 @@
     "semantic_hash": "92e322b3ae3cd94a8b4fad3ea93a9b3a"
   },
   "app/sw.js": {
-    "mtime": 1791799552.3087144,
-    "seen": 1791800743.5299907,
-    "ast_hash": "1a3ec6642a0ae0931dcb9d59d573849b",
-    "semantic_hash": "1a3ec6642a0ae0931dcb9d59d573849b"
+    "mtime": 1791801285.2416682,
+    "seen": 1791801319.2717416,
+    "ast_hash": "e811c1f343d34b7016070af8ffaf9fd3",
+    "semantic_hash": ""
   },
   "app/tastatur.js": {
     "mtime": 1791796289.417529,
@@ -150,10 +150,10 @@
     "semantic_hash": "dbc3cec2215415ea3e1b6bba57a7a64f"
   },
   "CHANGELOG.md": {
-    "mtime": 1791799552.3047144,
-    "seen": 1791800743.5300024,
-    "ast_hash": "55899ebf14d350015626b7216ee60e15",
-    "semantic_hash": "55899ebf14d350015626b7216ee60e15"
+    "mtime": 1791801285.2416682,
+    "seen": 1791801319.2717583,
+    "ast_hash": "e07767a15208419b15898c2f8c41ad99",
+    "semantic_hash": ""
   },
   "CLAUDE.md": {
     "mtime": 1791800481.2709527,
@@ -316,5 +316,11 @@
     "seen": 1791800743.5300193,
     "ast_hash": "f2ffc21a6a8318e0a2cd45355a2424df",
     "semantic_hash": "f2ffc21a6a8318e0a2cd45355a2424df"
+  },
+  "app/fonts/OFL-ibm-plex-mono.txt": {
+    "mtime": 1791801285.2416682,
+    "seen": 1791801319.2717662,
+    "ast_hash": "ba11e5210637e23ee189ff3edee6838d",
+    "semantic_hash": ""
   }
 }
