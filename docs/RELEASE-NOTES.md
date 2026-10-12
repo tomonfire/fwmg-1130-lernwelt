@@ -6,6 +6,9 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 
 ## 12. Oktober 2026
 
+### Gruppenführer und Zugführer
+- **Hinweise zur Vorschrift.** Stützt sich eine Lösung auf eine ältere Fassung einer Vorschrift oder hat sich ein Begriff geändert, steht nach der Antwort und in der Auswertung ein „Hinweis zur Vorschrift“. Beispiele: Selbstretten und Absicherung nach der neuen FwDV 1, Sofort-Dekontamination und Schutz bei Transportunfällen nach der FwDV 500 von 2022, Gebäudeklassen nach der Bauordnung NRW 2018. Die Lösungen bleiben wie im Katalog.
+
 ### Befehlscoach
 - **Echter Alarmgong.** Vor dem Vorlesen der Alarmierung ertönt jetzt ein aufgenommener Alarmgong statt des erzeugten Zweiklangs. Die Durchsage beginnt, wenn der Gong ausgeklungen ist; „Stopp“ beendet auch den Gong. Er funktioniert auch offline.
 - **Vorlesen endet beim Verlassen.** Wechselst du den Bereich (anderer Reiter, „Alle Übungen“, Übersicht oder anderer Coach), verstummen Gong und Durchsage. „Vorlesen“ startet danach wieder von vorn.

@@ -158,9 +158,20 @@ Stand 12.10.2026. Geprüft wurden der Wortlaut aller Katalogfragen, das Prüfung
 | GF 1.7 | Reihenfolge der Abgänge am Verteiler steht in der FwDV 1 (2026) nur in einer Abbildung. | FwDV 1 (2026) S. 31 | nicht prüfbar, Original ansehen |
 | GF 4.3, 4.5; ZF 1.137, 1.144, 1.148 | Rettungshöhen der Leitern stehen in der FwDV 10 (2019) nur in Abbildung 1. | FwDV 10 (2019) S. 7 | nicht prüfbar, Original ansehen |
 
-### Noch nicht geprüft
+### Weitere Kategorien
 
-GF Kat. B (FwDV 3), E (FwDV 500), F (Funk), G, H, K und L (Übungsfragen zum Führungsvorgang gegen FwDV 100), die übrigen Fragen in ZF Kap. 1, 2 und 4 sowie die Texte des Befehlscoachs. Für diese Fragen ist der Katalog jünger als die Vorschrift oder die Vorschrift unverändert; das Risiko ist geringer.
+| Prüfung | Umfang | Ergebnis |
+| --- | --- | --- |
+| GF Kat. L (Übungsfragen, von Claude formuliert) gegen FwDV 100, Poster, B1-310 | 123 Fragen | jede richtige Antwort im Text belegt (Stichproben: Aktualität S. 29, geringster Aufwand S. 32, Anspruch auf Gehorsam S. 34, Lage/Auftrag S. 25) |
+| GF Kat. B (FwDV 3), F (Funk), K | 63 Fragen | richtige Antworten im Volltext der Quellen belegt |
+| GF Kat. E, G, H | 151 Fragen | 11 Fragen ohne Beleg im Volltext (5.21, 5.26, 7.25, 7.33, 7.40, 7.46, 7.64, 7.70, 7.78, 7.81, 8.12: Strahlungsreichweiten, Löscheffekte, Vegetationsbrand, Fahrzeuge); fachlich stimmig, keine Abweichung |
+| ZF Kap. 4 (Vorbeugender Brandschutz) gegen B2-330 (2021) | 54 Fragen | Rettungsweglänge 35 m (S. 15) und Brandabschnitte 40 m (S. 20) bestätigt; 4.10, 4.47–4.49, 4.54 nutzen die Begriffe „geringe/mittlere Höhe“ der früheren BauO NRW, seit 2018 Gebäudeklassen 1–5 |
+
+Noch offen: die übrigen Fragen in ZF Kap. 1 und 2 außerhalb der Vorschriften, die seit 2018 neu erschienen sind, und die Lagen des Befehlscoachs (FwDV 3 von 2008, unverändert).
+
+### Umgesetzt (12.10.2026)
+
+Neues optionales Feld `v` („Hinweis zur Vorschrift“) in `app/data/*.json`, angezeigt nach dem Prüfen und in der Auswertung beider Coaches, geprüft in `scripts/data.mjs`. Hinweise an 15 Fragen: GF 1.9, 1.13, 1.18; ZF 1.90, 1.114, 1.118, 1.149, 1.167, 1.168, 2.9, 4.10, 4.47, 4.48, 4.49, 4.54. Die Lösungen bleiben unverändert. Quellen-Reiter beider Coaches nennen die Grundlage. Damit sind A-01 (Kennzeichnung) für diese Fragen und der sichtbare Hinweis aus A-04 erledigt.
 
 ## Befunde
 
@@ -198,7 +209,7 @@ Priorität: **M** = muss (Richtigkeit, Pflege), **S** = soll (Lernwert), **K** =
 
 | ID | Prio | Anforderung | KB | Abnahme |
 | --- | --- | --- | --- | --- |
-| A-01 | M | **Fassung der FwDV 1 kennzeichnen.** GF Kat. A und alle Fragen mit FwDV-1-Bezug zeigen „FwDV 1 (Ausgabe 2006, in NRW eingeführt)“; Quellen-Reiter erklärt, dass eine Neufassung 04/2026 existiert und in NRW noch nicht eingeführt ist. | 1.3 | Hinweis in GF und ZF sichtbar; Quellen-Reiter nennt beide Fassungen mit Stand. |
+| A-01 | M | **Fassung der FwDV 1 kennzeichnen.** *(für abweichende Fragen per „Hinweis zur Vorschrift“ erledigt)* GF Kat. A und alle Fragen mit FwDV-1-Bezug zeigen „FwDV 1 (Ausgabe 2006, in NRW eingeführt)“; Quellen-Reiter erklärt, dass eine Neufassung 04/2026 existiert und in NRW noch nicht eingeführt ist. | 1.3 | Hinweis in GF und ZF sichtbar; Quellen-Reiter nennt beide Fassungen mit Stand. |
 | A-02 | M | **Delta-Prüfung FwDV 1.** *(GF Kat. A erledigt, siehe Inhaltliche Prüfung; offen: Fragen mit FwDV-1-Bezug außerhalb Kat. A und im ZF-Katalog)* Jede FwDV-1-Frage gegen die Neufassung prüfen und eine Liste „gilt weiter / ändert sich / entfällt“ führen. Bei Einführung in NRW Lösungen anpassen und die IDs in `chg` eintragen, damit der Lernstand dieser Fragen zurückgesetzt wird. | 1.3 | Liste in `docs/` vorhanden; geänderte Fragen stehen in `chg`. |
 | A-03 | M | **BHKG-Novelle beobachten.** Fragen mit BHKG-Bezug (GF und ZF) markieren (`docs/`-Liste der IDs). Nach Verkündung prüfen, anpassen, IDs in `chg`. | 5.1 | ID-Liste vorhanden; Wiedervorlage in der Roadmap. |
 | A-04 | M | **Katalogfragen gegen aktuelle Vorschriften prüfen.** *(teilweise erledigt, siehe Inhaltliche Prüfung)* ZF-Katalog (2018) und GF-Katalog Frage für Frage gegen die in der KB als aktuell geprüften Fassungen (FwDV 3, 7, 10, 500, 810, DGUV, Typenliste) abgleichen. Abweichungen nicht stillschweigend ändern, sondern wie beim GF-Katalog mit Hinweis „Originalwortlaut / aktuelle Vorschrift“ zeigen. | 1.2–1.16, 6.10 | Prüfprotokoll je Kategorie; abweichende Fragen tragen einen sichtbaren Hinweis. |

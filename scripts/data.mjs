@@ -16,6 +16,7 @@ function pruefe(datei, fragen, felder, kategorien) {
     if (!Array.isArray(opt) || opt.length < 2) fail('Weniger als 2 Antwortoptionen:', wo);
     if (!Array.isArray(q.a) || !q.a.length) fail('Keine richtige Antwort angegeben:', wo);
     else for (const i of q.a) if (!Number.isInteger(i) || i < 0 || i >= (opt || []).length) fail('Antwort-Index außerhalb der Optionen:', wo, i);
+    if ('v' in q && (typeof q.v !== 'string' || !q.v.trim())) fail('Hinweis zur Vorschrift (v) muss ein Text sein:', wo);
     if (kategorien && !(q[felder.kat] in kategorien) && !(q[felder.kat] >= 0 && q[felder.kat] < kategorien.length)) fail('Unbekannte Kategorie:', wo);
   }
   return ids;

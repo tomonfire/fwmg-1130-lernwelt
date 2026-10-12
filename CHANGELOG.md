@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+- Gruppenführer- und Zugführer-Coach: optionales Feld `v` („Hinweis zur Vorschrift“) in `app/data/*.json`, angezeigt nach dem Prüfen und in der Auswertung, `scripts/data.mjs` prüft den Typ. Hinweise an 15 Fragen aus dem Abgleich mit dem Volltext der Quellen (FwDV 1 Neufassung 2026, FwDV 10 2019, FwDV 500 2022, BauO NRW 2018), siehe `docs/AUDIT-WISSENSBASIS.md`. Quellen-Reiter beider Coaches ergänzt. Gruppenführer V3.33, Zugführer V1.09, Service-Worker `VERSION` auf v46.
+
 ### Geändert
 - Befehlscoach: Vorlesen und Aufnahme enden, wenn die Lernwelt den Coach ausblendet (Übersicht, anderer Coach, neu geladene Rahmen). Die Shell ruft dafür `fwmgHide()` im Rahmen auf, weil ein verstecktes iframe kein `visibilitychange` bekommt. Service-Worker `VERSION` auf v44.
 - Befehlscoach: Gong vor der Alarmierung aus einer vom Autor bereitgestellten Tondatei (ca. 7 s) statt als erzeugter Zweiklang. Die Datei liegt nur verwürfelt als `app/audio/gong.bin` vor (`scripts/gong.mjs`), wird im Speicher entwürfelt und per Web Audio gespielt, damit sie sich nicht einfach speichern lässt. Die Durchsage startet nach dem Ausklingen, bei Fehler sofort; „Stopp“ hält auch den Gong an. Datei im Cache (`sw.js`), `scripts/check.mjs` prüft `app/audio/` (nur `.bin`). Service-Worker `VERSION` auf v39.
