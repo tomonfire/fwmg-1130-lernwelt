@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+- Anleitung „App auf dem Home-Bildschirm“ um Android (Chrome, Samsung Internet) ergänzt. Meldung „Was ist neu“ (`NEU`, id `2026-10-12`) und Release Notes. Service-Worker `VERSION` auf v34.
+
 ### Geändert (Design-Review)
 - Leiste oben mit eigenen Tokens `--bar`/`--on-bar`: im Dunkelmodus dunkles Marineblau statt hellblau.
 - Startseite: Die drei Coaches sind antippbar und öffnen den Coach direkt (ohne Namen geht der Fokus aufs Namensfeld).

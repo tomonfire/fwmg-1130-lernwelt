@@ -4,6 +4,11 @@ Was sich in der Lernwelt für dich ändert, kurz und ohne Technik. Die technisch
 
 Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Unter „Neuigkeiten“ kannst du es jederzeit wieder öffnen.
 
+## 12. Oktober 2026
+
+### Übersicht
+- **Home-Bildschirm auch für Android.** Die Anleitung „App auf dem Home-Bildschirm“ erklärt jetzt neben iPhone und iPad auch Android: In Chrome über das Menü „App installieren“ bzw. „Zum Startbildschirm hinzufügen“, mit kurzem Hinweis für Samsung Internet.
+
 ## 11. Oktober 2026
 
 ### Befehlscoach

@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ieGbs6qWhnVDNDibNi/6wIudH208K9pv6wJpXeI1gzQ=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-z/i6O+Tj4Ss+wJotbR5Pxt7arjeBSgy4BnoqGekVF4E=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -274,7 +274,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     <section class="sec" aria-labelledby="h-install">
       <h2 id="h-install">App auf dem Home-Bildschirm</h2>
       <div class="set install">
-        <details id="inst"><summary>Anleitung für iPhone und iPad</summary>
+        <details id="inst"><summary>Anleitung für iPhone, iPad und Android</summary>
         <div class="ib">
         <p><b>iPhone und iPad:</b> So legst du die Lernwelt als App auf den Home-Bildschirm. Das geht nur in <b>Safari</b>.</p>
         <ol>
@@ -283,8 +283,15 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
           <li>Im Menü nach unten scrollen und <b>Zum Home-Bildschirm</b> wählen. Fehlt der Eintrag, ganz unten auf <b>Aktionen bearbeiten</b> tippen und ihn hinzufügen.</li>
           <li><b>Als Web-App öffnen</b> eingeschaltet lassen und oben rechts auf <b>Hinzufügen</b> tippen.</li>
         </ol>
+        <p><b>Android:</b> Das geht am besten in <b>Chrome</b>.</p>
+        <ol>
+          <li>Diese Seite in Chrome öffnen.</li>
+          <li>Oben rechts auf das Menü tippen (drei Punkte).</li>
+          <li><b>App installieren</b> wählen. Steht dort nur <b>Zum Startbildschirm hinzufügen</b>, wähle diesen Eintrag.</li>
+          <li>Mit <b>Installieren</b> bestätigen. Bei Samsung Internet heißt der Eintrag im Menü (drei Striche) <b>Seite hinzufügen zu</b> und dann <b>Startbildschirm</b>.</li>
+        </ol>
         <p class="small">Danach startet die Lernwelt im Vollbild wie eine App und läuft auch ohne Netz, sobald sie einmal geladen wurde.</p>
-        <p class="small"><b>Wichtig:</b> Die App auf dem Home-Bildschirm hat einen eigenen Speicher, getrennt von Safari. Hast du vorher in Safari geübt, sichere deinen Lernstand dort unter „Dein Lernstand“ und stelle ihn in der App wieder her.</p>
+        <p class="small"><b>Wichtig:</b> Die App auf dem Home-Bildschirm hat einen eigenen Speicher, getrennt von Safari bzw. Chrome. Hast du vorher im Browser geübt, sichere deinen Lernstand dort unter „Dein Lernstand“ und stelle ihn in der App wieder her.</p>
         </div>
         </details>
       </div>
@@ -444,7 +451,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   /* Was ist neu: die neueste Meldung erscheint nach einem Update einmal, beim Start der App oder in der Übersicht.
      Neue Einträge oben anfügen und id ändern; die Release Notes stehen in docs/RELEASE-NOTES.md. */
   var NEUK='fwmg.neu.v1';
-  var NEU={id:'2026-10-11',datum:'11. Oktober 2026',punkte:[
+  var NEU={id:'2026-10-12',datum:'12. Oktober 2026',punkte:[
+    ['App auf dem Home-Bildschirm auch für Android','Die Anleitung unter „App auf dem Home-Bildschirm“ erklärt jetzt auch, wie du die Lernwelt in Chrome auf Android installierst.'],
     ['Lage vorlesen wie die Leitstelle','Im Befehlscoach liest „Vorlesen“ die Lage als Alarmierung mit Gong, Einsatzstichwort und Wiederholung vor.'],
     ['Befehl einsprechen','In Safari sprichst du den Befehl per „Einsprechen“ ein. In der App vom Home-Bildschirm nutzt du das Mikrofon der Tastatur.'],
     ['Vollständiger Musterbefehl','Alle Befehlselemente auf einen Blick, mit Vergleich „Befehl mit Bereitstellung“ und Beispielen im Schema.'],
