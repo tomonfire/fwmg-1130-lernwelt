@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (Inhalt)
+- Gruppenführer: Gefahrenmatrix 4A-1C-4E mit der IdF-Lernunterlage B1-310 (10/2019) abgeglichen; Quellenangabe, Hinweiskasten und Erklärungen der 30 Übungsfragen 11.2xx angepasst (11.212, 11.217 präzisiert), Lösungen unverändert. Zugführer: Hinweis zu 1.149 nennt die Abstände nach B1-310; Stand der FwDV 100 im Bereich Führung belegt. Gruppenführer V3.34, Zugführer V1.10, Service-Worker `VERSION` auf v47.
+
 ### Hinzugefügt
 - Gruppenführer- und Zugführer-Coach: optionales Feld `v` („Hinweis zur Vorschrift“) in `app/data/*.json`, angezeigt nach dem Prüfen und in der Auswertung, `scripts/data.mjs` prüft den Typ. Hinweise an 15 Fragen aus dem Abgleich mit dem Volltext der Quellen (FwDV 1 Neufassung 2026, FwDV 10 2019, FwDV 500 2022, BauO NRW 2018), siehe `docs/AUDIT-WISSENSBASIS.md`. Quellen-Reiter beider Coaches ergänzt. Gruppenführer V3.33, Zugführer V1.09, Service-Worker `VERSION` auf v46.
 

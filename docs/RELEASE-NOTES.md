@@ -7,6 +7,7 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 ## 12. Oktober 2026
 
 ### Gruppenführer und Zugführer
+- **Gefahrenmatrix mit Quelle.** Die 30 Übungsfragen zur Gefahrenmatrix 4A-1C-4E sind mit der IdF-Lernunterlage B1-310 „Einsatztaktik für Gruppenführer“ (Oktober 2019) abgeglichen. Die Quellen nennen sie jetzt statt „allgemeines Ausbildungswissen“, die Erklärungen zu Angstreaktion und Explosionsformen sind genauer. Die Lösungen bleiben gleich.
 - **Hinweise zur Vorschrift.** Stützt sich eine Lösung auf eine ältere Fassung einer Vorschrift oder hat sich ein Begriff geändert, steht nach der Antwort und in der Auswertung ein „Hinweis zur Vorschrift“. Beispiele: Selbstretten und Absicherung nach der neuen FwDV 1, Sofort-Dekontamination und Schutz bei Transportunfällen nach der FwDV 500 von 2022, Gebäudeklassen nach der Bauordnung NRW 2018. Die Lösungen bleiben wie im Katalog.
 
 ### Befehlscoach
