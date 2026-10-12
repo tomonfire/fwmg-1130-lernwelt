@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-z/i6O+Tj4Ss+wJotbR5Pxt7arjeBSgy4BnoqGekVF4E=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-fTxpCJM02P5/WXv+AlFkDbmlCjvF+Gv4s9onbDoO0Vc=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -181,6 +181,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 .neu-list b{font-weight:600}
 .neu-list span{font-size:15px;color:var(--muted)}
 .neu-in .btn{width:100%}
+.neu-alt summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.neu-alt h3{font-size:14px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 4px}
 @media (prefers-reduced-motion:no-preference){#neu:not([hidden]) .neu-card{animation:neuin .3s cubic-bezier(.2,.8,.2,1)}@keyframes neuin{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}}
 #upd p{flex:1;font-weight:600}
 #upd .btn{min-height:44px;padding:8px 16px;font-size:16px}
@@ -303,6 +305,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
       <div class="set">
         <p id="neu-stand"></p>
         <div><button class="btn" type="button" id="neu-open">Was ist neu?</button></div>
+        <details class="neu-alt" id="neu-alt"><summary>Frühere Neuigkeiten</summary><div id="neu-alt-list"></div></details>
       </div>
     </section>
 
@@ -449,25 +452,33 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
   function pillsRender(){
     $('pills').innerHTML=MODS.map(function(m){return '<button class="pill" type="button" data-switch="'+m.id+'"'+(current===m.id?' aria-current="true"':'')+'>'+esc(m.short)+'</button>'}).join('');
   }
-  /* Was ist neu: die neueste Meldung erscheint nach einem Update einmal, beim Start der App oder in der Übersicht.
-     Neue Einträge oben anfügen und id ändern; die Release Notes stehen in docs/RELEASE-NOTES.md. */
+  /* Was ist neu: das Fenster zeigt nur die neueste Ausgabe (NEU), einmal nach einem Update, beim Start der App oder in der Übersicht.
+     Neue Ausgabe: bisheriges NEU vorne in NEU_ALT verschieben, NEU mit neuer id und nur den neuen Punkten füllen.
+     Ältere Ausgaben stehen unter „Frühere Neuigkeiten“ in der Übersicht; die Release Notes in docs/RELEASE-NOTES.md. */
   var NEUK='fwmg.neu.v1';
   var NEU={id:'2026-10-12',datum:'12. Oktober 2026',punkte:[
-    ['App auf dem Home-Bildschirm auch für Android','Die Anleitung unter „App auf dem Home-Bildschirm“ erklärt jetzt auch, wie du die Lernwelt in Chrome auf Android installierst.'],
-    ['Lage vorlesen wie die Leitstelle','Im Befehlscoach liest „Vorlesen“ die Lage als Alarmierung mit Gong, Einsatzstichwort und Wiederholung vor.'],
-    ['Befehl einsprechen','In Safari sprichst du den Befehl per „Einsprechen“ ein. In der App vom Home-Bildschirm nutzt du das Mikrofon der Tastatur.'],
-    ['Vollständiger Musterbefehl','Alle Befehlselemente auf einen Blick, mit Vergleich „Befehl mit Bereitstellung“ und Beispielen im Schema.'],
-    ['Einheitliches Design','Alle drei Coaches sehen gleich aus, hell und dunkel.'],
-    ['iPad und Computer','Prüfen und Weiter bleiben unten sichtbar. Am Computer wählst du Antworten mit 1–9 und bestätigst mit Enter.'],
-    ['iPhone','Die Lernwelt nutzt den Bildschirm besser und überlappt nicht mehr mit der Dynamic Island.']
+    ['App auf dem Home-Bildschirm auch für Android','Die Anleitung unter „App auf dem Home-Bildschirm“ erklärt jetzt auch, wie du die Lernwelt in Chrome auf Android installierst.']
   ]};
+  var NEU_ALT=[
+    {datum:'11. Oktober 2026',punkte:[
+      ['Lage vorlesen wie die Leitstelle','Im Befehlscoach liest „Vorlesen“ die Lage als Alarmierung mit Gong, Einsatzstichwort und Wiederholung vor.'],
+      ['Befehl einsprechen','In Safari sprichst du den Befehl per „Einsprechen“ ein. In der App vom Home-Bildschirm nutzt du das Mikrofon der Tastatur.'],
+      ['Vollständiger Musterbefehl','Alle Befehlselemente auf einen Blick, mit Vergleich „Befehl mit Bereitstellung“ und Beispielen im Schema.'],
+      ['Einheitliches Design','Alle drei Coaches sehen gleich aus, hell und dunkel.'],
+      ['iPad und Computer','Prüfen und Weiter bleiben unten sichtbar. Am Computer wählst du Antworten mit 1–9 und bestätigst mit Enter.'],
+      ['iPhone','Die Lernwelt nutzt den Bildschirm besser und überlappt nicht mehr mit der Dynamic Island.']
+    ]}
+  ];
   var neuPrev=null;
   /* Beim Start und in der Übersicht: jede neue Ausgabe einmal zeigen, solange ein Name gesetzt ist. */
   function neuCheck(){if(userName&&lsGet(NEUK)!==NEU.id&&$('neu').hidden)neuOpen()}
+  function neuListe(punkte){return punkte.map(function(p){return '<li><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></li>'}).join('')}
   function neuRender(){
     $('neu-datum').textContent='Neu · '+NEU.datum;
-    $('neu-list').innerHTML=NEU.punkte.map(function(p){return '<li><b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></li>'}).join('');
+    $('neu-list').innerHTML=neuListe(NEU.punkte);
     $('neu-stand').textContent='Stand '+NEU.datum+'. Hier siehst du, was sich zuletzt geändert hat.';
+    $('neu-alt').hidden=!NEU_ALT.length;
+    $('neu-alt-list').innerHTML=NEU_ALT.map(function(a){return '<h3>'+esc(a.datum)+'</h3><ul class="neu-list">'+neuListe(a.punkte)+'</ul>'}).join('');
   }
   function neuOpen(){neuRender();neuPrev=document.activeElement;$('neu').hidden=false;$('neu').querySelector('.neu-card').scrollTop=0;try{$('neu-ok').focus({preventScroll:true})}catch(e){$('neu-ok').focus()}}
   function neuClose(){$('neu').hidden=true;lsSet(NEUK,NEU.id);if(neuPrev&&neuPrev.focus&&document.body.contains(neuPrev)){try{neuPrev.focus()}catch(e){}}neuPrev=null}
@@ -507,8 +518,6 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     }
   });
   $('m-home').addEventListener('click',function(){show('dash')});
-  /* Anleitung zum Home-Bildschirm: auf Touch-Geräten offen, mit Maus zugeklappt. */
-  if(!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches))$('inst').open=true;
   $('w-go').addEventListener('click',function(){show('dash')});
   var wrb=$('w-resume'),wTarget=null;
   function updateWelcomeResume(){
