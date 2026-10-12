@@ -4,6 +4,12 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben
+- Anleitung Android: Bestätigen mit „Installieren“ bzw. „Hinzufügen“ (je nach Menüeintrag), Hinweis für Samsung Internet als eigener Absatz statt im Chrome-Schritt. Release Notes: Stimmen-Tipp gilt für iPhone und iPad. Service-Worker `VERSION` auf v35.
+
+### Dokumentation
+- Infrastruktur-Übersicht als Excalidraw-Datei (`docs/infrastruktur.excalidraw`, #43), Skript `scripts/render-excalidraw.mjs` zum Rendern als PNG (#44), Bild `docs/infrastruktur.png` in der README (#45). Das Zwischenprodukt `docs/infrastruktur.svg` ist in `.gitignore`.
+
 ### Hinzugefügt
 - Anleitung „App auf dem Home-Bildschirm“ um Android (Chrome, Samsung Internet) ergänzt. Meldung „Was ist neu“ (`NEU`, id `2026-10-12`) und Release Notes. Service-Worker `VERSION` auf v34.
 

@@ -40,4 +40,4 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 - **Tastatur und Spracheingabe:** Enter auf einer per Tab gewählten Antwort hakt sie an. Die Spracheingabe setzt Sätze sauber zusammen.
 
 ### Tipp
-Für eine natürlichere Stimme beim Vorlesen: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch, dort eine Premium- oder erweiterte Stimme laden. Der Befehlscoach nimmt sie automatisch.
+Für eine natürlichere Stimme beim Vorlesen auf iPhone und iPad: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch, dort eine Premium- oder erweiterte Stimme laden. Der Befehlscoach nimmt sie automatisch.
