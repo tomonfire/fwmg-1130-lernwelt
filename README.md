@@ -22,6 +22,12 @@ Erstellt von Tom Wolff (privat).
 - **Lernstand sichern / wiederherstellen:** In der Übersicht als Datei sichern und auf einem neuen Gerät wieder einlesen. Kein Server, nur GitHub Pages.
 - Heller und dunkler Modus folgen dem Gerät.
 
+## Infrastruktur
+
+![Infrastruktur der Lernwelt: GitHub (Repository, CI, Pages) und Gerät der Nutzer (Shell, Coaches, Service Worker, localStorage)](docs/infrastruktur.png)
+
+Quelle: [`docs/infrastruktur.excalidraw`](docs/infrastruktur.excalidraw). Das PNG entsteht mit `node scripts/render-excalidraw.mjs`.
+
 ## Dokumentation
 
 - [Release Notes](docs/RELEASE-NOTES.md): was neu ist, für Nutzer
