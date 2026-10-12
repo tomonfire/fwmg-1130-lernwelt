@@ -48,9 +48,10 @@ app/                       alles, was veröffentlicht wird
   sw.js                    Service Worker (Offline-Cache)
   icons/                   App-Icons, Logo (flamme.svg), taktische Zeichen Gruppen-/Zugführer (DV 102)
   fonts/                   Schriften (lokal, SIL Open Font License)
+  audio/                   Alarmgong des Befehlscoachs, nur verwürfelt (gong.bin, erzeugt mit scripts/gong.mjs)
   robots.txt               sperrt Crawler (wirksam auf eigener Domain)
 docs/                      Projektbeschreibung, Architektur, Veröffentlichung, Roadmap
-scripts/                   Prüfungen (Dateien, Regeln, JavaScript-Syntax, Browser-Test)
+scripts/                   Prüfungen (Dateien, Regeln, JavaScript-Syntax, Browser-Test), Werkzeuge
 .github/                   CI, Veröffentlichung, Vorlagen
 CHANGELOG.md  CLAUDE.md  CONTRIBUTING.md  SECURITY.md
 ```

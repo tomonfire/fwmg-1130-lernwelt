@@ -6,6 +6,9 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 
 ## 12. Oktober 2026
 
+### Befehlscoach
+- **Echter Alarmgong.** Vor dem Vorlesen der Alarmierung ertönt jetzt ein aufgenommener Alarmgong statt des erzeugten Zweiklangs. Die Durchsage beginnt, wenn der Gong ausgeklungen ist; „Stopp“ beendet auch den Gong. Er funktioniert auch offline.
+
 ### Übersicht
 - **„Was ist neu“ kürzer.** Das Fenster zeigt nur noch die Neuigkeiten des letzten Updates. Ältere findest du in der Übersicht unter „Neuigkeiten“ → „Frühere Neuigkeiten“.
 - **Home-Bildschirm auch für Android.** Die Anleitung „App auf dem Home-Bildschirm“ erklärt jetzt neben iPhone und iPad auch Android: In Chrome über das Menü „App installieren“ bzw. „Zum Startbildschirm hinzufügen“, mit kurzem Hinweis für Samsung Internet.
