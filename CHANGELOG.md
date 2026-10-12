@@ -5,6 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Behoben
+- Schriften: Lizenzdatei `app/fonts/OFL-ibm-plex-mono.txt` (SIL OFL 1.1, Copyright 2017 IBM Corp.) ergänzt, die OFL verlangt Copyright-Hinweis und Lizenz bei jeder Weitergabe. Unbenutzte Schrift Barlow (400/500/600, nicht Condensed) aus `app/fonts/`, `fonts.css` und dem Cache entfernt. Service-Worker `VERSION` auf v36.
 - Anleitung Android: Bestätigen mit „Installieren“ bzw. „Hinzufügen“ (je nach Menüeintrag), Hinweis für Samsung Internet als eigener Absatz statt im Chrome-Schritt. Release Notes: Stimmen-Tipp gilt für iPhone und iPad. Service-Worker `VERSION` auf v35.
 
 ### Dokumentation
