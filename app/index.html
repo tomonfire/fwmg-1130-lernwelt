@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-2KxTQvqZ0tkpB7aVCkZDKAOpx6UX8WQ9rdjRqHhpTMI=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-AbzUx6mA1OFjY2cbiZW8Yep82yr8pTSW3MVkx6HxDAc=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -433,7 +433,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     var n=+b.getAttribute('data-goal');if(GOALS.indexOf(n)<0)return;
     lsSet(SETK,JSON.stringify({goal:n,t:Date.now()}));
     /* Geladene Trainer verwerfen, damit sie beim nächsten Öffnen die Einstellung lesen. Runden und Prüfungen liegen im Speicher und bleiben erhalten. */
-    Object.keys(frames).forEach(function(k){if(frames[k].parentNode)frames[k].parentNode.removeChild(frames[k]);delete frames[k]});
+    Object.keys(frames).forEach(function(k){frameHide(frames[k]);if(frames[k].parentNode)frames[k].parentNode.removeChild(frames[k]);delete frames[k]});
     current=null;
     renderSettings();
     $('set-msg').textContent='Gespeichert: '+n+' Fragen pro Runde in beiden Coaches.';
@@ -441,6 +441,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
 
   /* Rahmen je Trainer, bleiben nach dem ersten Öffnen im Hintergrund erhalten */
   var frames={},current=null;
+  /* Ausgeblendete Coaches beenden Vorlesen und Aufnahme (ein verstecktes iframe bekommt kein visibilitychange). */
+  function frameHide(f){try{var w=f.contentWindow;if(w&&typeof w.fwmgHide==='function')w.fwmgHide()}catch(e){}}
   function ensureFrame(m){
     if(frames[m.id])return frames[m.id];
     var f=document.createElement('iframe');
@@ -456,11 +458,14 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
      Neue Ausgabe: bisheriges NEU vorne in NEU_ALT verschieben, NEU mit neuer id und nur den neuen Punkten füllen.
      Ältere Ausgaben stehen unter „Frühere Neuigkeiten“ in der Übersicht; die Release Notes in docs/RELEASE-NOTES.md. */
   var NEUK='fwmg.neu.v1';
-  var NEU={id:'2026-10-12',datum:'12. Oktober 2026',punkte:[
-    ['App auf dem Home-Bildschirm auch für Android','Die Anleitung unter „App auf dem Home-Bildschirm“ erklärt jetzt auch, wie du die Lernwelt in Chrome auf Android installierst.'],
-    ['Echter Alarmgong','Im Befehlscoach ertönt vor dem Vorlesen der Alarmierung jetzt ein echter Alarmgong. Die Durchsage beginnt, wenn er ausgeklungen ist.']
+  var NEU={id:'2026-10-12-2',datum:'12. Oktober 2026',punkte:[
+    ['Vorlesen endet beim Verlassen','Wechselst du im Befehlscoach den Bereich, zur Übersicht oder in einen anderen Coach, verstummen Gong und Durchsage. „Vorlesen“ startet danach wieder von vorn.']
   ]};
   var NEU_ALT=[
+    {datum:'12. Oktober 2026',punkte:[
+      ['App auf dem Home-Bildschirm auch für Android','Die Anleitung unter „App auf dem Home-Bildschirm“ erklärt jetzt auch, wie du die Lernwelt in Chrome auf Android installierst.'],
+      ['Echter Alarmgong','Im Befehlscoach ertönt vor dem Vorlesen der Alarmierung jetzt ein echter Alarmgong. Die Durchsage beginnt, wenn er ausgeklungen ist.']
+    ]},
     {datum:'11. Oktober 2026',punkte:[
       ['Lage vorlesen wie die Leitstelle','Im Befehlscoach liest „Vorlesen“ die Lage als Alarmierung mit Gong, Einsatzstichwort und Wiederholung vor.'],
       ['Befehl einsprechen','In Safari sprichst du den Befehl per „Einsprechen“ ein. In der App vom Home-Bildschirm nutzt du das Mikrofon der Tastatur.'],
@@ -497,6 +502,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     $('welcome').hidden=view!=='welcome';
     $('dash').hidden=view!=='dash';
     $('mod').hidden=view!=='mod';
+    if(view!=='mod')Object.keys(frames).forEach(function(k){frameHide(frames[k])});
     if(view==='dash'){renderDash();window.scrollTo(0,0);neuCheck()}
     if(view==='welcome'&&typeof updateWelcomeResume==='function')updateWelcomeResume();
   }
@@ -506,7 +512,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     if(!userName){var ni=$('w-name-in');if(ni){ni.focus();ni.setAttribute('aria-invalid','true')}return}
     var f=ensureFrame(m);
     current=id;lsSet(LASTK,id);
-    Object.keys(frames).forEach(function(k){frames[k].hidden=(k!==id)});
+    Object.keys(frames).forEach(function(k){if(k!==id&&!frames[k].hidden)frameHide(frames[k]);frames[k].hidden=(k!==id)});
     pillsRender();show('mod');
     /* Mit Maus und Tastatur gleich in den Coach, damit Ziffern und Enter dort ankommen. */
     if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){try{f.focus();f.contentWindow.focus()}catch(e){}}

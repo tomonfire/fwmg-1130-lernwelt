@@ -8,6 +8,7 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 
 ### Befehlscoach
 - **Echter Alarmgong.** Vor dem Vorlesen der Alarmierung ertönt jetzt ein aufgenommener Alarmgong statt des erzeugten Zweiklangs. Die Durchsage beginnt, wenn der Gong ausgeklungen ist; „Stopp“ beendet auch den Gong. Er funktioniert auch offline.
+- **Vorlesen endet beim Verlassen.** Wechselst du den Bereich (anderer Reiter, „Alle Übungen“, Übersicht oder anderer Coach), verstummen Gong und Durchsage. „Vorlesen“ startet danach wieder von vorn.
 
 ### Übersicht
 - **„Was ist neu“ kürzer.** Das Fenster zeigt nur noch die Neuigkeiten des letzten Updates. Ältere findest du in der Übersicht unter „Neuigkeiten“ → „Frühere Neuigkeiten“.
