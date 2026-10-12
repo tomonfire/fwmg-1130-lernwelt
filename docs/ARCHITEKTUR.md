@@ -14,7 +14,7 @@ Browser
 app/sw.js: Offline-Cache für alle Dateien
 ```
 
-Die Infrastruktur als Bild (GitHub, Actions, Pages, Gerät mit Service Worker und localStorage): [infrastruktur.excalidraw](infrastruktur.excalidraw). Datei in excalidraw.com öffnen (Menü → Öffnen).
+Die Infrastruktur als Bild (GitHub, Actions, Pages, Gerät mit Service Worker und localStorage): [infrastruktur.excalidraw](infrastruktur.excalidraw). Datei in excalidraw.com öffnen (Menü → Öffnen). Nach Änderungen das Bild `infrastruktur.png` (in der README) mit `node scripts/render-excalidraw.mjs` neu erzeugen.
 
 Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen beim Start aus `app/data/*.json` (Gruppenführer und Zugführer). Die Fragen lassen sich so ohne Code pflegen; `npm run check` prüft IDs und Antwort-Indizes. Die Shell bettet sie nur ein. Das hält die Trainer unabhängig: Änderungen an einem berühren die anderen nicht.
 
