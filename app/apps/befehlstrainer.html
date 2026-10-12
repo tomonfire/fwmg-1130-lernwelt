@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-2oMKnFXfshL/7hvU/Oiz4Joc+h89tLHErLR2Ug2fSX8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-vgT4tPt0dYx46zr8Gno/hxlrR56/d4VCXmCrudHd7Qg='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../coach.css">
@@ -921,6 +921,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     else lageText = sc.lage;
     if (S.lageNow && S.lageNow.text !== lageText) stopReading();
     S.lageNow = { text: lageText, alarm: lageLabel === 'Lage' };
+    if (TTS && S.lageNow.alarm) gongPrepare();
     h += '<div class="lage"><div class="lagehead"><span class="label">' + lageLabel + '</span>' +
       (TTS ? '<button type="button" class="btn ghost sm" id="readbtn" data-act="read" aria-pressed="' + reading + '">' + (reading ? 'Stopp' : 'Vorlesen') + '</button>' : '') +
       '</div><p>' + esc(lageText) + '</p></div>';
@@ -1214,11 +1215,11 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     return 'Alarm für ' + (S.role === 'zf' ? 'den Löschzug' : 'die Löschgruppe') + '. Einsatzstichwort: ' + m[1] + '. ' + rest +
       ' Ich wiederhole: ' + m[1] + '. Ende der Durchsage.';
   }
-  /* Gong vor der Alarmierung: app/audio/gong.bin liegt verwürfelt vor (scripts/gong.mjs), wird erst im Speicher
-     entwürfelt und per Web Audio gespielt, damit es keine Tondatei zum Speichern gibt. Die Durchsage beginnt,
-     wenn der Gong ausgeklungen ist; lädt oder spielt er nicht, folgt sie gleich.
-     Safari spricht nicht, solange ein Audio-Kontext läuft: darum je Gong ein eigener Kontext, vor der Durchsage geschlossen. */
-  var gongData = null, gongAc = null, gongSrc = null, gongId = 0;
+  /* Gong vor der Alarmierung: app/audio/gong.bin liegt verwürfelt vor (scripts/gong.mjs). Er wird beim Anzeigen der Lage
+     geladen, im Speicher entwürfelt und als unsichtbares Audio-Element ohne Bedienleiste bereitgehalten.
+     iOS spielt Audio nur direkt nach einem Tippen und hält Web Audio mit dem Stummschalter an, darum ein Audio-Element,
+     das beim Tippen sofort startet. Die Durchsage beginnt, wenn der Gong ausgeklungen ist; ist er nicht bereit, gleich. */
+  var gongEl = null, gongLoading = false, gongId = 0;
   function gongBytes(b) {
     for (var i = 0, x = 0x46774d47; i < b.length; i++) {
       x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0;
@@ -1226,39 +1227,31 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     }
     return b;
   }
-  function gongClose(ac) {
-    if (gongAc === ac) gongAc = null;
-    try { return Promise.resolve(ac && ac.close ? ac.close() : 0).catch(function () {}); } catch (e) { return Promise.resolve(); }
+  function gongPrepare() {
+    if (gongEl || gongLoading || !window.fetch || !window.URL || !URL.createObjectURL) return;
+    gongLoading = true;
+    fetch('../audio/gong.bin')
+      .then(function (r) { if (!r.ok) throw new Error('gong'); return r.arrayBuffer(); })
+      .then(function (a) {
+        var el = new Audio(URL.createObjectURL(new Blob([gongBytes(new Uint8Array(a))], { type: 'audio/mpeg' })));
+        el.preload = 'auto'; try { el.load(); } catch (e) {}
+        gongEl = el;
+      })
+      .catch(function () { gongLoading = false; });
   }
   function gongStop() {
     gongId++;
-    if (gongSrc) { try { gongSrc.onended = null; gongSrc.stop(); } catch (e) {} gongSrc = null; }
-    if (gongAc) gongClose(gongAc);
+    if (gongEl) { gongEl.onended = gongEl.onerror = null; try { gongEl.pause(); gongEl.currentTime = 0; } catch (e) {} }
   }
   function gong(then) {
-    var done = false, ac = null;
-    var fin = function () { if (!done) { done = true; gongClose(ac).then(then); } };
+    if (!gongEl) return then();
+    gongStop();
+    var id = gongId, done = false, fin = function () { if (!done) { done = true; if (id === gongId) gongStop(); then(); } };
     try {
-      var C = window.AudioContext || window.webkitAudioContext; if (!C) return fin();
-      gongStop();
-      var id = gongId, started = false;
-      /* iOS gibt Web Audio nur direkt nach einem Tippen frei. */
-      ac = gongAc = new C();
-      if (ac.resume) ac.resume();
-      var load = gongData ? Promise.resolve(gongData) : fetch('../audio/gong.bin')
-        .then(function (r) { if (!r.ok) throw new Error('gong'); return r.arrayBuffer(); })
-        .then(function (a) { return (gongData = gongBytes(new Uint8Array(a))); });
-      load.then(function (d) {
-        /* decodeAudioData verbraucht seinen Puffer, darum eine Kopie. */
-        return new Promise(function (ok, no) { ac.decodeAudioData(d.slice().buffer, ok, no); });
-      }).then(function (b) {
-        if (done || id !== gongId) return;
-        var src = gongSrc = ac.createBufferSource();
-        src.buffer = b; src.connect(ac.destination);
-        src.onended = function () { if (gongSrc === src) gongSrc = null; fin(); };
-        src.start(); started = true;
-      }).catch(fin);
-      setTimeout(function () { if (!started) fin(); }, 5000);
+      gongEl.onended = gongEl.onerror = fin;
+      var p = gongEl.play();
+      if (p && p.catch) p.catch(fin);
+      setTimeout(fin, 9000);
     } catch (e) { fin(); }
   }
   function readBtn() {
@@ -1286,18 +1279,19 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       return u;
     });
     reading = true; readBtn();
-    /* iOS gibt die Sprachausgabe nur direkt nach einem Tippen frei: erst eine leere Ansage, dann Gong und Durchsage. */
+    /* iOS gibt die Sprachausgabe nur direkt nach einem Tippen frei: eine leere Ansage schaltet sie frei.
+       Vor dem Gong wird sie gleich wieder verworfen, sonst dämpft sie den Gong und blockiert die Durchsage danach. */
+    var lage = S.lageNow, alarm = lage.alarm, began = false;
     speechSynthesis.speak(new SpeechSynthesisUtterance(''));
-    var lage = S.lageNow, began = false;
+    if (alarm) speechSynthesis.cancel();
     us[0].onstart = function () { began = true; };
     var go = function () {
       if (id !== readId) return;
       if (speechSynthesis.paused) speechSynthesis.resume();
       us.forEach(function (u) { speechSynthesis.speak(u); });
       /* Gibt der Browser die Durchsage nach dem Gong nicht frei, beim nächsten Tippen ohne Gong vorlesen. */
-      if (alarm) setTimeout(function () { if (id === readId && !began && !speechSynthesis.speaking) { lage.alarm = false; stopReading(); } }, 3000);
+      if (alarm) setTimeout(function () { if (id === readId && !began) { lage.alarm = false; stopReading(); } }, 4000);
     };
-    var alarm = lage.alarm;
     if (alarm) gong(go); else go();
   }
 
