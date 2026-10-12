@@ -61,5 +61,12 @@ for (const f of pages) {
 if (footers.size !== 1) fail(`Impressum ist nicht in allen Dateien gleich (${footers.size} Fassungen)`);
 if (!/Disallow: \/\s*$/m.test(readFileSync('app/robots.txt', 'utf8'))) fail('robots.txt sperrt Crawler nicht');
 
+// Reiter in Gruppenführer- und Zugführer-Coach: gleiche Reihenfolge.
+const TABS = 'Heute,Führung,Fortschritt,Quellen';
+const gfTabs = [...(readFileSync('app/apps/gruppenfuehrer.html', 'utf8').match(/function tabs\(\)\{[\s\S]*?<\/nav>/) || [''])[0].matchAll(/'>([^<']+)<\/button>/g)].map((m) => m[1]).join(',');
+const zfTabs = [...((readFileSync('app/apps/zugfuehrer.html', 'utf8').match(/\[\['heute'[^\n]*?\]\]\.forEach/) || [''])[0]).matchAll(/,'([^']+)'\]/g)].map((m) => m[1]).join(',');
+if (gfTabs !== TABS) fail(`Reiter im Gruppenführer-Coach: ${gfTabs || 'nicht gefunden'} (erwartet ${TABS})`);
+if (zfTabs !== TABS) fail(`Reiter im Zugführer-Coach: ${zfTabs || 'nicht gefunden'} (erwartet ${TABS})`);
+
 console.log(bad ? `${bad} Problem(e)` : 'OK: Dateien vollständig, Regeln für den öffentlichen Betrieb eingehalten');
 process.exit(bad ? 1 : 0);
