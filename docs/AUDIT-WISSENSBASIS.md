@@ -167,7 +167,13 @@ Stand 12.10.2026. Geprüft wurden der Wortlaut aller Katalogfragen, das Prüfung
 | GF Kat. E, G, H | 151 Fragen | 11 Fragen ohne Beleg im Volltext (5.21, 5.26, 7.25, 7.33, 7.40, 7.46, 7.64, 7.70, 7.78, 7.81, 8.12: Strahlungsreichweiten, Löscheffekte, Vegetationsbrand, Fahrzeuge); fachlich stimmig, keine Abweichung |
 | ZF Kap. 4 (Vorbeugender Brandschutz) gegen B2-330 (2021) | 54 Fragen | Rettungsweglänge 35 m (S. 15) und Brandabschnitte 40 m (S. 20) bestätigt; 4.10, 4.47–4.49, 4.54 nutzen die Begriffe „geringe/mittlere Höhe“ der früheren BauO NRW, seit 2018 Gebäudeklassen 1–5 |
 
-Noch offen: die übrigen Fragen in ZF Kap. 1 und 2 außerhalb der Vorschriften, die seit 2018 neu erschienen sind, und die Lagen des Befehlscoachs (FwDV 3 von 2008, unverändert).
+| ZF Kap. 1 und 2 (übrige Fragen) | 262 Fragen | 259 im Volltext belegt; 1.144 und 1.148 nur als Abbildung (FwDV 10 S. 7), 2.60 (GHS-Piktogramm) Allgemeinwissen, stimmig |
+| Befehlscoach: Quiz | 33 Fragen | alle Aussagen und Abschnittsangaben zu FwDV 3 (S. 9–34) und FwDV 100 (2.3.2, 3.2.5, 3.3.3.1, 3.3.3.2, 3.3.4) bestätigt |
+| GF Kat. L, Gefahrenmatrix 11.2xx, gegen B1-310 (2019) | 30 Fragen | Primärquelle gefunden: B1-310 Abschnitt 1.1 „Gefahren- und Wirkmatrix“ und Kap. 3–11. Bestätigt u. a. Atemgifte (S. 17), Schutzgrundsätze Strahlung (S. 24), Ausbreitung (S. 25–26), Trümmerschatten (S. 38), Abstände 1/3/4/5 m (S. 40) und Strahlrohrabstände 1/5 m und 5/10 m (S. 42). Unscharf: 11.212 zählt „Panik“ zu den Angstreaktionen (B1-310 trennt Angst- und Panikreaktion), 11.217 nennt Staubexplosion und Behälterzerknall als Formen, die B1-310 unterscheidet nach Dynamik Detonation, Deflagration, Verpuffung. |
+
+Umgesetzt im zweiten Durchgang: Quellenangabe und Hinweiskasten der Gefahrenmatrix nennen die B1-310 statt „keine Primärquelle“; Erklärungen der 30 Fragen verweisen auf sie, 11.212 und 11.217 sind präzisiert (Lösungen unverändert, damit kein Lernstand zurückgesetzt wird). Hinweis zu ZF 1.149 nennt die Abstände nach B1-310. Im ZF-Bereich Führung ist der Stand der FwDV 100 (10.03.1999) belegt.
+
+Nicht prüfbar mit der Wissensbasis: die Angaben zur ZF-Prüfungsrichtlinie und zum Runderlass 2024 im ZF-Quellen-Reiter (beide Dokumente fehlen in der Wissensbasis) sowie die Lagen des Befehlscoachs als ausgedachte Szenarien; deren Musterbefehle folgen dem Befehlsschema der FwDV 3 (Abschnitt 5.4), das im Quiz bestätigt ist.
 
 ### Umgesetzt (12.10.2026)
 
