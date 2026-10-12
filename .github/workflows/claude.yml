@@ -47,4 +47,4 @@ jobs:
           # Claude darf die eigenen Änderungen prüfen, aber keine anderen Befehle ausführen.
           claude_args: |
             --max-turns 30
-            --allowedTools "Bash(npm ci),Bash(npm run check),Bash(npm run csp:update)"
+            --allowedTools "Bash(npm ci),Bash(npm run check),Bash(npm run csp:update),Bash(node scripts/render-excalidraw.mjs)"
