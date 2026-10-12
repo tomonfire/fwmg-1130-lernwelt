@@ -9,3 +9,4 @@
 | [VEROEFFENTLICHUNG.md](VEROEFFENTLICHUNG.md) | GitHub Pages, neue Fassung ausliefern, Installation |
 | [REPOSITORY.md](REPOSITORY.md) | Einstellungen auf GitHub: Pages, Branch-Schutz, Sicherheit |
 | [ROADMAP.md](ROADMAP.md) | Geplante Schritte und Ideen |
+| [AUDIT-WISSENSBASIS.md](AUDIT-WISSENSBASIS.md) | Audit der Inhalte gegen die Wissensbasis (Katalog und Wissensgraph), Anforderungen A-01 bis A-28 |
