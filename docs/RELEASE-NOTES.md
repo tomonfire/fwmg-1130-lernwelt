@@ -2,11 +2,12 @@
 
 Was sich in der Lernwelt für dich ändert, kurz und ohne Technik. Die technischen Details stehen im [Änderungsprotokoll](../CHANGELOG.md).
 
-Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Unter „Neuigkeiten“ kannst du es jederzeit wieder öffnen.
+Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Das Fenster zeigt nur, was diesmal neu ist. Unter „Neuigkeiten“ in der Übersicht kannst du es jederzeit wieder öffnen; ältere Ausgaben stehen dort unter „Frühere Neuigkeiten“.
 
 ## 12. Oktober 2026
 
 ### Übersicht
+- **„Was ist neu“ kürzer.** Das Fenster zeigt nur noch die Neuigkeiten des letzten Updates. Ältere findest du in der Übersicht unter „Neuigkeiten“ → „Frühere Neuigkeiten“.
 - **Home-Bildschirm auch für Android.** Die Anleitung „App auf dem Home-Bildschirm“ erklärt jetzt neben iPhone und iPad auch Android: In Chrome über das Menü „App installieren“ bzw. „Zum Startbildschirm hinzufügen“, mit kurzem Hinweis für Samsung Internet.
 
 ## 11. Oktober 2026
