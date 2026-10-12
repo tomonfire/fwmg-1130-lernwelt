@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert
+- Fenster „Was ist neu“ zeigt nur die neueste Ausgabe (`NEU`). Ältere Ausgaben stehen in `NEU_ALT` und erscheinen in der Übersicht unter „Neuigkeiten“ → „Frühere Neuigkeiten“ (aufklappbar). Service-Worker `VERSION` auf v36.
+
 ### Behoben
 - Anleitung Android: Bestätigen mit „Installieren“ bzw. „Hinzufügen“ (je nach Menüeintrag), Hinweis für Samsung Internet als eigener Absatz statt im Chrome-Schritt. Release Notes: Stimmen-Tipp gilt für iPhone und iPad. Service-Worker `VERSION` auf v35.
 
