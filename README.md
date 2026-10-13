@@ -4,7 +4,7 @@ Lern- und Trainingsapp für die Feuerwehr. Drei Trainer an einem Ort, mit Starts
 
 | Trainer | Datei | Inhalt |
 | --- | --- | --- |
-| Gruppenführer Tagestraining | `app/apps/gruppenfuehrer.html` | 408 Fragen (`app/data/gruppenfuehrer.json`) in 11 Themengebieten, Tagesrunden, Prüfungs- und Themen-Test |
+| Gruppenführer Tagestraining | `app/apps/gruppenfuehrer.html` | 285 Katalogfragen in 10 Themengebieten und 173 Übungsfragen (`app/data/gruppenfuehrer.json`), Tagesrunden, Prüfungs- und Themen-Test |
 | Zugführer Tagestraining | `app/apps/zugfuehrer.html` | 369 Fragen (`app/data/zugfuehrer.json`) in 4 Kapiteln, Tagesrunden, Prüfung (15 min) |
 | Befehlscoach FwDV 3 | `app/apps/befehlstrainer.html` | Befehle nach Schema sprechen, Quiz, Schema, Auswertung |
 

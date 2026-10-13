@@ -34,7 +34,7 @@ Status: **aktuell** = keine neuere Fassung bekannt · **ersetzt** = neuere Fassu
 | Quelle | Fassung | Status | Verwendet in |
 | --- | --- | --- | --- |
 | Prüfungsrichtlinie GF-Basis (IdF NRW) | 12/2020, in Kraft 01.01.2021 | aktuell | GF Prüfung (15 min, 10 Punkte), GF Quellen „Prüfung und Zulassung“ |
-| Ausführungsvorschrift GF-Basislehrgang (RdErl.) | 02.12.2016 | aktuell | GF Quellen „Prüfung und Zulassung“ |
+| Ausführungsvorschrift GF-Basislehrgang (RdErl.) | 02.12.2016, befristet bis 31.12.2022 | **Befristung abgelaufen**, Nachfolgeregelung nicht geprüft | GF Quellen „Prüfung und Zulassung“ |
 | Prüfungsrichtlinie ZF-Basis, Runderlass Zugführerausbildung | 12/2020, 11.03.2024 | online gelesen, nicht im Volltext geprüft | ZF Quellen „Prüfung und Zulassung“ |
 
 ## Lernunterlagen und Fachempfehlungen (nur Abgleich, kein Text übernommen)

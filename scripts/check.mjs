@@ -72,14 +72,26 @@ if (zfTabs !== TABS) fail(`Reiter im Zugführer-Coach: ${zfTabs || 'nicht gefund
 // Die Liste liegt bewusst nicht im Repository: FWMG_SPERRLISTE=<Pfad zu einer Textdatei, ein Begriff je Zeile>.
 // Ohne Liste wird die Prüfung übersprungen.
 if (process.env.FWMG_SPERRLISTE) {
-  const begriffe = readFileSync(process.env.FWMG_SPERRLISTE, 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
-  const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`]));
-  const dateien = [...walk('app'), ...walk('docs'), 'README.md', 'CHANGELOG.md'].filter((f) => /\.(html|js|json|md|css|webmanifest|txt)$/.test(f));
+  let begriffe = [];
+  try {
+    begriffe = readFileSync(process.env.FWMG_SPERRLISTE, 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
+  } catch {
+    fail('FWMG_SPERRLISTE nicht lesbar:', process.env.FWMG_SPERRLISTE);
+  }
+  if (!begriffe.length) fail('FWMG_SPERRLISTE enthält keine Begriffe');
+  const walk = (d) => (existsSync(d) ? readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`])) : []);
+  const dateien = [...walk('app'), ...walk('docs'), ...walk('scripts'), ...walk('.github'), 'README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md']
+    .filter((f) => existsSync(f) && /\.(html|js|mjs|json|md|css|webmanifest|txt|svg|ya?ml)$/.test(f));
   for (const f of dateien) {
-    const text = readFileSync(f, 'utf8').normalize('NFC').toLowerCase();
+    const zeilen = readFileSync(f, 'utf8').normalize('NFC').toLowerCase().split('\n');
     for (const b of begriffe) {
       const esc = b.normalize('NFC').toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      if (new RegExp(`(^|[^\\p{L}\\p{N}])${esc}($|[^\\p{L}\\p{N}])`, 'u').test(text)) fail(`Begriff aus der Sperrliste in ${f}`);
+      const wort = new RegExp(`(^|[^\\p{L}\\p{N}])${esc}($|[^\\p{L}\\p{N}])`, 'u');
+      const anfang = new RegExp(`(^|[^\\p{L}\\p{N}])${esc}`, 'u');
+      zeilen.forEach((z, i) => {
+        if (wort.test(z)) fail(`Begriff aus der Sperrliste in ${f}:${i + 1}`);
+        else if (anfang.test(z)) console.warn(`Hinweis: Wortanfang aus der Sperrliste in ${f}:${i + 1} (z. B. Zusammensetzung), bitte prüfen`);
+      });
     }
   }
 }

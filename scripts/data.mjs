@@ -38,6 +38,9 @@ for (const q of g.qs) {
   } else if (uebung(q.c)) fail('Katalogfrage in einer Kategorie für Übungsfragen:', wo);
 }
 for (const id of g.chg) if (g.qs.some((q) => q.id === id && q.own)) fail('chg verweist auf eine Übungsfrage:', id);
+// Die App setzt fest voraus: Kategorien 0–9 sind Katalog, Kategorie 10 ist der Reiter Führung, ab 10 nur Übungsfragen.
+g.cats.forEach((n, i) => { if ((i >= 10) !== uebung(i)) fail(`Kategorie ${i} „${n}“: Index ab 10 nur für „(Übungsfragen)“, darunter nur Katalog`); });
+for (const q of g.qs) if (!q.own && !q.id.startsWith(`${q.c + 1}.`)) fail('Nummer passt nicht zur Kategorie:', `gruppenfuehrer.json ${q.id}`);
 const z = lesen('app/data/zugfuehrer.json');
 pruefe('zugfuehrer.json', z, { text: 'q', opt: 'o', kat: 'k' }, null);
 
