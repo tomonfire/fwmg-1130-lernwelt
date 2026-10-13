@@ -6,6 +6,15 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 
 ## 13. Oktober 2026
 
+### Befehlscoach
+- **Menschenrettung nach Realbrand.** Bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) zeigt die Auswertung unter „Noch einmal ansehen“ den Kasten „Menschenrettung nach Realbrand“, gekennzeichnet als Ergänzung: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge, dazu die Quelle mit Abschnitt. Der Kasten zählt nicht zur Punktzahl, zum Bestwert oder zum Verlauf.
+- **Drei neue Lagen für Gruppenführer**, alle mit dem Badge „Ergänzung“: „Gefahrstoff tritt aus“ (ABC, Erkundung, Absperren, GAMS-Regel nach FwDV 500, unter „Hilfeleistung“), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6, Angriffs- und Wassertrupp, ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“ (§ 27 BHKG, BSW-Leitfaden). Die bisherigen Lagen, ihre IDs und dein Lernstand bleiben unverändert.
+- **Fünf neue Quizfragen** zur Menschenrettung nach Realbrand, gekennzeichnet als Ergänzung, jede Antwort mit Fundstelle.
+- **Fahrzeugnamen nach DIN-Typenliste** (25. Fassung, 26.10.2023): Im Befehlscoach kommen nur Bezeichnungen der Typenliste oder neutrale Begriffe vor. Die Überschrift „Technische Hilfeleistung“ heißt jetzt „Hilfeleistung“.
+
+### Gruppenführer
+- **Hinweise bei Fahrzeugfragen.** Bei den Fragen 8.8, 8.10, 8.11 und 8.14 (Kategorie H) steht ein „Hinweis zur Vorschrift“ zu Bezeichnungen, die in der aktuellen Typenliste anders heißen oder fehlen (SW 2000, DLA (K)). Fragen und Lösungen bleiben wie im Katalog.
+
 ### Gruppenführer und Zugführer
 - **Freitext und Fallbeispiel.** Unter „Heute“ gibt es den neuen Abschnitt „Freitext und Fallbeispiel“, gekennzeichnet als Ergänzung. Du tippst eine eigene Antwort auf eine offene Frage oder ein kurzes Fallbeispiel (Brand, Technische Hilfe, Sonderlage) und zeigst danach die Musterlösung, auch mit leerem Feld. Je Stichpunkt markierst du selbst „hatte ich“ (grün) oder „fehlte“ (orange); nicht markierte Stichpunkte zählen beim Abschließen als „fehlte“. Am Computer schaltet die Ziffer n den Stichpunkt n um. Du siehst „x von y Stichpunkten“ und die Fundstelle. Je Coach gibt es 10 Aufgaben (mindestens 3 Fallbeispiele), alles eigene Formulierungen nach den Vorschriften. Die App bewertet den Text nicht und speichert nur das Ergebnis, nicht deinen Text. Unter „Fortschritt“ steht „Freitext und Fallbeispiel: n von 10 bearbeitet“. Katalog-Quote, Tagesziel, Runden und Prüfung bleiben unverändert; Freitext-Aufgaben kommen dort nie vor. Der Befehlscoach hat keinen Freitext.
 

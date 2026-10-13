@@ -1,6 +1,7 @@
 // Prüft die Fragen-Dateien in app/data/: gültiges JSON, eindeutige IDs, Antworten verweisen auf vorhandene Optionen, Fundstelle (f) nur als kurzer Text an Katalogfragen.
 // Dazu freitext.json (Ergänzung, getrennt vom Katalog): Aufgaben mit Stichpunkten und Fundstelle, mind. 10 je Coach.
 import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
 
 let bad = 0;
 const fail = (...m) => { console.error(...m); bad++; };
@@ -73,6 +74,63 @@ for (const [coach, pre] of [['gf', 'ft-gf-'], ['zf', 'ft-zf-']]) {
     if (a.typ === 'frage' && 'lage' in a) fail('Lage (lage) nur bei Fallbeispielen:', wo);
   }
   if (liste.filter((a) => a && a.typ === 'fall').length < 3) fail(`freitext.json ${coach}: mind. 3 Fallbeispiele erwartet`);
+}
+
+// Befehlscoach: Fahrzeugkürzel nur aus der DIN-FNFW-Feuerwehrfahrzeug-Typenliste (25. Fassung, 26.10.2023) oder neutral
+// („Löschfahrzeug“); Lagen mit `rb` (Realbrand-Kasten) brauchen Stichpunkte und Quelle; Ergänzung (`ext`) nur an neuen Lagen.
+const TYPENLISTE = ['TSF', 'TSF-W', 'KLF', 'MLF', 'LF 10', 'HLF 10', 'LF 20', 'HLF 20', 'LF 20 KatS', 'TLF 2000', 'TLF 3000', 'TLF 4000',
+  'DLK 12', 'DLK 18', 'DLK 23', 'DLAK 12/9', 'DLAK 18/12', 'DLAK 23/12', 'TGM 18/12', 'TGM 23/12', 'WLF', 'RW', 'GW-G', 'GW-L1', 'GW-L2', 'KdoW', 'ELW 1', 'ELW 2'];
+// Kürzel, die als Fahrzeug gelten könnten (auch veraltete wie SW 2000, LF 16/12, DL 23-12), mit optionaler Typzahl und Zusatz.
+const FZ = /(?<![\wÄÖÜäöüß-])(?:HLF|TLF|MLF|KLF|TSF-W|TSF|LF|DLAK|DLK|DLA\s?\(K\)|DLA|DL|TGM|WLF|RW|GW-[A-Z0-9ÄÖÜ]+|GW|ELW|KdoW|SW|MTF|MTW|VRW|ULF|RTW|NEF|KTW|MZF|LHF|TroLF|GTLF|GTLF|SLF|FLF|LKW)(?:\s\d+(?:[/-]\d+)*(?:\s?KatS)?|\s?\d+(?:[/-]\d+)*)?(?![\wÄÖÜäöüß])/g;
+const bt = readFileSync('app/apps/befehlstrainer.html', 'utf8');
+const unbekannt = new Set();
+for (const m of bt.matchAll(FZ)) {
+  const k = m[0].replace(/\s+/g, ' ').trim();
+  if (!TYPENLISTE.includes(k)) unbekannt.add(k);
+}
+for (const k of unbekannt) fail('Fahrzeugkürzel im Befehlscoach nicht in der Typenliste (DIN-FNFW, 25. Fassung):', k);
+{
+  const mm = bt.match(/var SCEN = (\[[\s\S]*?\n  \]);\n\n  var QUIZ = (\[[\s\S]*?\n  \]);\n/);
+  if (!mm) fail('Befehlscoach: SCEN oder QUIZ nicht gefunden');
+  else {
+    const RX_R1 = '(1\\.?|eins|ein|erst\\w*)\\s*(c\\s*)?rohr';
+    const SCEN = vm.runInNewContext(`(${mm[1]})`, { RX_R1 });
+    const QUIZ = vm.runInNewContext(`(${mm[2]})`, {});
+    const text = (x) => typeof x === 'string' && x.trim() !== '';
+    const sids = new Set();
+    for (const sc of SCEN) {
+      const wo = `befehlstrainer.html Lage ${sc.id}`;
+      if (sids.has(sc.id)) fail('Doppelte Lagen-id:', wo);
+      sids.add(sc.id);
+      if (sc.ext && sc.role === 'zf') fail('Ergänzung (ext) nur für die Rolle Gruppenführer:', wo);
+      if (sc.ext) {
+        if (!sc.beur || !text(sc.beur.ok) || !sc.kon || !text(sc.kon.ok)) fail('Ergänzung ohne Beurteilung oder Kontrolle:', wo);
+      }
+      for (const st of sc.befehle || []) {
+        if (!st.f || !st.kw || Object.keys(st.f).sort().join() !== Object.keys(st.kw).sort().join()) fail('Befehl: Felder (f) und Schlüsselwörter (kw) passen nicht zusammen:', `${wo} ${st.name}`);
+        for (const [k, v] of Object.entries(st.kw || {})) { try { new RegExp(v, 'i'); } catch { fail('Ungültiges Schlüsselwort (kw):', `${wo} ${st.name} ${k}`); } }
+      }
+      if ('rb' in sc) {
+        const r = sc.rb;
+        if (!r || !Array.isArray(r.p) || r.p.length < 2 || r.p.length > 4 || !r.p.every(text)) fail('Realbrand (rb): 2 bis 4 Stichpunkte (p) erwartet:', wo);
+        if (!r || !text(r.q)) fail('Realbrand (rb): Quelle (q) fehlt:', wo);
+        if (r && text(r.q) && !/Fachempfehlung Brandbekämpfung zur Menschenrettung \(2019\), Abschn\. \d/.test(r.q)) fail('Realbrand (rb): Quelle ohne Abschnitt:', wo);
+      }
+    }
+    for (const id of ['zimmerbrand', 'z-wohnhaus', 'z-halle']) if (!SCEN.some((s) => s.id === id && s.rb)) fail('Lage ohne Realbrand-Kasten (rb):', id);
+    if (SCEN.filter((s) => s.ext).length < 3) fail('Weniger als 3 Lagen als Ergänzung (ext)');
+    // Staffel: weder Schlauchtrupp noch Melder in den Auswahllisten.
+    for (const sc of SCEN.filter((s) => /^staffel/.test(s.id))) {
+      for (const st of sc.befehle) for (const l of Object.values(st.f)) if (l.some((o) => /Schlauchtrupp|Melder/.test(o))) fail('Staffel-Lage mit Schlauchtrupp oder Melder in den Auswahllisten:', `${sc.id} ${st.name}`);
+    }
+    const ergQ = QUIZ.filter((q) => q[5] === true);
+    if (ergQ.length < 4) fail(`Befehlscoach-Quiz: nur ${ergQ.length} Ergänzungsfragen zur Menschenrettung nach Realbrand, mind. 4`);
+    for (const q of QUIZ) {
+      if (!text(q[0]) || !text(q[1]) || !Array.isArray(q[2]) || q[2].length !== 3 || !q[2].every(text) || !text(q[3])) fail('Befehlscoach-Quiz: Frage unvollständig:', String(q[0]).slice(0, 50));
+      if (q[5] === true && !/Abschn\. \d/.test(q[3])) fail('Befehlscoach-Quiz: Ergänzungsfrage ohne Fundstelle mit Abschnitt:', q[0].slice(0, 50));
+    }
+    console.log(`OK: ${SCEN.length} Lagen (${SCEN.filter((s) => s.ext).length} Ergänzung), ${QUIZ.length} Quizfragen (${ergQ.length} Ergänzung), Fahrzeugkürzel nach Typenliste`);
+  }
 }
 
 console.log(bad ? `${bad} Problem(e) in den Fragen` : `OK: ${g.qs.length} Gruppenführer-Fragen, ${z.length} Zugführer-Fragen, ${ft.gf.length} + ${ft.zf.length} Freitext-Aufgaben`);

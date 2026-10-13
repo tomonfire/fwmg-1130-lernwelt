@@ -47,6 +47,9 @@ Status: **aktuell** = keine neuere Fassung bekannt · **ersetzt** = neuere Fassu
 | IdF-Poster Führungsvorgang | – | aktuell | GF 11.3xx |
 | IdF-Taschenkarte Funk | v3.0, 06.07.2021 | aktuell | GF N (Übungsfragen) |
 | Erlass IM NRW zur Ölspurbeseitigung | 06.06.2007 | aktuell | GF M (Übungsfrage 12.115) |
+| Fachempfehlung Brandbekämpfung zur Menschenrettung (AG Realbrand NRW) | 18.11.2019 | aktuell | Befehlscoach: Kasten „Menschenrettung nach Realbrand“, 5 Quizfragen |
+| DIN-FNFW Feuerwehrfahrzeug-Typenliste | 25. Fassung, 26.10.2023 | aktuell | Befehlscoach (Positivliste im Check), GF Kat. H Hinweise 8.8, 8.10, 8.11, 8.14 |
+| BSW: Empfehlung AGBF/DFV (01/2020), Leitfaden Lernkompass | 2020 / – | aktuell | Befehlscoach Lage `bsw-buehne` |
 
 ## Fundstellen (Feld `f`): Prüfliste
 
@@ -181,6 +184,33 @@ Stand 13.10.2026. Jede Aufgabe in `app/data/freitext.json` ist eine eigene Formu
 | ft-zf-8 | Frage | FwDV 3, 2.4, 5.2.2 | FwDV 3 (2008-02), S. 9, 15 |
 | ft-zf-9 | Frage | BHKG NRW, §§ 35 bis 37 | BHKG (2021-07-01), S. 21–22 |
 | ft-zf-10 | Frage | IdF B2-330, 2, 5 | B2-330 (2021-03), S. 4–5, 23 |
+
+## Befehlscoach: Realbrand, Ergänzungslagen, Fahrzeuge (Anforderung 0003): Prüfliste
+
+Stand 13.10.2026. Alle Texte sind eigene Formulierungen, geprüft gegen den Volltext der privaten Wissensbasis (Datei, Seite). Orts-, Personen-, Einheits- und Firmennamen kommen nicht vor; die örtliche Regelung (SER) wurde nicht verwendet.
+
+| Inhalt | Fundstelle | Volltext (Datei, Seite) |
+| --- | --- | --- |
+| Kasten `rb` (zimmerbrand, z-wohnhaus, z-halle), Quizfragen Realbrand | Fachempfehlung Brandbekämpfung zur Menschenrettung (2019), Abschn. 1, 6.1, 7, 8, 11.1–11.4, 12, 13 | Realbrand Fachempfehlung (2019-11-18), S. 4, 31, 33, 36, 41–43, 45 |
+| `abc-austritt` | FwDV 500, 1.5, 1.5.1, 1.5.3.2 (GAMS), 1.5.3.5 (Gefahren-, Absperrbereich); FwDV 3, 7.2 b, c | FwDV 500 (2022-01), S. 20, 23–25; FwDV 3 (2008-02), S. 34 |
+| `staffel-schuppen` | FwDV 3, 2.2 (Staffel 1/5/6), 5.1, 5.2.1, 5.5.1; Fahrzeug TSF-W laut Typenliste | FwDV 3 (2008-02), S. 7, 13–14, 21; DIN-Typenliste (2023-10-26), S. 1 |
+| `bsw-buehne` | BHKG NRW, § 27 Abs. 1 und 3; BSW-Leitfaden (Kommunikation, Beendigung); Empfehlung AGBF/DFV 2020 (wasserführendes Löschfahrzeug bei Entstehungsbränden) | BHKG (2021-07-01), S. 16; BSW Leitfaden, S. 1–2; BSW Qualifikation (2020-01), S. 3 |
+
+Fahrzeuge im Befehlscoach: Vorkommen nur „TSF-W“ (staffel-schuppen) und neutral „Löschfahrzeug“. Positivliste im Check (`scripts/data.mjs`) nach DIN-FNFW-Typenliste, 25. Fassung vom 26.10.2023, S. 1: TSF, TSF-W, KLF, MLF, LF 10, HLF 10, LF 20, HLF 20, LF 20 KatS, TLF 2000/3000/4000, DLK 12/18/23 (DLAK), TGM 18/12 und 23/12, WLF, RW, GW-G, GW-L1, GW-L2, KdoW, ELW 1, ELW 2. Nicht enthalten, daher als veraltet gemeldet: SW 2000, LF 16/12, LF 8, DL 23-12 u. a.
+
+### Prüfprotokoll GF Kategorie H (Fahrzeugangaben, Lösungen unverändert)
+
+| ID | Fahrzeugangabe | Befund gegen die Typenliste | Hinweis `v` |
+| --- | --- | --- | --- |
+| 8.1 | HLF 20 | in der Liste (DIN 14530-27, Tank 1 600 l); Schaummittelmenge steht nicht in der Liste | nein |
+| 8.8 | DLA (K) 23-12 | Liste führt DLK 23 (DLAK 23/12); sequenzielle Drehleitern nicht enthalten und nicht empfohlen (S. 3) | ja |
+| 8.9 | TLF 3000 | in der Liste (DIN 14530-22, Tank 3 000 l, Besatzung Trupp) | nein |
+| 8.10 | DLA (K) 23/12 | wie 8.8 (Besatzung Trupp) | ja |
+| 8.11 | LF 20, SW 2000, TLF 3000, WLF, ELW 1 | LF 20 und TLF 3000 mit Tank; WLF, ELW 1 in der Liste ohne Tank; SW 2000 nicht mehr enthalten, heute GW-L2 (DIN 14555-22) | ja |
+| 8.14 | SW 2000 | nicht mehr enthalten, heute GW-L2; Eigenschaften der Frage stehen nicht in der Liste | ja |
+| 2.21, 6.7, 7.9 | ELW, HLF, DLK (ohne Typzahl) | außerhalb Kat. H, allgemeine Typbezeichnungen, kein Hinweis nötig | nein |
+
+Offen: Die Gleichsetzung SW 2000 mit GW-L2 stammt aus der Spezifikation; die Typenliste selbst nennt nur den GW-L2 (Hauptaufgabe Logistik, Besatzung Staffel).
 
 ## Regeln
 

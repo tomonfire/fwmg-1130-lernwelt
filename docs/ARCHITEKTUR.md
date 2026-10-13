@@ -44,6 +44,8 @@ Jede App-Datei ist eigenständig (HTML, CSS, JavaScript) und lädt ihre Fragen b
 
 **Freitext und Fallbeispiel (Ergänzung):** Aufgaben liegen getrennt vom Katalog in `app/data/freitext.json` (`gf`, `zf`; Felder `id`, `typ`, `lage`, `t`, `p`, `f`), geladen von den Coaches und nie Teil von Runden, Übungsfragen oder Prüfung. Der Lernstand steht als Teilobjekt `ft` (`{id: {d, x, y}}`, nur Ergebnis, nie der Text) im Stand des jeweiligen Coaches (`lernkompass-tagestraining-v1`, `zf4tt.state.v1`), wird beim Einlesen und Zusammenführen auf Typen geprüft und ist damit in Sichern/Wiederherstellen enthalten. Die Ansicht ist in beiden Coaches gleich, die Stile liegen in `app/coach.css`, die Zifferntasten in `app/tastatur.js`.
 
+**Befehlscoach: Ergänzungen (Anforderung 0003):** `SCEN` kennt die optionalen Felder `ext: true` (Badge „Ergänzung“ in der Liste, nur Rolle Gruppenführer) und `rb: {p, q}` (Kasten „Menschenrettung nach Realbrand“ in `viewDone()`, ohne Wertung). Quizfragen mit sechstem Element `true` sind Ergänzung. Neue Lagen speichern unter eigener ID im bestehenden `bt-fwdv3`; bestehende IDs bleiben. `scripts/data.mjs` prüft die Felder und lässt im Befehlscoach nur Fahrzeugkürzel der DIN-FNFW-Typenliste zu (Positivliste im Skript, bei neuer Fassung der Typenliste aktualisieren).
+
 Diese Schlüssel nie umbenennen. Sonst verlieren Nutzer ihren Lernstand. Änderungen am Datenformat nur abwärtskompatibel.
 
 ## Farblogik
