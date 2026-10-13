@@ -68,5 +68,21 @@ const zfTabs = [...((readFileSync('app/apps/zugfuehrer.html', 'utf8').match(/\[\
 if (gfTabs !== TABS) fail(`Reiter im Gruppenführer-Coach: ${gfTabs || 'nicht gefunden'} (erwartet ${TABS})`);
 if (zfTabs !== TABS) fail(`Reiter im Zugführer-Coach: ${zfTabs || 'nicht gefunden'} (erwartet ${TABS})`);
 
+// Sperrliste: Begriffe aus internen oder örtlichen Quellen (Namen, Orte, Einheiten), die nie in app/ oder docs/ stehen dürfen.
+// Die Liste liegt bewusst nicht im Repository: FWMG_SPERRLISTE=<Pfad zu einer Textdatei, ein Begriff je Zeile>.
+// Ohne Liste wird die Prüfung übersprungen.
+if (process.env.FWMG_SPERRLISTE) {
+  const begriffe = readFileSync(process.env.FWMG_SPERRLISTE, 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
+  const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`]));
+  const dateien = [...walk('app'), ...walk('docs'), 'README.md', 'CHANGELOG.md'].filter((f) => /\.(html|js|json|md|css|webmanifest|txt)$/.test(f));
+  for (const f of dateien) {
+    const text = readFileSync(f, 'utf8').normalize('NFC').toLowerCase();
+    for (const b of begriffe) {
+      const esc = b.normalize('NFC').toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (new RegExp(`(^|[^\\p{L}\\p{N}])${esc}($|[^\\p{L}\\p{N}])`, 'u').test(text)) fail(`Begriff aus der Sperrliste in ${f}`);
+    }
+  }
+}
+
 console.log(bad ? `${bad} Problem(e)` : 'OK: Dateien vollständig, Regeln für den öffentlichen Betrieb eingehalten');
 process.exit(bad ? 1 : 0);

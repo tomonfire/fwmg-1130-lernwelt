@@ -10,8 +10,10 @@ Reihenfolge ist ein Vorschlag, nach Nutzen und Aufwand.
 - [ ] Browser-Tests erweitern: Einstellungen in der Übersicht, Prüfungsablauf, Lernstand bleibt nach Update erhalten.
 - [ ] **Branch-Schutz** für `main` aktivieren (öffentliches Repository, siehe [REPOSITORY.md](REPOSITORY.md)).
 
+- [ ] **Jährliche Aktualitätsprüfung** (jeweils im Herbst, zuletzt 12.10.2026): [Quellenregister](QUELLEN.md) gegen neue Fassungen prüfen, Quellen-Reiter und Hinweise zur Vorschrift anpassen. Wiedervorlage: BHKG-Novelle nach Verkündung, Einführung der FwDV 1 (2026) in NRW.
+
 ## Danach
-- [ ] Lizenz und Rechte an den Fragen klären (Lernkompass IdF NRW).
+- [ ] Lizenz und Rechte an den Fragen klären (Lernkompass IdF NRW). Entscheidung bis dahin: keine weiteren fremden Fragenkataloge übernehmen; aus IdF- und LFS-Unterlagen nur eigene Formulierungen mit Fundstelle.
 - [ ] Eigene Fragen hinzufügen und teilen (Einheit, Löschzug).
 - [ ] KI-Rückmeldung im Befehlstrainer über ein Backend.
 - [ ] Weitere Trainer, z. B. Funk, Einsatzstellenhygiene, Atemschutz.

@@ -4,6 +4,16 @@ Was sich in der Lernwelt für dich ändert, kurz und ohne Technik. Die technisch
 
 Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Das Fenster zeigt nur, was diesmal neu ist. Unter „Neuigkeiten“ in der Übersicht kannst du es jederzeit wieder öffnen; ältere Ausgaben stehen dort unter „Frühere Neuigkeiten“.
 
+## 13. Oktober 2026
+
+### Gruppenführer
+- **50 neue Übungsfragen.** Unter „Heute“ → „Übungsfragen“ gibt es eigene Runden zu Recht NRW (BHKG, VOFF), Funk und Kommunikation (FwDV 810, Taschenkarte Funk), ABC-Einsatz (FwDV 500) sowie Prüfung von Geräten und UVV. Die Fragen sind eigene Formulierungen, jede Erklärung nennt die Fundstelle. Sie haben einen eigenen Lernstand unter „Fortschritt“.
+- **Katalog bleibt Katalog.** Tagesrunden, Themenwahl und Prüfung enthalten nur noch Fragen aus dem Fragenkatalog. Die Übungsfragen zum Führungsvorgang und zur Gefahrenmatrix stehen weiter unter „Führung“; dort startet „Weitere Runde“ jetzt wieder eine Übungsrunde.
+- **Prüfung und Zulassung.** Unter „Quellen“ steht, wie die GF-Basisprüfung aufgebaut ist (MC-Fragearbeit, Facharbeit, zwei Fallbeispiele, mündliche Prüfung) und welche Voraussetzungen für die Zulassung gelten.
+
+### Zugführer
+- **Führungsstufen und Sachgebiete.** Unter „Führung“ erklärt ein neuer Abschnitt die Führungsstufen A bis D und die Sachgebiete S 1 bis S 6 nach FwDV 100.
+
 ## 12. Oktober 2026
 
 ### Gruppenführer und Zugführer
