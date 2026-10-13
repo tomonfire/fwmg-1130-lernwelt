@@ -1,5 +1,7 @@
 # 0001 Fundstellen je Katalogfrage (A-06)
 
+> In der App heißt die Zeile seit 13.10.2026 „Nachlesen“; in Daten und Doku bleibt „Fundstelle“ (`f`) der Fachbegriff.
+
 ## Ziel
 
 Lernende sehen nach der Antwort, wo die Lösung einer Katalogfrage in der Vorschrift oder im Gesetz steht, und können gezielt nachlesen. Die Fundstelle ist eine gekennzeichnete Ergänzung; Fragetext, Optionen und Katalog-Lösung bleiben unverändert.

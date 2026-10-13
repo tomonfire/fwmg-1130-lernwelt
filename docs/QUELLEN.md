@@ -53,6 +53,8 @@ Status: **aktuell** = keine neuere Fassung bekannt · **ersetzt** = neuere Fassu
 
 ## Fundstellen (Feld `f`): Prüfliste
 
+> In der App heißt die Zeile seit 13.10.2026 „Nachlesen“; in Daten und Doku bleibt „Fundstelle“ (`f`) der Fachbegriff.
+
 Stand 13.10.2026. Startumfang der Anforderung 0001: GF Kategorie A (FwDV 1, 23 Fragen), GF Kategorie J (Recht, 5 Fragen) und ZF Kapitel 3 (Recht, 53 Fragen), zusammen 81 Fragen. Jede ID wurde gegen den Volltext der privaten Wissensbasis geprüft. **Fundstelle** heißt: Die Stelle stützt die Katalog-Lösung, `f` steht in `app/data/*.json`. **Nicht belegbar** heißt: kein `f`, mit Grund. Streng gewertet: Fehlt für eine richtige Option die Stütze im Text, bekommt die Frage kein `f`. `f` ist eine eigene Kurzangabe, kein Zitat. Fassung steht bei `f`, wenn sie vom Katalog abweicht (FwDV 1: Ausgabe 2026, der Katalog folgt der Ausgabe 2006). Für GG, VwVfG NRW, StVO und OBG NRW gibt es keinen Volltext; dort gilt die IdF-Lernunterlage B1-201 (04/2021) als Beleg, `f` nennt sie dann („nach IdF B1-201 (2021)“). Die Abschnittsnummern der FwDV 1 gelten für Ausgabe 2026. Die Seitenzahlen der Volltexte stehen nur hier, nicht in der App.
 
 Ergebnis: **46 von 81** mit Fundstelle (GF A 11 von 23, GF J 2 von 5, ZF Kapitel 3 33 von 53), 35 nicht belegbar. An den Katalogfragen ändert sich nur das Feld `f`.
