@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (13.10.2026)
+- Anzeige „Fundstelle“ heißt in allen Coaches „Nachlesen“ (Zeile unter der Auflösung, Freitext, Texte unter „Quellen“, Was ist neu); im Befehlscoach ersetzt „Nachlesen“ das bisherige „Quelle“ in Quiz-Auflösung, Einleitung und Kasten `rb`. Datenfeld `f`, CSS-Klassen und Speicherschlüssel unverändert. GF V3.39, ZF V1.14, Befehlscoach V2.17, Service-Worker `VERSION` auf v53, `NEU` mit neuer id.
+
 ### Hinzugefügt (13.10.2026, Anforderung 0003)
 - Befehlscoach: Feld `ext` an Lagen (Badge „Ergänzung“ in der Liste) und Feld `rb` (`{p, q}`: 2 bis 4 Stichpunkte, Quelle mit Abschnitt) für den Kasten „Menschenrettung nach Realbrand“ in der Auswertung (`rbBox()`, unter „Noch einmal ansehen“, Ausgabe über `esc()`); ohne Einfluss auf Punktzahl, Bestwert und Verlauf. `rb` an `zimmerbrand`, `z-wohnhaus`, `z-halle`. Neue Lagen `abc-austritt` (hilfe), `staffel-schuppen`, `bsw-buehne` mit eigener Lagen-ID, bestehende Lagen und IDs unverändert, kein neuer localStorage-Schlüssel. Quiz: 5 Ergänzungsfragen (sechstes Element `true`, Badge) mit Fundstelle aus der Fachempfehlung Realbrand 2019. `APPV` V2.16, Anzahl Übungen in der Shell 16.
 - GF Kat. H: Hinweis `v` an 8.8, 8.10, 8.11, 8.14 (DIN-Typenliste, SW 2000/DLA (K)); Lösungen, `a` und `chg` unverändert. GF V3.38.

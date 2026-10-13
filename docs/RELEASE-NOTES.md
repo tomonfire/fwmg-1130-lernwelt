@@ -6,6 +6,9 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 
 ## 13. Oktober 2026
 
+### Alle Coaches
+- **„Nachlesen“ statt „Fundstelle“.** Die Zeile unter der Auflösung, die sagt, wo die Antwort in Vorschrift oder Gesetz steht, heißt jetzt „Nachlesen“. Im Befehlscoach ersetzt „Nachlesen“ das bisherige „Quelle“ beim Quiz und im Kasten „Menschenrettung nach Realbrand“. Inhalte und Lernstand ändern sich nicht.
+
 ### Befehlscoach
 - **Menschenrettung nach Realbrand.** Bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) zeigt die Auswertung unter „Noch einmal ansehen“ den Kasten „Menschenrettung nach Realbrand“, gekennzeichnet als Ergänzung: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge, dazu die Quelle mit Abschnitt. Der Kasten zählt nicht zur Punktzahl, zum Bestwert oder zum Verlauf.
 - **Drei neue Lagen für Gruppenführer**, alle mit dem Badge „Ergänzung“: „Gefahrstoff tritt aus“ (ABC, Erkundung, Absperren, GAMS-Regel nach FwDV 500, unter „Hilfeleistung“), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6, Angriffs- und Wassertrupp, ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“ (§ 27 BHKG, BSW-Leitfaden). Die bisherigen Lagen, ihre IDs und dein Lernstand bleiben unverändert.

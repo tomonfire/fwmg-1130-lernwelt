@@ -179,12 +179,13 @@ try {
     await p.laden(pfad);
     return p;
   };
-  await step('Fundstelle erscheint nach der Antwort, nicht während der Prüfung, wieder in der Auswertung (Gruppenführer)', async () => {
+  await step('Fundstelle („Nachlesen“) erscheint nach der Antwort, nicht während der Prüfung, wieder in der Auswertung (Gruppenführer)', async () => {
     const p = await neueSeite('apps/gruppenfuehrer.html', 'gruppenfuehrer.json');
     await p.locator('[data-act=start]').first().click();
     await p.locator('.opts .opt').first().click();
     await p.locator('[data-act=check]').first().click();
     assert(await p.locator('.fund').count() === 1, 'keine Fundstelle nach der Antwort');
+    assert((await p.locator('.fund').textContent()).includes('Nachlesen:'), 'Zeile heißt nicht „Nachlesen“');
     await p.laden('apps/gruppenfuehrer.html');
     await p.locator('[data-act=exstart]').last().click();
     assert(await p.locator('.fund').count() === 0, 'Fundstelle während der Prüfung sichtbar');

@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-9lpsqAUUsHaLRqBocFgCdOJ/n7fNu7vJeNuFQv87QJs=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-v+gaNt12ohLTybbib3DOwqijUy8gojzG/gogFVquNzA=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -461,20 +461,23 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
      Neue Ausgabe: bisheriges NEU vorne in NEU_ALT verschieben, NEU mit neuer id und nur den neuen Punkten füllen.
      Ältere Ausgaben stehen unter „Frühere Neuigkeiten“ in der Übersicht; die Release Notes in docs/RELEASE-NOTES.md. */
   var NEUK='fwmg.neu.v1';
-  var NEU={id:'2026-10-13-4',datum:'13. Oktober 2026',punkte:[
-    ['Menschenrettung nach Realbrand','Im Befehlscoach zeigt die Auswertung bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) den Kasten „Menschenrettung nach Realbrand“: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge mit Quelle. Er ist gekennzeichnet als Ergänzung und zählt nicht zur Punktzahl. Dazu fünf neue Quizfragen mit Fundstelle.'],
-    ['Drei neue Lagen','Im Befehlscoach als Gruppenführer: „Gefahrstoff tritt aus“ (ABC, GAMS-Regel), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6 ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“. Alle drei tragen das Badge „Ergänzung“; die bisherigen Lagen und dein Lernstand bleiben unverändert.'],
-    ['Fahrzeugnamen nach Typenliste','Die Fahrzeugbezeichnungen im Befehlscoach folgen der DIN-Typenliste (Stand 26.10.2023). Im Gruppenführer-Coach steht bei vier Fahrzeugfragen (8.8, 8.10, 8.11, 8.14) ein „Hinweis zur Vorschrift“, zum Beispiel zum SW 2000; die Lösungen bleiben wie im Katalog.']
+  var NEU={id:'2026-10-13-5',datum:'13. Oktober 2026',punkte:[
+    ['„Nachlesen“ statt „Fundstelle“','Unter der Auflösung heißt die Zeile mit der Stelle in Vorschrift oder Gesetz jetzt „Nachlesen“, in allen drei Coaches gleich. Inhalt und Lernstand bleiben unverändert.']
   ]};
   var NEU_ALT=[
     {datum:'13. Oktober 2026',punkte:[
-    ['Freitext und Fallbeispiel','Im Gruppenführer- und Zugführer-Coach unter „Heute“: Tippe eine eigene Antwort auf eine offene Frage oder ein kurzes Fallbeispiel, zeige die Musterlösung und markiere je Stichpunkt „hatte ich“ oder „fehlte“. Je Coach 10 Aufgaben mit Fundstelle. Die App bewertet den Text nicht und speichert ihn nicht; unter „Fortschritt“ steht, wie viele Aufgaben du bearbeitet hast. Die Ergänzung zählt nicht für Katalog, Tagesziel und Prüfung.']
+    ['Menschenrettung nach Realbrand','Im Befehlscoach zeigt die Auswertung bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) den Kasten „Menschenrettung nach Realbrand“: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge zum Nachlesen. Er ist gekennzeichnet als Ergänzung und zählt nicht zur Punktzahl. Dazu fünf neue Quizfragen mit Angabe zum Nachlesen.'],
+    ['Drei neue Lagen','Im Befehlscoach als Gruppenführer: „Gefahrstoff tritt aus“ (ABC, GAMS-Regel), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6 ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“. Alle drei tragen das Badge „Ergänzung“; die bisherigen Lagen und dein Lernstand bleiben unverändert.'],
+    ['Fahrzeugnamen nach Typenliste','Die Fahrzeugbezeichnungen im Befehlscoach folgen der DIN-Typenliste (Stand 26.10.2023). Im Gruppenführer-Coach steht bei vier Fahrzeugfragen (8.8, 8.10, 8.11, 8.14) ein „Hinweis zur Vorschrift“, zum Beispiel zum SW 2000; die Lösungen bleiben wie im Katalog.']
     ]},
     {datum:'13. Oktober 2026',punkte:[
-    ['Fundstellen bei Katalogfragen','Im Gruppenführer- und Zugführer-Coach steht unter der Auflösung bei 46 Fragen aus FwDV 1 und Recht, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist. Die Zeile „Fundstelle“ ist eine gekennzeichnete Ergänzung; Fragen, Antworten und Lösungen bleiben wie im Katalog. In der Prüfung erscheint sie erst in der Auswertung.']
+    ['Freitext und Fallbeispiel','Im Gruppenführer- und Zugführer-Coach unter „Heute“: Tippe eine eigene Antwort auf eine offene Frage oder ein kurzes Fallbeispiel, zeige die Musterlösung und markiere je Stichpunkt „hatte ich“ oder „fehlte“. Je Coach 10 Aufgaben mit Angabe zum Nachlesen. Die App bewertet den Text nicht und speichert ihn nicht; unter „Fortschritt“ steht, wie viele Aufgaben du bearbeitet hast. Die Ergänzung zählt nicht für Katalog, Tagesziel und Prüfung.']
     ]},
     {datum:'13. Oktober 2026',punkte:[
-      ['50 neue Übungsfragen','Im Gruppenführer-Coach unter „Heute“ → „Übungsfragen“: Recht NRW, Funk, ABC-Einsatz sowie Prüfung von Geräten und UVV. Eigene Fragen mit Fundstelle, getrennt vom Katalog.'],
+    ['Nachlesen bei Katalogfragen','Im Gruppenführer- und Zugführer-Coach steht unter der Auflösung bei 46 Fragen aus FwDV 1 und Recht, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist. Die Zeile „Nachlesen“ ist eine gekennzeichnete Ergänzung; Fragen, Antworten und Lösungen bleiben wie im Katalog. In der Prüfung erscheint sie erst in der Auswertung.']
+    ]},
+    {datum:'13. Oktober 2026',punkte:[
+      ['50 neue Übungsfragen','Im Gruppenführer-Coach unter „Heute“ → „Übungsfragen“: Recht NRW, Funk, ABC-Einsatz sowie Prüfung von Geräten und UVV. Eigene Fragen mit Angabe zum Nachlesen, getrennt vom Katalog.'],
       ['Katalog bleibt Katalog','Katalogrunden und Prüfung enthalten nur noch Katalogfragen. Die Übungsfragen zum Führungsvorgang findest du weiter unter „Führung“.'],
       ['Prüfung und Zulassung','Unter „Quellen“ erklärt der Gruppenführer-Coach jetzt den Ablauf der GF-Basisprüfung und die bisherigen Zulassungsvoraussetzungen, mit Hinweis zum Stand. Der Zugführer-Coach zeigt unter „Führung“ die Führungsstufen und Sachgebiete.']
     ]},
