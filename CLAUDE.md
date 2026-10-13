@@ -19,7 +19,7 @@ Code liegt ausschließlich in `app/`; `docs/`, `scripts/` und `.github/` erklär
 - Töne (Alarmgong im Befehlscoach) nur verwürfelt als `.bin` in `app/audio/` ablegen (`node scripts/gong.mjs <datei>`), keine abspielbaren Tondateien ins Repository; `npm run check` prüft das.
 - Nur GitHub: kein eigener Server, keine Datenbank, keine Dienste außer GitHub Pages (`connect-src 'self'`). Ausnahme, bewusst entschieden: Sprachfunktionen des Browsers im Befehlscoach (Vorlesen per `speechSynthesis`, „Einsprechen“ per `SpeechRecognition`). Sie starten nur auf Tippen und stehen im Datenschutzteil des Impressums.
 - Name beim ersten Start ist Pflicht; ohne Namen öffnet die Shell weder Übersicht noch Trainer.
-- Neue Funktionen für Nutzer: `NEU` (Fenster „Was ist neu“ in `app/index.html`, neue `id`, nur die neuen Punkte; die bisherige Ausgabe vorne in `NEU_ALT` verschieben) und `docs/RELEASE-NOTES.md` ergänzen.
+- Neue Funktionen für Nutzer: `NEU` (Fenster „Was ist neu“ in `app/index.html`, neue `id`, nur die neuen Punkte; die bisherige Ausgabe vorne in `NEU_ALT` verschieben; dort höchstens `NEU_ALT_MAX` Punkte, Überholtes und Ältestes streichen, `npm run check` prüft das) und `docs/RELEASE-NOTES.md` ergänzen.
 - Mobile zuerst (iPhone): Safe-Area-Abstände beachten, mitscrollende Leisten brauchen den Abdeckstreifen (`::before`).
 - iPad und Computer: Hauptknöpfe in Frage- und Übungsansichten stehen in `.actions.dock` (Leiste unten, Stil in `app/coach.css` für alle Coaches); `kb` ergänzen, wenn Ziffern eine Antwort wählen (`app/tastatur.js`). Hover nur unter `@media (hover:hover) and (pointer:fine)`. Ab 768 px größere Schrift wie in den drei Coaches.
 

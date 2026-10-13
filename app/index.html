@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-v+gaNt12ohLTybbib3DOwqijUy8gojzG/gogFVquNzA=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-CG/FxHAX3jyzJ4lfzlzqeRJhTyoJuDXHFAlPP0J0BPI=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -458,49 +458,20 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     $('pills').innerHTML=MODS.map(function(m){return '<button class="pill" type="button" data-switch="'+m.id+'"'+(current===m.id?' aria-current="true"':'')+'>'+esc(m.short)+'</button>'}).join('');
   }
   /* Was ist neu: das Fenster zeigt nur die neueste Ausgabe (NEU), einmal nach einem Update, beim Start der App oder in der Übersicht.
-     Neue Ausgabe: bisheriges NEU vorne in NEU_ALT verschieben, NEU mit neuer id und nur den neuen Punkten füllen.
-     Ältere Ausgaben stehen unter „Frühere Neuigkeiten“ in der Übersicht; die Release Notes in docs/RELEASE-NOTES.md. */
-  var NEUK='fwmg.neu.v1';
+     Neue Ausgabe: bisheriges NEU vorne in NEU_ALT verschieben (gleiches Datum: Punkte vorne in diese Ausgabe), NEU mit neuer id und nur den neuen Punkten füllen.
+     „Frühere Neuigkeiten“ bleibt kurz: höchstens NEU_ALT_MAX Punkte, nur was Nutzer noch wissen müssen. Überholte oder kleine Punkte
+     (Umbenennungen, Korrekturen) und alles darüber hinaus hinten streichen; vollständig bleibt es in docs/RELEASE-NOTES.md. npm run check prüft die Grenze. */
+  var NEUK='fwmg.neu.v1',NEU_ALT_MAX=6;
   var NEU={id:'2026-10-13-5',datum:'13. Oktober 2026',punkte:[
     ['„Nachlesen“ statt „Fundstelle“','Unter der Auflösung heißt die Zeile mit der Stelle in Vorschrift oder Gesetz jetzt „Nachlesen“, in allen drei Coaches gleich. Inhalt und Lernstand bleiben unverändert.']
   ]};
   var NEU_ALT=[
     {datum:'13. Oktober 2026',punkte:[
-    ['Menschenrettung nach Realbrand','Im Befehlscoach zeigt die Auswertung bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) den Kasten „Menschenrettung nach Realbrand“: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge zum Nachlesen. Er ist gekennzeichnet als Ergänzung und zählt nicht zur Punktzahl. Dazu fünf neue Quizfragen mit Angabe zum Nachlesen.'],
-    ['Drei neue Lagen','Im Befehlscoach als Gruppenführer: „Gefahrstoff tritt aus“ (ABC, GAMS-Regel), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6 ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“. Alle drei tragen das Badge „Ergänzung“; die bisherigen Lagen und dein Lernstand bleiben unverändert.'],
-    ['Fahrzeugnamen nach Typenliste','Die Fahrzeugbezeichnungen im Befehlscoach folgen der DIN-Typenliste (Stand 26.10.2023). Im Gruppenführer-Coach steht bei vier Fahrzeugfragen (8.8, 8.10, 8.11, 8.14) ein „Hinweis zur Vorschrift“, zum Beispiel zum SW 2000; die Lösungen bleiben wie im Katalog.']
-    ]},
-    {datum:'13. Oktober 2026',punkte:[
-    ['Freitext und Fallbeispiel','Im Gruppenführer- und Zugführer-Coach unter „Heute“: Tippe eine eigene Antwort auf eine offene Frage oder ein kurzes Fallbeispiel, zeige die Musterlösung und markiere je Stichpunkt „hatte ich“ oder „fehlte“. Je Coach 10 Aufgaben mit Angabe zum Nachlesen. Die App bewertet den Text nicht und speichert ihn nicht; unter „Fortschritt“ steht, wie viele Aufgaben du bearbeitet hast. Die Ergänzung zählt nicht für Katalog, Tagesziel und Prüfung.']
-    ]},
-    {datum:'13. Oktober 2026',punkte:[
-    ['Nachlesen bei Katalogfragen','Im Gruppenführer- und Zugführer-Coach steht unter der Auflösung bei 46 Fragen aus FwDV 1 und Recht, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist. Die Zeile „Nachlesen“ ist eine gekennzeichnete Ergänzung; Fragen, Antworten und Lösungen bleiben wie im Katalog. In der Prüfung erscheint sie erst in der Auswertung.']
-    ]},
-    {datum:'13. Oktober 2026',punkte:[
-      ['50 neue Übungsfragen','Im Gruppenführer-Coach unter „Heute“ → „Übungsfragen“: Recht NRW, Funk, ABC-Einsatz sowie Prüfung von Geräten und UVV. Eigene Fragen mit Angabe zum Nachlesen, getrennt vom Katalog.'],
-      ['Katalog bleibt Katalog','Katalogrunden und Prüfung enthalten nur noch Katalogfragen. Die Übungsfragen zum Führungsvorgang findest du weiter unter „Führung“.'],
-      ['Prüfung und Zulassung','Unter „Quellen“ erklärt der Gruppenführer-Coach jetzt den Ablauf der GF-Basisprüfung und die bisherigen Zulassungsvoraussetzungen, mit Hinweis zum Stand. Der Zugführer-Coach zeigt unter „Führung“ die Führungsstufen und Sachgebiete.']
-    ]},
-    {datum:'12. Oktober 2026',punkte:[
-      ['Gefahrenmatrix mit Quelle','Die Übungsfragen zur Gefahrenmatrix 4A-1C-4E im Gruppenführer-Coach sind jetzt mit der IdF-Lernunterlage B1-310 „Einsatztaktik für Gruppenführer“ abgeglichen. Die Quellen nennen sie, die Erklärungen zu Angstreaktion und Explosionsformen sind genauer.']
-    ]},
-    {datum:'12. Oktober 2026',punkte:[
-      ['Hinweise zur Vorschrift','Im Gruppenführer- und Zugführer-Coach zeigt ein Hinweis nach der Antwort, wenn eine neuere Fassung der Vorschrift etwas anderes sagt als der Katalog, etwa die neue FwDV 1 oder die FwDV 500 von 2022. Die Lösungen bleiben wie im Katalog.']
-    ]},
-    {datum:'12. Oktober 2026',punkte:[
-      ['Vorlesen endet beim Verlassen','Wechselst du im Befehlscoach den Bereich, zur Übersicht oder in einen anderen Coach, verstummen Gong und Durchsage. „Vorlesen“ startet danach wieder von vorn.']
-    ]},
-    {datum:'12. Oktober 2026',punkte:[
-      ['App auf dem Home-Bildschirm auch für Android','Die Anleitung unter „App auf dem Home-Bildschirm“ erklärt jetzt auch, wie du die Lernwelt in Chrome auf Android installierst.'],
-      ['Echter Alarmgong','Im Befehlscoach ertönt vor dem Vorlesen der Alarmierung jetzt ein echter Alarmgong. Die Durchsage beginnt, wenn er ausgeklungen ist.']
-    ]},
-    {datum:'11. Oktober 2026',punkte:[
-      ['Lage vorlesen wie die Leitstelle','Im Befehlscoach liest „Vorlesen“ die Lage als Alarmierung mit Gong, Einsatzstichwort und Wiederholung vor.'],
-      ['Befehl einsprechen','In Safari sprichst du den Befehl per „Einsprechen“ ein. In der App vom Home-Bildschirm nutzt du das Mikrofon der Tastatur.'],
-      ['Vollständiger Musterbefehl','Alle Befehlselemente auf einen Blick, mit Vergleich „Befehl mit Bereitstellung“ und Beispielen im Schema.'],
-      ['Einheitliches Design','Alle drei Coaches sehen gleich aus, hell und dunkel.'],
-      ['iPad und Computer','Prüfen und Weiter bleiben unten sichtbar. Am Computer wählst du Antworten mit 1–9 und bestätigst mit Enter.'],
-      ['iPhone','Die Lernwelt nutzt den Bildschirm besser und überlappt nicht mehr mit der Dynamic Island.']
+      ['Menschenrettung nach Realbrand','Im Befehlscoach zeigt die Auswertung bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) den Kasten „Menschenrettung nach Realbrand“: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge zum Nachlesen. Er ist gekennzeichnet als Ergänzung und zählt nicht zur Punktzahl. Dazu fünf neue Quizfragen mit Angabe zum Nachlesen.'],
+      ['Drei neue Lagen','Im Befehlscoach als Gruppenführer: „Gefahrstoff tritt aus“ (ABC, GAMS-Regel), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6 ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“. Alle drei tragen das Badge „Ergänzung“; die bisherigen Lagen und dein Lernstand bleiben unverändert.'],
+      ['Freitext und Fallbeispiel','Im Gruppenführer- und Zugführer-Coach unter „Heute“: Tippe eine eigene Antwort auf eine offene Frage oder ein kurzes Fallbeispiel, zeige die Musterlösung und markiere je Stichpunkt „hatte ich“ oder „fehlte“. Je Coach 10 Aufgaben mit Angabe zum Nachlesen. Die App bewertet den Text nicht und speichert ihn nicht; unter „Fortschritt“ steht, wie viele Aufgaben du bearbeitet hast. Die Ergänzung zählt nicht für Katalog, Tagesziel und Prüfung.'],
+      ['Nachlesen bei Katalogfragen','Im Gruppenführer- und Zugführer-Coach steht unter der Auflösung bei 46 Fragen aus FwDV 1 und Recht, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist. Die Zeile „Nachlesen“ ist eine gekennzeichnete Ergänzung; Fragen, Antworten und Lösungen bleiben wie im Katalog. In der Prüfung erscheint sie erst in der Auswertung.'],
+      ['50 neue Übungsfragen','Im Gruppenführer-Coach unter „Heute“ → „Übungsfragen“: Recht NRW, Funk, ABC-Einsatz sowie Prüfung von Geräten und UVV. Eigene Fragen mit Angabe zum Nachlesen, getrennt vom Katalog.']
     ]}
   ];
   var neuPrev=null;
@@ -511,8 +482,15 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
     $('neu-datum').textContent='Neu · '+NEU.datum;
     $('neu-list').innerHTML=neuListe(NEU.punkte);
     $('neu-stand').textContent='Stand '+NEU.datum+'. Hier siehst du, was sich zuletzt geändert hat.';
-    $('neu-alt').hidden=!NEU_ALT.length;
-    $('neu-alt-list').innerHTML=NEU_ALT.map(function(a){return '<h3>'+esc(a.datum)+'</h3><ul class="neu-list">'+neuListe(a.punkte)+'</ul>'}).join('');
+    /* Gleiches Datum unter einer Überschrift, höchstens NEU_ALT_MAX Punkte. */
+    var gruppen=[],rest=NEU_ALT_MAX;
+    NEU_ALT.forEach(function(a){
+      var p=a.punkte.slice(0,Math.max(rest,0));rest-=p.length;if(!p.length)return;
+      var g=gruppen[gruppen.length-1];
+      if(g&&g.datum===a.datum)g.punkte=g.punkte.concat(p);else gruppen.push({datum:a.datum,punkte:p});
+    });
+    $('neu-alt').hidden=!gruppen.length;
+    $('neu-alt-list').innerHTML=gruppen.map(function(a){return '<h3>'+esc(a.datum)+'</h3><ul class="neu-list">'+neuListe(a.punkte)+'</ul>'}).join('');
   }
   function neuOpen(){neuRender();neuPrev=document.activeElement;$('neu').hidden=false;$('neu').querySelector('.neu-card').scrollTop=0;try{$('neu-ok').focus({preventScroll:true})}catch(e){$('neu-ok').focus()}}
   function neuClose(){$('neu').hidden=true;lsSet(NEUK,NEU.id);if(neuPrev&&neuPrev.focus&&document.body.contains(neuPrev)){try{neuPrev.focus()}catch(e){}}neuPrev=null}

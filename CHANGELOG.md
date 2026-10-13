@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (13.10.2026, Was ist neu)
+- „Frühere Neuigkeiten“ zeigt höchstens `NEU_ALT_MAX` (6) Punkte, Ausgaben mit gleichem Datum unter einer Überschrift. `NEU_ALT` auf die fünf noch wichtigen Punkte gekürzt (Überholtes wie „Katalog bleibt Katalog“ und Ausgaben vom 11./12.10. gestrichen, vollständig in `docs/RELEASE-NOTES.md`). `scripts/check.mjs` prüft die Grenze. Service-Worker `VERSION` auf v54.
+
 ### Geändert (13.10.2026)
 - Anzeige „Fundstelle“ heißt in allen Coaches „Nachlesen“ (Zeile unter der Auflösung, Freitext, Texte unter „Quellen“, Was ist neu); im Befehlscoach ersetzt „Nachlesen“ das bisherige „Quelle“ in Quiz-Auflösung, Einleitung und Kasten `rb`. Datenfeld `f`, CSS-Klassen und Speicherschlüssel unverändert. GF V3.39, ZF V1.14, Befehlscoach V2.17, Service-Worker `VERSION` auf v53, `NEU` mit neuer id.
 
