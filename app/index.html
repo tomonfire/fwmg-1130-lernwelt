@@ -67,11 +67,14 @@ h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.05;text-wrap
 .w-sub{font-size:18px;max-width:46ch;color:var(--hero-ink)}
 .w-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hero-line)}
 .w-list li{border-bottom:1px solid var(--hero-line)}
-.w-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:baseline;width:100%;min-height:52px;padding:12px 0;background:none;border:0;color:inherit;text-align:left;cursor:pointer}
-.w-item::after{content:'›';font:600 24px/1 var(--f-display);color:var(--hero-muted)}
+.w-item{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:2px;align-items:baseline;width:100%;min-height:52px;padding:12px 0;background:none;border:0;color:inherit;text-align:left;cursor:pointer}
+.w-item::after{content:'›';grid-column:2;grid-row:1/span 2;align-self:center;font:600 24px/1 var(--f-display);color:var(--hero-muted)}
+@media (min-width:600px){.w-item{grid-template-columns:minmax(0,1fr) auto auto}.w-item::after{grid-column:auto;grid-row:auto;align-self:auto}}
 @media (hover:hover) and (pointer:fine){.w-item:hover b{text-decoration:underline;text-underline-offset:4px}}
 .w-list b{font-family:var(--f-display);font-size:24px;text-transform:uppercase;letter-spacing:.02em;font-weight:600}
-.w-list span{font-family:var(--f-mono);font-size:13px;color:var(--hero-muted);text-align:right}
+.w-list b{overflow-wrap:break-word}
+.w-list span{font-family:var(--f-mono);font-size:13px;color:var(--hero-muted)}
+@media (min-width:600px){.w-list span{text-align:right}}
 .w-act{display:flex;flex-direction:column;gap:10px}
 .w-act .btn{width:100%;font-size:20px;min-height:58px;font-family:var(--f-display);letter-spacing:.06em;text-transform:uppercase}
 .w-act .primary{background:var(--hero-btn);border-color:var(--hero-btn);color:var(--hero-btn-ink)}
