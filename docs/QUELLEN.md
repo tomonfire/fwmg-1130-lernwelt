@@ -155,6 +155,33 @@ Ergebnis: **46 von 81** mit Fundstelle (GF A 11 von 23, GF J 2 von 5, ZF Kapitel
 
 Nicht belegbar heißt nicht „falsch“: Die Lösung des Katalogs bleibt unverändert; es fehlt nur die Stütze im vorliegenden Volltext. Bei neuen Quellen (z. B. Volltext von GG, VwVfG NRW, StVO) die Liste erneut prüfen.
 
+## Freitext und Fallbeispiel (Anforderung 0002): Prüfliste
+
+Stand 13.10.2026. Jede Aufgabe in `app/data/freitext.json` ist eine eigene Formulierung und wurde gegen den Volltext der privaten Wissensbasis geprüft; `f` nennt die Stelle, die Tabelle Datei und Seite. Orts-, Personen- und Einheitsnamen kommen nicht vor.
+
+| ID | Typ | Fundstelle (`f`) | Volltext (Datei, Seite) |
+| --- | --- | --- | --- |
+| ft-gf-1 | Fall (Wohnungsbrand) | FwDV 3, 4, 5.2.1, 5.3; FwDV 7, 7.2, 7.4; FwDV 100, 3.2.2.1; BHKG, § 34 Abs. 1 | FwDV 3 (2008-02), S. 12, 14, 16; FwDV 7 (2004-08), S. 8, 10; FwDV 100 (1999-03), S. 11; BHKG (2021-07-01), S. 20 |
+| ft-gf-2 | Fall (Verkehrsunfall) | FwDV 1 (2026), 20.1; FwDV 3, 7.2; IdF B1-310, 2.1.2, 10.1 | FwDV 1 (2026-04), S. 149–151; FwDV 3 (2008-02), S. 34; B1-310 (2019-10), S. 7–8, 44–45 |
+| ft-gf-3 | Fall (Hallenbrand, Einsturz) | IdF B1-310, 8.1, 8.3; FwDV 3, 5.3 j | B1-310 (2019-10), S. 37–39; FwDV 3 (2008-02), S. 16 |
+| ft-gf-4 | Fall (Gefahrstoff) | FwDV 500, 1.5.1, 1.5.3.1 bis 1.5.3.4 | FwDV 500 (2022-01), S. 20–24 |
+| ft-gf-5 | Frage | FwDV 3, 5.2.1 | FwDV 3 (2008-02), S. 14 |
+| ft-gf-6 | Frage | FwDV 3, 5.4; FwDV 100, 3.3.3.1, 3.3.3.2 | FwDV 3 (2008-02), S. 17; FwDV 100 (1999-03), S. 35, 37 |
+| ft-gf-7 | Frage | FwDV 7, 7.2, 7.4 | FwDV 7 (2004-08), S. 8–10 |
+| ft-gf-8 | Frage | IdF B1-310, 9.2, 9.3, 9.5 | B1-310 (2019-10), S. 40–42 |
+| ft-gf-9 | Frage | BHKG NRW, §§ 33, 34, 43, 44 | BHKG (2021-07-01), S. 20–21, 23–24 |
+| ft-gf-10 | Frage | IdF B1-310, 6.2.1, 6.2.2 | B1-310 (2019-10), S. 27–28 |
+| ft-zf-1 | Fall (Wohnungsbrand, VB) | IdF B2-330, 3, 4, 5 | B2-330 (2021-03), S. 5, 8, 17, 23–24 |
+| ft-zf-2 | Fall (Großbrand, Abschnitte) | FwDV 100, 3.2.4.2, 3.3.2.2; FwDV 3, 6.1, 6.2 | FwDV 100 (1999-03), S. 15, 19–20, 33; FwDV 3 (2008-02), S. 31–32 |
+| ft-zf-3 | Fall (Wechsel der Einsatzleitung) | FwDV 100, 3.3.3.4; BHKG NRW, § 33 | FwDV 100 (1999-03), S. 40; BHKG (2021-07-01), S. 20 |
+| ft-zf-4 | Fall (Brandmeldealarm) | IdF B2-330, 2.1, 6.1, 6.2 | B2-330 (2021-03), S. 5–8, 25–28 |
+| ft-zf-5 | Frage | FwDV 3, 6.2; FwDV 100, 3.3.3.1 | FwDV 3 (2008-02), S. 32; FwDV 100 (1999-03), S. 34–35 |
+| ft-zf-6 | Frage | FwDV 100, 3.2.5 | FwDV 100 (1999-03), S. 23 |
+| ft-zf-7 | Frage | FwDV 100, 3.3.1.3 | FwDV 100 (1999-03), S. 28–30 |
+| ft-zf-8 | Frage | FwDV 3, 2.4, 5.2.2 | FwDV 3 (2008-02), S. 9, 15 |
+| ft-zf-9 | Frage | BHKG NRW, §§ 35 bis 37 | BHKG (2021-07-01), S. 21–22 |
+| ft-zf-10 | Frage | IdF B2-330, 2, 5 | B2-330 (2021-03), S. 4–5, 23 |
+
 ## Regeln
 
 - Katalogfragen und ihre Lösungen werden nicht geändert. Abweichungen neuerer Fassungen stehen im Feld `v` („Hinweis zur Vorschrift“), Fundstellen im Feld `f` (Prüfliste oben; `f` nur, wo der Volltext die Lösung stützt).

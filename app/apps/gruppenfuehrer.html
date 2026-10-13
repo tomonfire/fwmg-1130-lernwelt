@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-TZsKUxcWrnmRCnGQ/UwV7mf1Ht/+L9gwpRo4MudP1Ag='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-EShLbgOiTyzIQqDuq7M5pu606ElOsNsRgJVy3LMVD04='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Gruppenführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -274,7 +274,7 @@ window.addEventListener('error',function(e){
 (function(){
 try{var _b=document.getElementById('boot');if(_b){_b.setAttribute('data-s','3');var _s=document.getElementById('bootstep');if(_s)_s.textContent='Schritt 3: App-Code gestartet …'}}catch(e){}
 'use strict';
-var APPV='V3.36',APPD='13.10.2026 12:00';
+var APPV='V3.37',APPD='13.10.2026 15:00';
 var CATS=DATA.cats, QS=DATA.qs, BYID=Object.create(null);
 QS.forEach(function(q){BYID[q.id]=q});
 var QSC=QS.filter(function(q){return !q.own}), OWN=QS.filter(function(q){return q.own});
@@ -282,6 +282,13 @@ var QSC=QS.filter(function(q){return !q.own}), OWN=QS.filter(function(q){return 
 var FKAT=10, FUEHR=OWN.filter(function(q){return q.c===FKAT}), XC=[];
 CATS.forEach(function(_,i){if(i!==FKAT&&OWN.some(function(q){return q.c===i}))XC.push(i)});
 function ownOf(c){return OWN.filter(function(q){return q.c===c})}
+/* Freitext und Fallbeispiel: Ergänzung aus eigener Datei, nie Teil von Katalog, Runden oder Prüfung. */
+function ftOk(a){
+  var txt=function(x){return typeof x==='string'&&x.trim()!==''};
+  return !!a&&txt(a.id)&&/^ft-gf-/.test(a.id)&&(a.typ==='frage'||a.typ==='fall')&&txt(a.t)&&txt(a.f)&&(a.typ!=='fall'||txt(a.lage))&&Array.isArray(a.p)&&a.p.length>=2&&a.p.length<=8&&a.p.every(txt);
+}
+var FT=(function(){try{var x=new XMLHttpRequest();x.open('GET','../data/freitext.json',false);x.send();if(x.status!==200&&x.status!==0)return [];var d=JSON.parse(x.responseText);return Array.isArray(d.gf)?d.gf.filter(ftOk):[]}catch(e){return []}})();
+var FTBY=Object.create(null);FT.forEach(function(a){FTBY[a.id]=a});
 var INTERVAL=[0,1,2,4,8,16];
 var SV=2; /* Lösungsstand: 2 = Lösungen aus dem Lösungsbogen übernommen */
 var LS='lernkompass-tagestraining-v1';
@@ -290,7 +297,7 @@ var MON_DE=['Januar','Februar','März','April','Mai','Juni','Juli','August','Sep
 var ICON_WARN='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 2.5 18.5 17H1.5L10 2.5Z" stroke-linejoin="round"/><path d="M10 8v4M10 14.2v.1" stroke-linecap="round"/></svg>';
 var ICON_CHECK='<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m2 7.5 3.2 3L12 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-function fresh(){return {v:1,upd:0,r:0,goal:15,cats:[],q:{},days:{},dc:{},f:[],fu:0,x:[],e:null,xd:0,sv:SV,mig:0,gu:0}}
+function fresh(){return {v:1,upd:0,r:0,goal:15,cats:[],q:{},days:{},dc:{},f:[],fu:0,x:[],e:null,xd:0,sv:SV,mig:0,gu:0,ft:{}}}
 function k(id){return id.replace('.','_')}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -311,6 +318,23 @@ function checkExam(r,xd){
   }
   return {s:+r.s,end:+r.end,ids:r.ids.slice(),ord:ord,ans:ans,i:Math.min(n-1,Math.max(0,+r.i||0)),eu:+r.eu||0,o:r.o?1:0};
 }
+/* Lernstand Freitext: nur Ergebnis je Aufgabe (Datum, x von y), nie der getippte Text. Ältere Stände ohne ft laden als leer. */
+function cleanFt(o){
+  var r={};
+  if(!o||typeof o!=='object'||Array.isArray(o))return r;
+  Object.keys(o).forEach(function(id){
+    var v=o[id];
+    if(!FTBY[id]||!v||typeof v!=='object')return;
+    if(typeof v.d!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(v.d)||!Number.isInteger(v.x)||!Number.isInteger(v.y)||v.y<1||v.y>8||v.x<0||v.x>v.y)return;
+    r[id]={d:v.d,x:v.x,y:v.y};
+  });
+  return r;
+}
+function mergeFt(a,b){
+  var m={};
+  [a||{},b||{}].forEach(function(src){Object.keys(src).forEach(function(id){var c=m[id],v=src[id];if(!c||v.d>c.d||(v.d===c.d&&v.x>c.x))m[id]=v})});
+  return m;
+}
 function clean(o){
   var s=fresh();
   if(!o||typeof o!=='object')return s;
@@ -323,6 +347,7 @@ function clean(o){
     if(Array.isArray(v)&&v.length>=4&&BYID[key.replace('_','.')])s.q[key]=[+v[0]||0,+v[1]||0,+v[2]||0,+v[3]||0];
   });
   s.xd=+o.xd||0;s.sv=+o.sv||0;s.mig=+o.mig||0;s.gu=+o.gu||0;
+  s.ft=cleanFt(o.ft);
   s.e=checkExam(o.e,s.xd);
   if(Array.isArray(o.x))s.x=o.x.filter(function(a){return Array.isArray(a)&&a.length>=3&&+a[0]>0&&+a[2]>0}).map(function(a){return [+a[0],+a[1]||0,+a[2],a[3]?1:0]}).slice(-30);
   if(o.days&&typeof o.days==='object')Object.keys(o.days).forEach(function(d){if(+o.days[d]>0)s.days[d]=+o.days[d]});
@@ -356,6 +381,7 @@ function merge(a,b){
   m.fu=Math.max(a.fu||0,b.fu||0);
   m.f=(b.fu||0)>(a.fu||0)?b.f.slice():(a.fu||0)>(b.fu||0)?a.f.slice():a.f.concat(b.f.filter(function(id){return a.f.indexOf(id)<0}));
   m.xd=Math.max(a.xd||0,b.xd||0);
+  m.ft=mergeFt(a.ft,b.ft);
   var ea=a.e&&a.e.s>m.xd?a.e:null,eb=b.e&&b.e.s>m.xd?b.e:null;
   m.e=!ea?eb:!eb?ea:(eb.s!==ea.s?(eb.s>ea.s?eb:ea):((eb.eu||0)>(ea.eu||0)?eb:ea));
   var xs={};(a.x||[]).concat(b.x||[]).forEach(function(e){xs[e[0]]=e});
@@ -650,7 +676,67 @@ function renderHome(){
     h+='<section aria-labelledby="h-xc"><h2 id="h-xc">Übungsfragen</h2><span class="badge ep">Ergänzung</span><p class="foot" style="margin:0">„Ergänzung“ heißt: nicht aus dem Fragenkatalog, sondern eigene Fragen nach den Vorschriften. Jede Erklärung nennt die Fundstelle. Sie kommen nicht in Katalogrunden und Prüfung. Zahl: gemeistert / gesamt.</p><div class="crows">'+
       XC.map(function(c){var l=ownOf(c),cc=counts(l);return '<div class="crow"><div class="l"><span>'+esc(CATS[c])+'</span><span>'+cc.mast+' / '+cc.total+'</span></div><button class="btn block" data-act="xstart" data-i="'+c+'" aria-label="Runde üben · '+Math.min(S.goal,l.length)+' Fragen, '+esc(CATS[c])+'">Runde üben · '+Math.min(S.goal,l.length)+' Fragen</button></div>'}).join('')+'</div></section>';
   }
-  return h;
+  return h+ftSection();
+}
+/* ---------- Freitext und Fallbeispiel (Ergänzung) ---------- */
+var F=null; /* laufende Aufgabe: {i, text, show, marks, done, x, y}; der Text bleibt im Speicher und wird nie gespeichert */
+function ftDone(){return FT.filter(function(a){return S.ft[a.id]}).length}
+function ftNextIdx(){
+  var i,best=0;
+  for(i=0;i<FT.length;i++)if(!S.ft[FT[i].id])return i;
+  FT.forEach(function(a,j){if(S.ft[a.id].d<S.ft[FT[best].id].d)best=j});
+  return best;
+}
+function ftLabel(a){return a.typ==='fall'?'Fallbeispiel':'Offene Frage'}
+function ftShort(t){return t.length>90?t.slice(0,87)+'…':t}
+function ftSection(){
+  if(!FT.length)return '';
+  return '<section aria-labelledby="h-ft"><h2 id="h-ft">Freitext und Fallbeispiel</h2><span class="badge ep">Ergänzung</span>'+
+    '<p class="foot" style="margin:0">„Ergänzung“ heißt: nicht aus dem Fragenkatalog. Du tippst eine eigene Antwort, vergleichst sie mit einer Musterlösung in Stichpunkten und markierst selbst, was du hattest. Die App bewertet den Text nicht und speichert ihn nicht. Das zählt nicht für Katalog, Tagesziel und Prüfung. '+ftDone()+' von '+FT.length+' bearbeitet.</p>'+
+    '<button class="btn block" data-act="ftgo" data-i="'+ftNextIdx()+'">Aufgabe üben</button>'+
+    '<details class="foot more"><summary>Alle Aufgaben</summary><div class="crows">'+FT.map(function(a,i){
+      var r=S.ft[a.id];
+      return '<div class="crow"><div class="l"><span>'+ftLabel(a)+': '+esc(ftShort(a.t))+'</span><span>'+(r?r.x+' von '+r.y:'offen')+'</span></div><button class="btn block" data-act="ftgo" data-i="'+i+'" aria-label="Üben: '+esc(ftLabel(a)+', '+ftShort(a.t))+'">Üben</button></div>';
+    }).join('')+'</div></details></section>';
+}
+function ftOpen(i){F={i:i,text:'',show:false,marks:[],done:false,x:0,y:0};view='ft';render('top');window.scrollTo(0,0)}
+function ftFinish(){
+  var a=FT[F.i],x=0;
+  a.p.forEach(function(_,j){F.marks[j]=F.marks[j]===1?1:0;x+=F.marks[j]});
+  F.x=x;F.y=a.p.length;F.done=true;
+  S.ft[a.id]={d:keyOf(dayNum()),x:F.x,y:F.y};
+  save();
+}
+function ftGrow(){var t=document.getElementById('ft-in');if(t){t.style.height='auto';t.style.height=t.scrollHeight+'px'}}
+function renderFt(){
+  var a=FT[F.i],h='<h1 class="sr">Freitext und Fallbeispiel, Aufgabe '+(F.i+1)+' von '+FT.length+'</h1>'+
+    '<div class="qhead"><button class="linkbtn" data-act="ftquit">Beenden</button><span class="eyebrow">Aufgabe '+(F.i+1)+' von '+FT.length+'</span></div>'+
+    '<div class="qmeta" style="margin-top:14px"><span class="id">'+esc(a.id)+'</span><span>'+ftLabel(a)+'</span><span class="badge ep">Ergänzung</span></div>';
+  if(a.typ==='fall')h+='<div class="scn ftlage"><span class="label">Lage</span><p>'+esc(a.lage)+'</p></div>';
+  h+='<p class="qtext">'+esc(a.t)+'</p>'+
+    '<label class="label" for="ft-in">Deine Antwort</label><textarea id="ft-in" class="ftin" rows="5" maxlength="4000" autocomplete="off"'+(F.show?' readonly':'')+'>\n'+esc(F.text)+'</textarea>';
+  if(!F.show)return h+'<p class="foot">Schreibe in eigenen Worten. „Musterlösung zeigen“ geht auch mit leerem Feld. Dein Text wird nicht gespeichert.</p><div class="actions dock"><button class="btn primary" data-act="ftshow">Musterlösung zeigen</button></div>';
+  if(F.done)h+='<div class="res '+(F.x===F.y?'good':'part')+'" id="ftres" role="status" tabindex="-1"><h3>'+F.x+' von '+F.y+' Stichpunkten</h3><p>Das ist deine eigene Einschätzung, die App bewertet den Text nicht. '+(F.x===F.y?'Du hattest alles.':'Was fehlte, steht unten in Orange.')+'</p></div>';
+  h+='<section aria-labelledby="h-fts"><h2 id="h-fts" tabindex="-1">Musterlösung</h2>'+
+    (F.done?'':'<p class="foot" style="margin:0">Vergleiche mit deiner Antwort und markiere je Stichpunkt, ob du ihn hattest oder ob er fehlte. Nicht markierte Stichpunkte zählen beim Abschließen als „fehlte“.</p>')+
+    '<ol class="ftrows"'+(F.done?'':' data-live="1"')+'>';
+  a.p.forEach(function(s,j){
+    var m=F.marks[j];
+    h+='<li class="ftrow'+(m===1?' ok':m===0?' miss':'')+'"><div class="ftx"><span class="fn" aria-hidden="true">'+(j+1)+'</span><span class="ft">'+esc(s)+'</span>'+(m===1?'<span class="tag">Hatte ich</span>':m===0?'<span class="tag">Fehlte</span>':'')+'</div>'+
+      (F.done?'':'<div class="ftset" role="group" aria-label="Stichpunkt '+(j+1)+'"><button class="btn" data-act="ftset" data-i="'+j+'" data-v="1" aria-pressed="'+(m===1)+'">hatte ich</button><button class="btn" data-act="ftset" data-i="'+j+'" data-v="0" aria-pressed="'+(m===0)+'">fehlte</button></div>')+'</li>';
+  });
+  h+='</ol><p class="foot ftfund" style="margin:0"><b>Fundstelle:</b> '+esc(a.f)+'</p></section>';
+  return h+(F.done?
+    '<div class="actions dock kb kbent"><button class="btn primary" data-act="ftnext">Nächste Aufgabe</button><button class="btn" data-act="ftagain">Dieselbe noch einmal</button></div>':
+    '<div class="actions dock kb kbft"><button class="btn primary" data-act="ftdone">Abschließen</button></div>');
+}
+function ftProgress(){
+  if(!FT.length)return '';
+  var n=ftDone(),sx=0,sy=0;
+  FT.forEach(function(a){var r=S.ft[a.id];if(r){sx+=r.x;sy+=r.y}});
+  return '<h3 class="gh">Eigene Antworten</h3><span class="badge ep">Ergänzung</span><p style="margin:6px 0 0"><b>Freitext und Fallbeispiel: '+n+' von '+FT.length+' bearbeitet</b></p>'+
+    '<div class="bar" role="progressbar" aria-label="Bearbeitete Freitext-Aufgaben" aria-valuemin="0" aria-valuemax="'+FT.length+'" aria-valuenow="'+n+'" style="margin-top:6px"><i class="f-ok" style="width:'+Math.round(n/FT.length*100)+'%"></i></div>'+
+    '<p class="foot">'+(n?'Über die bearbeiteten Aufgaben hattest du '+sx+' von '+sy+' Stichpunkten. ':'')+'Das ist deine eigene Einschätzung und zählt nicht für Katalog-Quote, Tagesziel und Lernstand der Fragen.</p>';
 }
 function renderQuiz(){
   var it=Q.queue[Q.i],q=BYID[it.id];
@@ -985,7 +1071,7 @@ function renderProgress(){
     }).join('')+'</div>'+
     '<p class="foot">'+(tt.length?tt.length+(tt.length===1?' Themen-Test':' Themen-Tests')+' abgelegt, bestes Ergebnis '+tbest+' %.':'Noch kein Themen-Test abgelegt.')+' Die Übungen „Phasen zuordnen“ und „Was gehört dazu?“ werden nicht gespeichert.</p>'+
     (XC.length?'<h3 class="gh">Übungsfragen (Ergänzung)</h3><div class="crows">'+XC.map(function(c){var cc=counts(ownOf(c));return '<div class="crow"><div class="l"><span>'+esc(CATS[c])+'</span><span>'+cc.mast+' / '+cc.total+' · '+cc.way+' %</span></div><div class="bar"><i class="f-ok" style="width:'+(cc.total?cc.mast/cc.total*100:0)+'%"></i><i class="f-learn" style="width:'+(cc.total?cc.learn/cc.total*100:0)+'%"></i></div></div>'}).join('')+'</div>':'')+
-    '<div class="legend"><span><i class="f-ok"></i>gemeistert (Stufe 4 von 5)</span><span><i class="f-learn"></i>in Arbeit</span><span><i style="background:var(--track)"></i>neu</span></div></section>';
+    '<div class="legend"><span><i class="f-ok"></i>gemeistert (Stufe 4 von 5)</span><span><i class="f-learn"></i>in Arbeit</span><span><i style="background:var(--track)"></i>neu</span></div>'+ftProgress()+'</section>';
   h+='<section><h2>Letzte 14 Tage</h2><div class="days" role="img" aria-label="Beantwortete Fragen pro Tag, letzte 14 Tage">';
   var n0=dayNum(),mx=1,vals=[];
   for(var i=13;i>=0;i--){var v=S.days[keyOf(n0-i)]||0;vals.push([n0-i,v]);if(v>mx)mx=v}
@@ -1009,7 +1095,7 @@ function renderProgress(){
 function actKey(n){return [n.getAttribute('data-act'),n.getAttribute('data-i'),n.getAttribute('data-n'),n.getAttribute('data-v'),n.getAttribute('data-p')].join('|')}
 function render(target){
   var a=document.activeElement,key=(a&&a.getAttribute&&a.getAttribute('data-act'))?actKey(a):null;
-  app.innerHTML=view==='topic'?renderTopic():view==='exam'?renderExam():view==='exresult'?renderExResult():view==='quiz'?renderQuiz():view==='result'?renderResult():view==='progress'?renderProgress():view==='sources'?renderSources():renderHome();
+  app.innerHTML=view==='ft'&&F?renderFt():view==='topic'?renderTopic():view==='exam'?renderExam():view==='exresult'?renderExResult():view==='quiz'?renderQuiz():view==='result'?renderResult():view==='progress'?renderProgress():view==='sources'?renderSources():renderHome();
   var t=null;
   if(target==='q')t=app.querySelector('.qtext');
   else if(target==='res')t=app.querySelector('.res');
@@ -1017,9 +1103,11 @@ function render(target){
   else if(target==='h2')t=app.querySelector('h2');
   else if(target==='scn')t=app.querySelector('.scn');
   else if(target==='zres'||target==='sres')t=document.getElementById(target);
+  else if(target==='fts'||target==='ftres')t=document.getElementById(target==='fts'?'h-fts':'ftres');
   else if(target==='top')t=app.querySelector('h1');
   else if(key){[].forEach.call(app.querySelectorAll('[data-act]'),function(n){if(!t&&!n.disabled&&actKey(n)===key)t=n})}
-  if(t){if(!/^(BUTTON|A|INPUT)$/.test(t.tagName))t.setAttribute('tabindex','-1');t.focus({preventScroll:true});if(t.id==='zres'||t.id==='sres'){try{t.scrollIntoView({block:'nearest'})}catch(e){}}}
+  if(t){if(!/^(BUTTON|A|INPUT)$/.test(t.tagName))t.setAttribute('tabindex','-1');t.focus({preventScroll:true});if(t.id==='zres'||t.id==='sres'||t.id==='h-fts'||t.id==='ftres'){try{t.scrollIntoView({block:'nearest'})}catch(e){}}}
+  ftGrow();
   welcomeRefresh();
 }
 
@@ -1198,11 +1286,21 @@ app.addEventListener('click',function(e){
     var tq=buildSession(xl);if(!tq.length)return;
     Q={queue:tq,i:0,sel:[],checked:false,good:false,results:[],order:null,own:true,grp:xg};view='quiz';render('q');window.scrollTo(0,0);
   }
+  else if(a==='ftgo'){var fi=+b.getAttribute('data-i');if(FT[fi])ftOpen(fi)}
+  else if(a==='ftquit'){view='home';F=null;render('top');window.scrollTo(0,0)}
+  else if(a==='ftshow'&&F){F.show=true;render('fts')}
+  else if(a==='ftset'&&F&&F.show&&!F.done){var ti=+b.getAttribute('data-i'),tv=+b.getAttribute('data-v');F.marks[ti]=F.marks[ti]===tv?null:tv;render()}
+  else if(a==='ftdone'&&F&&F.show&&!F.done){ftFinish();render('ftres')}
+  else if(a==='ftnext'&&F)ftOpen((F.i+1)%FT.length);
+  else if(a==='ftagain'&&F)ftOpen(F.i);
   else if(a==='ttest'){if(loadExam())return;startExam(true)}
   else if(a==='reset'){confirmReset=true;render()}
   else if(a==='reset-no'){confirmReset=false;render()}
   else if(a==='reset-yes'){S=fresh();S.r=Date.now();clearSess();confirmReset=false;save();render('top')}
 });
+
+/* Freitext: Eingabe merken (nur im Speicher) und Feld mitwachsen lassen. */
+app.addEventListener('input',function(e){var t=e.target;if(t&&t.id==='ft-in'&&F&&!F.show){F.text=String(t.value);ftGrow()}});
 
 render();
 initRemote();

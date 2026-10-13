@@ -1,0 +1,289 @@
+{
+  "gf": [
+    {
+      "id": "ft-gf-1",
+      "typ": "fall",
+      "lage": "Du erreichst mit deiner Gruppe als erste Einheit ein mehrgeschossiges Wohnhaus. Aus einem Fenster im ersten Obergeschoss dringt Rauch, im Treppenraum ist es bereits diesig. Eine Bewohnerin ruft, dass in der brennenden Wohnung noch jemand sei.",
+      "t": "Welche Maßnahmen ordnest du in den ersten Minuten an? Begründe sie kurz.",
+      "p": [
+        "Menschenrettung geht vor Sachwerten: Angriffstrupp mit Atemschutz und Strahlrohr zur Rettung einsetzen",
+        "Fahrzeug so aufstellen, dass es einsatzfähig bleibt und Zugang sowie weitere Kräfte nicht behindert werden",
+        "Wasserversorgung herstellen: Mit dem Innenangriff erst beginnen, wenn ständige Wasserabgabe gesichert ist",
+        "Wassertrupp als Sicherheitstrupp bereitstellen, bevor der Angriffstrupp vorgeht",
+        "Atemschutzüberwachung einrichten: Als Einheitsführer bist du dafür verantwortlich",
+        "Lage weiter erkunden, Lagemeldung absetzen und bei Bedarf Kräfte über die Leitstelle nachfordern"
+      ],
+      "f": "FwDV 3, 4, 5.2.1, 5.3; FwDV 7, 7.2, 7.4; FwDV 100, 3.2.2.1; BHKG, § 34 Abs. 1"
+    },
+    {
+      "id": "ft-gf-2",
+      "typ": "fall",
+      "lage": "Ihr werdet zu einem Verkehrsunfall auf einer Landstraße außerhalb einer Ortschaft gerufen. Ein Pkw liegt auf dem Dach, eine Person ist eingeklemmt und ansprechbar, Kraftstoff läuft aus. Der Verkehr fließt in beide Richtungen weiter.",
+      "t": "Was ordnest du an, um die Einsatzstelle zu sichern und die Person zu retten?",
+      "p": [
+        "Fahrzeuge mit Warnlicht abstellen, zur verkehrsabgewandten Seite absitzen, in beide Fahrtrichtungen absichern",
+        "Absicherung schritt- und spurweise aufbauen, außerorts etwa 200 m vor und hinter der Einsatzstelle beginnen, zuerst ein Warndreieck als Hinweis",
+        "Eigensicherung beachten und den Brandschutz sicherstellen, weil Kraftstoff ausläuft",
+        "Erstversorgung hat oberste Priorität: Person nicht allein lassen, Rettungsdienst nachfordern",
+        "Rettungsweise abwägen: schnelle (zeitkontrollierte) Rettung ist der Sofortrettung vorzuziehen, solange keine unmittelbare Lebensgefahr besteht",
+        "Absperr- und Arbeitsbereich festlegen, Ablageflächen für Geräte einrichten",
+        "Verkehr lenken und sperren ist Sache der Polizei: bei Bedarf nachfordern"
+      ],
+      "f": "FwDV 1 (2026), 20.1; FwDV 3, 7.2; IdF B1-310, 2.1.2, 10.1"
+    },
+    {
+      "id": "ft-gf-3",
+      "typ": "fall",
+      "lage": "Eine Lagerhalle mit Stahltragwerk brennt seit längerer Zeit. Das Dach hängt sichtbar durch, einzelne Bauteile haben sich verformt. Deine Gruppe soll Wasser auf den Brandherd bringen. Es wird niemand im Gebäude vermisst.",
+      "t": "Wie schätzt du die Einsturzgefahr ein und welche Maßnahmen ordnest du an?",
+      "p": [
+        "Stahl verliert unter Hitze rasch an Tragfähigkeit (etwa die Hälfte bei rund 500 °C), ein Einsturz kann ohne Vorwarnung kommen",
+        "Trümmerschatten festlegen, mindestens die anderthalbfache Bauteilhöhe, und den Aufenthalt darin vermeiden",
+        "Sicherungsposten zur Beobachtung der gefährdeten Bauteile aufstellen, Rückzugsweg planen und freihalten",
+        "Löschmittel nicht unachtsam einsetzen, damit die Statik nicht zusätzlich belastet wird",
+        "Bei Anzeichen für einen Einsturz „Gefahr – Alle sofort zurück!“ geben und die Vollzähligkeit prüfen",
+        "Energieversorgung des Gebäudes abschalten lassen"
+      ],
+      "f": "IdF B1-310, 8.1, 8.3; FwDV 3, 5.3 j"
+    },
+    {
+      "id": "ft-gf-4",
+      "typ": "fall",
+      "lage": "Auf einem Gewerbegelände ist ein Behälter eines Transportfahrzeugs undicht. Eine unbekannte Flüssigkeit läuft aus, es riecht stechend und mehrere Personen klagen über Atemreizungen. Deine Gruppe ist als erste Einheit vor Ort, Spezialkräfte sind noch nicht alarmiert.",
+      "t": "Welche Erstmaßnahmen ordnest du an und wie stellst du die Fahrzeuge auf?",
+      "p": [
+        "GAMS-Regel: Gefahr erkennen, Absperren, Menschenrettung durchführen, Spezialkräfte alarmieren",
+        "Fahrzeuge bei unklarer Lage mindestens 50 m entfernt aufstellen, mit dem Wind anfahren, nicht in Senken und nie im Gefahrenbereich",
+        "Erkunden: Was ist passiert, was tritt aus, wie viel, wohin breitet es sich aus, passen Papiere und Kennzeichnung zur Ladung",
+        "Menschenrettung nur mit Schutzkleidung Form 1 und Isoliergerät, die Risikobewertung trägt der Einsatzleiter",
+        "Sofort-Dekontamination einrichten und den Brandschutz sicherstellen",
+        "Löschwasser zurückhalten, wenn es mit dem Stoff belastet sein könnte",
+        "Fahrzeuge, die im Gefahrenbereich stehen, gelten bis zum Gegenbeweis als kontaminiert und bleiben dort"
+      ],
+      "f": "FwDV 500, 1.5.1, 1.5.3.1 bis 1.5.3.4"
+    },
+    {
+      "id": "ft-gf-5",
+      "typ": "frage",
+      "t": "Welche Aufgaben haben Angriffs-, Wasser- und Schlauchtrupp beim Löscheinsatz einer Gruppe?",
+      "p": [
+        "Alle drei Trupps retten, wenn die Lage es verlangt",
+        "Angriffstrupp: nimmt in der Regel das erste Strahlrohr vor und setzt den Verteiler",
+        "Wassertrupp: stellt die Wasserversorgung vom Fahrzeug zum Verteiler und zur Wasserentnahmestelle her",
+        "Wassertrupp: wird beim Atemschutzeinsatz zum Sicherheitstrupp",
+        "Schlauchtrupp: stellt die Wasserversorgung zwischen Strahlrohr und Verteiler her und bedient den Verteiler",
+        "Schlauchtrupp: bringt auf Befehl Leitern und zusätzliche Geräte in Stellung"
+      ],
+      "f": "FwDV 3, 5.2.1"
+    },
+    {
+      "id": "ft-gf-6",
+      "typ": "frage",
+      "t": "Wie baust du einen Einsatzbefehl auf und worin unterscheidet sich der Einsatz mit Bereitstellung von dem ohne Bereitstellung?",
+      "p": [
+        "Befehlsschema: Einheit, Auftrag, Mittel, Ziel, Weg; mindestens Einheit und Auftrag",
+        "Ohne Bereitstellung: nach kurzer Lageschilderung Wasserentnahmestelle, Lage des Verteilers und der volle Befehl, Abschluss „Vor!“",
+        "Mit Bereitstellung: wenn Auftrag, Mittel, Ziel und Weg noch nicht festliegen, nur Wasserentnahmestelle und Verteiler, Abschluss „Zum Einsatz fertig!“",
+        "Der beauftragte Truppführer wiederholt den Befehl ab „Einheit“",
+        "Der Auftrag ist das Kernstück: Wer nur ihn vorgibt, lässt Handlungsfreiheit (Auftragstaktik)"
+      ],
+      "f": "FwDV 3, 5.4; FwDV 100, 3.3.3.1, 3.3.3.2"
+    },
+    {
+      "id": "ft-gf-7",
+      "typ": "frage",
+      "t": "Nenne Einsatzgrundsätze für einen Atemschutztrupp mit Isoliergerät und deine Pflichten als Einheitsführer.",
+      "p": [
+        "Nur truppweise vorgehen: Der Trupp bleibt eine Einheit und geht gemeinsam zurück",
+        "Mindestens ein Sicherheitstrupp (Stärke 0/2/2) steht bereit, bei mehreren Angriffswegen je Weg einer",
+        "Geräte mit weniger als 90 % des Nenn-Fülldrucks sind nicht einsatzbereit",
+        "Für den Rückweg die doppelte Luftmenge wie für den Hinweg einplanen, der größte Luftverbrauch bestimmt die Einsatzdauer",
+        "Funkmeldung an die Überwachung nach dem Anschluss, am Einsatzziel und beim Rückzug",
+        "Als Einheitsführer bist du für die Atemschutzüberwachung verantwortlich, nach einem und zwei Dritteln der erwarteten Einsatzzeit auf die Behälterdrücke hinweisen"
+      ],
+      "f": "FwDV 7, 7.2, 7.4"
+    },
+    {
+      "id": "ft-gf-8",
+      "typ": "frage",
+      "t": "Eine Hochspannungsleitung ist gerissen und liegt auf dem Boden. Wie gehst du vor?",
+      "p": [
+        "Mindestens 20 m Abstand halten: Im Spannungstrichter droht Schrittspannung",
+        "Die Mindestabstände auch zur Menschenrettung nicht unterschreiten",
+        "Leitfähige Teile in der Nähe können unter Spannung stehen: Abstand entsprechend vergrößern",
+        "Abschalten und Erden nur durch Fachkräfte, erst danach den Bereich betreten",
+        "Muss in der Nähe gelöscht werden, gilt bei Hochspannung 5 m Abstand mit Sprühstrahl und 10 m mit Vollstrahl"
+      ],
+      "f": "IdF B1-310, 9.2, 9.3, 9.5"
+    },
+    {
+      "id": "ft-gf-9",
+      "typ": "frage",
+      "t": "Wer leitet den Einsatz, bis die bestellte Einsatzleitung eintrifft, und was darf die Einsatzleitung gegenüber Personen an der Einsatzstelle anordnen?",
+      "p": [
+        "Die Gemeinde bestellt die Einsatzleitung; bis zu deren Übernahme leitet der zuerst eintreffende oder bereits tätige Einheitsführer",
+        "Betreten des Einsatzgebiets verbieten, Personen verweisen, Bereiche sperren und räumen lassen",
+        "Zusätzliche Einsatzkräfte und Einsatzmittel über die Leitstelle anfordern",
+        "Volljährige Personen zur Hilfeleistung und dringend benötigte Hilfsmittel heranziehen, unter den Voraussetzungen des Ordnungsbehördengesetzes",
+        "Eigentümer und Besitzer müssen Zutritt und Arbeiten zur Gefahrenabwehr dulden"
+      ],
+      "f": "BHKG NRW, §§ 33, 34, 43, 44"
+    },
+    {
+      "id": "ft-gf-10",
+      "typ": "frage",
+      "t": "Woran erkennst du eine drohende Raumdurchzündung und wie unterscheidet sie sich von einer Rauchexplosion?",
+      "p": [
+        "Anzeichen der Durchzündung: starker Temperaturanstieg, Rauch tritt unter Druck aus, neutrale Zone sinkt, Flammenzungen an der Rauchgrenze",
+        "Die Durchzündung hängt vom Brandstoff ab: Pyrolysegase sammeln sich unter der Decke und zünden über der unteren Explosionsgrenze",
+        "Gegenmaßnahme: Rauchabzug sicherstellen, Innen- und Außenangriff gegeneinander abwägen",
+        "Die Rauchexplosion hängt vom Sauerstoff ab: Im geschlossenen Raum ist das Gemisch zu fett und zündet, sobald beim Öffnen Luft einströmt",
+        "Indizien: späte Branderkennung, rußbeschlagene Scheiben, Wechsel von Luftzug und Rauchaustritt; sichere Anzeichen gibt es nicht",
+        "Vorgehen: Raum von außen herunterkühlen oder abwarten, nicht gezielt aufbrechen"
+      ],
+      "f": "IdF B1-310, 6.2.1, 6.2.2"
+    }
+  ],
+  "zf": [
+    {
+      "id": "ft-zf-1",
+      "typ": "fall",
+      "lage": "Dein Zug wird zu einem Wohnungsbrand im ersten Obergeschoss eines mehrgeschossigen Wohnhauses alarmiert. Die Wohnungstür steht offen, der Treppenraum ist verraucht. Im Geschoss darüber rufen Bewohner um Hilfe. Tragbare Leitern sind verfügbar, die Aufstellfläche vor dem Haus ist frei.",
+      "t": "Welche taktischen Möglichkeiten wägst du ab und wie entscheidest du dich?",
+      "p": [
+        "Gefahr klären: Personen im Treppenraum und im Geschoss darüber sind durch Atemgifte und Brandausbreitung bedroht, Menschenrettung zuerst",
+        "In-Sicherheit-Bringen: bedrohte Personen aus dem Wirkbereich holen, bauliche Rettungswege oder Rettungsgeräte nutzen",
+        "Verteidigen: Brandausbreitung in den Treppenraum und in andere Nutzungseinheiten verhindern, Schwachstellen sind Türen und Fenster",
+        "Angriff: Brand löschen; Wohnungstür nicht unnötig öffnen, weil sich Rauch und Brand ausbreiten, und einen Angriffsweg über Leitern prüfen",
+        "Leiterangriff nur bei Aufstellfläche, sicherem Anleitern, gefahrlosem Einstieg und schnell eingreifendem Sicherheitstrupp",
+        "Rückzug als weitere Möglichkeit im Blick behalten"
+      ],
+      "f": "IdF B2-330, 3, 4, 5"
+    },
+    {
+      "id": "ft-zf-2",
+      "typ": "fall",
+      "lage": "Ein Industriebetrieb brennt auf großer Fläche. Du bist mit deinem Zug (drei Gruppen und Zugtrupp) eingetroffen, weitere Einheiten sind auf der Anfahrt. Die Einsatzstelle ist weitläufig, die Gruppenführer haben keinen Gesamtüberblick.",
+      "t": "Wie gliederst du die Einsatzstelle und wie befiehlst du den Gruppenführern?",
+      "p": [
+        "Als selbstständige Einheit bist du Einsatzleiter; unter einem übergeordneten Leiter führst du nur deinen Zug",
+        "Bei großer Ausdehnung Einsatzabschnitte bilden (bis zu fünf), jeweils mit eigenem Einsatzabschnittsleiter; die Zuordnung der Einheiten ist Einzelfallentscheidung",
+        "Im Entschluss Kräfte, Mittel, Schwerpunkte, Reserve, Bereitstellungsraum, Sammelstelle und Absperrungen festlegen, Kräfte nachfordern",
+        "Befehl mindestens mit Einheit und Auftrag; Mittel, Ziel und Weg nur, wenn es der Klarheit dient (Auftragstaktik)",
+        "Weil der Überblick fehlt, Lage und Durchführung (eigene Absicht, Zusammenarbeit, Abschnittsgrenzen) dem Befehl voranstellen",
+        "Führungsebenen nicht überspringen; Befehlsstelle und Meldewege bekanntgeben"
+      ],
+      "f": "FwDV 100, 3.2.4.2, 3.3.2.2; FwDV 3, 6.1, 6.2"
+    },
+    {
+      "id": "ft-zf-3",
+      "typ": "fall",
+      "lage": "Du erreichst als Zugführer eine laufende Einsatzstelle. Ein Gruppenführer hat die Einsatzleitung bisher als Erster vor Ort wahrgenommen und bereits Maßnahmen befohlen. Du sollst nun die Einsatzleitung übernehmen.",
+      "t": "Wie läuft die Übernahme ab und was beachtest du dabei?",
+      "p": [
+        "Zuerst eine umfassende Lageeinweisung, erst dann die Führungsverantwortung übernehmen",
+        "Nur übernehmen, wenn es dir nach dem Gesetz zusteht und eine sachliche Notwendigkeit besteht",
+        "Bereits eingeleitete Maßnahmen und Befehle nur aus zwingenden Gründen ändern",
+        "Übernahme und Übergabe klar formulieren und bekanntgeben",
+        "Den nachgeordneten Kräften mitteilen und den Wechsel dokumentieren",
+        "Rechtlich leitet bis zur Übernahme durch die bestellte Einsatzleitung der zuerst eintreffende Einheitsführer"
+      ],
+      "f": "FwDV 100, 3.3.3.4; BHKG NRW, § 33"
+    },
+    {
+      "id": "ft-zf-4",
+      "typ": "fall",
+      "lage": "Die Brandmeldeanlage eines großen Bürogebäudes hat ausgelöst. Beim Eintreffen mit deinem Zug ist niemand zu sehen, der Auskunft geben kann. Auf der Anfahrt hast du keine Informationen zur Auslösung erhalten.",
+      "t": "Wie verschaffst du dir ein Bild der Lage und welche Hilfsmittel nutzt du?",
+      "p": [
+        "Feuerwehrplan und, falls vorhanden, Feuerwehreinsatzplan schon auf der Anfahrt auswerten",
+        "Zur Informationsstelle am Gebäude: Feuerwehranzeigetableau und Feuerwehrbedienfeld auswerten",
+        "Die Melderart steht nicht zwingend im Anzeigetext: in der Laufkarte nachsehen, welcher Melder ausgelöst hat",
+        "Prüfen, welche Einrichtungen die Brandfallsteuerung ausgelöst hat (Entrauchung, Aufzüge, Sprinkler, Löschanlagen)",
+        "Zugang über das Feuerwehrschlüsseldepot, Piktogramme der Laufkarten erleichtern die Orientierung",
+        "Am Sammelplatz klären, ob noch Personen im Gebäude sind"
+      ],
+      "f": "IdF B2-330, 2.1, 6.1, 6.2"
+    },
+    {
+      "id": "ft-zf-5",
+      "typ": "frage",
+      "t": "Was muss ein Befehl des Zugführers mindestens enthalten und welche Elemente ergänzt du, wenn die Gruppenführer keinen Überblick haben?",
+      "p": [
+        "Mindestens Einheit und Auftrag",
+        "Mittel, Ziel und Weg nur, wenn sie zur Klarheit beitragen (Auftragstaktik)",
+        "Lage ergänzen: Schadenereignis, Möglichkeiten der Gefahrenabwehr, Zuteilung oder Abgabe von Kräften",
+        "Durchführung ergänzen: eigene Absicht, Aufträge an die Einheiten, Zusammenarbeit, Abschnittsgrenzen, Zeiten, Schutzmaßnahmen",
+        "Lage und Durchführung dem Befehl vorausschicken, besonders für nachrückende Einheiten",
+        "Bei längeren Einsätzen Versorgung sowie Führung und Kommunikationswesen regeln"
+      ],
+      "f": "FwDV 3, 6.2; FwDV 100, 3.3.3.1"
+    },
+    {
+      "id": "ft-zf-6",
+      "typ": "frage",
+      "t": "Nenne die vier Führungsstufen und ordne zu, womit jeweils geführt wird.",
+      "p": [
+        "Stufe A, Führen ohne Führungseinheit: Einheiten bis zu zwei Gruppen, dazu Führungseinrichtungen wie die Leitstelle",
+        "Stufe B, Führen mit örtlichen Führungseinheiten: Zug oder Verband an einer Einsatzstelle, Führungstrupp oder Führungsstaffel",
+        "Stufe C, Führen mit einer Führungsgruppe: Verband an einer Einsatzstelle",
+        "Stufe D, Führen mit Führungsgruppe oder Führungsstab: mehrere Verbände an einer oder mehreren Einsatzstellen",
+        "Die Stufen ergeben sich fließend aus dem Umfang des Schadens und der Aufgabe"
+      ],
+      "f": "FwDV 100, 3.2.5"
+    },
+    {
+      "id": "ft-zf-7",
+      "typ": "frage",
+      "t": "Welche Anforderungen stellst du an eine Meldung und wann ist ohne besonderen Befehl zu melden?",
+      "p": [
+        "Meldepflicht ohne Befehl: nach Vollzug eines Auftrags, bei Undurchführbarkeit, bei Lageänderungen mit möglichem Handlungsbedarf",
+        "Unverzüglich und mit dem Zeitpunkt der Feststellung",
+        "Klar, sachlich, kurz, aber vollständig; weder über- noch untertreiben",
+        "Tatsachen und Vermutungen trennen und angeben, ob es eigene Wahrnehmung, Aussage Dritter oder Vermutung ist",
+        "Dringlichkeit kennzeichnen; Informationen fließen nicht nur nach oben, auch die Einheiten brauchen ein Lagebild"
+      ],
+      "f": "FwDV 100, 3.3.1.3"
+    },
+    {
+      "id": "ft-zf-8",
+      "typ": "frage",
+      "t": "Wie ist der Zugtrupp besetzt und welche Aufgaben haben seine Kräfte?",
+      "p": [
+        "Der Zug besteht aus Zugführer, Zugtrupp als Führungseinheit und Gruppen, Staffeln oder Selbstständigen Trupps",
+        "Zugtrupp: Führungsassistent, Melder und Fahrer",
+        "Der Führungsassistent führt Aufträge auf Befehl aus und vertritt den Zugführer",
+        "Der Melder überträgt Informationen, der Fahrer fährt das Führungsfahrzeug und übernimmt bei fehlendem Melder dessen Aufgaben",
+        "Der Zugführer ist an keinen Platz gebunden und über seine Befehlsstelle erreichbar"
+      ],
+      "f": "FwDV 3, 2.4, 5.2.2"
+    },
+    {
+      "id": "ft-zf-9",
+      "typ": "frage",
+      "t": "Wie ist die Einsatzleitung bei einer Großeinsatzlage oder Katastrophe nach dem BHKG geregelt?",
+      "p": [
+        "Kreise und kreisfreie Städte leiten und koordinieren die Abwehrmaßnahmen",
+        "Sie richten Krisenstab und Einsatzleitung ein, beide arbeiten sich in getrennten Stäben zu",
+        "Krisenstab: administrativ-organisatorische Maßnahmen und ein geordnetes Melde- und Berichtswesen",
+        "Einsatzleitung: operativ-taktische Maßnahmen durch Führung und Leitung der Kräfte",
+        "Einsatzleiter und Vertreter werden vorbereitend bestellt und können allen eingesetzten Kräften Weisungen erteilen",
+        "Bis zur Übernahme nimmt der zuerst eintreffende oder bereits tätige Einheitsführer die Aufgaben der Einsatzleitung wahr"
+      ],
+      "f": "BHKG NRW, §§ 35 bis 37"
+    },
+    {
+      "id": "ft-zf-10",
+      "typ": "frage",
+      "t": "Welche Ziele hat der vorbeugende Brandschutz und wie nutzt du ihn in der Einsatzplanung?",
+      "p": [
+        "Ziele: Brandentstehung sowie Rauch- und Brandausbreitung verhindern, Menschen und Tiere retten, wirksame Löscharbeiten ermöglichen, ausreichend Löschwasser",
+        "Einrichtungen des vorbeugenden Brandschutzes in der Lagefeststellung aktiv erkunden und in die Planung einbinden",
+        "Taktische Möglichkeiten: In-Sicherheit-Bringen, Verteidigen, Angriff und gegebenenfalls Rückzug",
+        "Bauliche Rettungswege helfen auch der Feuerwehr: begrenzte Länge, Abschottung gegen Brandausbreitung, Möglichkeiten zur Entrauchung",
+        "Voraussetzungen für die Feuerwehr: Brandmeldemöglichkeit, Löschwasserversorgung, sichere Zufahrten und Zugänge"
+      ],
+      "f": "IdF B2-330, 2, 5"
+    }
+  ]
+}

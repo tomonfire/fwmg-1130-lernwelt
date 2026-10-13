@@ -1,4 +1,5 @@
 // Prüft die Fragen-Dateien in app/data/: gültiges JSON, eindeutige IDs, Antworten verweisen auf vorhandene Optionen, Fundstelle (f) nur als kurzer Text an Katalogfragen.
+// Dazu freitext.json (Ergänzung, getrennt vom Katalog): Aufgaben mit Stichpunkten und Fundstelle, mind. 10 je Coach.
 import { readFileSync } from 'node:fs';
 
 let bad = 0;
@@ -50,5 +51,29 @@ for (const q of g.qs) if (!q.own && !q.id.startsWith(`${q.c + 1}.`)) fail('Numme
 const z = lesen('app/data/zugfuehrer.json');
 pruefe('zugfuehrer.json', z, { text: 'q', opt: 'o', kat: 'k' }, null);
 
-console.log(bad ? `${bad} Problem(e) in den Fragen` : `OK: ${g.qs.length} Gruppenführer-Fragen, ${z.length} Zugführer-Fragen`);
+// Freitext und Fallbeispiel (Ergänzung): eigene Datei, nie Teil von Katalog, Runden oder Prüfung.
+const MIN_FT = 10;
+const ft = lesen('app/data/freitext.json');
+const ftIds = new Set();
+for (const [coach, pre] of [['gf', 'ft-gf-'], ['zf', 'ft-zf-']]) {
+  const liste = ft[coach];
+  if (!Array.isArray(liste)) { fail('freitext.json: Liste fehlt:', coach); continue; }
+  if (liste.length < MIN_FT) fail(`freitext.json ${coach}: nur ${liste.length} Aufgaben, mind. ${MIN_FT}`);
+  const text = (x) => typeof x === 'string' && x.trim() !== '';
+  for (const a of liste) {
+    const wo = `freitext.json ${a && a.id}`;
+    if (!a || !text(a.id) || !a.id.startsWith(pre)) { fail(`freitext.json: id mit Präfix ${pre} fehlt:`, a && a.id); continue; }
+    if (ftIds.has(a.id)) fail('Doppelte id:', wo);
+    ftIds.add(a.id);
+    if (a.typ !== 'frage' && a.typ !== 'fall') fail('typ muss „frage“ oder „fall“ sein:', wo);
+    if (!text(a.t)) fail('Aufgabentext (t) fehlt:', wo);
+    if (!text(a.f)) fail('Fundstelle (f) fehlt:', wo);
+    if (!Array.isArray(a.p) || a.p.length < 2 || a.p.length > 8 || !a.p.every(text)) fail('Stichpunkte (p): 2 bis 8 nicht leere Texte erwartet:', wo);
+    if (a.typ === 'fall' && !text(a.lage)) fail('Fallbeispiel ohne Lage (lage):', wo);
+    if (a.typ === 'frage' && 'lage' in a) fail('Lage (lage) nur bei Fallbeispielen:', wo);
+  }
+  if (liste.filter((a) => a && a.typ === 'fall').length < 3) fail(`freitext.json ${coach}: mind. 3 Fallbeispiele erwartet`);
+}
+
+console.log(bad ? `${bad} Problem(e) in den Fragen` : `OK: ${g.qs.length} Gruppenführer-Fragen, ${z.length} Zugführer-Fragen, ${ft.gf.length} + ${ft.zf.length} Freitext-Aufgaben`);
 process.exit(bad ? 1 : 0);

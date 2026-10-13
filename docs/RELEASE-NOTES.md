@@ -7,6 +7,9 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 ## 13. Oktober 2026
 
 ### Gruppenführer und Zugführer
+- **Freitext und Fallbeispiel.** Unter „Heute“ gibt es den neuen Abschnitt „Freitext und Fallbeispiel“, gekennzeichnet als Ergänzung. Du tippst eine eigene Antwort auf eine offene Frage oder ein kurzes Fallbeispiel (Brand, Technische Hilfe, Sonderlage) und zeigst danach die Musterlösung, auch mit leerem Feld. Je Stichpunkt markierst du selbst „hatte ich“ (grün) oder „fehlte“ (orange); nicht markierte Stichpunkte zählen beim Abschließen als „fehlte“. Am Computer schaltet die Ziffer n den Stichpunkt n um. Du siehst „x von y Stichpunkten“ und die Fundstelle. Je Coach gibt es 10 Aufgaben (mindestens 3 Fallbeispiele), alles eigene Formulierungen nach den Vorschriften. Die App bewertet den Text nicht und speichert nur das Ergebnis, nicht deinen Text. Unter „Fortschritt“ steht „Freitext und Fallbeispiel: n von 10 bearbeitet“. Katalog-Quote, Tagesziel, Runden und Prüfung bleiben unverändert; Freitext-Aufgaben kommen dort nie vor. Der Befehlscoach hat keinen Freitext.
+
+### Gruppenführer und Zugführer
 - **Fundstellen bei Katalogfragen.** Bei 46 Fragen (GF Kategorie A zur FwDV 1 und J zum Recht, ZF Kapitel 3 zum Recht) steht unter der Auflösung die Zeile „Fundstelle“, gekennzeichnet als Ergänzung, zum Beispiel „BHKG NRW, § 27“. So kannst du die Antwort in der Vorschrift oder im Gesetz nachlesen. Stammt die Stelle aus einer neueren Fassung als der Katalog, steht die Fassung dabei, etwa „FwDV 1 (2026)“. In der Prüfung siehst du die Fundstelle erst in der Auswertung. Fragen, Antworten, Lösungen und dein Lernstand ändern sich nicht. Wo die Stelle nicht belegt ist, gibt es keine Fundstelle; weitere Kategorien folgen.
 
 ### Gruppenführer
