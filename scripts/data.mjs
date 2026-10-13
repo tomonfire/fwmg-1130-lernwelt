@@ -26,6 +26,21 @@ const lesen = (f) => JSON.parse(readFileSync(f, 'utf8'));
 const g = lesen('app/data/gruppenfuehrer.json');
 const gids = pruefe('gruppenfuehrer.json', g.qs, { text: 't', opt: 'o', kat: 'c' }, g.cats);
 for (const id of g.chg) if (!gids.has(id)) fail('chg verweist auf unbekannte id:', id);
+// Katalog und Ergänzung nicht mischen: Übungsfragen (own) nur in Kategorien „(Übungsfragen)“, mit Erklärung und
+// passender Nummer; Katalogfragen nie in solchen Kategorien. chg gilt nur für Katalogfragen.
+const uebung = (c) => /\(Übungsfragen\)$/.test(g.cats[c] || '');
+for (const q of g.qs) {
+  const wo = `gruppenfuehrer.json ${q.id}`;
+  if (q.own) {
+    if (!uebung(q.c)) fail('Übungsfrage in einer Katalogkategorie:', wo);
+    if (typeof q.x !== 'string' || !q.x.trim()) fail('Übungsfrage ohne Erklärung (x):', wo);
+    if (!q.id.startsWith(`${q.c + 1}.`)) fail('Nummer passt nicht zur Kategorie:', wo);
+  } else if (uebung(q.c)) fail('Katalogfrage in einer Kategorie für Übungsfragen:', wo);
+}
+for (const id of g.chg) if (g.qs.some((q) => q.id === id && q.own)) fail('chg verweist auf eine Übungsfrage:', id);
+// Die App setzt fest voraus: Kategorien 0–9 sind Katalog, Kategorie 10 ist der Reiter Führung, ab 10 nur Übungsfragen.
+g.cats.forEach((n, i) => { if ((i >= 10) !== uebung(i)) fail(`Kategorie ${i} „${n}“: Index ab 10 nur für „(Übungsfragen)“, darunter nur Katalog`); });
+for (const q of g.qs) if (!q.own && !q.id.startsWith(`${q.c + 1}.`)) fail('Nummer passt nicht zur Kategorie:', `gruppenfuehrer.json ${q.id}`);
 const z = lesen('app/data/zugfuehrer.json');
 pruefe('zugfuehrer.json', z, { text: 'q', opt: 'o', kat: 'k' }, null);
 

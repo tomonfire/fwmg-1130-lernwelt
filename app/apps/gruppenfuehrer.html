@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-AAUK/pPmCLFAOk9Vka7GhJ/k+EI7NHVq2/vBhD/8+ys='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-MZgNiXdU9vbIPsypa37m54IDOEOb3V/Pt3eqPvgeTsI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Gruppenführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -98,7 +98,8 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .qhead{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap;margin-bottom:10px}
 .qmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
 .id{font-family:var(--f-mono);background:var(--ink);color:var(--bg);padding:2px 8px;border-radius:3px;font-size:13px}
-.badge{display:inline-flex;gap:6px;align-items:center;background:var(--warn-bg);color:var(--warn);padding:2px 8px;border-radius:3px;font-weight:600;font-size:12px}
+.badge{display:inline-flex;gap:6px;align-items:center;background:var(--warn-bg);color:var(--warn);padding:2px 8px;border-radius:3px;font-weight:600;font-size:12px}.badge.ep{align-self:flex-start}
+.pz{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .badge svg{width:14px;height:14px}
 .qtext{font-family:var(--f-body);font-weight:600;font-size:20px;line-height:1.35;margin:14px 0 6px;overflow-wrap:anywhere}
 .hint{font-size:14px;color:var(--muted);margin-bottom:12px}
@@ -272,10 +273,14 @@ window.addEventListener('error',function(e){
 (function(){
 try{var _b=document.getElementById('boot');if(_b){_b.setAttribute('data-s','3');var _s=document.getElementById('bootstep');if(_s)_s.textContent='Schritt 3: App-Code gestartet …'}}catch(e){}
 'use strict';
-var APPV='V3.34',APPD='12.10.2026 22:30';
+var APPV='V3.35',APPD='13.10.2026 10:00';
 var CATS=DATA.cats, QS=DATA.qs, BYID=Object.create(null);
 QS.forEach(function(q){BYID[q.id]=q});
 var QSC=QS.filter(function(q){return !q.own}), OWN=QS.filter(function(q){return q.own});
+/* Übungsfragen (own) sind Ergänzung, kein Katalog: Kategorie L gehört zum Reiter Führung, weitere Kategorien zum Bereich „Übungsfragen“. Katalogrunden und Prüfung enthalten nie Übungsfragen. */
+var FKAT=10, FUEHR=OWN.filter(function(q){return q.c===FKAT}), XC=[];
+CATS.forEach(function(_,i){if(i!==FKAT&&OWN.some(function(q){return q.c===i}))XC.push(i)});
+function ownOf(c){return OWN.filter(function(q){return q.c===c})}
 var INTERVAL=[0,1,2,4,8,16];
 var SV=2; /* Lösungsstand: 2 = Lösungen aus dem Lösungsbogen übernommen */
 var LS='lernkompass-tagestraining-v1';
@@ -310,7 +315,7 @@ function clean(o){
   if(!o||typeof o!=='object')return s;
   s.upd=+o.upd||0;s.r=+o.r||0;
   s.goal=[10,15,20,30].indexOf(o.goal)>-1?o.goal:15;
-  s.cats=Array.isArray(o.cats)?o.cats.filter(function(i){return Number.isInteger(i)&&CATS[i]!==undefined}):[];
+  s.cats=Array.isArray(o.cats)?o.cats.filter(function(i){return Number.isInteger(i)&&CATS[i]!==undefined&&QSC.some(function(q){return q.c===i})}):[];
   s.f=Array.isArray(o.f)?o.f.filter(function(id){return BYID[id]}):[];s.fu=+o.fu||0;
   if(o.q&&typeof o.q==='object')Object.keys(o.q).forEach(function(key){
     var v=o.q[key];
@@ -436,8 +441,9 @@ function loadSess(){
 
 /* ---------- Lernlogik ---------- */
 function poolIds(){
-  var sel=S.cats&&S.cats.length?S.cats:null;
-  return QS.filter(function(q){return sel?sel.indexOf(q.c)>-1:!q.own});
+  var sel=(S.cats||[]).filter(function(c){return QSC.some(function(q){return q.c===c})});
+  if(!sel.length)sel=null;
+  return QSC.filter(function(q){return !sel||sel.indexOf(q.c)>-1});
 }
 function counts(list){
   var t=dayNum(),due=0,neu=0,mast=0,learn=0,l1=0,l2=0,l3=0,pts=0;
@@ -521,7 +527,7 @@ function onTick(){
 }
 function enterExam(){view='exam';stopTick();tick=setInterval(onTick,1000);render('q');window.scrollTo(0,0)}
 function startExam(own){
-  var pool=shuffle(own?OWN:poolIds()).slice(0,own?15:EXQ);
+  var pool=shuffle(own?FUEHR:poolIds()).slice(0,own?15:EXQ);
   if(!pool.length)return;
   var now=Date.now();
   E={s:Math.max(now,(S.xd||0)+1),end:now+EXMIN*60000,ids:pool.map(function(q){return q.id}),
@@ -633,11 +639,16 @@ function renderHome(){
     [10,15,20,30].map(function(n){return '<button data-act="goal" data-n="'+n+'" aria-pressed="'+(S.goal===n)+'">'+n+'</button>'}).join('')+'</div></section>';
   h+='<section><span class="label" id="l-topics">Themen</span><div class="topics" role="group" aria-labelledby="l-topics">'+
     CATS.map(function(name,i){
-      var list=QS.filter(function(q){return q.c===i}),cc=counts(list);
+      var list=QSC.filter(function(q){return q.c===i}),cc=counts(list);
+      if(!list.length)return '';
       var on=!S.cats.length||S.cats.indexOf(i)>-1;
       return '<button class="topic" role="checkbox" aria-checked="'+(S.cats.length?on:false)+'" data-act="cat" data-i="'+i+'"><span class="box">'+ICON_CHECK+'</span><span class="t">'+esc(name)+'</span><span class="n">'+cc.mast+'/'+cc.total+'</span></button>';
     }).join('')+'</div><p class="foot">'+(S.cats.length?'Nur die markierten Themen kommen in die Runde.':'Kein Thema markiert: Fragen kommen aus allen Themen.')+'</p></section>';
   h+='<section><div class="note">'+ICON_WARN+'<div><b>Lösungen aus dem Lösungsbogen.</b> Alle '+QSC.length+' Fragen und richtigen Antworten stammen aus dem Fragenkatalog 2026 des IdF NRW (Stand 08.12.2025). Offensichtliche Tippfehler im Text sind korrigiert. Hältst du eine Lösung für fehlerhaft, melde sie bei der Frage.</div></div>'+syncNote()+'</section>';
+  if(XC.length){
+    h+='<section aria-labelledby="h-xc"><h2 id="h-xc">Übungsfragen</h2><span class="badge ep">Ergänzung</span><p class="foot" style="margin:0">„Ergänzung“ heißt: nicht aus dem Fragenkatalog, sondern eigene Fragen nach den Vorschriften. Jede Erklärung nennt die Fundstelle. Sie kommen nicht in Katalogrunden und Prüfung. Zahl: gemeistert / gesamt.</p><div class="crows">'+
+      XC.map(function(c){var l=ownOf(c),cc=counts(l);return '<div class="crow"><div class="l"><span>'+esc(CATS[c])+'</span><span>'+cc.mast+' / '+cc.total+'</span></div><button class="btn block" data-act="xstart" data-i="'+c+'" aria-label="Runde üben · '+Math.min(S.goal,l.length)+' Fragen, '+esc(CATS[c])+'">Runde üben · '+Math.min(S.goal,l.length)+' Fragen</button></div>'}).join('')+'</div></section>';
+  }
   return h;
 }
 function renderQuiz(){
@@ -842,8 +853,8 @@ function renderTopic(){
       '<div class="actions dock kb"><button class="btn primary" data-act="scheck"'+(T.sg.length?'':' disabled')+'>Prüfen</button></div>')+'</section>';
   /* Fragen und Test */
   var runningExam=!!loadExam();
-  h+='<section aria-labelledby="h-t"><h2 id="h-t">Fragen und Test</h2><p style="margin:0">'+OWN.length+' Übungsfragen zum Führungsvorgang aus FwDV 100 (Abschnitt 3.3) und IdF-Poster, dazu die gekennzeichnete Ergänzung Gefahrenmatrix. Jede Erklärung nennt die Quelle. Sie gehören nicht zum Fragenkatalog. Im Lernstand erscheinen sie in der eigenen Gruppe Führung, für Tagesziel und Serie zählen sie mit.</p>'+
-    '<button class="btn primary block" data-act="tstart">Runde üben · '+Math.min(S.goal,OWN.length)+' Fragen</button>'+
+  h+='<section aria-labelledby="h-t"><h2 id="h-t">Fragen und Test</h2><p style="margin:0">'+FUEHR.length+' Übungsfragen zum Führungsvorgang aus FwDV 100 (Abschnitt 3.3) und IdF-Poster, dazu die gekennzeichnete Ergänzung Gefahrenmatrix. Jede Erklärung nennt die Quelle. Sie gehören nicht zum Fragenkatalog. Im Lernstand erscheinen sie in der eigenen Gruppe Führung, für Tagesziel und Serie zählen sie mit.</p>'+
+    '<button class="btn primary block" data-act="xstart" data-i="'+FKAT+'" aria-label="Runde üben · '+Math.min(S.goal,FUEHR.length)+' Fragen, Führungsvorgang">Runde üben · '+Math.min(S.goal,FUEHR.length)+' Fragen</button>'+
     '<button class="btn block" data-act="ttest"'+(runningExam?' disabled':'')+'>Themen-Test · 15 Fragen · '+EXMIN+' Min.</button>'+
     (runningExam?'<p class="foot">Es läuft schon eine Prüfung. Setze sie unter „Heute“ fort oder verwirf sie, dann kannst du den Themen-Test starten.</p>':'<p class="foot">Der Themen-Test läuft wie die Prüfung: Zeitlimit, Auswertung erst nach der Abgabe, 0,5 Punkte je vollständig richtiger Frage.</p>')+'</section>';
   return h;
@@ -902,7 +913,7 @@ function renderResult(){
   if(wrong.length){
     h+='<span class="label">Zum Nachlesen</span><div class="wrong">'+wrong.map(function(r){return '<div><span class="id">'+r.id+'</span><span>'+esc(BYID[r.id].t)+'</span></div>'}).join('')+'</div>';
   }else{h+='<p>Keine Fehler in dieser Runde.</p>'}
-  h+='<div class="actions"><button class="btn primary" data-act="start">Weitere Runde</button><button class="btn" data-act="go" data-v="home">Zur Übersicht</button></div></section>';
+  h+='<div class="actions"><button class="btn primary" '+(Q.own?'data-act="xstart" data-i="'+Q.grp+'"':'data-act="start"')+'>'+(Q.own?'Weitere Übungsrunde':'Weitere Runde')+'</button><button class="btn" data-act="go" data-v="home">Zur Übersicht</button></div></section>';
   return h;
 }
 function pwNote(q){
@@ -920,6 +931,7 @@ var SRCS=[
   {t:"FwDV 100 Führung und Leitung im Einsatz, Führungssystem",o:"Feuerwehr-Dienstvorschrift 100, Stand 10.03.1999, in NRW eingeführt mit Runderlass des Innenministeriums",u:"Kapitel 3.3 Führungsvorgang: Kreisschema, Lagefeststellung, Lagebild, Meldungen, Beurteilung, Entschluss, Befehlsgebung, Kontrolle. Grundlage der Führungsfragen 11.1xx (65 Fragen) und des Bereichs Führung.",n:"Die Vorschrift selbst lag mir als PDF vor. Die Fundstellen in den Erklärungen (Abschnitt 3.3.x) beziehen sich auf diese PDF-Fassung. Der Link führt zur amtlichen Inkraftsetzung in NRW (MBl. NRW. 1999 S. 1395), nicht zum Volltext.",l:[["Inkraftsetzung in NRW, recht.nrw.de","https://recht.nrw.de/mblnrw/1999-s1395"]]},
   {t:"Poster Führungsvorgang",o:"Institut der Feuerwehr NRW, „Abgeleitet von FwDV 100, Stand 1999 (Kap. 3.3 Führungsvorgang)“",u:"Vier Erkundungsstufen, vier Schritte der Beurteilung mit Ursache, Wirkung und bedrohtem Objekt, Bewertungskriterien, Entschluss, Befehlsreihenfolge, Rückmeldung MELDEN, Kontrolle mit Soll-Ist-Vergleich. Grundlage der Fragen 11.3xx (28 Fragen).",n:"Das Poster liegt mir nur als PDF-Datei vor, einen Link dazu habe ich nicht. Inhalte, die nur auf dem Poster stehen, sind in den Übungen mit „(Poster)“ gekennzeichnet."},
   {t:"Gefahrenmatrix 4A-1C-4E",o:"Institut der Feuerwehr NRW, Lernunterlage B1-310 „Einsatztaktik für Gruppenführer“, Oktober 2019, Abschnitt 1.1 „Die Gefahren- und Wirkmatrix als Merkschema“ und Kapitel 3 bis 11",u:"Die neun Gefahren der Einsatzstelle, die Schutzobjekte und die Übungsfragen 11.2xx (30 Fragen). Aus dem Poster stammt die Dreiteilung Ursache, Wirkung, bedrohtes Objekt. Die Sicherheitsabstände (1 m bei Niederspannung, 3 m bis 110 kV, 4 m bis 220 kV, 5 m bis 380 kV) und die Strahlrohrabstände (Sprühstrahl 1 m / 5 m, Vollstrahl 5 m / 10 m bei Nieder- / Hochspannung) stehen in der B1-310, Abschnitte 9.2 und 9.5. Bei Szenarien zählen nur die genannten richtigen und die klar falschen Gefahren, weitere können je nach Lage zutreffen.",n:"Nicht Inhalt der FwDV 100. Am 12.10.2026 mit der B1-310 abgeglichen; die Fragen und Erklärungen sind eigene Formulierungen, kein Text aus der Lernunterlage. Die B1-310 nennt die Matrix selbst ein Merkschema, das bei Bedarf zu ergänzen ist (z. B. Verkehrsgefahren, Ertrinken)."},
+  {t:"Übungsfragen Recht, Funk, ABC und Prüfungen (Ergänzung)",o:"Von Claude formuliert, Stand 12.10.2026. Grundlagen: BHKG NRW (Stand 2021), VOFF NRW (2017), Erlass IM NRW zu Ölspuren (2007), FwDV 810 (2018), IdF-Taschenkarte Funk v3.0 (2021), FwDV 500 (Januar 2022), DGUV Vorschrift 49 (2019) und DGUV Grundsatz 305-002 (Dezember 2021)",u:"Die Kategorien M bis P unter „Heute“ → „Übungsfragen“ Sie gehören nicht zum Fragenkatalog, kommen nicht in Katalogrunden oder Prüfung und haben einen eigenen Lernstand.",n:"Keine amtliche Veröffentlichung und kein Text aus den Quellen, sondern eigene Formulierungen. Jede Erklärung nennt die Fundstelle. Im Zweifel gilt die Originalquelle; die BHKG-Novelle ist in Arbeit."},
   {t:"Hinweise zur Vorschrift",o:"Abgleich der Katalogfragen mit den aktuellen Fassungen der Vorschriften, Stand 12.10.2026",u:"Der Kasten „Hinweis zur Vorschrift“ nach der Antwort, bei Fragen, deren Lösung sich auf eine ältere Fassung stützt oder deren Begriff sich geändert hat. Grundlage: FwDV 1 (Neufassung Stand April 2026, in NRW noch nicht eingeführt; die Lösungen folgen der Ausgabe 2006).",n:"Die Lösungen des Katalogs sind unverändert. Der Hinweis zeigt nur, was in der neueren Fassung anders steht."},
   {t:"Logo: taktisches Zeichen Gruppenführer",o:"Nach DV 102, erzeugt mit @taktische-zeichen/core (MIT-Lizenz)",u:"Logo in der Kopfzeile: Person (Raute), Feuerwehr (rot), Führungskraft (Balken), Gruppe (zwei Punkte). Das Dunkelblau (#15334A) erscheint im Dunkel-Modus als hellere Tönung. Das Rot der App (#CA0C14) ist aus dem Logo abgeleitet, nicht aus einer offiziellen CI-Vorgabe.",n:"Nutzung nur für diese Lern-App."},
   {t:"Erklärungen, Übungen und Übungsfragen",o:"Von Claude aus den Quellen oben formuliert",u:"Erklärungstexte, die Übungen „Phasen zuordnen“ und „Was gehört dazu?“ sowie die 123 Übungsfragen zum Führungsvorgang.",n:"Keine amtliche Veröffentlichung. Jede Erklärung nennt die Fundstelle. Im Zweifel gilt die Originalquelle."}
@@ -927,6 +939,16 @@ var SRCS=[
 function renderSources(){
   var h=mast()+tabs();
   h+='<section aria-labelledby="h-src"><h2 id="h-src">Quellen</h2><p style="margin:0">Woher das Wissen in dieser App stammt. Links öffnen in einem neuen Tab.</p></section>';
+  h+='<section aria-labelledby="h-pz"><h2 id="h-pz">Prüfung und Zulassung</h2><span class="badge ep">Ergänzung</span>'+
+    '<h3 class="gh">Prüfung</h3><ul class="pz">'+
+    '<li><b>Teil 1:</b> MC-Fragearbeit zum Vorwissen bis Truppführer zu Lehrgangsbeginn (15 Minuten, 10 Punkte, mehrere Antworten können richtig sein, Punkte nur für vollständig richtige Antworten) und Facharbeit mit Freitextfragen am Lehrgangsende (20 Punkte). Zusammen mindestens 15 von 30 Punkten.</li>'+
+    '<li><b>Teil 2 und 3:</b> zwei Fallbeispiele (Brand, Technische Hilfe oder Sonderlage), je 20 Punkte, mindestens je 10. Zusammen mit den Freitextfragen bis zu 45 Minuten.</li>'+
+    '<li><b>Mündlich:</b> nur, wer genau zwei der drei schriftlichen Teile bestanden hat. Bis 15 Minuten, 30 Punkte, mindestens 15.</li>'+
+    '<li><b>Ergebnis:</b> keine Noten, nur bestanden oder nicht bestanden. Bei einer Wiederholung zählt das Ergebnis der MC-Fragearbeit weiter.</li></ul>'+
+    '<h3 class="gh">Zulassung</h3><div class="note">'+ICON_WARN+'<div><b>Stand prüfen.</b> Die Ausführungsvorschrift von 2016 ist mit Ablauf des 31.12.2022 außer Kraft getreten. Eine Nachfolgeregelung ist hier nicht geprüft; frage im Zweifel beim IdF NRW nach.</div></div>'+
+    '<ul class="pz"><li>Ausbildungen Truppmann, Sprechfunker, Atemschutzgeräteträger und Truppführer</li><li>40 Stunden Truppführer-Fortbildung (Module 1 bis 3), alternativ die Ausbildungen „ABC-Einsatz“ und „Maschinist“</li><li>Beförderung zur Unterbrandmeisterin oder zum Unterbrandmeister</li><li>aktuelle Atemschutztauglichkeit (G 26.3)</li><li>Lehrgang zehn Tage, auch in zwei Teilen zu fünf Tagen</li></ul>'+
+    '<p class="foot" style="margin:0"><b>In dieser App:</b> Die Prüfung unter „Heute“ übt nur die MC-Fragearbeit. 20 Fragen zu je 0,5 Punkten ergeben die 10 Punkte der Richtlinie; die Fragenzahl selbst nennt die Richtlinie nicht.</p>'+
+    '<p class="foot" style="margin:0">Quelle: Prüfungsrichtlinie GF-Basis des IdF NRW (Stand Dezember 2020, in Kraft seit 01.01.2021) und Ausführungsvorschrift zum Gruppenführer-Basislehrgang (Runderlass vom 02.12.2016, MBl. NRW. 2016 S. 843, befristet bis 31.12.2022). Am 12.10.2026 gegen den Volltext geprüft. Bei Prüfungsfragen gilt immer der Originaltext.</p></section>';
   SRCS.forEach(function(s,i){
     h+='<section class="src" aria-labelledby="h-s'+i+'"><h3 id="h-s'+i+'" class="gh0">'+esc(s.t)+'</h3><p class="foot" style="margin:0">'+esc(s.o)+'</p><p style="margin:0"><b>Verwendet für:</b> '+esc(s.u)+'</p>'+
       (s.n?'<p class="foot" style="margin:0"><b>Hinweis:</b> '+esc(s.n)+'</p>':'')+
@@ -946,18 +968,19 @@ function renderProgress(){
   h+='<section><h2>Lernstand</h2><h3 class="gh">Fragenkatalog</h3><div class="stats"><div class="stat"><b>'+all.mast+'<span style="font-size:18px"> / '+all.total+'</span></b><span>gemeistert</span></div>'+
     '<div class="stat"><b>'+all.due+'</b><span>fällig</span></div><div class="stat"><b>'+(ans?Math.round(okc/ans*100)+' %':'–')+'</b><span>Trefferquote</span></div></div>'+
     '<div class="bar"><i class="f-ok" style="width:'+(all.mast/all.total*100)+'%"></i><i class="f-learn" style="width:'+(all.learn/all.total*100)+'%"></i></div>'+stufenLine(all);
-  var ow=counts(OWN),oa=0,ok2=0;
-  OWN.forEach(function(q){var s=S.q[k(q.id)];if(s){ok2+=s[2];oa+=s[2]+s[3]}});
+  var ow=counts(FUEHR),oa=0,ok2=0;
+  FUEHR.forEach(function(q){var s=S.q[k(q.id)];if(s){ok2+=s[2];oa+=s[2]+s[3]}});
   var GR=[["FwDV 100 (Kap. 3.3)",function(n){return n<200}],["IdF-Poster Führungsvorgang",function(n){return n>=300}],["Gefahrenmatrix (Ergänzung)",function(n){return n>=200&&n<300}]];
   var tt=(S.x||[]).filter(function(e){return e[3]}),tbest=tt.reduce(function(m,e){return Math.max(m,Math.round(e[1]/e[2]*100))},0);
   h+='<h3 class="gh">Führung</h3><div class="stats"><div class="stat"><b>'+ow.mast+'<span style="font-size:18px"> / '+ow.total+'</span></b><span>gemeistert</span></div>'+
     '<div class="stat"><b>'+ow.due+'</b><span>fällig</span></div><div class="stat"><b>'+(oa?Math.round(ok2/oa*100)+' %':'–')+'</b><span>Trefferquote</span></div></div>'+
     '<div class="bar"><i class="f-ok" style="width:'+(ow.total?ow.mast/ow.total*100:0)+'%"></i><i class="f-learn" style="width:'+(ow.total?ow.learn/ow.total*100:0)+'%"></i></div>'+stufenLine(ow)+
     '<div class="crows" style="margin-top:12px">'+GR.map(function(g){
-      var c=counts(OWN.filter(function(q){return g[1](parseInt(q.id.split('.')[1],10))}));
+      var c=counts(FUEHR.filter(function(q){return g[1](parseInt(q.id.split('.')[1],10))}));
       return '<div class="crow"><div class="l"><span>'+g[0]+'</span><span>'+c.mast+' / '+c.total+' · '+c.way+' %</span></div><div class="bar"><i class="f-ok" style="width:'+(c.total?c.mast/c.total*100:0)+'%"></i><i class="f-learn" style="width:'+(c.total?c.learn/c.total*100:0)+'%"></i></div></div>';
     }).join('')+'</div>'+
     '<p class="foot">'+(tt.length?tt.length+(tt.length===1?' Themen-Test':' Themen-Tests')+' abgelegt, bestes Ergebnis '+tbest+' %.':'Noch kein Themen-Test abgelegt.')+' Die Übungen „Phasen zuordnen“ und „Was gehört dazu?“ werden nicht gespeichert.</p>'+
+    (XC.length?'<h3 class="gh">Übungsfragen (Ergänzung)</h3><div class="crows">'+XC.map(function(c){var cc=counts(ownOf(c));return '<div class="crow"><div class="l"><span>'+esc(CATS[c])+'</span><span>'+cc.mast+' / '+cc.total+' · '+cc.way+' %</span></div><div class="bar"><i class="f-ok" style="width:'+(cc.total?cc.mast/cc.total*100:0)+'%"></i><i class="f-learn" style="width:'+(cc.total?cc.learn/cc.total*100:0)+'%"></i></div></div>'}).join('')+'</div>':'')+
     '<div class="legend"><span><i class="f-ok"></i>gemeistert (Stufe 4 von 5)</span><span><i class="f-learn"></i>in Arbeit</span><span><i style="background:var(--track)"></i>neu</span></div></section>';
   h+='<section><h2>Letzte 14 Tage</h2><div class="days" role="img" aria-label="Beantwortete Fragen pro Tag, letzte 14 Tage">';
   var n0=dayNum(),mx=1,vals=[];
@@ -1166,9 +1189,10 @@ app.addEventListener('click',function(e){
   }
   else if(a==='scheck'){T.sk=true;render('sres')}
   else if(a==='snext'){T.si=(T.si+1)%SC.length;T.sg=[];T.ss=[];T.sk=false;render('scn')}
-  else if(a==='tstart'){
-    var tq=buildSession(OWN);if(!tq.length)return;
-    Q={queue:tq,i:0,sel:[],checked:false,good:false,results:[],order:null,own:true};view='quiz';render('q');window.scrollTo(0,0);
+  else if(a==='xstart'){
+    var xg=+b.getAttribute('data-i'),xl=ownOf(xg);if(!xl.length)return;
+    var tq=buildSession(xl);if(!tq.length)return;
+    Q={queue:tq,i:0,sel:[],checked:false,good:false,results:[],order:null,own:true,grp:xg};view='quiz';render('q');window.scrollTo(0,0);
   }
   else if(a==='ttest'){if(loadExam())return;startExam(true)}
   else if(a==='reset'){confirmReset=true;render()}

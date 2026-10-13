@@ -4,6 +4,16 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt (13.10.2026)
+- Gruppenführer: 50 Übungsfragen (own) in vier neuen Kategorien M–P „(Übungsfragen)“ – Recht NRW (12.1xx), Funk (13.1xx), ABC (14.1xx), Prüfung von Geräten und UVV (15.1xx) –, eigene Runden unter „Heute“ → „Übungsfragen“, Lernstand unter „Fortschritt“, Quelleneintrag. Abschnitt „Prüfung und Zulassung“ im Quellen-Reiter nach Prüfungsrichtlinie GF-Basis (12/2020) und Ausführungsvorschrift (RdErl. 02.12.2016).
+- Zugführer: Abschnitt „Führungsstufen und Sachgebiete“ (FwDV 100, 3.2.5 und 3.2.2.2) im Bereich Führung.
+- `docs/QUELLEN.md` (Quellenregister mit Status und abhängigen Fragen), Roadmap: jährliche Aktualitätsprüfung und Entscheidung zu fremden Inhalten.
+- `scripts/data.mjs`: Übungsfragen nur in Kategorien „(Übungsfragen)“, mit Erklärung und passender Nummer; Katalogfragen nie dort; `chg` nur für Katalogfragen. `scripts/check.mjs`: optionale Sperrliste (`FWMG_SPERRLISTE`, ganze Wörter) gegen Namen aus internen und örtlichen Quellen.
+
+### Geändert (13.10.2026)
+- Gruppenführer: Katalogrunden, Themenwahl und Prüfung schließen Übungsfragen aus (bisher konnte die Kategorie L über die Themenwahl in Katalogrunde und Prüfung gelangen). Reiter Führung nutzt nur Kategorie L; „Weitere Runde“ nach einer Übungsrunde startet dieselbe Gruppe. Gruppenführer V3.35, Zugführer V1.11, Service-Worker `VERSION` auf v48.
+- Changelog: Ortsname in einem älteren Eintrag neutral formuliert.
+
 ### Geändert (Inhalt)
 - Gruppenführer: Gefahrenmatrix 4A-1C-4E mit der IdF-Lernunterlage B1-310 (10/2019) abgeglichen; Quellenangabe, Hinweiskasten und Erklärungen der 30 Übungsfragen 11.2xx angepasst (11.212, 11.217 präzisiert), Lösungen unverändert. Zugführer: Hinweis zu 1.149 nennt die Abstände nach B1-310; Stand der FwDV 100 im Bereich Führung belegt. Gruppenführer V3.34, Zugführer V1.10, Service-Worker `VERSION` auf v47.
 
@@ -118,7 +128,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 - Fragen des Gruppenführer- und Zugführer-Trainers liegen als JSON in `app/data/` statt im HTML. Neue Prüfung `scripts/data.mjs` (eindeutige IDs, gültige Antwort-Indizes). Service-Worker `VERSION` auf v9.
 - CI prüft in Pull Requests, ob `VERSION` in `app/sw.js` erhöht wurde, sobald sich etwas in `app/` ändert (`scripts/version.mjs`).
 - Gruppenführer-Trainer zeigt das taktische Zeichen Gruppenführer nach DV 102 (`app/icons/gruppenfuehrer.svg`) statt der Flamme.
-- Logo der Feuerwehr Mönchengladbach ersetzt: Startseite, Übersicht, Gruppenführer und App-Icons zeigen eine eigene Flamme (`app/icons/flamme.svg`), der Zugführer-Trainer das taktische Zeichen Zugführer nach DV 102 (`app/icons/zugfuehrer.svg`).
+- Früheres Logo einer Feuerwehr ersetzt: Startseite, Übersicht, Gruppenführer und App-Icons zeigen eine eigene Flamme (`app/icons/flamme.svg`), der Zugführer-Trainer das taktische Zeichen Zugführer nach DV 102 (`app/icons/zugfuehrer.svg`).
 
 ### Behoben
 - Logo auf Startseite und Übersicht war auf dem iPhone hochkant gestaucht.
