@@ -13,8 +13,36 @@
   .topic:hover, .rowbtn:hover { background: var(--surface); }
   .seg button:not([aria-pressed="true"]):hover { background: var(--bg); }
   .actions.dock.kb::after { content: 'Tastatur: Ziffern wählen eine Antwort, Enter bestätigt'; flex-basis: 100%; font-size: 12px; color: var(--muted); }
+  .actions.dock.kb.kbft::after { content: 'Tastatur: Ziffer n schaltet Stichpunkt n um, Enter schließt ab'; }
+  .actions.dock.kb.kbent::after { content: 'Tastatur: Enter bestätigt'; }
+  .ftset .btn:not([aria-pressed="true"]):hover { background: var(--bg); }
 }
 
 /* Erklärungen zum Aufklappen (z. B. „Was heißt gemeistert?“) */
 details.more summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
 details.more p { margin: 0 0 8px; }
+
+/* Freitext und Fallbeispiel (Ergänzung): eigene Ansicht, in Gruppenführer- und Zugführer-Coach gleich aufgebaut.
+   Farblogik wie überall: grün = hatte ich, orange = fehlte; Farbe steht immer zusammen mit Text. */
+.ftlage { margin: 14px 0 0; }
+.ftlage p { margin: 6px 0 0; }
+.ftin { display: block; width: 100%; min-height: 9em; resize: vertical; padding: 12px 14px; font: inherit; font-size: 16px; line-height: 1.5; color: var(--ink); background: var(--surface); border: 2px solid var(--edge); border-radius: 4px; }
+.ftin:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.ftin[readonly] { background: var(--bg); }
+.ftrows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ftrow { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; background: var(--surface); border: 2px solid var(--edge); border-radius: 4px; }
+.ftrow.ok { border-color: var(--ok); background: var(--ok-bg); }
+.ftrow.miss { border-color: var(--miss); border-style: dashed; background: var(--miss-bg); }
+.ftx { display: flex; gap: 10px; align-items: flex-start; }
+.ftx .fn { flex: none; min-width: 24px; height: 24px; border-radius: 12px; background: var(--ink); color: var(--bg); font-size: 13px; font-weight: 600; line-height: 24px; text-align: center; }
+.ftx .ft { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.ftx .tag { flex: none; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; padding: 2px 6px; border-radius: 3px; }
+.ftrow.ok .tag { background: var(--ok); color: var(--surface); }
+.ftrow.miss .tag { background: var(--miss); color: var(--surface); }
+.ftset { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ftset .btn { min-height: 44px; padding: 8px 12px; font-size: 15px; }
+.ftset .btn[aria-pressed="true"][data-v="1"] { background: var(--ok); border-color: var(--ok); color: var(--surface); }
+.ftset .btn[aria-pressed="true"][data-v="0"] { background: var(--miss); border-color: var(--miss); color: var(--surface); }
+.res.part { background: var(--miss-bg); border-color: var(--miss); }
+@media (min-width: 768px) { .ftin { font-size: 18px; } }
+.ftin + section, .ftin + .res { margin-top: 20px; }

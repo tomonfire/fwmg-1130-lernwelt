@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-YUCvPCkOSoMEmb5nVQAFWEN8awWkaGYJtQNb/LTPhoM='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-3mFdMIMhkBs2/xbgGiA+M93eqGTY81Aqsh7cPicknxM='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../coach.css">
@@ -143,6 +143,12 @@ textarea.speech::placeholder { color: var(--muted); }
 .misslist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .misslist li { border-bottom: 1px solid var(--line); padding-block: 10px; font-size: 15px; }
 .misslist b { font-weight: 600; }
+/* Ergänzung (nicht aus Katalog oder FwDV-Beispielen): Badge wie im Gruppen- und Zugführer-Coach, Kasten Realbrand ohne Wertung. */
+.badge { display: inline-block; background: var(--warn-bg); color: var(--warn); padding: 2px 8px; border-radius: 3px; font-weight: 600; font-size: 12px; line-height: 1.4; letter-spacing: .02em; }
+.rbbox .rbhead { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.rbbox ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+.rbbox .src { font-size: 14px; color: var(--muted); }
+.quizmeta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
 
 .kdl { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 2px solid var(--line); margin: 0; }
 .kdl > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: .1rem; padding: 10px 2px; border-bottom: 1px solid var(--line); }
@@ -216,7 +222,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.15'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.16'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -311,6 +317,10 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       lage: 'Alarmstichwort »Zimmerbrand, Person vermisst«, Donnerstag 19:30 Uhr, trocken. Mehrfamilienhaus, Rauch kommt aus dem Fenster einer Wohnung im 2. Obergeschoss. Eine Nachbarin sagt, die Bewohnerin sei zu Hause. Der Treppenraum ist leicht verraucht. Hydrant vor dem Haus, der Verteiler soll vor dem Hauseingang stehen. Angriffs- und Wassertrupp sind mit Atemschutz ausgerüstet. Du bist Gruppenführer.',
       beur: { ok: 'Menschen: Bewohnerin in der brennenden Wohnung', wrong: ['Sachwerte: Wohnungseinrichtung', 'Umwelt: Rauchgase im Hof', 'Sachwerte: Nachbarwohnungen'],
               why: 'Eine vermisste Person im Brandraum hat Vorrang vor allen anderen Gefahren.' },
+      rb: { p: ['Rauch und Flammen aus einem Fenster zeigen eine vorhandene Ventilationsöffnung: Eine kurze Wasserabgabe von außen darf den Innenangriff vorbereiten, endet aber, sobald der Trupp die Tür zur Wohnung öffnet.',
+                'Rauchvorhang in die Wohnungstür setzen, damit der Treppenraum nutzbar bleibt, und die Lüftung parallel vorbereiten.',
+                'Wer auf dem Angriffsweg liegt, wird sofort gerettet. Sonst gilt: erst Brandbekämpfung, dann Suche im Brandraum, danach hinter offenen und zuletzt hinter geschlossenen Türen.'],
+            q: 'Fachempfehlung Brandbekämpfung zur Menschenrettung (2019), Abschn. 12 (S. 43) und 11.4 (S. 42)' },
       befehle: [
         { name: 'Menschenrettung', art: 'ohne',
           tip: 'Der Angriffstrupp rettet, besonders aus Bereichen, die nur mit Atemschutzgeräten betreten werden können. Der Wassertrupp wird Sicherheitstrupp (FwDV 3, 5.2.1).',
@@ -384,6 +394,78 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
              ok: 'Verkleidung kontrollieren und nachlöschen lassen, Wohnhaus auf Brandausbreitung prüfen, danach Einsatzende',
              wrong: ['Sofort abrücken, der PKW ist gelöscht', 'Nur den PKW weiter kühlen', 'Das Wohnhaus nicht weiter beachten'],
              why: 'Soll-Ist-Vergleich: Der Auftrag lautete, die Ausbreitung zu verhindern. Das ist erst erreicht, wenn Carport und Wohnhaus geprüft sind (FwDV 100, 3.3.4).' } },
+
+    { id: 'staffel-schuppen', ext: true, title: 'Staffel: Schuppenbrand am Wohnhaus',
+      sub: 'Staffel 1/5/6 mit TSF-W, ohne Schlauchtrupp und Melder.',
+      tags: ['Staffel', 'Sachwerte', 'ohne Bereitstellung'],
+      lage: 'Du führst eine Staffel (1/5/6): Maschinist, Angriffstrupp und Wassertrupp, einen Schlauchtrupp und einen Melder hast du nicht. Alarmstichwort »Gebäudebrand klein«, Sonntag 15:20 Uhr, trocken, schwacher Wind zum Haus. Im Garten eines Wohnhauses brennt ein Holzschuppen, die Flammen schlagen etwa zwei Meter hoch. Der Schuppen steht drei Meter vom Haus entfernt. Alle Bewohner stehen vollzählig im Vorgarten. Das TSF-W steht vor dem Haus, sein Tank fasst 500 Liter, ein Hydrant liegt vor dem Haus. Der Verteiler soll an der Hausecke stehen, der Weg in den Garten führt durch die Gartentür. Du bist Staffelführer mit Gruppenführer-Qualifikation.',
+      beur: { ok: 'Sachwerte: Übergreifen auf das Wohnhaus verhindern', wrong: ['Menschen: Bewohner im Wohnhaus', 'Tiere: Haustiere im Schuppen', 'Umwelt: Löschwasser im Garten'],
+              why: 'Alle Bewohner stehen vollzählig im Vorgarten. Gefährdet ist das Wohnhaus, weil der Schuppen nur drei Meter entfernt steht (FwDV 100, Poster Planung).' },
+      befehle: [
+        { name: 'Erster Angriff', art: 'ohne',
+          tip: 'In der Staffel wird zuerst auf Melder und Schlauchtrupp verzichtet (FwDV 3, 5.1). Ohne Schlauchtrupp verlegt der Angriffstrupp seine Schlauchleitung selbst, der Wassertrupp stellt die Wasserversorgung her (FwDV 3, 5.2.1).',
+          f: {
+            wasser:    ['Hydrant vor dem Haus', 'Wasserentnahme offenes Gewässer', 'Hydrant am Nachbarhaus', 'Hydrant an der Kreuzung'],
+            verteiler: ['an der Hausecke', 'im Schuppen', 'auf der Terrasse', 'vor dem Haupteingang'],
+            einheit:   ['Angriffstrupp', 'Wassertrupp', 'Maschinist', 'Selbstständiger Trupp'],
+            auftrag:   ['zur Brandbekämpfung', 'zur Menschenrettung', 'zur Wasserversorgung', 'zur Brandwache'],
+            mittel:    ['mit 1. Rohr', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:      ['auf den brennenden Schuppen', 'in das Wohnhaus', 'auf das Dach des Wohnhauses', 'zur Gartentür'],
+            weg:       ['durch die Gartentür', 'durch das Wohnhaus', 'über das Nachbargrundstück', 'über das Dach']
+          },
+          kw: { wasser: 'hydrant', verteiler: 'hausecke|haus\\s*ecke', einheit: 'angriffstrupp', auftrag: 'brand\\s*bek|loesch|lösch', mittel: RX_R1, ziel: 'schuppen', weg: 'gartent(ü|u|ue)r|garten\\s*t(ü|u|ue)r' } },
+        { name: 'Wassertrupp einsetzen', art: 'folge',
+          lage: 'Neue Lage: Der Angriffstrupp löscht den Schuppen, die Wasserversorgung steht. Die Verkleidung des Wohnhauses beginnt zu glimmen. Es ist kein Atemschutzeinsatz, der Rauch zieht ins Freie. Der Wassertrupp ist einsatzbereit.',
+          tip: 'Nach der Wasserversorgung übernimmt der Wassertrupp andere Aufgaben (FwDV 3, 5.2.1), hier das zweite Rohr. Bei einem Atemschutzeinsatz müsste er Sicherheitstrupp bleiben (FwDV 3, 5.5.1).',
+          f: {
+            einheit: ['Wassertrupp', 'Angriffstrupp', 'Maschinist', 'Selbstständiger Trupp'],
+            auftrag: ['zum Schutz des Wohnhauses', 'zur Brandbekämpfung am Schuppen', 'zur Menschenrettung', 'zur Brandwache'],
+            mittel:  ['mit 2. Rohr', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['auf die Fassade des Wohnhauses', 'auf den Schuppen', 'in das Wohnhaus', 'auf das Dach des Schuppens'],
+            weg:     ['über die Terrasse', 'durch das Wohnhaus', 'über das Dach', 'über den Schuppen']
+          },
+          kw: { einheit: 'wassertrupp', auftrag: 'schutz|wohnhaus|sicher', mittel: '(2\\.?|zwei|zweit\\w*)\\s*(c\\s*)?rohr', ziel: 'fassade|wohnhaus|hauswand', weg: 'terrasse' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Schuppen gelöscht, im Dach liegen Glutnester. Der Wassertrupp meldet: Die Fassade ist noch warm, der Tank ist fast leer.',
+             ok: 'Glutnester ablöschen, Fassade und Dach des Wohnhauses auf Brandausbreitung prüfen, die Wasserversorgung gesichert halten und bei Bedarf weitere Kräfte nachfordern',
+             wrong: ['Beide Trupps abziehen, der Schuppen ist gelöscht', 'Wasser abstellen und den Verteiler abbauen, bevor die Fassade geprüft ist', 'Das Wohnhaus nicht weiter beachten, da kein Feuer zu sehen ist'],
+             why: 'Soll-Ist-Vergleich: Der Auftrag war, ein Übergreifen auf das Wohnhaus zu verhindern. Das ist erst erreicht, wenn Fassade und Dach geprüft sind. Reichen die Kräfte der Staffel nicht, gehört die Nachforderung in die Rückmeldung (FwDV 100, 3.3.4, und Poster Befehlsgebung).' } },
+
+    { id: 'bsw-buehne', ext: true, title: 'Brandsicherheitswache: Brand hinter der Bühne',
+      sub: 'Veranstaltung mit rund 2.000 Besuchern, Entstehungsbrand am Vorhang.',
+      tags: ['Brandsicherheitswache', 'Menschen', 'ohne Bereitstellung'],
+      lage: 'Du führst als Gruppenführer die Brandsicherheitswache (BSW) bei einer Veranstaltung mit erhöhter Brandgefahr (§ 27 BHKG). Samstag 21:10 Uhr, rund 2.000 Besucher sind in der Versammlungsstätte, das Konzert läuft. Ein Bühnentechniker meldet dir per Funk einen Entstehungsbrand am Vorhang hinter der Bühne, sein Löschversuch mit dem Feuerlöscher hat nicht ausgereicht. Es qualmt schwach, die Besucher merken noch nichts. Dein Löschfahrzeug steht auf der Aufstellfläche vor dem Bühneneingang, der Hydrant liegt daneben, der Verteiler soll am Bühneneingang stehen. Der Technikgang führt in etwa 30 Metern zum Brandort. Angriffs- und Wassertrupp sind mit Atemschutz ausgerüstet, der Schlauchtrupp ist einsatzbereit.',
+      beur: { ok: 'Menschen: Besucher und Personal in der Halle bei einem Brand hinter der Bühne', wrong: ['Sachwerte: Bühnentechnik und Vorhang', 'Sachwerte: die Versammlungsstätte', 'Umwelt: Rauch im Freien'],
+              why: 'Bei einer Veranstaltung mit erhöhter Brandgefahr ist beim Brand eine große Zahl von Personen gefährdet. Dafür ist die Brandsicherheitswache vorgesehen (BHKG § 27 Abs. 1). Menschen stehen in der Beurteilung an erster Stelle (FwDV 100, Poster Planung).' },
+      befehle: [
+        { name: 'Brandbekämpfung', art: 'ohne',
+          tip: 'Auch bei einem kleinen Brand gilt das Befehlsschema. Der Angriffstrupp nimmt in der Regel das erste Rohr vor, der Wassertrupp stellt die Wasserversorgung her (FwDV 3, 5.2.1 und 5.4).',
+          f: {
+            wasser:    ['Hydrant an der Aufstellfläche', 'Wasserentnahme offenes Gewässer', 'Hydrant am Haupteingang', 'Hydrant auf dem Besucherparkplatz'],
+            verteiler: ['am Bühneneingang', 'im Besucherbereich', 'auf der Bühne', 'am Haupteingang'],
+            einheit:   ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag:   ['zur Brandbekämpfung', 'zur Räumung der Halle', 'zur Wasserversorgung', 'zur Brandwache'],
+            mittel:    ['mit 1. Rohr', 'mit B-Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:      ['hinter die Bühne', 'in den Besucherbereich', 'auf die Bühne', 'zum Haupteingang'],
+            weg:       ['über den Technikgang', 'durch den Besucherbereich', 'über die Bühne', 'durch den Haupteingang']
+          },
+          kw: { wasser: 'hydrant', verteiler: 'b(ü|u|ue)hnen\\s*eingang', einheit: 'angriffstrupp', auftrag: 'brand\\s*bek|loesch|lösch', mittel: RX_R1, ziel: 'hinter|b(ü|u|ue)hne', weg: 'technik' } },
+        { name: 'Rettungswege sichern', art: 'folge',
+          lage: 'Neue Lage: Der Angriffstrupp löscht, der Rauch zieht in den Technikgang. Die Besucher merken weiter nichts. Der Schlauchtrupp ist einsatzbereit.',
+          tip: 'Angehörige einer Brandsicherheitswache können Anordnungen treffen, um Rettungs- und Angriffswege zu sichern (BHKG § 27 Abs. 3). Der Schlauchtrupp führt weitere Tätigkeiten durch (FwDV 3, 5.2.1).',
+          f: {
+            einheit: ['Schlauchtrupp', 'Angriffstrupp', 'Wassertrupp', 'Melder'],
+            auftrag: ['zur Sicherung der Rettungswege', 'zur Räumung der Halle', 'zur Brandbekämpfung', 'zur Wasserversorgung'],
+            mittel:  ['mit Handscheinwerfern', 'mit 2. Rohr', 'mit Schaumrohr', 'mit Steckleiter'],
+            ziel:    ['zu den Notausgängen neben der Bühne', 'zum Haupteingang', 'auf die Bühne', 'in den Technikgang'],
+            weg:     ['über den Seitengang der Halle', 'durch den Technikgang', 'durch den Besucherbereich', 'über die Bühne']
+          },
+          kw: { einheit: 'schlauchtrupp', auftrag: 'rettungsweg|sicher', mittel: 'scheinwerfer|lampe|licht', ziel: 'notausg', weg: 'seitengang|seite' } }
+      ],
+      kon: { meldung: 'Der Angriffstrupp meldet: Vorhang gelöscht, Rauch im Technikgang. Der Schlauchtrupp meldet: Die Rettungswege sind frei. Der Veranstalter fragt, ob das Konzert weiterlaufen kann.',
+             ok: 'Brandstelle auf Glutnester kontrollieren, den Rauch abführen, mit Veranstalter und Leitstelle abstimmen, ob die Veranstaltung fortgesetzt werden kann, und die Lage zurückmelden',
+             wrong: ['Das Konzert sofort freigeben, der Brand ist gelöscht', 'Alle Trupps abziehen und die Wache beenden', 'Die Sicherung der Rettungswege aufgeben, weil das Feuer aus ist'],
+             why: 'Kontrolle heißt: erreichte Lageänderung gegen den Auftrag halten. Die Kommunikation zwischen BSW, Veranstalter und Leitstelle ist vorab zu klären, ebenso, wie die BSW beendet wird (FwDV 100, 3.3.4, und BSW-Leitfaden, S. 2).' } },
 
     { id: 'vu', kind: 'hilfe', title: 'Verkehrsunfall, Person eingeklemmt',
       sub: 'PKW gegen Baum, Fahrer ansprechbar.',
@@ -499,12 +581,50 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
              wrong: ['Pumpe abschalten und abrücken', 'Den Keller sofort wieder unter Strom setzen', 'Das Abpumpen beenden, weil der Wasserstand sinkt'],
              why: 'Kontrolle heißt: erreichte Lageänderung gegen den Auftrag halten und neue Ursachen erkennen (FwDV 100, 3.3.4).' } },
 
+    { id: 'abc-austritt', kind: 'hilfe', ext: true, title: 'Gefahrstoff tritt aus',
+      sub: 'Fass auf einem Hof umgekippt, stechender Geruch, Kanaleinlauf in der Nähe.',
+      tags: ['ABC', 'GAMS', 'Absperren'],
+      lage: 'Alarmstichwort »Gefahrstoff ausgetreten«, Dienstag 10:05 Uhr, trocken, der Wind weht von der Zufahrt zum Hof hin. Auf dem Hof eines Lagergebäudes ist ein Fass mit unbekannter Flüssigkeit umgekippt, die Flüssigkeit läuft aus und fließt Richtung Kanaleinlauf. Es riecht stechend. Ein Mitarbeiter ist hustend aus dem Hof gelaufen und steht an der Zufahrt, nach seiner Aussage ist niemand mehr im Hof. Dein Löschfahrzeug steht an der Zufahrt, etwa 80 Meter vom Fass entfernt. Deine Gruppe hat keine ABC-Sonderausrüstung. Du bist Gruppenführer.',
+      beur: { ok: 'Menschen: der hustende Mitarbeiter und Personen im Gefahrenbereich', wrong: ['Umwelt: Ausbreitung der Flüssigkeit in die Kanalisation', 'Sachwerte: Lagergebäude und Ware', 'Tiere: Tiere in der Umgebung'],
+              why: 'Menschen stehen an erster Stelle. Die Ausbreitung in die Kanalisation ist wichtig und wird erkundet, folgt in der Reihenfolge aber danach (FwDV 100, Poster Planung, und FwDV 500, 1.5.1).' },
+      befehle: [
+        { name: 'Absperren', art: 'hilfe',
+          tip: 'GAMS-Regel: Gefahr erkennen, Absperren, Menschenrettung durchführen, Spezialkräfte alarmieren. Der Gefahrenbereich beginnt mindestens etwa 50 Meter vom Schadenobjekt, der Absperrbereich etwa 100 Meter (FwDV 500, 1.5.3.2 und 1.5.3.5).',
+          f: {
+            einheit: ['Angriffstrupp', 'Wassertrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zum Absperren des Gefahrenbereichs', 'zum Abdichten des Fasses', 'zur Brandbekämpfung', 'zur Wasserversorgung'],
+            mittel:  ['mit Absperrmaterial', 'mit Bindemittel', 'mit 1. Rohr', 'mit Schaumrohr'],
+            ziel:    ['um das Fass in mindestens 50 Metern Abstand', 'direkt am Fass', 'zum Kanaleinlauf', 'zum Lagergebäude'],
+            weg:     ['von der Zufahrt aus mit dem Wind im Rücken', 'gegen den Wind', 'durch die Flüssigkeit', 'über den Hof']
+          },
+          kw: { einheit: 'angriffstrupp', auftrag: 'absperr|sperr', mittel: 'absperr|sperr|band', ziel: '50|f(ü|u|ue)nfzig|abstand', weg: 'wind' } },
+        { name: 'Betreuung', art: 'hilfe',
+          lage: 'Neue Lage: Der Gefahrenbereich wird abgesperrt. Der Mitarbeiter an der Zufahrt klagt weiter über Atemreiz und brennende Augen. Der Wassertrupp ist einsatzbereit.',
+          tip: 'Die Person soll bis zur Übergabe an den Rettungsdienst nicht ohne Betreuung sein (FwDV 3, 7.2 b und c). Im Gefahrenbereich bleiben die Einsatzkräfte ohne ABC-Ausrüstung nicht (FwDV 500, 1.5).',
+          f: {
+            einheit: ['Wassertrupp', 'Angriffstrupp', 'Schlauchtrupp', 'Melder'],
+            auftrag: ['zur Betreuung und Erstversorgung des Mitarbeiters', 'zum Abdichten des Fasses', 'zur Brandbekämpfung', 'zur Wasserversorgung'],
+            mittel:  ['mit Sanitätsgerät', 'mit Bindemittel', 'mit 1. Rohr', 'mit Schaumrohr'],
+            ziel:    ['zum Mitarbeiter an der Zufahrt', 'zum Fass', 'zum Kanaleinlauf', 'ins Lagergebäude'],
+            weg:     ['über die Zufahrt', 'durch den Hof', 'über das Nachbargrundstück', 'über das Dach des Lagergebäudes']
+          },
+          kw: { einheit: 'wassertrupp', auftrag: 'betreu|erstversorg|erste\\s*hilfe', mittel: 'sanit|erste\\s*hilfe|verbandkasten', ziel: 'mitarbeiter|zufahrt', weg: 'zufahrt' } }
+      ],
+      kon: { meldung: 'Der Wassertrupp meldet: Mitarbeiter betreut, der Atemreiz hält an. Die Absperrung steht, die Flüssigkeit läuft weiter Richtung Kanaleinlauf. Die Spezialkräfte sind alarmiert, aber noch nicht da.',
+             ok: 'Absperrung halten, Sofort-Dekontamination und Rettungsdienst vorbereiten, Informationen zum Stoff sammeln, Spezialkräfte einweisen und am Fass selbst nichts unternehmen',
+             wrong: ['Das Fass mit der Gruppe aufrichten und abdichten lassen', 'Den Kanaleinlauf mit dem Angriffstrupp ohne Schutzausrüstung abdecken lassen', 'Die Absperrung zurücknehmen, weil der Mitarbeiter versorgt ist'],
+             why: 'Ohne ABC-Ausrüstung beschränken sich die Ersteintreffenden auf erste Maßnahmen und alarmieren Spezialkräfte. Art und Menge des Stoffes sowie seine Ausbreitung, auch in die Kanalisation, sind zu erkunden (FwDV 500, 1.5, 1.5.1 und 1.5.3.2).' } },
+
     { id: 'z-halle', role: 'zf', title: 'Gewerbehalle, Anbau brennt',
       sub: 'Mitarbeiter vermisst, Halle droht zu brennen.',
       tags: ['Zugführer', 'Menschen', 'Lageeinweisung'],
       lage: 'Du bist Zugführer. Dein Zug besteht aus Zugtrupp, Gruppe 1 und Gruppe 2 und ist für diesen Einsatz um die Staffel 3 erweitert. Alarmstichwort »Gebäudebrand Gewerbe«, Dienstag 10:15 Uhr, trocken. Der Anbau einer Gewerbehalle brennt, im Anbau wird ein Mitarbeiter vermisst. Die Halle selbst ist noch nicht betroffen. Gruppe 1 trifft zuerst ein und meldet sich bei dir.',
       beur: { ok: 'Menschen: vermisster Mitarbeiter im Anbau', wrong: ['Sachwerte: Halle und Lagerware', 'Umwelt: Löschwasser und Rauch', 'Tiere: keine Tiere betroffen'],
               why: 'Menschen stehen an erster Stelle. Der Schutz der Halle folgt danach (FwDV 100, Poster Planung).' },
+      rb: { p: ['Vor jeder Belüftung erkunden: Wo liegt der Brandraum, welche Strömungspfade und Abluftöffnungen gibt es?',
+                'Lüften vor dem Niederschlagen des Feuers kann das Feuer größer machen. Abluftöffnungen außerhalb des Brandraums lenken den Rauch in ungewollte Richtungen.',
+                'Bei vorhandener Abluftöffnung erhöht Wasser im Brandraum die Sicherheit der vorgehenden Kräfte und die Überlebenschance Vermisster. Die Suche beginnt im Brandraum.'],
+            q: 'Fachempfehlung Brandbekämpfung zur Menschenrettung (2019), Abschn. 11.1 bis 11.4 (S. 41 und 42)' },
       befehle: [
         { name: 'Erste Einheit', art: 'zug',
           tip: 'Der Befehl des Zugführers enthält mindestens Einheit und Auftrag (FwDV 3, 6.2). Wie die Gruppe den Auftrag erfüllt, entscheidet der Gruppenführer (Auftragstaktik).',
@@ -534,6 +654,10 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       lage: 'Du bist Zugführer. Dein Zug besteht aus Zugtrupp, Gruppe 1 und Gruppe 2 und ist für diesen Einsatz um die Staffel 3 erweitert. Alarmstichwort »Wohnungsbrand, Kind vermisst«, Freitag 02:40 Uhr, trocken. Dreigeschossiges Mehrfamilienhaus: Flammen schlagen aus einer Wohnung im 2. Obergeschoss, der Treppenraum ist verraucht, die Bewohner stehen vor dem Haus. Eine Mutter ruft, ihr Kind sei noch in der Wohnung. Gruppe 1 trifft zuerst ein, Gruppe 2 folgt kurz danach, Staffel 3 steht noch an der Bereitstellung. Der Hydrant liegt in der Nebenstraße.',
       beur: { ok: 'Menschen: vermisstes Kind in der brennenden Wohnung', wrong: ['Sachwerte: Nachbarwohnungen', 'Umwelt: Löschwasser im Haus', 'Sachwerte: das Gebäude'],
               why: 'Eine vermisste Person im Brandraum hat Vorrang vor allen anderen Gefahren.' },
+      rb: { p: ['Flammen aus dem Fenster bedeuten eine vorhandene Ventilationsöffnung. Wasser von außen ist nur kurz und zeitlich getrennt vom Innenangriff erlaubt, ein gleichzeitiger Außen- und Innenangriff nicht.',
+                'Rauchvorhang an die Wohnungstür, damit der verrauchte Treppenraum nicht weiter belastet wird, und Lüftungsmaßnahmen vorbereiten.',
+                'Suchreihenfolge: Brandraum, Räume mit offener Tür, zuletzt Räume mit geschlossener Tür. Die geschlossene Tür ist die letzte Barriere vor Hitze und Atemgiften.'],
+            q: 'Fachempfehlung Brandbekämpfung zur Menschenrettung (2019), Abschn. 12 (S. 43) und 11.4 (S. 42)' },
       befehle: [
         { name: 'Erste Einheit', art: 'zug',
           tip: 'Auftrag an die Einheit, nicht an einzelne Truppmänner: Gruppe 1 entscheidet, wie sie die Menschenrettung durchführt (FwDV 100, 2.3.2).',
@@ -648,7 +772,13 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     ['Wie melden sich die Einheitsführer des Zuges an der Einsatzstelle?', 'Beim Zugführer, der ihnen den Befehl für ihre Einheit gibt', ['Bei der Leitstelle', 'Beim Maschinisten', 'Gar nicht, sie beginnen selbstständig'], 'Gegebenenfalls erkundet der Zugführer vorher gemeinsam mit den Einheitsführern die Einsatzstelle (FwDV 3, 6.1).', 'zf'],
     ['Wann sind Angaben zu Lage und Durchführung im Zugführerbefehl besonders sinnvoll?', 'Wenn die Einheitsführer keinen Lageüberblick haben oder als nachrückende Einheit eingesetzt werden', ['Nur bei schriftlichen Befehlen', 'Nie, der Befehl besteht immer nur aus Einheit und Auftrag', 'Nur beim ersten Befehl des Einsatzes'], 'Diese Informationen sollen dem Befehl vorausgehen (FwDV 3, 6.2).', 'zf'],
     ['Welche Führungsstufe gilt nach FwDV 100 für einen Zug an einer Einsatzstelle?', 'Stufe B: Führen mit örtlichen Führungseinheiten', ['Stufe A: Führen ohne Führungseinheit', 'Stufe C: Führen mit einer Führungsgruppe', 'Stufe D: Führen mit einem Führungsstab'], 'Stufe A gilt für taktische Einheiten bis zur Stärke von zwei Gruppen (FwDV 100, 3.2.5).', 'zf'],
-    ['Welche Führungsstufe gilt für eine Gruppe oder bis zu zwei Gruppen?', 'Stufe A: Führen ohne Führungseinheit', ['Stufe B: Führen mit örtlichen Führungseinheiten', 'Stufe C: Führen mit einer Führungsgruppe', 'Es gibt dafür keine Führungsstufe'], 'Bei alltäglichen Einsätzen führt der Gruppenführer in der Regel ohne weitere Führungskräfte (FwDV 100, 3.2.2.2 und 3.2.5).', 'gf']
+    ['Welche Führungsstufe gilt für eine Gruppe oder bis zu zwei Gruppen?', 'Stufe A: Führen ohne Führungseinheit', ['Stufe B: Führen mit örtlichen Führungseinheiten', 'Stufe C: Führen mit einer Führungsgruppe', 'Es gibt dafür keine Führungsstufe'], 'Bei alltäglichen Einsätzen führt der Gruppenführer in der Regel ohne weitere Führungskräfte (FwDV 100, 3.2.2.2 und 3.2.5).', 'gf'],
+    /* Ergänzung (sechstes Element true): eigene Fragen zur Menschenrettung nach Realbrand, nicht aus den FwDV-Beispielen. */
+    ['Was ist am Einsatzauftrag „Brandbekämpfung zur Menschenrettung“ neu gegenüber der bisherigen Trennung der Aufträge?', 'Brandbekämpfung und Menschenrettung werden sinnvoll miteinander verbunden', ['Die Menschenrettung entfällt zugunsten der Brandbekämpfung', 'Die Trupps rüsten sich ohne Atemschutz aus', 'Nur noch der Wassertrupp rettet Personen'], 'Eine scharfe Trennung beider Aufträge gilt nach den Versuchsergebnissen nicht mehr als sinnvoll; die Menschenrettung bleibt das höchste Gut (Fachempfehlung Brandbekämpfung zur Menschenrettung 2019, Abschn. 1, S. 4, und Abschn. 7, S. 33).', null, true],
+    ['Aus einem bereits zerstörten Fenster schlagen Flammen und Rauch. Was bereitet den Innenangriff vor?', 'Eine kurze Wasserabgabe von außen unter die Decke des Brandraums, die endet, sobald der Trupp die Wohnungstür öffnet', ['Ein Außenangriff, der während des Innenangriffs weiterläuft', 'Das Öffnen aller Fenster und Türen des Gebäudes', 'Abwarten, bis der Brand von selbst kleiner wird'], 'Ein gleichzeitiger Außen- und Innenangriff darf nicht stattfinden. Die Wasserabgabe von außen dauert etwa 10 bis 30 Sekunden (Fachempfehlung 2019, Abschn. 12, S. 43, und Abschn. 8, S. 36).', null, true],
+    ['In welcher Reihenfolge werden Personen gerettet, die nicht auf dem Angriffsweg liegen?', 'Brandraum, dann Räume mit geöffneter Tür, zuletzt Räume mit geschlossener Tür', ['Zuerst Räume mit geschlossener Tür, danach der Brandraum', 'Zuerst Räume mit geöffneter Tür, zuletzt der Brandraum', 'Von oben nach unten, unabhängig vom Brand'], 'Die geschlossene Tür ist die letzte Barriere vor Temperatur und Atemgiften. Wer auf dem Angriffsweg liegt, wird sofort gerettet (Fachempfehlung 2019, Abschn. 11.4, S. 42, und Abschn. 13, S. 45).', null, true],
+    ['Wozu wird vor dem Öffnen der Tür zur Brandwohnung ein Rauchvorhang gesetzt?', 'Der Treppenraum bleibt nutzbar, weil er nicht weiter verraucht', ['Er ersetzt die Wasserabgabe im Brandraum', 'Er macht Atemschutzgeräte beim Angriffstrupp überflüssig', 'Er führt den Rauch nach außen ab'], 'Parallel werden geeignete Lüftungsmaßnahmen für den Treppenraum vorbereitet (Fachempfehlung 2019, Abschn. 13, S. 45, und Abschn. 12, S. 43).', null, true],
+    ['Was kann geschehen, wenn ein Lüfter als Erstmaßnahme vor dem Niederschlagen des Feuers eingesetzt wird?', 'Das Feuer kann größer werden, während Sichtbehinderung, Atemgifte und Wärme abnehmen', ['Das Feuer wird in jedem Fall kleiner', 'Es ändert sich nichts, weil Rauch und Feuer unabhängig voneinander sind', 'Der Rauch strömt ausschließlich in die Wohnung zurück'], 'Voraussetzung sind erkundete, gesicherte und kontrollierte Strömungspfade und eine Abluftöffnung; Öffnungen außerhalb des Brandraums oder zu kleine Öffnungen führen zu ungewollten Rauchströmungen (Fachempfehlung 2019, Abschn. 6.1, S. 31, und Abschn. 11.3, S. 42).', null, true]
   ];
 
   /* ---------- Hilfsfunktionen ---------- */
@@ -821,10 +951,10 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
       var l = store.sc[s.id];
       return '<li><button type="button" class="rowbtn" data-act="start" data-i="' + i + '"><span class="t">' + esc(s.title) + '</span>' +
         (l ? '<span class="last" title="Letztes Ergebnis">' + esc(l.last) + '</span>' : '') +
-        '<span class="s">' + esc(s.sub) + '</span><span class="tags">' + s.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</span></button></li>';
+        '<span class="s">' + esc(s.sub) + '</span><span class="tags">' + (s.ext ? '<span class="badge">Ergänzung</span>' : '') + s.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</span></button></li>';
     };
     ['brand', 'hilfe'].forEach(function (kind) {
-      h += '<div class="sec"><h2>' + (kind === 'hilfe' ? 'Technische Hilfeleistung' : 'Brandeinsatz') + '</h2><ul class="rows">' +
+      h += '<div class="sec"><h2>' + (kind === 'hilfe' ? 'Hilfeleistung' : 'Brandeinsatz') + '</h2><ul class="rows">' +
         SCEN.map(function (s, i) { return (s.kind || 'brand') === kind && (s.role || 'gf') === S.role ? rowHtml(s, i) : ''; }).join('') + '</ul></div>';
     });
     return h;
@@ -966,6 +1096,13 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     return h;
   }
 
+  /* Realbrand-Kasten: Zusatzwissen ohne Wertung, feste Texte aus SCEN (rb), trotzdem über esc(). */
+  function rbBox(rb) {
+    if (!rb || !Array.isArray(rb.p) || !rb.p.length || typeof rb.q !== 'string') return '';
+    return '<div class="note rbbox"><div class="rbhead"><h3>Menschenrettung nach Realbrand</h3><span class="badge">Ergänzung</span></div>' +
+      '<ul>' + rb.p.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+      '<p class="src">Quelle: ' + esc(rb.q) + '. Zusatzwissen, zählt nicht zur Punktzahl.</p></div>';
+  }
   function viewDone() {
     var r = S.run, sc = SCEN[r.i];
     var h = '<button type="button" class="back" data-act="home">← Alle Übungen</button><h2>' + esc(sc.title) + '</h2>' + stepper();
@@ -978,6 +1115,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     } else {
       h += '<p class="lead">Keine Fehler. Probier als Nächstes ein anderes Szenario.</p>';
     }
+    h += rbBox(sc.rb);
     h += '<div class="actions"><button type="button" class="btn" data-act="start" data-i="' + r.i + '">Noch einmal</button><button type="button" class="btn ghost" data-act="home">Andere Übung</button></div>';
     return h;
   }
@@ -1011,7 +1149,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
   function viewQuiz() {
     var Q = S.quiz;
     if (!Q) {
-      return '<p class="lead">Zehn Fragen zu Gliederung, Aufgaben der Trupps, Befehlsschema und Führungsvorgang. Jede Antwort nennt die Quelle.</p>' +
+      return '<p class="lead">Zehn Fragen zu Gliederung, Aufgaben der Trupps, Befehlsschema und Führungsvorgang. Jede Antwort nennt die Quelle. Fünf Fragen zur Menschenrettung nach Realbrand sind als Ergänzung gekennzeichnet und kommen zusätzlich in die Auswahl.</p>' +
         (store.quiz ? '<p class="label">Bestes Ergebnis: ' + store.quiz + ' von 10</p>' : '') +
         '<div class="actions"><button type="button" class="btn" data-act="qstart">Quiz starten</button></div>';
     }
@@ -1021,7 +1159,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     }
     var q = Q.qs[Q.i];
     var h = '<div class="runhead"><div class="progress"><span>Frage ' + (Q.i + 1) + ' von 10</span><span>' + Q.score + ' richtig</span></div><div class="bar" aria-hidden="true"><i style="width:' + (Q.i * 10) + '%"></i></div></div>';
-    h += '<p class="quizq">' + esc(q[0]) + '</p><div class="fld">';
+    h += (q[5] ? '<div class="quizmeta"><span class="badge">Ergänzung</span><span class="lead">Realbrand, nicht aus dem Katalog</span></div>' : '') + '<p class="quizq">' + esc(q[0]) + '</p><div class="fld">';
     h += Q.opts.map(function (o, idx) {
       var cls = 'opt', mk = '';
       if (Q.picked !== null) {

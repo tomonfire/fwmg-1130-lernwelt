@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Ws2Ypvzy2qEiTjZwDRmxuct/tAs1A8tPxiVvgV01sBk=' 'sha256-h9Fcf5WF/mcM9fJG5ZoIKRBHpT7nDiYm2zIJ0QCZC8A='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-gvUQB33r5qSghQN9oefoRk1uHUTLK922Z+g7167eBy4=' 'sha256-3vKZOCWD4IjYTESa/9TSJ/loSDudz8qxPr3/LBfccsw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Zugführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -100,6 +100,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .id{font-family:var(--f-mono);background:var(--ink);color:var(--bg);padding:2px 8px;border-radius:3px;font-size:13px}
 .badge{display:inline-flex;gap:6px;align-items:center;background:var(--warn-bg);color:var(--warn);padding:2px 8px;border-radius:3px;font-weight:600;font-size:12px}
 .badge svg{width:14px;height:14px}
+.fund{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .qtext{font-family:var(--f-body);font-weight:600;font-size:20px;line-height:1.35;margin:14px 0 6px;overflow-wrap:anywhere}
 .hint{font-size:14px;color:var(--muted);margin-bottom:12px}
 .opts{display:flex;flex-direction:column;gap:10px}
@@ -292,7 +293,7 @@ function bootStep(t){BOOT_STEPS.push(t);var o=document.getElementById('bootsteps
 window.onerror=function(m,s,l,c){var e=document.getElementById('booterr');if(e){e.textContent+='Fehler: '+m+(l?' (Zeile '+l+')':'')+'\n';}};
 bootStep('Skript gestartet');
 var DATA=(function(){var x=new XMLHttpRequest();x.open('GET','../data/zugfuehrer.json',false);x.send();if(x.status!==200&&x.status!==0)throw new Error('Fragen konnten nicht geladen werden: zugfuehrer.json');return JSON.parse(x.responseText)})();
-var VERSION='V1.11';
+var VERSION='V1.13';
 var LOGO='../icons/zugfuehrer.svg';
 </script>
 <script>
@@ -315,14 +316,27 @@ function dlabel(t){var d=new Date(t);var W=['Sonntag','Montag','Dienstag','Mittw
 function shuffle(a,rng){a=a.slice();var r=rng||Math.random;for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function pct(a,b){return b>0?Math.round(100*a/b):0}
 var BYID={};DATA.forEach(function(q){BYID[q.id]=q});
+/* Freitext und Fallbeispiel: Ergänzung aus eigener Datei, nie Teil von Katalog, Runden oder Prüfung. */
+function ftOk(a){
+  var txt=function(x){return typeof x==='string'&&x.trim()!==''};
+  return !!a&&txt(a.id)&&/^ft-zf-/.test(a.id)&&(a.typ==='frage'||a.typ==='fall')&&txt(a.t)&&txt(a.f)&&(a.typ!=='fall'||txt(a.lage))&&Array.isArray(a.p)&&a.p.length>=2&&a.p.length<=8&&a.p.every(txt);
+}
+var FT=(function(){try{var x=new XMLHttpRequest();x.open('GET','../data/freitext.json',false);x.send();if(x.status!==200&&x.status!==0)return [];var d=JSON.parse(x.responseText);return Array.isArray(d.zf)?d.zf.filter(ftOk):[]}catch(e){return []}})();
+var FTBY=Object.create(null);FT.forEach(function(a){FTBY[a.id]=a});
 function h(tag,a,c){var e=document.createElement(tag);if(a)for(var k in a){var v=a[k];if(v==null||v===false)continue;if(k==='class')e.className=v;else if(k.slice(0,2)==='on')e.addEventListener(k.slice(2),v);else if(v===true)e.setAttribute(k,'');else e.setAttribute(k,v)}add(e,c);return e}
 function add(e,c){if(c==null||c===false)return;if(Array.isArray(c)){c.forEach(function(x){add(e,x)})}else if(typeof c==='object'){e.appendChild(c)}else{e.appendChild(document.createTextNode(String(c)))}}
 function clear(e){while(e.firstChild)e.removeChild(e.firstChild)}
 /* ---------- Zustand ---------- */
-function emptyState(){return {v:1,rs:0,q:{},days:{},fl:{},ex:[],set:{size:CFG.size,t:0}}}
+function emptyState(){return {v:1,rs:0,q:{},days:{},fl:{},ex:[],set:{size:CFG.size,t:0},ft:{}}}
 function num(x,lo,hi){x=+x;return isFinite(x)&&x>=lo&&x<=hi?Math.floor(x):null}
 function isDay(x){return typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x)}
 function cleanQ(r){var b=num(r.b,0,5),d=r.d,l=num(r.l,0,1e15),c=num(r.c,0,1e6),w=num(r.w,0,1e6);if(b===null||!isDay(d)||l===null)return null;return {b:b,d:d,l:l,c:c===null?0:c,w:w===null?0:w}}
+/* Lernstand Freitext: nur Ergebnis je Aufgabe (Datum, x von y), nie der getippte Text. Ältere Stände ohne ft laden als leer. */
+function cleanFt(id,r){
+  if(!FTBY[id]||!r||typeof r!=='object'||!isDay(r.d))return null;
+  var x=r.x,y=r.y;
+  if(!Number.isInteger(x)||!Number.isInteger(y)||y<1||y>8||x<0||x>y)return null;
+  return {d:r.d,x:x,y:y}}
 function mergeState(a,b){
   a=a&&typeof a==='object'?a:emptyState();b=b&&typeof b==='object'?b:emptyState();var o=emptyState();o.rs=Math.max(+a.rs||0,+b.rs||0);
   [a,b].forEach(function(s){
@@ -330,6 +344,7 @@ function mergeState(a,b){
     Object.keys(s.q||{}).forEach(function(id){var r=s.q[id];if(!r||typeof r!=='object'||!BYID[id]||(r.l||0)<o.rs)return;var cr=cleanQ(r);if(!cr)return;var c=o.q[id];if(!c||cr.l>(c.l||0))o.q[id]=cr});
     Object.keys(s.days||{}).forEach(function(k){var r=s.days[k];if(!r||typeof r!=='object'||(r.t||0)<o.rs)return;var c=o.days[k];var dn=num(r.n,0,1e6),dr=num(r.r,0,1e6),dt=num(r.t,0,1e15);if(dn===null||dr===null||!isDay(k))return;dr=Math.min(dr,dn);if(!c)o.days[k]={n:dn,r:dr,t:dt||0};else{c.n=Math.max(c.n,dn);c.r=Math.min(c.n,Math.max(c.r,dr));c.t=Math.max(c.t||0,dt||0)}});
     Object.keys(s.fl||{}).forEach(function(id){var r=s.fl[id];if(!r||typeof r!=='object'||!BYID[id]||(r.t||0)<o.rs)return;var c=o.fl[id];if(!c||r.t>c.t)o.fl[id]={f:!!r.f,t:num(r.t,0,1e15)||0}});
+    if(s.ft&&typeof s.ft==='object'&&!Array.isArray(s.ft))Object.keys(s.ft).forEach(function(id){var c=cleanFt(id,s.ft[id]);if(!c||(o.rs&&c.d<ds(o.rs)))return;var cur=o.ft[id];if(!cur||c.d>cur.d||(c.d===cur.d&&c.x>cur.x))o.ft[id]=c});
     (Array.isArray(s.ex)?s.ex:[]).forEach(function(e){if(!e||typeof e!=='object'||!(e.t>=o.rs))return;var et=num(e.t,0,1e15),en=num(e.n,1,1000),er=num(e.r,0,1000),em=num(e.m,0,10000);if(et===null||en===null||er===null||er>en)return;if(!o.ex.some(function(x){return x.t===et}))o.ex.push({t:et,n:en,r:er,m:em===null?0:em})});
     if(s.set&&typeof s.set==='object'&&[10,15,20,30].indexOf(s.set.size)>=0&&(s.set.t||0)>=o.rs&&(s.set.t||0)>(o.set.t||0))o.set={size:s.set.size,t:s.set.t};
   });
@@ -489,6 +504,8 @@ function qbody(host,q,perm,sel,ck,ro,toggle){
   host.appendChild(box)}
 function toggleIn(arr,idx,btn){var p=arr.indexOf(idx);if(p<0){arr.push(idx);btn.setAttribute('aria-checked','true')}else{arr.splice(p,1);btn.setAttribute('aria-checked','false')}}
 function vNote(q){return typeof q.v==='string'?h('p',null,[h('b',null,'Hinweis zur Vorschrift: '),q.v]):null}
+/* Fundstelle (f): gekennzeichnete Ergänzung, nur an Katalogfragen, erst nach der Auflösung bzw. in der Auswertung. */
+function fNote(q){return typeof q.f==='string'&&q.f.trim()?h('p',{class:'foot fund'},[h('span',{class:'badge ep'},'Ergänzung'),' ',h('span',null,'Fundstelle: '+q.f)]):null}
 function flagBtn(id){var f=S.fl[id]&&S.fl[id].f;return h('button',{class:'linkbtn',type:'button',onclick:function(){S.fl[id]={f:!f,t:NOW()};save();render()}},f?'Meldung zurücknehmen':'Lösung fehlerhaft melden')}
 function statBox(n,l,cls){return h('div',{class:'stat'},[h('b',{class:cls||null},String(n)),h('span',null,l)])}
 function progressBar(v,max,label,cls){return h('div',{class:'bar',role:'progressbar','aria-label':label,'aria-valuemin':'0','aria-valuemax':String(max),'aria-valuenow':String(v)},h('i',{class:cls||'f-acc',style:'width:'+Math.min(100,max?100*v/max:0)+'%'}))}
@@ -513,7 +530,7 @@ function viewRound(m){
     var found=q.a.filter(function(x){return r.sel.indexOf(x)>=0}).length,wrongSel=r.sel.length-found;
     m.appendChild(h('div',{class:'res '+(r.ok?'good':'nope'),role:'status'},[h('h3',null,r.ok?'Richtig':'Falsch'),
       h('p',null,r.ok?'Alle '+q.a.length+' richtigen Antworten gefunden, keine falsche gewählt.':'Gefunden: '+found+' von '+q.a.length+' richtigen Antworten'+(wrongSel?', '+wrongSel+' falsch gewählt':'')+'. '+(it.rep?'Die Frage kommt morgen wieder.':'Die Frage kommt in dieser Runde noch einmal als Wiederholung.')),
-      vNote(q),flagBtn(q.id)]));
+      vNote(q),fNote(q),flagBtn(q.id)]));
     m.appendChild(h('div',{class:'actions dock kb'},h('button',{class:'btn primary',type:'button',id:'nxt',onclick:nextRound},r.i+1>=total?'Ergebnis ansehen':'Weiter')));
     setTimeout(function(){var b=$('nxt');if(b)try{b.focus({preventScroll:true})}catch(e){}},0)}}
 /* --- Prüfung --- */
@@ -530,7 +547,7 @@ function viewExam(m){
       s.appendChild(h('span',{class:'label'},'Nicht richtig beantwortet ('+wrong.length+')'));
       s.appendChild(h('p',{class:'foot',style:'margin:0'},'Deine Auswahl ist markiert. „Falsch“ = gewählt, aber nicht richtig. „Übersehen“ = richtig, aber nicht gewählt.'));
       var rv=h('div');wrong.forEach(function(id){var q=BYID[id],sel=e.ans[id]||[];
-        var d=h('div',{class:'rev'},[h('div',{class:'qmeta'},[h('span',{class:'id'},q.id),sel.length?null:h('span',{class:'badge miss'},'Nicht beantwortet')])]);qbody(d,q,e.perm[id],sel,true,true,function(){});var vn=vNote(q);if(vn)d.appendChild(vn);d.appendChild(flagBtn(id));rv.appendChild(d)});
+        var d=h('div',{class:'rev'},[h('div',{class:'qmeta'},[h('span',{class:'id'},q.id),sel.length?null:h('span',{class:'badge miss'},'Nicht beantwortet')])]);qbody(d,q,e.perm[id],sel,true,true,function(){});var vn=vNote(q);if(vn)d.appendChild(vn);var fn=fNote(q);if(fn)d.appendChild(fn);d.appendChild(flagBtn(id));rv.appendChild(d)});
       s.appendChild(rv)}else s.appendChild(h('p',null,'Alles richtig.'));
     s.appendChild(h('div',{class:'actions'},[h('button',{class:'btn primary',type:'button',onclick:function(){L.exam=null;mode=null;examLive=false;save();render()}},'Zurück zu Heute')]));
     m.appendChild(s);return}
@@ -580,7 +597,76 @@ function viewHeute(m){
     return h('button',{class:'topic',type:'button',role:'radio','aria-checked':String(String(topic)===x.k),tabindex:String(topic)===x.k?'0':'-1','data-k':x.k,onclick:function(){topic=x.k;render()},onkeydown:function(ev){var d=ev.key==='ArrowDown'||ev.key==='ArrowRight'?1:ev.key==='ArrowUp'||ev.key==='ArrowLeft'?-1:0;if(!d)return;ev.preventDefault();var i=0;tl.forEach(function(y,j){if(y.k===x.k)i=j});var nk=tl[(i+d+tl.length)%tl.length].k;topic=nk;render();var nb=document.querySelector('.topic[data-k="'+nk+'"]');if(nb)nb.focus()}},[boxNode(),h('span',{class:'t'},x.n),h('span',{class:'n'},cc.mast+'/'+cc.total)])})),
     h('p',{class:'foot'},topic==='all'?'Fragen kommen aus allen Kapiteln.':'Nur Fragen aus diesem Kapitel kommen in die Runde.')]));
   m.appendChild(h('section',null,[h('div',{class:'note'},[svg(ICON_WARN),h('div',null,[h('b',null,'Lösungen aus dem Lösungsbogen. '),'Alle '+DATA.length+' Fragen und richtigen Antworten stammen aus dem Fragenkatalog „Vortest ZF-Basis mit Lösungen“ (Stand der Datei: 5. Februar 2018). Ich habe die Lösungen zweimal unabhängig gelesen, beide Ergebnisse stimmen überein. Vorschriften können sich seit 2018 geändert haben. Hältst du eine Lösung für fehlerhaft, melde sie bei der Frage.'])]),
-    h('p',{class:'foot sync'},remote.fail?'Dein Fortschritt wird auf diesem Gerät gespeichert. Der Abgleich mit deinem Konto hat gerade nicht geklappt, die App versucht es später noch einmal.':remote.ok?'Dein Fortschritt wird auf diesem Gerät gespeichert und mit deinem Konto abgeglichen. Nutzt du zwei Geräte am selben Tag, zählt bei den Tageszahlen der höhere Wert.':'Dein Fortschritt wird auf diesem Gerät gespeichert.')]))}
+    h('p',{class:'foot sync'},remote.fail?'Dein Fortschritt wird auf diesem Gerät gespeichert. Der Abgleich mit deinem Konto hat gerade nicht geklappt, die App versucht es später noch einmal.':remote.ok?'Dein Fortschritt wird auf diesem Gerät gespeichert und mit deinem Konto abgeglichen. Nutzt du zwei Geräte am selben Tag, zählt bei den Tageszahlen der höhere Wert.':'Dein Fortschritt wird auf diesem Gerät gespeichert.')]));
+  m.appendChild(ftSection())}
+/* --- Freitext und Fallbeispiel (Ergänzung) --- */
+var FS=null; /* laufende Aufgabe: {i, text, show, marks, done, x, y}; der Text bleibt im Speicher und wird nie gespeichert */
+function ftDone(){return FT.filter(function(a){return S.ft[a.id]}).length}
+function ftNextIdx(){
+  var i,best=0;
+  for(i=0;i<FT.length;i++)if(!S.ft[FT[i].id])return i;
+  FT.forEach(function(a,j){if(S.ft[a.id].d<S.ft[FT[best].id].d)best=j});
+  return best}
+function ftLabel(a){return a.typ==='fall'?'Fallbeispiel':'Offene Frage'}
+function ftShort(t){return t.length>90?t.slice(0,87)+'…':t}
+function ftSection(){
+  if(!FT.length)return null;
+  return sec('h-ft',[h('h2',{id:'h-ft'},'Freitext und Fallbeispiel'),h('span',{class:'badge ep'},'Ergänzung'),
+    h('p',{class:'foot',style:'margin:0'},'„Ergänzung“ heißt: nicht aus dem Fragenkatalog. Du tippst eine eigene Antwort, vergleichst sie mit einer Musterlösung in Stichpunkten und markierst selbst, was du hattest. Die App bewertet den Text nicht und speichert ihn nicht. Das zählt nicht für Katalog, Tagesziel und Prüfung. '+ftDone()+' von '+FT.length+' bearbeitet.'),
+    h('button',{class:'btn block',type:'button',id:'ftgo',onclick:function(){ftOpen(ftNextIdx())}},'Aufgabe üben'),
+    h('details',{class:'foot more'},[h('summary',null,'Alle Aufgaben'),h('div',{class:'crows'},FT.map(function(a,i){
+      var r=S.ft[a.id];
+      return h('div',{class:'crow'},[h('div',{class:'l'},[h('span',null,ftLabel(a)+': '+ftShort(a.t)),h('span',null,r?r.x+' von '+r.y:'offen')]),
+        h('button',{class:'btn block',type:'button','aria-label':'Üben: '+ftLabel(a)+', '+ftShort(a.t),onclick:function(){ftOpen(i)}},'Üben')])}))])])}
+function ftOpen(i){FS={i:i,text:'',show:false,marks:[],done:false,x:0,y:0};mode='ft';render();window.scrollTo(0,0)}
+function ftFinish(){
+  var a=FT[FS.i],x=0;
+  a.p.forEach(function(_,j){FS.marks[j]=FS.marks[j]===1?1:0;x+=FS.marks[j]});
+  FS.x=x;FS.y=a.p.length;FS.done=true;
+  S.ft[a.id]={d:ds(NOW()),x:FS.x,y:FS.y};
+  save()}
+function ftGrow(){var t=$('ft-in');if(t){t.style.height='auto';t.style.height=t.scrollHeight+'px'}}
+function ftFocus(id){var e=$(id);if(e){try{e.focus({preventScroll:true})}catch(x){e.focus()}}}
+function viewFt(m){
+  setChrome(false);var a=FT[FS.i];
+  m.appendChild(h('h1',{class:'sr'},'Freitext und Fallbeispiel, Aufgabe '+(FS.i+1)+' von '+FT.length));
+  m.appendChild(h('div',{class:'qhead'},[h('button',{class:'linkbtn',type:'button',onclick:function(){mode=null;FS=null;render();window.scrollTo(0,0)}},'Beenden'),h('span',{class:'eyebrow'},'Aufgabe '+(FS.i+1)+' von '+FT.length)]));
+  m.appendChild(h('div',{class:'qmeta',style:'margin-top:14px'},[h('span',{class:'id'},a.id),h('span',null,ftLabel(a)),h('span',{class:'badge ep'},'Ergänzung')]));
+  if(a.typ==='fall')m.appendChild(h('div',{class:'scn ftlage'},[h('span',{class:'label'},'Lage'),h('p',null,a.lage)]));
+  m.appendChild(h('p',{class:'qtext'},a.t));
+  m.appendChild(h('label',{class:'label','for':'ft-in'},'Deine Antwort'));
+  var ta=h('textarea',{id:'ft-in',class:'ftin',rows:'5',maxlength:'4000',autocomplete:'off',readonly:FS.show?true:null,oninput:function(){FS.text=ta.value;ftGrow()}});
+  ta.value=FS.text;m.appendChild(ta);
+  if(!FS.show){
+    m.appendChild(h('p',{class:'foot'},'Schreibe in eigenen Worten. „Musterlösung zeigen“ geht auch mit leerem Feld. Dein Text wird nicht gespeichert.'));
+    m.appendChild(h('div',{class:'actions dock'},h('button',{class:'btn primary',type:'button',id:'ftshow',onclick:function(){FS.show=true;render();ftFocus('h-fts')}},'Musterlösung zeigen')));
+    ftGrow();return}
+  if(FS.done)m.appendChild(h('div',{class:'res '+(FS.x===FS.y?'good':'part'),id:'ftres',role:'status',tabindex:'-1'},[h('h3',null,FS.x+' von '+FS.y+' Stichpunkten'),h('p',null,'Das ist deine eigene Einschätzung, die App bewertet den Text nicht. '+(FS.x===FS.y?'Du hattest alles.':'Was fehlte, steht unten in Orange.'))]));
+  var rows=h('ol',{class:'ftrows','data-live':FS.done?null:'1'});
+  a.p.forEach(function(sp,j){
+    var mk=FS.marks[j];
+    rows.appendChild(h('li',{class:'ftrow'+(mk===1?' ok':mk===0?' miss':'')},[
+      h('div',{class:'ftx'},[h('span',{class:'fn','aria-hidden':'true'},String(j+1)),h('span',{class:'ft'},sp),mk===1?h('span',{class:'tag'},'Hatte ich'):mk===0?h('span',{class:'tag'},'Fehlte'):null]),
+      FS.done?null:h('div',{class:'ftset',role:'group','aria-label':'Stichpunkt '+(j+1)},[[1,'hatte ich'],[0,'fehlte']].map(function(o){
+        return h('button',{class:'btn',type:'button','data-i':String(j),'data-v':String(o[0]),'aria-pressed':String(mk===o[0]),onclick:function(ev){
+          var had=document.activeElement===ev.currentTarget;
+          FS.marks[j]=FS.marks[j]===o[0]?null:o[0];render();
+          if(had){var nb=document.querySelector('.ftset .btn[data-i="'+j+'"][data-v="'+o[0]+'"]');if(nb)try{nb.focus({preventScroll:true})}catch(x){}}}},o[1])}))]))});
+  m.appendChild(sec('h-fts',[h('h2',{id:'h-fts',tabindex:'-1'},'Musterlösung'),
+    FS.done?null:h('p',{class:'foot',style:'margin:0'},'Vergleiche mit deiner Antwort und markiere je Stichpunkt, ob du ihn hattest oder ob er fehlte. Nicht markierte Stichpunkte zählen beim Abschließen als „fehlte“.'),
+    rows,h('p',{class:'foot ftfund',style:'margin:0'},[h('b',null,'Fundstelle: '),a.f])]));
+  m.appendChild(FS.done?
+    h('div',{class:'actions dock kb kbent'},[h('button',{class:'btn primary',type:'button',id:'ftnext',onclick:function(){ftOpen((FS.i+1)%FT.length)}},'Nächste Aufgabe'),h('button',{class:'btn',type:'button',onclick:function(){ftOpen(FS.i)}},'Dieselbe noch einmal')]):
+    h('div',{class:'actions dock kb kbft'},h('button',{class:'btn primary',type:'button',id:'ftdone',onclick:function(){ftFinish();render();ftFocus('ftres')}},'Abschließen')));
+  ftGrow()}
+function ftProgress(){
+  if(!FT.length)return null;
+  var n=ftDone(),sx=0,sy=0;
+  FT.forEach(function(a){var r=S.ft[a.id];if(r){sx+=r.x;sy+=r.y}});
+  return sec('h-ftp',[h('h2',{id:'h-ftp'},'Eigene Antworten'),h('span',{class:'badge ep'},'Ergänzung'),
+    h('p',{style:'margin:6px 0 0'},h('b',null,'Freitext und Fallbeispiel: '+n+' von '+FT.length+' bearbeitet')),
+    progressBar(n,FT.length,'Bearbeitete Freitext-Aufgaben','f-ok'),
+    h('p',{class:'foot'},(n?'Über die bearbeiteten Aufgaben hattest du '+sx+' von '+sy+' Stichpunkten. ':'')+'Das ist deine eigene Einschätzung und zählt nicht für Katalog-Quote, Tagesziel und Lernstand der Fragen.')])}
 /* --- Fortschritt --- */
 function viewFort(m){
   setChrome(true);var t=NOW(),all=counts(S,'all',t),ans=0,okc=0;
@@ -589,6 +675,7 @@ function viewFort(m){
     h('div',{class:'legend'},[h('span',null,[h('i',{class:'l-ok'}),'gemeistert (Stufe 4 oder höher)']),h('span',null,[h('i',{class:'l-learn'}),'in Arbeit']),h('span',null,[h('i',{class:'l-neu'}),'neu'])]),
     h('p',{class:'foot'},all.mast+' gemeistert · '+all.work+' in Arbeit · '+all.fresh+' noch neu.')];
   m.appendChild(h('section',null,s));
+  m.appendChild(ftProgress());
   var ch=[h('h2',null,'Nach Kapitel')],cl=h('div',{class:'crows'});ch.push(cl);
   [1,2,3,4].forEach(function(k){var c=counts(S,k,t);cl.appendChild(h('div',{class:'crow'},[h('div',{class:'l'},[h('span',null,chapName(k)),h('span',null,c.mast+' / '+c.total)]),stackBar(c),h('span',{class:'foot'},c.work+' in Arbeit · '+c.fresh+' neu')]))});
   m.appendChild(h('section',null,ch));
@@ -656,7 +743,7 @@ function viewFuehr(m){
 function startFk(){startRound()}
 function viewQuellen(m){
   setChrome(true);
-  m.appendChild(sec('h-src',[h('h2',{id:'h-src'},'Quellen'),h('p',{style:'margin:0'},'Woher das Wissen in dieser App stammt. Der Fragenkatalog ist die einzige fachliche Quelle.')]));
+  m.appendChild(sec('h-src',[h('h2',{id:'h-src'},'Quellen'),h('p',{style:'margin:0'},'Woher das Wissen in dieser App stammt. Die Fragen und Lösungen stammen allein aus dem Fragenkatalog.'),h('p',{class:'foot',style:'margin:0'},'Die Zeile „Fundstelle“ (Ergänzung) unter der Auflösung nennt, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist; sie gehört nicht zum Katalog und fehlt, wo die Stelle nicht belegt ist.')]));
   m.appendChild(h('section',{'aria-labelledby':'h-pz'},[h('h2',{id:'h-pz'},'Prüfung und Zulassung'),h('span',{class:'badge ep'},'Ergänzung'),
     h('p',{class:'foot',style:'margin:0'},'Nicht aus dem Fragenkatalog, sondern aus einer Recherche zu Unterlagen des IdF NRW. Am 11.10.2026 gegen die Originalseiten geprüft (siehe Quellen). Bei Prüfungsfragen gilt immer der Originaltext.'),
     h('p',{style:'margin:0'},[h('b',null,'Prüfung (Richtlinie, Stand Dezember 2020): '),'Teil 1a ist der MC-Vortest zu Lehrgangsbeginn (15 Minuten, 10 Punkte, Vorwissen bis Gruppenführer, mehrere Antworten können richtig sein, Punkte nur für vollständig richtige Antworten). Dazu kommen die Facharbeit (20 Punkte) und zwei Fallbeispiele (je 20 Punkte, mindestens je 10), zusammen in bis zu 60 Minuten, und eine mündliche Prüfung (30 Punkte, mindestens 15). Teil 1 (Vortest und Facharbeit) braucht zusammen mindestens 15 von 30 Punkten. Mündlich geprüft wird, wer genau zwei der drei schriftlichen Teile bestanden hat. Es gibt keine Noten, nur bestanden oder nicht bestanden. Bei einer Wiederholung zählt das Ergebnis des Vortests weiter.']),
@@ -704,6 +791,7 @@ function render(){
   var d=new Date(NOW());$('today').textContent=DAYS_DE[d.getDay()]+', '+d.getDate()+'. '+MON_DE[d.getMonth()];
   if(mode==='round'&&L.round)viewRound(m);
   else if(mode==='exam'&&L.exam)viewExam(m);
+  else if(mode==='ft'&&FS)viewFt(m);
   else{mode=null;if(!(L.exam&&!L.exam.done))stopTimer();else if(examLive&&!tick)startTimer();if(view==='heute')viewHeute(m);else if(view==='fort')viewFort(m);else if(view==='fuehr')viewFuehr(m);else viewQuellen(m)}
   var tabs=$('tabs');clear(tabs);
   [['heute','Heute'],['fuehr','Führung'],['fort','Fortschritt'],['quellen','Quellen']].forEach(function(x){

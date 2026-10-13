@@ -1,7 +1,9 @@
 /* Tastatur für Coaches am Computer: Ziffern 1–9 wählen eine Antwort, Enter löst den Hauptknopf der Leiste unten aus (Prüfen, Weiter),
    solange kein Knopf den Fokus hat.
    Gilt nur, wenn alle Antworten in einer Gruppe stehen und kein Eingabefeld und kein Willkommensfenster offen ist.
-   Der Hauptknopf steht im Skript-Tag: data-primary=".btn.primary". */
+   Der Hauptknopf steht im Skript-Tag: data-primary=".btn.primary".
+   Ausnahme Freitext und Fallbeispiel: Solange die Stichpunkte der Musterlösung offen sind (.ftrows[data-live]), schaltet Ziffer n
+   den Stichpunkt n zwischen „hatte ich“ und „fehlte“ um. */
 (function () {
   var me = document.currentScript;
   var PRIMARY = (me && me.getAttribute('data-primary')) || '.btn.primary';
@@ -22,6 +24,17 @@
     var t = ev.target;
 
     if (/^[1-9]$/.test(ev.key)) {
+      var fr = document.querySelector('.ftrows[data-live]');
+      if (fr) {
+        var row = fr.children[+ev.key - 1];
+        if (!row) return;
+        var had = row.querySelector('[data-v="1"]'), miss = row.querySelector('[data-v="0"]');
+        var next = had && had.getAttribute('aria-pressed') === 'true' ? miss : had;
+        if (!next || next.disabled) return;
+        ev.preventDefault();
+        next.click();
+        return;
+      }
       var opts = document.querySelectorAll('.opt');
       if (!opts.length) return;
       var group = opts[0].parentNode;

@@ -161,6 +161,64 @@ try {
     await neu.close();
     assert(!fired, 'eingeschleuster Code wurde ausgeführt');
   });
+  // Ergänzungen (Fundstelle, Freitext): eigene Seiten im selben Kontext, Daten nur zum Test auf Fragen mit Fundstelle begrenzt.
+  const neueSeite = async (pfad, nurMitF) => {
+    const p = await ctx.newPage();
+    p.on('pageerror', (e) => errors.push('Skriptfehler: ' + e.message));
+    if (nurMitF) await p.route('**/data/' + nurMitF, async (r) => {
+      const d = JSON.parse(await (await r.fetch()).text());
+      const mitF = (qs) => qs.filter((q) => typeof q.f === 'string');
+      await r.fulfill({ contentType: 'application/json', body: JSON.stringify(Array.isArray(d) ? mitF(d) : { ...d, qs: mitF(d.qs) }) });
+    });
+    p.laden = async (u) => {
+      await p.goto(base + u);
+      await p.waitForTimeout(1200);
+      const um = p.getByRole('button', { name: 'Erst mal umschauen' });
+      if (await um.count()) await um.click();
+    };
+    await p.laden(pfad);
+    return p;
+  };
+  await step('Fundstelle erscheint nach der Antwort, nicht während der Prüfung, wieder in der Auswertung (Gruppenführer)', async () => {
+    const p = await neueSeite('apps/gruppenfuehrer.html', 'gruppenfuehrer.json');
+    await p.locator('[data-act=start]').first().click();
+    await p.locator('.opts .opt').first().click();
+    await p.locator('[data-act=check]').first().click();
+    assert(await p.locator('.fund').count() === 1, 'keine Fundstelle nach der Antwort');
+    await p.laden('apps/gruppenfuehrer.html');
+    await p.locator('[data-act=exstart]').last().click();
+    assert(await p.locator('.fund').count() === 0, 'Fundstelle während der Prüfung sichtbar');
+    await p.locator('[data-act=egoto]').last().click();
+    await p.locator('.actions [data-act=esubmit]').first().click();
+    await p.locator('[data-act="esubmit-yes"]').click();
+    await p.waitForTimeout(300);
+    assert(await p.locator('.fund').count() > 0, 'keine Fundstelle in der Auswertung');
+    await p.close();
+  });
+  await step('Freitext und Fallbeispiel: Musterlösung, Selbstabgleich, Ergebnis (Gruppenführer)', async () => {
+    const p = await neueSeite('apps/gruppenfuehrer.html');
+    await p.locator('[data-act=ftgo]').first().click();
+    await p.fill('#ft-in', 'Testantwort');
+    await p.locator('[data-act=ftshow]').click();
+    const n = await p.locator('.ftrow').count();
+    assert(n >= 2, 'keine Stichpunkte');
+    await p.locator('[data-act=ftset][data-v="1"]').first().click();
+    await p.locator('[data-act=ftdone]').click();
+    assert((await p.locator('#ftres').textContent()).includes(`1 von ${n}`), 'Ergebnis falsch');
+    const gespeichert = await p.evaluate(() => Object.values(localStorage).join(''));
+    assert(!gespeichert.includes('Testantwort'), 'getippter Text gespeichert');
+    await p.close();
+  });
+  await step('Freitext und Fallbeispiel: Ablauf im Zugführer-Coach', async () => {
+    const p = await neueSeite('apps/zugfuehrer.html');
+    await p.locator('#ftgo').click();
+    await p.fill('#ft-in', 'Testantwort');
+    await p.locator('#ftshow').click();
+    assert(await p.locator('.ftrow').count() >= 2, 'keine Stichpunkte');
+    await p.locator('#ftdone').click();
+    assert(/0 von \d+/.test(await p.locator('#ftres').textContent()), 'Ergebnis falsch');
+    await p.close();
+  });
   await step('Keine Anfragen an fremde Server', async () => assert(!foreign.length, foreign.join(', ')));
   await step('Keine Fehler im Browser', async () => assert(!errors.length, errors.join(' | ')));
 } finally {

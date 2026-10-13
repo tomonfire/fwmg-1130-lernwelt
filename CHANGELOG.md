@@ -4,7 +4,22 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt (13.10.2026, Anforderung 0003)
+- Befehlscoach: Feld `ext` an Lagen (Badge „Ergänzung“ in der Liste) und Feld `rb` (`{p, q}`: 2 bis 4 Stichpunkte, Quelle mit Abschnitt) für den Kasten „Menschenrettung nach Realbrand“ in der Auswertung (`rbBox()`, unter „Noch einmal ansehen“, Ausgabe über `esc()`); ohne Einfluss auf Punktzahl, Bestwert und Verlauf. `rb` an `zimmerbrand`, `z-wohnhaus`, `z-halle`. Neue Lagen `abc-austritt` (hilfe), `staffel-schuppen`, `bsw-buehne` mit eigener Lagen-ID, bestehende Lagen und IDs unverändert, kein neuer localStorage-Schlüssel. Quiz: 5 Ergänzungsfragen (sechstes Element `true`, Badge) mit Fundstelle aus der Fachempfehlung Realbrand 2019. `APPV` V2.16, Anzahl Übungen in der Shell 16.
+- GF Kat. H: Hinweis `v` an 8.8, 8.10, 8.11, 8.14 (DIN-Typenliste, SW 2000/DLA (K)); Lösungen, `a` und `chg` unverändert. GF V3.38.
+- `scripts/data.mjs`: Positivliste der Fahrzeugkürzel aus der DIN-FNFW-Typenliste (25. Fassung) gegen `app/apps/befehlstrainer.html`; Prüfung von `rb` (2 bis 4 Stichpunkte, Quelle mit Abschnitt, Pflicht an den drei Lagen), `ext` (nur Gruppenführer, mit Beurteilung und Kontrolle), `f`/`kw` je Befehl, Staffel-Lagen ohne Schlauchtrupp und Melder, mind. 4 Ergänzungs-Quizfragen mit Abschnitt.
+- Prüfprotokoll in `docs/QUELLEN.md`. Service-Worker `VERSION` auf v51, `NEU` mit neuer id.
+
+### Geändert (13.10.2026, Anforderung 0003)
+- Befehlscoach: Listenüberschrift „Technische Hilfeleistung“ heißt „Hilfeleistung“, weil die ABC-Lage dort steht.
+
+### Hinzugefügt (13.10.2026, Anforderung 0002)
+- Freitext und Fallbeispiel (A-23) im Gruppenführer- und Zugführer-Coach: Abschnitt auf „Heute“ mit Badge „Ergänzung“, eigene Ansicht (Textfeld ab 5 Zeilen, Musterlösung mit Stichpunkten und Fundstelle, Selbstabgleich „hatte ich“/„fehlte“ in `--ok`/`--miss`, Ergebnis „x von y Stichpunkten“, `.actions.dock`), keine neuen Reiter. Ziffer n schaltet Stichpunkt n um (`app/tastatur.js`, `.ftrows[data-live]`; im Textfeld nichts). Gemeinsame Stile in `app/coach.css`.
+- Daten: `app/data/freitext.json` (je Coach 10 Aufgaben, davon 4 Fallbeispiele; in `sw.js` im Cache), Prüfliste der Fundstellen in `docs/QUELLEN.md`. `scripts/data.mjs` prüft id-Präfix `ft-gf-`/`ft-zf-`, `typ`, `t`, `f`, `p` (2 bis 8 Texte), `lage` bei „fall“, mind. 10 Aufgaben und 3 Fallbeispiele je Coach.
+- Lernstand als Teilobjekt `ft` (`{id: {d, x, y}}`) in `lernkompass-tagestraining-v1` bzw. `zf4tt.state.v1`, kein neuer Schlüssel; beim Einlesen und Zusammenführen auf Typen geprüft, ältere Stände ohne `ft` laden fehlerfrei. Der Text wird nicht gespeichert. Katalogstatistik, Tagesziel, Runden und Prüfung ändern sich nicht. GF V3.37, ZF V1.13, Service-Worker `VERSION` auf v50, `NEU` mit neuer id.
+
 ### Hinzugefügt (13.10.2026)
+- Gruppenführer- und Zugführer-Coach: optionales Feld `f` („Fundstelle“) an Katalogfragen, angezeigt als Zeile „Ergänzung · Fundstelle: …“ unter der Auflösung (nach „Hinweis zur Vorschrift“) und in der Auswertung der Prüfung, nicht während der Prüfung; Ausgabe über `esc()` bzw. Textknoten. 46 Fragen belegt (GF Kat. A 11, GF Kat. J 2, ZF Kap. 3 33), 35 der 81 geprüften IDs ohne `f`. An den Katalogfragen ändert sich nur `f`. `scripts/data.mjs`: `f` nicht leerer Text, höchstens 80 Zeichen, an `own`-Fragen ein Fehler. Prüfliste in `docs/QUELLEN.md`; Reiter Quellen beider Coaches erklärt die Fundstellen in einem Satz. GF V3.36, ZF V1.12, Service-Worker `VERSION` auf v49, `NEU` mit neuer id.
 - Gruppenführer: 50 Übungsfragen (own) in vier neuen Kategorien M–P „(Übungsfragen)“ – Recht NRW (12.1xx), Funk (13.1xx), ABC (14.1xx), Prüfung von Geräten und UVV (15.1xx) –, eigene Runden unter „Heute“ → „Übungsfragen“, Lernstand unter „Fortschritt“, Quelleneintrag. Abschnitt „Prüfung und Zulassung“ im Quellen-Reiter nach Prüfungsrichtlinie GF-Basis (12/2020) und Ausführungsvorschrift (RdErl. 02.12.2016).
 - Zugführer: Abschnitt „Führungsstufen und Sachgebiete“ (FwDV 100, 3.2.5 und 3.2.2.2) im Bereich Führung.
 - `docs/QUELLEN.md` (Quellenregister mit Status und abhängigen Fragen), Roadmap: jährliche Aktualitätsprüfung und Entscheidung zu fremden Inhalten.
