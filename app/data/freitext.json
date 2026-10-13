@@ -22,7 +22,7 @@
       "t": "Was ordnest du an, um die Einsatzstelle zu sichern und die Person zu retten?",
       "p": [
         "Fahrzeuge mit Warnlicht abstellen, zur verkehrsabgewandten Seite absitzen, in beide Fahrtrichtungen absichern",
-        "Absicherung schritt- und spurweise aufbauen, außerorts etwa 200 m vor und hinter der Einsatzstelle beginnen, zuerst ein Warndreieck als Hinweis",
+        "Absicherung schritt- und spurweise aufbauen, außerorts die Vorwarnung im Abstand der doppelten gefahrenen Geschwindigkeit in Metern aufstellen (80 km/h → 160 m), bei Kurven und Kuppen weiter davor, zuerst ein Warndreieck als Hinweis",
         "Eigensicherung beachten und den Brandschutz sicherstellen, weil Kraftstoff ausläuft",
         "Erstversorgung hat oberste Priorität: Person nicht allein lassen, Rettungsdienst nachfordern",
         "Rettungsweise abwägen: schnelle (zeitkontrollierte) Rettung ist der Sofortrettung vorzuziehen, solange keine unmittelbare Lebensgefahr besteht",
@@ -99,7 +99,7 @@
         "Geräte mit weniger als 90 % des Nenn-Fülldrucks sind nicht einsatzbereit",
         "Für den Rückweg die doppelte Luftmenge wie für den Hinweg einplanen, der größte Luftverbrauch bestimmt die Einsatzdauer",
         "Funkmeldung an die Überwachung nach dem Anschluss, am Einsatzziel und beim Rückzug",
-        "Als Einheitsführer bist du für die Atemschutzüberwachung verantwortlich, nach einem und zwei Dritteln der erwarteten Einsatzzeit auf die Behälterdrücke hinweisen"
+        "Als Einheitsführer bist du für die Atemschutzüberwachung verantwortlich; sie weist nach einem und zwei Dritteln der erwarteten Einsatzzeit auf die Kontrolle der Behälterdrücke hin"
       ],
       "f": "FwDV 7, 7.2, 7.4"
     },

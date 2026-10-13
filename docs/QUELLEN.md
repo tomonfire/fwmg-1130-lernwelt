@@ -206,8 +206,8 @@ Fahrzeuge im Befehlscoach: Vorkommen nur „TSF-W“ (staffel-schuppen) und neut
 | 8.8 | DLA (K) 23-12 | Liste führt DLK 23 (DLAK 23/12); sequenzielle Drehleitern nicht enthalten und nicht empfohlen (S. 3) | ja |
 | 8.9 | TLF 3000 | in der Liste (DIN 14530-22, Tank 3 000 l, Besatzung Trupp) | nein |
 | 8.10 | DLA (K) 23/12 | wie 8.8 (Besatzung Trupp) | ja |
-| 8.11 | LF 20, SW 2000, TLF 3000, WLF, ELW 1 | LF 20 und TLF 3000 mit Tank; WLF, ELW 1 in der Liste ohne Tank; SW 2000 nicht mehr enthalten, heute GW-L2 (DIN 14555-22) | ja |
-| 8.14 | SW 2000 | nicht mehr enthalten, heute GW-L2; Eigenschaften der Frage stehen nicht in der Liste | ja |
+| 8.11 | LF 20, SW 2000, TLF 3000, WLF, ELW 1 | LF 20 und TLF 3000 mit Tank; WLF, ELW 1 in der Liste ohne Tank; SW 2000 nicht mehr enthalten; als Logistikfahrzeug führt die Liste den GW-L2 (DIN 14555-22) | ja |
+| 8.14 | SW 2000 | nicht mehr enthalten; als Logistikfahrzeug führt die Liste den GW-L2; Eigenschaften der Frage stehen nicht in der Liste | ja |
 | 2.21, 6.7, 7.9 | ELW, HLF, DLK (ohne Typzahl) | außerhalb Kat. H, allgemeine Typbezeichnungen, kein Hinweis nötig | nein |
 
 Offen: Die Gleichsetzung SW 2000 mit GW-L2 stammt aus der Spezifikation; die Typenliste selbst nennt nur den GW-L2 (Hauptaufgabe Logistik, Besatzung Staffel).
