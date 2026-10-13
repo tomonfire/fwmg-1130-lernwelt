@@ -1,26 +1,42 @@
 ---
 name: team
-description: "Arbeitet eine Aufgabe an der Lernwelt als kleines Team ab: Plan, parallele Umsetzung durch Subagenten, unabhängiges Review, Prüfungen, Commit. Trigger: /team <Aufgabe>."
+description: Runs a feature through the virtual team – requirements (anforderungen) → implementation (senior-developer, ui-ux-experte) → review (qa-reviewer) – with tight token budgets. Use when the user asks to build a feature, change or fix end to end, or types /team.
 ---
 
-# /team
+# /team – Feature mit dem virtuellen Team umsetzen
 
-Der Nutzer hat mit `/team <Aufgabe>` ausdrücklich ein Team aus Subagenten angefordert. Du leitest es, setzt selbst um, wo es schneller geht, und verantwortest das Ergebnis.
+Rollen (Subagents in `.claude/agents/`):
+
+| Rolle                | Agent              | Modell | Aufgabe                                      |
+| -------------------- | ------------------ | ------ | -------------------------------------------- |
+| Business Owner       | `anforderungen`    | Opus   | Wunsch → prüfbare Spezifikation              |
+| Senior Developer     | `senior-developer` | Sonnet | Logik, Backend, Tests umsetzen               |
+| UI/UX-Experte        | `ui-ux-experte`    | Sonnet | Oberfläche, Texte, Barrierefreiheit          |
+| QA / Code Review     | `qa-reviewer`      | Sonnet | Diff gegen Kriterien prüfen, Tests laufen    |
 
 ## Ablauf
 
-1. **Verstehen.** `CLAUDE.md`, `README.md` und die betroffenen Stellen lesen (bei Bedarf `graphify query`). Aufgabe in 2–5 unabhängige Teilaufgaben zerlegen. Ist die Aufgabe klein (eine Datei, wenige Zeilen), ohne Team direkt erledigen.
-2. **Umsetzen.** Unabhängige Teilaufgaben parallel an Subagenten (`Agent`, `general-purpose`) geben, jede mit:
-   - genauem Ziel und betroffenen Dateien,
-   - den einschlägigen Regeln aus `CLAUDE.md` (Du-Form, Farblogik `--ok`/`--bad`/`--miss`, gleiche Reiter in GF- und ZF-Coach, Speicherschlüssel nie umbenennen, `esc()`, keine Inline-Handler, Mobile zuerst),
-   - dem Hinweis, nicht zu committen und keine anderen Dateien anzufassen.
-   Teilaufgaben, die dieselbe Datei ändern, nicht parallel vergeben.
-3. **Review.** Einen frischen Subagenten den gesamten Diff (`git diff`) gegen `CLAUDE.md` prüfen lassen: Fehler, Regelverstöße, fehlende Gegenstücke (GF/ZF, `KEYS`, `NEU`). Berechtigte Funde selbst beheben.
-4. **Abschließen** (immer selbst, nicht delegieren):
-   - `VERSION` in `app/sw.js` erhöhen, wenn App-Dateien geändert wurden,
-   - nach Änderungen an Inline-Skripten `npm run csp:update`,
-   - neue Funktion für Nutzer: `NEU`/`NEU_ALT` (Grenze `NEU_ALT_MAX`) und `docs/RELEASE-NOTES.md`; technische Notiz in `CHANGELOG.md`,
-   - `npm run check` muss grün sein; bei Oberflächenänderungen im Browser in iPhone-Größe ansehen (`npm start`, Playwright mit `executablePath` des vorinstallierten Chromium),
-   - `graphify update .`,
-   - committen und auf den Arbeitsbranch pushen. Einen PR nur auf Wunsch des Nutzers anlegen.
-5. **Bericht** an den Nutzer auf Deutsch: was geändert ist, wie geprüft, was offen bleibt.
+1. **Anforderungen:** `anforderungen` mit dem Wunsch des Nutzers aufrufen. Rückfragen an den Nutzer weitergeben
+   und die Antworten zurückspielen. Ergebnis: Pfad zu `docs/requirements/NNNN-*.md`.
+2. **Kurz bestätigen lassen:** Dem Nutzer Ziel + Akzeptanzkriterien in max. 5 Zeilen zeigen. Erst nach OK weiter.
+   (Bei kleinen, eindeutigen Aufgaben darf dieser Schritt entfallen.)
+3. **Umsetzen** laut Abschnitt „Aufteilung“ der Spezifikation:
+   - Logik/Backend → `senior-developer`, Oberfläche → `ui-ux-experte`.
+   - Unabhängige Pakete parallel starten, abhängige nacheinander.
+   - Jedem Agent nur übergeben: Spezifikationspfad + seine Paketnummern. Nie Dateiinhalte kopieren.
+4. **Review:** `qa-reviewer` mit dem Spezifikationspfad aufrufen.
+   - 🔴-Befunde → an den zuständigen Agent zurück (nur die Befunde übergeben). **Maximal 2 Runden**,
+     danach dem Nutzer die offenen Punkte nennen statt weiter zu iterieren.
+5. **Repo-Pflichten** (selbst, nicht delegieren): `VERSION` in `app/sw.js` erhöhen, nach Inline-Skript-Änderungen
+   `npm run csp:update`, neue Funktion → `NEU`/`NEU_ALT` (Grenze `NEU_ALT_MAX`) und `docs/RELEASE-NOTES.md`,
+   `CHANGELOG.md`, `npm run check`, `graphify update .`.
+6. **Abschluss:** Dem Nutzer in max. 8 Zeilen berichten: was gebaut wurde, welche Kriterien erfüllt sind,
+   was offen ist. Commit-Message auf Deutsch im Stil der Git-Historie vorschlagen.
+
+## Token-Regeln für alle Beteiligten
+
+- Pfade übergeben statt Inhalte; jeder liest nur, was er braucht.
+- Zuerst `graphify query`, dann gezielt einzelne Dateien – kein flächiges Lesen oder Greppen.
+- Kurze Rückmeldungen (≤ 10 Zeilen); keine Wiederholung bereits bekannter Informationen.
+- Nichts bauen, was nicht in den Akzeptanzkriterien steht.
+- Einfache Aufgaben (Tippfehler, kleine Fixes) ohne Team direkt erledigen.
