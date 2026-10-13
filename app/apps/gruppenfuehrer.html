@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-MZgNiXdU9vbIPsypa37m54IDOEOb3V/Pt3eqPvgeTsI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-6bQb14ILRiwxtvha/pYww49MURzym4TbgL+L+WmgnrY=' 'sha256-dwLXhYkTWilOXJI3SQSoX+FQPZFr/qdIK4XJj3aUUIk=' 'sha256-SeGbrh3bkrAeCLMzFtIdJCbVopXuw3kK6Xd9wAOoa80=' 'sha256-TZsKUxcWrnmRCnGQ/UwV7mf1Ht/+L9gwpRo4MudP1Ag='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Gruppenführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -101,6 +101,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .badge{display:inline-flex;gap:6px;align-items:center;background:var(--warn-bg);color:var(--warn);padding:2px 8px;border-radius:3px;font-weight:600;font-size:12px}.badge.ep{align-self:flex-start}
 .pz{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .badge svg{width:14px;height:14px}
+.fund{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .qtext{font-family:var(--f-body);font-weight:600;font-size:20px;line-height:1.35;margin:14px 0 6px;overflow-wrap:anywhere}
 .hint{font-size:14px;color:var(--muted);margin-bottom:12px}
 .opts{display:flex;flex-direction:column;gap:10px}
@@ -273,7 +274,7 @@ window.addEventListener('error',function(e){
 (function(){
 try{var _b=document.getElementById('boot');if(_b){_b.setAttribute('data-s','3');var _s=document.getElementById('bootstep');if(_s)_s.textContent='Schritt 3: App-Code gestartet …'}}catch(e){}
 'use strict';
-var APPV='V3.35',APPD='13.10.2026 10:00';
+var APPV='V3.36',APPD='13.10.2026 12:00';
 var CATS=DATA.cats, QS=DATA.qs, BYID=Object.create(null);
 QS.forEach(function(q){BYID[q.id]=q});
 var QSC=QS.filter(function(q){return !q.own}), OWN=QS.filter(function(q){return q.own});
@@ -678,6 +679,7 @@ function renderQuiz(){
     if(q.x)h+='<p><b>Erklärung:</b> '+esc(q.x)+'</p>';
     if(q.pw)h+=pwNote(q);
     if(typeof q.v==='string')h+='<p><b>Hinweis zur Vorschrift:</b> '+esc(q.v)+'</p>';
+    h+=fNote(q);
     if(q.u)h+='<p><b>Hinweis:</b> Diese Lösung ist nicht bestätigt. Prüfe sie im Lösungsbogen.</p>';
     var fl=S.f.indexOf(q.id)>-1;
     h+='<button class="linkbtn" data-act="flag" style="align-self:flex-start">'+(fl?'Meldung zurücknehmen':'Lösung fehlerhaft melden')+'</button></div>';
@@ -883,6 +885,8 @@ function renderExam(){
   }
   return h+'</section>';
 }
+/* Fundstelle (f): gekennzeichnete Ergänzung, nur an Katalogfragen, erst nach der Auflösung bzw. in der Auswertung. */
+function fNote(q){return !q.own&&typeof q.f==='string'&&q.f.trim()?'<p class="foot fund"><span class="badge ep">Ergänzung</span><span>Fundstelle: '+esc(q.f)+'</span></p>':''}
 function renderExResult(){
   var res=E.res,n=res.length,ok=res.filter(function(r){return r.ok}).length,blank=res.filter(function(r){return r.blank}).length,bad=n-ok-blank;
   var pct=Math.round(ok/n*100);
@@ -899,7 +903,7 @@ function renderExResult(){
           var right=q.a.indexOf(i)>-1,sel=r.ans.indexOf(i)>-1,cls='opt rv'+(sel?' sel':''),tag='';
           if(right&&sel){cls+=' ok';tag='Richtig'}else if(right){cls+=' miss';tag='Übersehen'}else if(sel){cls+=' bad';tag='Falsch'}
           return '<div class="'+cls+'"><span class="box">'+ICON_CHECK+'</span><span class="tx">'+(sel?'<span class="sr">Deine Wahl: </span>':'')+esc(text)+'</span>'+(tag?'<span class="tag">'+tag+'</span>':'')+'</div>';
-        }).join('')+'</div>'+(q.x?'<p class="foot" style="margin:0"><b>Erklärung:</b> '+esc(q.x)+'</p>':'')+(typeof q.v==='string'?'<p class="foot" style="margin:0"><b>Hinweis zur Vorschrift:</b> '+esc(q.v)+'</p>':'')+'</div>';
+        }).join('')+'</div>'+(q.x?'<p class="foot" style="margin:0"><b>Erklärung:</b> '+esc(q.x)+'</p>':'')+(typeof q.v==='string'?'<p class="foot" style="margin:0"><b>Hinweis zur Vorschrift:</b> '+esc(q.v)+'</p>':'')+fNote(q)+'</div>';
     }).join('')+'</div>';
   }else{h+='<p>Alles richtig.</p>'}
   h+='<div class="actions"><button class="btn primary" data-act="exstart">Neue Prüfung</button><button class="btn" data-act="go" data-v="home">Zur Übersicht</button></div></section>';
@@ -938,7 +942,7 @@ var SRCS=[
 ];
 function renderSources(){
   var h=mast()+tabs();
-  h+='<section aria-labelledby="h-src"><h2 id="h-src">Quellen</h2><p style="margin:0">Woher das Wissen in dieser App stammt. Links öffnen in einem neuen Tab.</p></section>';
+  h+='<section aria-labelledby="h-src"><h2 id="h-src">Quellen</h2><p style="margin:0">Woher das Wissen in dieser App stammt. Links öffnen in einem neuen Tab.</p><p class="foot" style="margin:0">Die Zeile „Fundstelle“ (Ergänzung) unter der Auflösung nennt, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist; sie gehört nicht zum Katalog und fehlt, wo die Stelle nicht belegt ist.</p></section>';
   h+='<section aria-labelledby="h-pz"><h2 id="h-pz">Prüfung und Zulassung</h2><span class="badge ep">Ergänzung</span>'+
     '<h3 class="gh">Prüfung</h3><ul class="pz">'+
     '<li><b>Teil 1:</b> MC-Fragearbeit zum Vorwissen bis Truppführer zu Lehrgangsbeginn (15 Minuten, 10 Punkte, mehrere Antworten können richtig sein, Punkte nur für vollständig richtige Antworten) und Facharbeit mit Freitextfragen am Lehrgangsende (20 Punkte). Zusammen mindestens 15 von 30 Punkten.</li>'+

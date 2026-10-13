@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Ws2Ypvzy2qEiTjZwDRmxuct/tAs1A8tPxiVvgV01sBk=' 'sha256-h9Fcf5WF/mcM9fJG5ZoIKRBHpT7nDiYm2zIJ0QCZC8A='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-cYkPEZcKT2azNltxhOb6pVppzcVA9KFoOY97rtl5nmU=' 'sha256-GBm5C3+VZnV5710gIVe7G35ftixAN45Y14fVMJpNwVc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Zugführer Tagestraining</title>
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -100,6 +100,7 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em}
 .id{font-family:var(--f-mono);background:var(--ink);color:var(--bg);padding:2px 8px;border-radius:3px;font-size:13px}
 .badge{display:inline-flex;gap:6px;align-items:center;background:var(--warn-bg);color:var(--warn);padding:2px 8px;border-radius:3px;font-weight:600;font-size:12px}
 .badge svg{width:14px;height:14px}
+.fund{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .qtext{font-family:var(--f-body);font-weight:600;font-size:20px;line-height:1.35;margin:14px 0 6px;overflow-wrap:anywhere}
 .hint{font-size:14px;color:var(--muted);margin-bottom:12px}
 .opts{display:flex;flex-direction:column;gap:10px}
@@ -292,7 +293,7 @@ function bootStep(t){BOOT_STEPS.push(t);var o=document.getElementById('bootsteps
 window.onerror=function(m,s,l,c){var e=document.getElementById('booterr');if(e){e.textContent+='Fehler: '+m+(l?' (Zeile '+l+')':'')+'\n';}};
 bootStep('Skript gestartet');
 var DATA=(function(){var x=new XMLHttpRequest();x.open('GET','../data/zugfuehrer.json',false);x.send();if(x.status!==200&&x.status!==0)throw new Error('Fragen konnten nicht geladen werden: zugfuehrer.json');return JSON.parse(x.responseText)})();
-var VERSION='V1.11';
+var VERSION='V1.12';
 var LOGO='../icons/zugfuehrer.svg';
 </script>
 <script>
@@ -489,6 +490,8 @@ function qbody(host,q,perm,sel,ck,ro,toggle){
   host.appendChild(box)}
 function toggleIn(arr,idx,btn){var p=arr.indexOf(idx);if(p<0){arr.push(idx);btn.setAttribute('aria-checked','true')}else{arr.splice(p,1);btn.setAttribute('aria-checked','false')}}
 function vNote(q){return typeof q.v==='string'?h('p',null,[h('b',null,'Hinweis zur Vorschrift: '),q.v]):null}
+/* Fundstelle (f): gekennzeichnete Ergänzung, nur an Katalogfragen, erst nach der Auflösung bzw. in der Auswertung. */
+function fNote(q){return typeof q.f==='string'&&q.f.trim()?h('p',{class:'foot fund'},[h('span',{class:'badge ep'},'Ergänzung'),h('span',null,'Fundstelle: '+q.f)]):null}
 function flagBtn(id){var f=S.fl[id]&&S.fl[id].f;return h('button',{class:'linkbtn',type:'button',onclick:function(){S.fl[id]={f:!f,t:NOW()};save();render()}},f?'Meldung zurücknehmen':'Lösung fehlerhaft melden')}
 function statBox(n,l,cls){return h('div',{class:'stat'},[h('b',{class:cls||null},String(n)),h('span',null,l)])}
 function progressBar(v,max,label,cls){return h('div',{class:'bar',role:'progressbar','aria-label':label,'aria-valuemin':'0','aria-valuemax':String(max),'aria-valuenow':String(v)},h('i',{class:cls||'f-acc',style:'width:'+Math.min(100,max?100*v/max:0)+'%'}))}
@@ -513,7 +516,7 @@ function viewRound(m){
     var found=q.a.filter(function(x){return r.sel.indexOf(x)>=0}).length,wrongSel=r.sel.length-found;
     m.appendChild(h('div',{class:'res '+(r.ok?'good':'nope'),role:'status'},[h('h3',null,r.ok?'Richtig':'Falsch'),
       h('p',null,r.ok?'Alle '+q.a.length+' richtigen Antworten gefunden, keine falsche gewählt.':'Gefunden: '+found+' von '+q.a.length+' richtigen Antworten'+(wrongSel?', '+wrongSel+' falsch gewählt':'')+'. '+(it.rep?'Die Frage kommt morgen wieder.':'Die Frage kommt in dieser Runde noch einmal als Wiederholung.')),
-      vNote(q),flagBtn(q.id)]));
+      vNote(q),fNote(q),flagBtn(q.id)]));
     m.appendChild(h('div',{class:'actions dock kb'},h('button',{class:'btn primary',type:'button',id:'nxt',onclick:nextRound},r.i+1>=total?'Ergebnis ansehen':'Weiter')));
     setTimeout(function(){var b=$('nxt');if(b)try{b.focus({preventScroll:true})}catch(e){}},0)}}
 /* --- Prüfung --- */
@@ -530,7 +533,7 @@ function viewExam(m){
       s.appendChild(h('span',{class:'label'},'Nicht richtig beantwortet ('+wrong.length+')'));
       s.appendChild(h('p',{class:'foot',style:'margin:0'},'Deine Auswahl ist markiert. „Falsch“ = gewählt, aber nicht richtig. „Übersehen“ = richtig, aber nicht gewählt.'));
       var rv=h('div');wrong.forEach(function(id){var q=BYID[id],sel=e.ans[id]||[];
-        var d=h('div',{class:'rev'},[h('div',{class:'qmeta'},[h('span',{class:'id'},q.id),sel.length?null:h('span',{class:'badge miss'},'Nicht beantwortet')])]);qbody(d,q,e.perm[id],sel,true,true,function(){});var vn=vNote(q);if(vn)d.appendChild(vn);d.appendChild(flagBtn(id));rv.appendChild(d)});
+        var d=h('div',{class:'rev'},[h('div',{class:'qmeta'},[h('span',{class:'id'},q.id),sel.length?null:h('span',{class:'badge miss'},'Nicht beantwortet')])]);qbody(d,q,e.perm[id],sel,true,true,function(){});var vn=vNote(q);if(vn)d.appendChild(vn);var fn=fNote(q);if(fn)d.appendChild(fn);d.appendChild(flagBtn(id));rv.appendChild(d)});
       s.appendChild(rv)}else s.appendChild(h('p',null,'Alles richtig.'));
     s.appendChild(h('div',{class:'actions'},[h('button',{class:'btn primary',type:'button',onclick:function(){L.exam=null;mode=null;examLive=false;save();render()}},'Zurück zu Heute')]));
     m.appendChild(s);return}
@@ -656,7 +659,7 @@ function viewFuehr(m){
 function startFk(){startRound()}
 function viewQuellen(m){
   setChrome(true);
-  m.appendChild(sec('h-src',[h('h2',{id:'h-src'},'Quellen'),h('p',{style:'margin:0'},'Woher das Wissen in dieser App stammt. Der Fragenkatalog ist die einzige fachliche Quelle.')]));
+  m.appendChild(sec('h-src',[h('h2',{id:'h-src'},'Quellen'),h('p',{style:'margin:0'},'Woher das Wissen in dieser App stammt. Die Fragen und Lösungen stammen allein aus dem Fragenkatalog.'),h('p',{class:'foot',style:'margin:0'},'Die Zeile „Fundstelle“ (Ergänzung) unter der Auflösung nennt, wo die Antwort in Vorschrift oder Gesetz nachzulesen ist; sie gehört nicht zum Katalog und fehlt, wo die Stelle nicht belegt ist.')]));
   m.appendChild(h('section',{'aria-labelledby':'h-pz'},[h('h2',{id:'h-pz'},'Prüfung und Zulassung'),h('span',{class:'badge ep'},'Ergänzung'),
     h('p',{class:'foot',style:'margin:0'},'Nicht aus dem Fragenkatalog, sondern aus einer Recherche zu Unterlagen des IdF NRW. Am 11.10.2026 gegen die Originalseiten geprüft (siehe Quellen). Bei Prüfungsfragen gilt immer der Originaltext.'),
     h('p',{style:'margin:0'},[h('b',null,'Prüfung (Richtlinie, Stand Dezember 2020): '),'Teil 1a ist der MC-Vortest zu Lehrgangsbeginn (15 Minuten, 10 Punkte, Vorwissen bis Gruppenführer, mehrere Antworten können richtig sein, Punkte nur für vollständig richtige Antworten). Dazu kommen die Facharbeit (20 Punkte) und zwei Fallbeispiele (je 20 Punkte, mindestens je 10), zusammen in bis zu 60 Minuten, und eine mündliche Prüfung (30 Punkte, mindestens 15). Teil 1 (Vortest und Facharbeit) braucht zusammen mindestens 15 von 30 Punkten. Mündlich geprüft wird, wer genau zwei der drei schriftlichen Teile bestanden hat. Es gibt keine Noten, nur bestanden oder nicht bestanden. Bei einer Wiederholung zählt das Ergebnis des Vortests weiter.']),

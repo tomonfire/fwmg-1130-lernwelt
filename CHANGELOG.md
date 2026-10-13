@@ -5,6 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Hinzugefügt (13.10.2026)
+- Gruppenführer- und Zugführer-Coach: optionales Feld `f` („Fundstelle“) an Katalogfragen, angezeigt als Zeile „Ergänzung · Fundstelle: …“ unter der Auflösung (nach „Hinweis zur Vorschrift“) und in der Auswertung der Prüfung, nicht während der Prüfung; Ausgabe über `esc()` bzw. Textknoten. 46 Fragen belegt (GF Kat. A 11, GF Kat. J 2, ZF Kap. 3 33), 35 der 81 geprüften IDs ohne `f`. An den Katalogfragen ändert sich nur `f`. `scripts/data.mjs`: `f` nicht leerer Text, höchstens 80 Zeichen, an `own`-Fragen ein Fehler. Prüfliste in `docs/QUELLEN.md`; Reiter Quellen beider Coaches erklärt die Fundstellen in einem Satz. GF V3.36, ZF V1.12, Service-Worker `VERSION` auf v49, `NEU` mit neuer id.
 - Gruppenführer: 50 Übungsfragen (own) in vier neuen Kategorien M–P „(Übungsfragen)“ – Recht NRW (12.1xx), Funk (13.1xx), ABC (14.1xx), Prüfung von Geräten und UVV (15.1xx) –, eigene Runden unter „Heute“ → „Übungsfragen“, Lernstand unter „Fortschritt“, Quelleneintrag. Abschnitt „Prüfung und Zulassung“ im Quellen-Reiter nach Prüfungsrichtlinie GF-Basis (12/2020) und Ausführungsvorschrift (RdErl. 02.12.2016).
 - Zugführer: Abschnitt „Führungsstufen und Sachgebiete“ (FwDV 100, 3.2.5 und 3.2.2.2) im Bereich Führung.
 - `docs/QUELLEN.md` (Quellenregister mit Status und abhängigen Fragen), Roadmap: jährliche Aktualitätsprüfung und Entscheidung zu fremden Inhalten.

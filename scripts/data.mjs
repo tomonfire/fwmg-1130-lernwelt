@@ -1,4 +1,4 @@
-// Prüft die Fragen-Dateien in app/data/: gültiges JSON, eindeutige IDs, Antworten verweisen auf vorhandene Optionen.
+// Prüft die Fragen-Dateien in app/data/: gültiges JSON, eindeutige IDs, Antworten verweisen auf vorhandene Optionen, Fundstelle (f) nur als kurzer Text an Katalogfragen.
 import { readFileSync } from 'node:fs';
 
 let bad = 0;
@@ -17,6 +17,12 @@ function pruefe(datei, fragen, felder, kategorien) {
     if (!Array.isArray(q.a) || !q.a.length) fail('Keine richtige Antwort angegeben:', wo);
     else for (const i of q.a) if (!Number.isInteger(i) || i < 0 || i >= (opt || []).length) fail('Antwort-Index außerhalb der Optionen:', wo, i);
     if ('v' in q && (typeof q.v !== 'string' || !q.v.trim())) fail('Hinweis zur Vorschrift (v) muss ein Text sein:', wo);
+    // Fundstelle (f): Kurzangabe zur Vorschrift, nur an Katalogfragen (Übungsfragen nennen ihre Fundstelle in x).
+    if ('f' in q) {
+      if (typeof q.f !== 'string' || !q.f.trim()) fail('Fundstelle (f) muss ein nicht leerer Text sein:', wo);
+      else if (q.f.length > 80) fail('Fundstelle (f) länger als 80 Zeichen:', wo);
+      if (q.own) fail('Übungsfrage mit Fundstelle (f), die Fundstelle steht dort in x:', wo);
+    }
     if (kategorien && !(q[felder.kat] in kategorien) && !(q[felder.kat] >= 0 && q[felder.kat] < kategorien.length)) fail('Unbekannte Kategorie:', wo);
   }
   return ids;
