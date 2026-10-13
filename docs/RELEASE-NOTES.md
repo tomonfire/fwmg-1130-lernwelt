@@ -2,7 +2,7 @@
 
 Was sich in der Lernwelt für dich ändert, kurz und ohne Technik. Die technischen Details stehen im [Änderungsprotokoll](../CHANGELOG.md).
 
-Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Das Fenster zeigt nur, was diesmal neu ist. Unter „Neuigkeiten“ in der Übersicht kannst du es jederzeit wieder öffnen; ältere Ausgaben stehen dort unter „Frühere Neuigkeiten“.
+Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Das Fenster zeigt nur, was diesmal neu ist. Unter „Neuigkeiten“ in der Übersicht kannst du es jederzeit wieder öffnen; darunter stehen unter „Frühere Neuigkeiten“ nur die letzten wichtigen Punkte. Alles Ältere findest du hier.
 
 ## 13. Oktober 2026
 

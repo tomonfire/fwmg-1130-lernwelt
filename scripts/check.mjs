@@ -49,6 +49,16 @@ for (const f of pages) {
   const text = html.replace(/data:[^"')]+/g, '');
   if (/M(?:ö|oe)nchengladbach|Stadtmitte/i.test(text)) fail('Hinweis auf Stadt oder Einheit im Text:', f);
 }
+// Was ist neu: „Frühere Neuigkeiten“ bleibt kurz (NEU_ALT höchstens NEU_ALT_MAX Punkte), Älteres steht in docs/RELEASE-NOTES.md.
+{
+  const max = Number((shell.match(/NEU_ALT_MAX=(\d+)/) || [])[1]);
+  const alt = (shell.match(/var NEU_ALT=\[([\s\S]*?)\n  \];/) || [])[1];
+  if (!max || alt === undefined) fail('Was ist neu: NEU_ALT oder NEU_ALT_MAX nicht gefunden (app/index.html)');
+  else {
+    const n = [...alt.matchAll(/^\s*\['/gm)].length;
+    if (n > max) fail(`Was ist neu: NEU_ALT hat ${n} Punkte, erlaubt sind ${max}. Überholte oder älteste Punkte streichen (stehen in docs/RELEASE-NOTES.md).`);
+  }
+}
 // Sichern/Wiederherstellen: Jeder Speicherschlüssel der Shell (fwmg.*, lzf.*) muss in KEYS stehen.
 {
   const vars = Object.fromEntries([...shell.matchAll(/(\w+)\s*=\s*'((?:fwmg|lzf)\.[\w-]+\.v\d+)'/g)].map((m) => [m[1], m[2]]));
