@@ -4,6 +4,11 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Behoben (19.10.2026, iOS)
+- Eingebettete Coaches (`.emb`) setzen den Safe-Area-Abstand von `:root` (oben und unten) und `scroll-padding-top` auf 0; die Shell hält den Abstand schon über `.bar-top` und `#mod` frei. Vorher entstand oben ein leerer Streifen und unten ein doppelter Abstand, sobald der Browser die Abstände auch an den iframe gibt.
+- Shell: unter 360 px Breite kleinere Schrift in der Coach-Leiste (`.pill` 13 px), damit „Befehlscoach“ auf 320 px Breite nicht abgeschnitten wird.
+- GF V3.40, ZF V1.15, Befehlscoach V2.18, Service-Worker `VERSION` auf v55, `NEU` mit neuer id (bisheriger Punkt „Nachlesen statt Fundstelle“ als Umbenennung nicht nach `NEU_ALT` übernommen).
+
 ### Geändert (13.10.2026, Was ist neu)
 - „Frühere Neuigkeiten“ zeigt höchstens `NEU_ALT_MAX` (6) Punkte, Ausgaben mit gleichem Datum unter einer Überschrift. `NEU_ALT` auf die fünf noch wichtigen Punkte gekürzt (Überholtes wie „Katalog bleibt Katalog“ und Ausgaben vom 11./12.10. gestrichen, vollständig in `docs/RELEASE-NOTES.md`). `scripts/check.mjs` prüft die Grenze. Service-Worker `VERSION` auf v54.
 

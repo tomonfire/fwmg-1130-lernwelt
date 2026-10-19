@@ -4,6 +4,11 @@ Was sich in der Lernwelt für dich ändert, kurz und ohne Technik. Die technisch
 
 Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Das Fenster zeigt nur, was diesmal neu ist. Unter „Neuigkeiten“ in der Übersicht kannst du es jederzeit wieder öffnen; darunter stehen unter „Frühere Neuigkeiten“ nur die letzten wichtigen Punkte. Alles Ältere findest du hier.
 
+## 19. Oktober 2026
+
+### Alle Coaches
+- **Besser auf dem iPhone.** In den Coaches fällt der leere Streifen unter der oberen Leiste weg, und unten bleibt kein doppelter Abstand zur Home-Leiste mehr. Auf schmalen iPhones (SE der 1. Generation oder mit „Display-Zoom: Größerer Text“) passen alle drei Coaches in die obere Leiste; „Befehlscoach“ wird nicht mehr abgeschnitten. Inhalte und Lernstand ändern sich nicht.
+
 ## 13. Oktober 2026
 
 ### Alle Coaches
