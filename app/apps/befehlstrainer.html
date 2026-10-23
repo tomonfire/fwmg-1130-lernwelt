@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-jUulI7wumRkgV6xcVqma34XsOwoNQ1Jp0bxWyZWa074='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}.emb:root{padding-top:0;padding-bottom:0}html.emb{scroll-padding-top:0}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="de"><head><script>try{if(window.parent!==window)document.documentElement.className+=' emb'}catch(e){}</script><script>try{if(!window.claude&&window.parent&&window.parent!==window&&window.parent.claude)window.claude=window.parent.claude}catch(e){}</script><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-yShwFHNugz3n/u7ZqvKFaGLM1bp6yS8X9UQZPc8n01s=' 'sha256-tvxAOdP3pYB4qFM4MhOoLi0upTSQewGUxiyQf3/ko5k=' 'sha256-Y1B7JXg/4lvJbC8qIx/gVacqI+RGZmzQTDNBJEcdRqo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}.emb:root{padding-top:0;padding-bottom:0}html.emb{scroll-padding-top:0}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>FwMG - Befehlscoach FwDV 3</title>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../coach.css">
@@ -222,7 +222,7 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
 <script>
 (function () {
   var app = document.getElementById('app');
-  var APPV = 'V2.18'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
+  var APPV = 'V2.19'; /* Version des Befehlscoachs, bei Änderungen erhöhen */
 
   /* ---------- Grunddaten ---------- */
   var FIELDS = {
@@ -1353,29 +1353,57 @@ nav.tabs::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:
     return 'Alarm für ' + (S.role === 'zf' ? 'den Löschzug' : 'die Löschgruppe') + '. Einsatzstichwort: ' + m[1] + '. ' + rest +
       ' Ich wiederhole: ' + m[1] + '. Ende der Durchsage.';
   }
-  /* Gong vor der Alarmierung: app/audio/gong.bin liegt verwürfelt vor (scripts/gong.mjs). Er wird beim Anzeigen der Lage
-     geladen, im Speicher entwürfelt und als unsichtbares Audio-Element ohne Bedienleiste bereitgehalten.
-     iOS spielt Audio nur direkt nach einem Tippen und hält Web Audio mit dem Stummschalter an, darum ein Audio-Element,
-     das beim Tippen sofort startet. Die Durchsage beginnt, wenn der Gong ausgeklungen ist; ist er nicht bereit, gleich. */
-  var gongEl = null, gongLoading = false, gongId = 0;
-  function gongBytes(b) {
-    for (var i = 0, x = 0x46774d47; i < b.length; i++) {
-      x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0;
-      b[i] ^= x & 255;
+  /* Gong vor der Alarmierung: im Gerät erzeugt, ohne Tondatei. GONG_ART 'zweiklang' ist der ursprüngliche Zweiklang
+     (Sinus, E5 und C5), 'leitstelle' ein Dreiklang mit Glockenobertönen, Rauschen und Lautsprecherklang wie eine Durchsage
+     auf der Wache. Er wird beim Anzeigen der Lage als WAV erzeugt und als unsichtbares Audio-Element ohne Bedienleiste
+     bereitgehalten. iOS spielt Audio nur direkt nach einem Tippen und hält Web Audio mit dem Stummschalter an, darum ein
+     Audio-Element, das beim Tippen sofort startet. Die Durchsage beginnt, wenn der Gong ausgeklungen ist; ist er nicht bereit, gleich. */
+  var GONG_ART = 'leitstelle';
+  var gongEl = null, gongId = 0;
+  function gongWav(art) {
+    var ls = art === 'leitstelle', sr = 22050, len = ls ? 2.9 : 1.2, vor = ls ? 0.3 : 0.05;
+    var toene = ls ? [[784, 0], [659, 0.55], [523, 1.1]] : [[659, 0], [523, 0.4]];
+    var ober = [[2, 0.18], [3, 0.06], [4.2, 0.04]];
+    var n = Math.round(sr * len), v = new DataView(new ArrayBuffer(44 + n * 2)), i, k, j, d, f, e, x, s, t, lp = 0, hp = 0, r = 0x46774d47;
+    function kopf(o, w) { for (var c = 0; c < w.length; c++) v.setUint8(o + c, w.charCodeAt(c)); }
+    kopf(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); kopf(8, 'WAVEfmt '); v.setUint32(16, 16, true);
+    v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true);
+    v.setUint16(32, 2, true); v.setUint16(34, 16, true); kopf(36, 'data'); v.setUint32(40, n * 2, true);
+    for (i = 0; i < n; i++) {
+      t = i / sr; s = 0;
+      for (k = 0; k < toene.length; k++) {
+        d = t - vor - toene[k][1]; f = toene[k][0];
+        if (d < 0) continue;
+        x = Math.sin(2 * Math.PI * f * d);
+        if (ls) {
+          e = Math.min(1, d / 0.004) * Math.exp(-d * 1.57);
+          for (j = 0; j < ober.length; j++) x += ober[j][1] * Math.exp(-d * 3 * ober[j][0]) * Math.sin(2 * Math.PI * f * ober[j][0] * d);
+        } else {
+          if (d > 0.75) continue;
+          /* wie früher per Web Audio: in 20 ms auf 0,25, bis 0,7 s exponentiell abklingend */
+          e = d < 0.02 ? Math.pow(0.0001, 1 - d / 0.02) : Math.pow(0.0001, Math.min(1, (d - 0.02) / 0.68));
+        }
+        s += e * x;
+      }
+      s *= ls ? 0.38 : 0.25;
+      if (ls) {
+        /* Sprechtaste: Knacken und leises Rauschen, Lautsprecher etwa 300 bis 3400 Hz, leicht übersteuert */
+        r ^= r << 13; r >>>= 0; r ^= r >>> 17; r ^= r << 5; r >>>= 0;
+        if (t > 0.12 && t < len - 0.12) s += (r / 4294967296 - 0.5) * 0.025;
+        if (Math.abs(t - 0.12) < 0.004 || Math.abs(t - len + 0.12) < 0.004) s += (r / 4294967296 - 0.5) * 0.5;
+        lp += (s - lp) * 0.62; hp += (lp - hp) * 0.085; s = Math.tanh((lp - hp) * 1.6) / 1.2;
+      }
+      v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, s)) * 32767, true);
     }
-    return b;
+    return v.buffer;
   }
   function gongPrepare() {
-    if (gongEl || gongLoading || !window.fetch || !window.URL || !URL.createObjectURL) return;
-    gongLoading = true;
-    fetch('../audio/gong.bin')
-      .then(function (r) { if (!r.ok) throw new Error('gong'); return r.arrayBuffer(); })
-      .then(function (a) {
-        var el = new Audio(URL.createObjectURL(new Blob([gongBytes(new Uint8Array(a))], { type: 'audio/mpeg' })));
-        el.preload = 'auto'; try { el.load(); } catch (e) {}
-        gongEl = el;
-      })
-      .catch(function () { gongLoading = false; });
+    if (gongEl || !window.URL || !URL.createObjectURL || !window.Blob) return;
+    try {
+      var el = new Audio(URL.createObjectURL(new Blob([gongWav(GONG_ART)], { type: 'audio/wav' })));
+      el.preload = 'auto'; try { el.load(); } catch (e) {}
+      gongEl = el;
+    } catch (e) {}
   }
   function gongStop() {
     gongId++;

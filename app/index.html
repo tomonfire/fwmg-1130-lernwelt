@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-AVScqSdhRc1xVRimffEy9yZaTvvFNiEHkIXU+KFGBCk=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-8MF9t7fl9W7yRLt5QOdxyyNee11S4ljF7GfOgM0PgP8=' 'sha256-AC3fT7BrccnrC5bL5qEjZ2h5QxrOw7EAUIAyfS2eolQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15334A">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -464,10 +464,13 @@ h2{font-size:26px;text-transform:uppercase;letter-spacing:.01em;color:var(--blue
      „Frühere Neuigkeiten“ bleibt kurz: höchstens NEU_ALT_MAX Punkte, nur was Nutzer noch wissen müssen. Überholte oder kleine Punkte
      (Umbenennungen, Korrekturen) und alles darüber hinaus hinten streichen; vollständig bleibt es in docs/RELEASE-NOTES.md. npm run check prüft die Grenze. */
   var NEUK='fwmg.neu.v1',NEU_ALT_MAX=6;
-  var NEU={id:'2026-10-19-1',datum:'19. Oktober 2026',punkte:[
-    ['Besser auf dem iPhone','In den Coaches fällt der leere Streifen unter der oberen Leiste weg, unten bleibt kein doppelter Abstand mehr. Auf schmalen iPhones (SE der 1. Generation oder mit größerer Anzeige) passen alle drei Coaches in die obere Leiste, „Befehlscoach“ wird nicht mehr abgeschnitten.']
+  var NEU={id:'2026-10-23-1',datum:'23. Oktober 2026',punkte:[
+    ['Gong wie bei der Leitstelle','Vor dem Vorlesen der Alarmierung im Befehlscoach klingt es jetzt wie eine Durchsage der Leitstelle auf der Wache: kurzes Knacken, Dreiklang-Gong aus dem Lautsprecher, dann die Durchsage. Der Gong wird im Gerät erzeugt und ist auch offline da.']
   ]};
   var NEU_ALT=[
+    {datum:'19. Oktober 2026',punkte:[
+      ['Besser auf dem iPhone','In den Coaches fällt der leere Streifen unter der oberen Leiste weg, unten bleibt kein doppelter Abstand mehr. Auf schmalen iPhones (SE der 1. Generation oder mit größerer Anzeige) passen alle drei Coaches in die obere Leiste, „Befehlscoach“ wird nicht mehr abgeschnitten.']
+    ]},
     {datum:'13. Oktober 2026',punkte:[
       ['Menschenrettung nach Realbrand','Im Befehlscoach zeigt die Auswertung bei Lagen mit vermisster Person (Zimmerbrand, Wohnungsbrand, Gewerbehalle) den Kasten „Menschenrettung nach Realbrand“: kurze Stichpunkte zu Ventilationsöffnung, Rauchvorhang und Suchreihenfolge zum Nachlesen. Er ist gekennzeichnet als Ergänzung und zählt nicht zur Punktzahl. Dazu fünf neue Quizfragen mit Angabe zum Nachlesen.'],
       ['Drei neue Lagen','Im Befehlscoach als Gruppenführer: „Gefahrstoff tritt aus“ (ABC, GAMS-Regel), „Staffel: Schuppenbrand am Wohnhaus“ (Staffel 1/5/6 ohne Schlauchtrupp und Melder) und „Brandsicherheitswache: Brand hinter der Bühne“. Alle drei tragen das Badge „Ergänzung“; die bisherigen Lagen und dein Lernstand bleiben unverändert.'],
