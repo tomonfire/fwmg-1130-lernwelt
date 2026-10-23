@@ -4,6 +4,9 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 
 ## [Unveröffentlicht]
 
+### Geändert (23.10.2026, Befehlscoach)
+- Alarmgong wieder als erzeugter Zweiklang (E5, C5, Sinus) wie vor #51, statt der Tondatei `app/audio/gong.bin`. `gongWav()` erzeugt ihn im Gerät als WAV (Blob-Adresse), abgespielt über das unsichtbare Audio-Element wie seit #55, damit iPhone und Safari weiter funktionieren. `GONG_ART = 'leitstelle'` schaltet auf einen Vorschlag um (Dreiklang mit Glockenobertönen, Sprechtasten-Knacken, Rauschen, Lautsprecherklang). `app/audio/gong.bin` und `scripts/gong.mjs` entfernt; `scripts/check.mjs` verbietet Tondateien unter `app/`. Befehlscoach V2.19, Service-Worker `VERSION` auf v56, `NEU` mit neuer id.
+
 ### Behoben (19.10.2026, iOS)
 - Eingebettete Coaches (`.emb`) setzen den Safe-Area-Abstand von `:root` (oben und unten) und `scroll-padding-top` auf 0; die Shell hält den Abstand schon über `.bar-top` und `#mod` frei. Vorher entstand oben ein leerer Streifen und unten ein doppelter Abstand, sobald der Browser die Abstände auch an den iframe gibt.
 - Shell: unter 360 px Breite kleinere Schrift in der Coach-Leiste (`.pill` 13 px), damit „Befehlscoach“ auf 320 px Breite nicht abgeschnitten wird.

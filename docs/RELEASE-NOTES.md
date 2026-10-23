@@ -4,6 +4,11 @@ Was sich in der Lernwelt für dich ändert, kurz und ohne Technik. Die technisch
 
 Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fenster „Was ist neu“, bei jeder neuen Ausgabe wieder. Das Fenster zeigt nur, was diesmal neu ist. Unter „Neuigkeiten“ in der Übersicht kannst du es jederzeit wieder öffnen; darunter stehen unter „Frühere Neuigkeiten“ nur die letzten wichtigen Punkte. Alles Ältere findest du hier.
 
+## 23. Oktober 2026
+
+### Befehlscoach
+- **Gong wie früher.** Vor dem Vorlesen der Alarmierung ertönt wieder der kurze Zweiklang statt des aufgenommenen Gongs. Er wird im Gerät erzeugt, funktioniert auch offline, und die Durchsage beginnt wie bisher, wenn er ausgeklungen ist.
+
 ## 19. Oktober 2026
 
 ### Alle Coaches

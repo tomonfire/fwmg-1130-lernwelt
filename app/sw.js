@@ -1,6 +1,6 @@
 /* Service Worker: macht die Lernwelt offline nutzbar.
    Bei jeder Änderung an den Dateien VERSION erhöhen, damit Geräte neu laden. */
-const VERSION = 'fwmg-lernwelt-v55';
+const VERSION = 'fwmg-lernwelt-v56';
 const PRECACHE = [
   './',
   'index.html',
@@ -20,7 +20,6 @@ const PRECACHE = [
   'data/gruppenfuehrer.json',
   'data/zugfuehrer.json',
   'data/freitext.json',
-  'audio/gong.bin',
   'fonts/fonts.css',
   'fonts/barlow-condensed-latin-500-normal.woff2',
   'fonts/barlow-condensed-latin-600-normal.woff2',

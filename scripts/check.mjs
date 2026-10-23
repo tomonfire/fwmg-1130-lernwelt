@@ -22,10 +22,9 @@ for (const f of readdirSync('app/data')) {
 for (const f of readdirSync('app/fonts').filter((f) => f.endsWith('.woff2'))) {
   if (!list.includes('fonts/' + f)) fail('Schrift nicht im Cache-Verzeichnis (sw.js):', f);
 }
-for (const f of readdirSync('app/audio')) {
-  if (!list.includes('audio/' + f)) fail('Tondatei nicht im Cache-Verzeichnis (sw.js):', f);
-  // Töne nur verwürfelt ablegen (scripts/gong.mjs), keine direkt abspielbaren Dateien.
-  if (!f.endsWith('.bin')) fail('Tondatei nicht verwürfelt (scripts/gong.mjs):', f);
+// Keine abspielbaren Tondateien: der Alarmgong im Befehlscoach wird im Gerät erzeugt (gongWav).
+for (const f of readdirSync('app', { recursive: true })) {
+  if (/\.(mp3|wav|ogg|oga|m4a|aac|flac|opus|weba|caf|aiff?)$/i.test(f)) fail('Tondatei im Repository:', 'app/' + f);
 }
 for (const f of readdirSync('app').filter((f) => f.endsWith('.js') && f !== 'sw.js')) {
   if (!list.includes(f)) fail('Skript nicht im Cache-Verzeichnis (sw.js):', f);
