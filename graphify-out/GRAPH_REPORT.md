@@ -1,17 +1,17 @@
-# Graph Report - fwmg-1130-lernwelt  (2026-10-19)
+# Graph Report - fwmg-1130-lernwelt  (2026-10-23)
 
 ## Corpus Check
-- 46 files · ~118,515 words
+- 51 files · ~112,033 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 19 file(s) not represented in the graph (top: .woff2 9, (none) 5, .css 2)
 
 ## Summary
-- 337 nodes · 592 edges · 16 communities (13 shown, 3 thin omitted)
-- Extraction: 79% EXTRACTED · 20% INFERRED · 1% AMBIGUOUS · INFERRED: 121 edges (avg confidence: 0.81)
+- 438 nodes · 693 edges · 24 communities (19 shown, 5 thin omitted)
+- Extraction: 82% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 121 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f92d2fe1`
+- Built from commit: `408a0a72`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -19,16 +19,24 @@
 - Befehlscoach
 - Shell index.html
 - data.mjs
-- Gruppenführer-Coach
+- zugfuehrer.html (Zugführer Tagestraining)
 - Repo-Regeln und CI
-- Zugführer-Coach
-- Offline und Doku
+- permissions
+- steps
 - package.json
 - Logo und taktische Zeichen
 - Quellenregister
 - 0001 Fundstellen je Katalogfrage (A-06)
 - Audit: Lernwelt gegen Wissensbasis
 - /team – Feature mit dem virtuellen Team umsetzen
+- steps
+- updates
+- version.mjs
+- render-excalidraw.mjs
+- browser.mjs
+- csp.mjs
+- serve.mjs
+- session-start.sh
 
 ## God Nodes (most connected - your core abstractions)
 1. `befehlstrainer.html (Befehlscoach)` - 44 edges
@@ -68,39 +76,39 @@
 - **PWA-Icon-Satz (Flamme)** — app_icons_flamme, app_icons_apple_touch_icon_apple_touch_icon, app_icons_icon_192_icon_192, app_icons_icon_512_icon_512, app_icons_icon_maskable_512_icon_maskable_512 [INFERRED 0.85]
 - **Prüf- und Veröffentlichungsablauf** — contributing_workflow, _github_pull_request_template_pruefliste, _github_workflows_ci_check_job, _github_workflows_ci_browser_job, docs_veroeffentlichung_github_pages, package_scripts_check [INFERRED 0.85]
 
-## Communities (16 total, 3 thin omitted)
+## Communities (24 total, 5 thin omitted)
 
 ### Community 0 - "Befehlscoach"
 Cohesion: 0.10
 Nodes (34): befehlstrainer.html (Befehlscoach), ARTS (Befehlsarten), coachFeedback(), deVoice()/voiceScore(), evalSpeech(), finishRun(), getSample() (window.claude sample), gong() (+26 more)
 
 ### Community 1 - "Shell index.html"
-Cohesion: 0.09
-Nodes (42): graphify Skill, K_S/K_L Speicherschlüssel, index.html (Shell), closeFrames(), ensureFrame(), esc(), exportState(), Impressum fwmg-imp (+34 more)
+Cohesion: 0.10
+Nodes (41): graphify Skill, K_S/K_L Speicherschlüssel, index.html (Shell), closeFrames(), ensureFrame(), esc(), exportState(), hasOpen() (+33 more)
 
 ### Community 2 - "data.mjs"
-Cohesion: 0.12
-Nodes (12): bt, fail(), ft, ftIds, g, gids, pruefe(), TYPENLISTE (+4 more)
+Cohesion: 0.13
+Nodes (11): bt, fail(), ft, ftIds, g, gids, pruefe(), TYPENLISTE (+3 more)
 
-### Community 3 - "Gruppenführer-Coach"
-Cohesion: 0.11
-Nodes (24): gruppenfuehrer.html (Gruppenführer Tagestraining), buildSession(), DATA (Fragen per XHR), LS = lernkompass-tagestraining-v1, mast() Kopf, record(), render(), renderExam() (+16 more)
+### Community 3 - "zugfuehrer.html (Zugführer Tagestraining)"
+Cohesion: 0.06
+Nodes (42): Issue-Vorlage Fehler melden, Issue-Vorlage Idee oder Wunsch, gruppenfuehrer.html (Gruppenführer Tagestraining), buildSession(), DATA (Fragen per XHR), initRemote() (window.claude db), LS = lernkompass-tagestraining-v1, mast() Kopf (+34 more)
 
 ### Community 4 - "Repo-Regeln und CI"
+Cohesion: 0.06
+Nodes (36): Dependabot monatliche Updates (Actions, npm), PR-Prüfliste, CI-Job Browser-Test, CI-Job Dateien und Regeln, OFL-Lizenz Barlow, OFL-Lizenz IBM Plex Sans, Impressum fwmg-imp, Service-Worker-Registrierung / Update-Hinweis (+28 more)
+
+### Community 5 - "permissions"
 Cohesion: 0.07
-Nodes (32): Dependabot monatliche Updates (Actions, npm), PR-Prüfliste, CI-Job Browser-Test, CI-Job Dateien und Regeln, OFL-Lizenz Barlow, OFL-Lizenz IBM Plex Sans, Service-Worker-Registrierung / Update-Hinweis, PRECACHE (+24 more)
+Nodes (29): if, permissions, runs-on, steps, types, types, jobs, claude (+21 more)
 
-### Community 5 - "Zugführer-Coach"
-Cohesion: 0.11
-Nodes (19): Issue-Vorlage Fehler melden, Issue-Vorlage Idee oder Wunsch, initRemote() (window.claude db), zugfuehrer.html (Zugführer Tagestraining), applyAnswer(), init(), initRemote() (window.claude db), render() (+11 more)
-
-### Community 6 - "Offline und Doku"
-Cohesion: 0.15
-Nodes (10): manifest.webmanifest, robots.txt (alle Crawler gesperrt), apps, footers, gfTabs, list, pages, shell (+2 more)
+### Community 6 - "steps"
+Cohesion: 0.08
+Nodes (28): name, needs, runs-on, steps, name, runs-on, steps, concurrency (+20 more)
 
 ### Community 7 - "package.json"
-Cohesion: 0.06
-Nodes (24): Browser-Tests (Playwright), description, devDependencies, playwright, engines, node, name, private (+16 more)
+Cohesion: 0.22
+Nodes (9): description, devDependencies, playwright@1.64.1, engines, node, name, private, version (+1 more)
 
 ### Community 8 - "Logo und taktische Zeichen"
 Cohesion: 0.24
@@ -122,6 +130,30 @@ Nodes (19): Abdeckung je Quelle, Abgleich mit dem Wissensgraphen, Abweichungen u
 Cohesion: 0.50
 Nodes (3): Ablauf, /team – Feature mit dem virtuellen Team umsetzen, Token-Regeln für alle Beteiligten
 
+### Community 16 - "steps"
+Cohesion: 0.07
+Nodes (27): concurrency, cancel-in-progress, group, environment, runs-on, steps, name, url (+19 more)
+
+### Community 17 - "updates"
+Cohesion: 0.17
+Nodes (11): patterns, patterns, actions, dev, interval, updates, directory, groups (+3 more)
+
+### Community 18 - "version.mjs"
+Cohesion: 0.22
+Nodes (3): b, changed, now
+
+### Community 19 - "render-excalidraw.mjs"
+Cohesion: 0.22
+Nodes (8): docs, els, h, out, pngFile, src, svgFile, w
+
+### Community 20 - "browser.mjs"
+Cohesion: 0.25
+Nodes (5): Browser-Tests (Playwright), errors, foreign, launch, serveApp()
+
+### Community 21 - "csp.mjs"
+Cohesion: 0.25
+Nodes (6): scripts, check:version, csp:update, start, files, write
+
 ## Ambiguous Edges - Review These
 - `renderHead()` → `icons/gruppenfuehrer.svg`  [AMBIGUOUS]
   app/apps/befehlstrainer.html · relation: references
@@ -132,22 +164,22 @@ Nodes (3): Ablauf, /team – Feature mit dem virtuellen Team umsetzen, Token-Reg
 
 ## Knowledge Gaps
 - **19 isolated node(s):** `ARTS (Befehlsarten)`, `LS = lernkompass-tagestraining-v1`, `welcome() Willkommensfenster`, `Vertrauliche Meldung (Report a vulnerability)`, `graphify Skill` (+14 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 135 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 194 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `esc()` connect `0001 Fundstellen je Katalogfrage (A-06)` to `Audit: Lernwelt gegen Wissensbasis`, `package.json`?**
-  _High betweenness centrality (0.194) - this node is a cross-community bridge._
+- **Why does `esc()` connect `0001 Fundstellen je Katalogfrage (A-06)` to `render-excalidraw.mjs`, `Audit: Lernwelt gegen Wissensbasis`?**
+  _High betweenness centrality (0.115) - this node is a cross-community bridge._
 - **Are the 5 inferred relationships involving `befehlstrainer.html (Befehlscoach)` (e.g. with `Impressum fwmg-imp` and `localStorage (nur lokal)`) actually correct?**
   _`befehlstrainer.html (Befehlscoach)` has 5 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `ARTS (Befehlsarten)`, `LS = lernkompass-tagestraining-v1`, `welcome() Willkommensfenster` to the rest of the system?**
   _19 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Befehlscoach` be split into smaller, more focused modules?**
   _Cohesion score 0.0960960960960961 - nodes in this community are weakly interconnected._
-- **Why does `Infrastruktur-Diagramm FwMG Lernwelt` connect `Repo-Regeln und CI` to `Befehlscoach`, `Shell index.html`, `Gruppenführer-Coach`, `Zugführer-Coach`, `package.json`?**
-  _High betweenness centrality (0.191) - this node is a cross-community bridge._
+- **Why does `Infrastruktur-Diagramm FwMG Lernwelt` connect `Repo-Regeln und CI` to `Befehlscoach`, `Shell index.html`, `zugfuehrer.html (Zugführer Tagestraining)`, `render-excalidraw.mjs`?**
+  _High betweenness centrality (0.113) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
