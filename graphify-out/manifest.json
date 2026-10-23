@@ -48,10 +48,10 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1792789731.3270469,
-    "seen": 1792789847.2175722,
-    "ast_hash": "4858df8e2e925505971970e77aaf0614",
-    "semantic_hash": "4858df8e2e925505971970e77aaf0614"
+    "mtime": 1792789990.5310414,
+    "seen": 1792790021.8447926,
+    "ast_hash": "4d85c9b5a735786c9ab0c9fb59970b71",
+    "semantic_hash": ""
   },
   "scripts/browser.mjs": {
     "mtime": 1792789731.3270469,

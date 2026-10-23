@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a38344d4`
+- Built from commit: `408a0a72`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -108,7 +108,7 @@ Nodes (28): name, needs, runs-on, steps, name, runs-on, steps, concurrency (+20 
 
 ### Community 7 - "package.json"
 Cohesion: 0.22
-Nodes (9): description, devDependencies, playwright@1.64.0, engines, node, name, private, version (+1 more)
+Nodes (9): description, devDependencies, playwright@1.64.1, engines, node, name, private, version (+1 more)
 
 ### Community 8 - "Logo und taktische Zeichen"
 Cohesion: 0.24
