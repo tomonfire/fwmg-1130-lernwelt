@@ -7,7 +7,7 @@ Die neueste Ausgabe erscheint nach einem Update einmal beim Start der App als Fe
 ## 23. Oktober 2026
 
 ### Befehlscoach
-- **Gong wie früher.** Vor dem Vorlesen der Alarmierung ertönt wieder der kurze Zweiklang statt des aufgenommenen Gongs. Er wird im Gerät erzeugt, funktioniert auch offline, und die Durchsage beginnt wie bisher, wenn er ausgeklungen ist.
+- **Gong wie bei der Leitstelle.** Vor dem Vorlesen der Alarmierung klingt es jetzt wie eine Durchsage der Leitstelle auf der Wache: kurzes Knacken der Sprechtaste, ein Dreiklang-Gong aus dem Lautsprecher, dann die Durchsage. Er ersetzt den aufgenommenen Gong, wird im Gerät erzeugt und funktioniert auch offline. Die Durchsage beginnt wie bisher, wenn der Gong ausgeklungen ist.
 
 ## 19. Oktober 2026
 

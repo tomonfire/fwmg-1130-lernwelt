@@ -5,7 +5,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unveröffentlicht]
 
 ### Geändert (23.10.2026, Befehlscoach)
-- Alarmgong wieder als erzeugter Zweiklang (E5, C5, Sinus) wie vor #51, statt der Tondatei `app/audio/gong.bin`. `gongWav()` erzeugt ihn im Gerät als WAV (Blob-Adresse), abgespielt über das unsichtbare Audio-Element wie seit #55, damit iPhone und Safari weiter funktionieren. `GONG_ART = 'leitstelle'` schaltet auf einen Vorschlag um (Dreiklang mit Glockenobertönen, Sprechtasten-Knacken, Rauschen, Lautsprecherklang). `app/audio/gong.bin` und `scripts/gong.mjs` entfernt; `scripts/check.mjs` verbietet Tondateien unter `app/`. Befehlscoach V2.19, Service-Worker `VERSION` auf v56, `NEU` mit neuer id.
+- Alarmgong als Leitstellen-Durchsage statt der Tondatei `app/audio/gong.bin`: Sprechtasten-Knacken, leises Rauschen, Dreiklang G5–E5–C5 mit Glockenobertönen, Lautsprecherklang (Bandpass etwa 300–3400 Hz, leicht übersteuert), 2,9 s. `gongWav()` erzeugt ihn im Gerät als WAV (Blob-Adresse), abgespielt über das unsichtbare Audio-Element wie seit #55, damit iPhone und Safari weiter funktionieren. `GONG_ART = 'zweiklang'` schaltet auf den ursprünglichen Zweiklang (E5, C5, Sinus) zurück. `app/audio/gong.bin` und `scripts/gong.mjs` entfernt; `scripts/check.mjs` verbietet Tondateien unter `app/`. Befehlscoach V2.19, Service-Worker `VERSION` auf v56, `NEU` mit neuer id.
 
 ### Behoben (19.10.2026, iOS)
 - Eingebettete Coaches (`.emb`) setzen den Safe-Area-Abstand von `:root` (oben und unten) und `scroll-padding-top` auf 0; die Shell hält den Abstand schon über `.bar-top` und `#mod` frei. Vorher entstand oben ein leerer Streifen und unten ein doppelter Abstand, sobald der Browser die Abstände auch an den iframe gibt.
